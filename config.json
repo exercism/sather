@@ -29,7 +29,30 @@
     ]
   },
   "exercises": {
-    "concept": [],
+    "concept": [
+      {
+        "slug": "stage-directions",
+        "name": "Stage Directions",
+        "uuid": "291c1b0e-1698-4c64-ad3d-30f1a12baa2d",
+        "concepts": [
+          "basics"
+        ],
+        "prerequisites": [],
+        "status": "beta"
+      },
+      {
+        "slug": "netball-ladder",
+        "name": "Netball Ladder",
+        "uuid": "970e122c-6112-42fb-af87-7f80e05016a5",
+        "concepts": [
+          "numbers"
+        ],
+        "prerequisites": [
+          "basics"
+        ],
+        "status": "beta"
+      }
+    ],
     "practice": [
       {
         "slug": "hello-world",
@@ -41,7 +64,18 @@
       }
     ]
   },
-  "concepts": [],
+  "concepts": [
+    {
+      "uuid": "d652636e-a774-4754-b332-edbbd7356fe4",
+      "slug": "basics",
+      "name": "Basics"
+    },
+    {
+      "uuid": "ae368d9e-6a33-4f9b-93fe-ded5f47a597f",
+      "slug": "numbers",
+      "name": "Numbers"
+    }
+  ],
   "key_features": [],
   "tags": [
     "execution_mode/compiled",

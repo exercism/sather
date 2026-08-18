@@ -1,0 +1,21 @@
+class STAGE_DIRECTIONS is
+
+   opening_line : STR is
+      return "The curtain rises.";
+   end;
+
+   interval_line : STR is
+      return "Interval. Fifteen minutes.";
+   end;
+
+   closing_line : STR is
+      return "The curtain falls.";
+   end;
+
+   final_cue : STR is
+      -- The same cue as the close, so ask that routine rather than
+      -- repeating the text.
+      return closing_line;
+   end;
+
+end; -- class STAGE_DIRECTIONS

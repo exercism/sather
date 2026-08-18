@@ -1,0 +1,20 @@
+class NETBALL_LADDER is
+
+   ladder_points(wins, draws : INT) : INT is
+      return 4 * wins + 2 * draws;
+   end;
+
+   goal_difference(scored, conceded : INT) : INT is
+      return scored - conceded;
+   end;
+
+   whole_quarters(minutes : INT) : INT is
+      -- Integer division already discards the part-quarter.
+      return minutes / 15;
+   end;
+
+   minutes_into_quarter(minutes : INT) : INT is
+      return minutes % 15;
+   end;
+
+end; -- class NETBALL_LADDER

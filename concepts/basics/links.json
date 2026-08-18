@@ -1,0 +1,10 @@
+[
+  {
+    "url": "https://www.gnu.org/software/sather/docs-1.2/tutorial/sather-tutorial.html",
+    "description": "The GNU Sather tutorial"
+  },
+  {
+    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/sather-specification.html",
+    "description": "The Sather language specification"
+  }
+]

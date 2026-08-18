@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "netball_ladder.sa"
+    ],
+    "test": [
+      "netball_ladder_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "bandwagoner",
+  "blurb": "Learn about whole numbers by keeping a netball ladder."
+}

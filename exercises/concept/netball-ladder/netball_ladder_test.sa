@@ -1,0 +1,31 @@
+class NETBALL_LADDER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("NETBALL_LADDER");
+
+      test("no games played", NETBALL_LADDER::ladder_points(0, 0), 0);
+      test("wins only", NETBALL_LADDER::ladder_points(3, 0), 12);
+      test("wins and draws", NETBALL_LADDER::ladder_points(3, 1), 14);
+
+      test("more scored than conceded",
+           NETBALL_LADDER::goal_difference(205, 180), 25);
+      test("more conceded than scored",
+           NETBALL_LADDER::goal_difference(180, 205), (-25));
+      test("level", NETBALL_LADDER::goal_difference(190, 190), 0);
+
+      test("no minutes yet", NETBALL_LADDER::whole_quarters(0), 0);
+      test("part way through the first",
+           NETBALL_LADDER::whole_quarters(8), 0);
+      test("two whole quarters and a bit",
+           NETBALL_LADDER::whole_quarters(38), 2);
+      test("a full match", NETBALL_LADDER::whole_quarters(60), 4);
+
+      test("nothing into the quarter",
+           NETBALL_LADDER::minutes_into_quarter(30), 0);
+      test("eight minutes in",
+           NETBALL_LADDER::minutes_into_quarter(38), 8);
+
+      finish;
+   end;
+end; -- class NETBALL_LADDER_TEST

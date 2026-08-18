@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "stage_directions.sa"
+    ],
+    "test": [
+      "stage_directions_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "stage-heralding",
+  "blurb": "Learn the basics of Sather by calling the cues for a school play."
+}

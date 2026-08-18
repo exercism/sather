@@ -1,0 +1,21 @@
+class STAGE_DIRECTIONS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("STAGE_DIRECTIONS");
+
+      test("opening line", STAGE_DIRECTIONS::opening_line,
+           "The curtain rises.");
+
+      test("interval line", STAGE_DIRECTIONS::interval_line,
+           "Interval. Fifteen minutes.");
+
+      test("closing line", STAGE_DIRECTIONS::closing_line,
+           "The curtain falls.");
+
+      test("final cue", STAGE_DIRECTIONS::final_cue,
+           "The curtain falls.");
+
+      finish;
+   end;
+end; -- class STAGE_DIRECTIONS_TEST
