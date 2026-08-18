@@ -1,0 +1,19 @@
+name: Label Small
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  label_pr:
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Add label to PR
+        run: gh pr edit "$PR_NUMBER" --add-label "x:rep/small"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
