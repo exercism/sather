@@ -15,10 +15,18 @@
     "indent_size": 4
   },
   "files": {
-    "solution": [],
-    "test": [],
-    "example": [],
-    "exemplar": []
+    "solution": [
+      "%{snake_slug}.sa"
+    ],
+    "test": [
+      "%{snake_slug}_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ]
   },
   "exercises": {
     "concept": [],
