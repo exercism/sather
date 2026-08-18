@@ -1,0 +1,11 @@
+class HELLO_WORLD_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("HELLO_WORLD");
+
+      test("Say Hi!", HELLO_WORLD::hello, "Hello, World!");
+
+      finish;
+   end;
+end; -- class HELLO_WORLD_TEST

@@ -1,0 +1,8 @@
+class HELLO_WORLD is
+
+   hello : STR is
+      -- Return the greeting.
+      return "Goodbye, Mars!";
+   end;
+
+end; -- class HELLO_WORLD
