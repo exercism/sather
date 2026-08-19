@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+#
+# Enforce this track's syllabus rules. Run locally, and by
+# .github/workflows/check-syllabus.yml on every push and pull request.
+#
+#   1. Every concept exercise teaches exactly one concept.
+#   2. concepts/<slug>/introduction.md is byte-identical to the matching
+#      exercises/concept/<slug>/.docs/introduction.md.
+#   3. The concepts array and the concept exercises array in config.json are
+#      in the same order.
+#   4. No exercise appears before an exercise teaching one of its
+#      prerequisites.
+#   5. Every concept has a directory with the three required files, every
+#      concept exercise teaches a concept that exists, and nothing is orphaned.
+#   6. Practice exercises are listed by ascending difficulty, then by name
+#      case-insensitively.
+#
+# Usage: bin/check-syllabus
+
+set -uo pipefail
+
+cd "$(dirname "$0")/.." || exit 1
+
+command -v jq >/dev/null || { echo "check-syllabus needs jq" >&2; exit 1; }
+
+problems=0
+note() { printf '  %s\n' "$*"; problems=$((problems + 1)); }
+
+config=config.json
+[[ -f $config ]] || { echo "no config.json" >&2; exit 1; }
+
+mapfile -t concept_slugs < <(jq -r '.concepts[].slug' "$config")
+mapfile -t exercise_slugs < <(jq -r '.exercises.concept[].slug' "$config")
+
+# ---------------------------------------------------------------- rule 1 & 5
+echo "one concept per exercise, and every reference resolves:"
+declare -A concept_exists=()
+for slug in "${concept_slugs[@]}"; do concept_exists[$slug]=1; done
+
+declare -A taught_by=()
+for slug in "${exercise_slugs[@]}"; do
+    count=$(jq -r --arg s "$slug" \
+        '.exercises.concept[] | select(.slug == $s) | .concepts | length' "$config")
+    if [[ $count -ne 1 ]]; then
+        note "$slug teaches $count concepts; this track allows exactly 1"
+        continue
+    fi
+    taught=$(jq -r --arg s "$slug" \
+        '.exercises.concept[] | select(.slug == $s) | .concepts[0]' "$config")
+    if [[ -z ${concept_exists[$taught]:-} ]]; then
+        note "$slug teaches '$taught', which is not in the concepts array"
+    fi
+    if [[ -n ${taught_by[$taught]:-} ]]; then
+        note "'$taught' is taught by both ${taught_by[$taught]} and $slug"
+    fi
+    taught_by[$taught]=$slug
+done
+for slug in "${concept_slugs[@]}"; do
+    [[ -n ${taught_by[$slug]:-} ]] || note "concept '$slug' has no exercise"
+done
+
+# ------------------------------------------------------------------- rule 2
+echo "concept and exercise introductions are byte-identical:"
+for slug in "${concept_slugs[@]}"; do
+    concept_intro="concepts/${slug}/introduction.md"
+    exercise=${taught_by[$slug]:-}
+    [[ -n $exercise ]] || continue
+    exercise_intro="exercises/concept/${exercise}/.docs/introduction.md"
+
+    if [[ ! -f $concept_intro ]]; then
+        note "missing $concept_intro"
+    elif [[ ! -f $exercise_intro ]]; then
+        note "missing $exercise_intro"
+    elif ! cmp -s "$concept_intro" "$exercise_intro"; then
+        note "$concept_intro and $exercise_intro differ:"
+        diff "$concept_intro" "$exercise_intro" | head -6 | sed 's/^/      /'
+    fi
+done
+
+# ------------------------------------------------------------------- rule 5
+echo "each concept has its three files:"
+for slug in "${concept_slugs[@]}"; do
+    for f in about.md introduction.md links.json; do
+        [[ -f "concepts/${slug}/${f}" ]] || note "missing concepts/${slug}/${f}"
+    done
+done
+
+echo "each concept exercise has its required files:"
+for slug in "${exercise_slugs[@]}"; do
+    for f in .docs/introduction.md .docs/instructions.md .docs/hints.md \
+             .meta/config.json .meta/design.md; do
+        [[ -f "exercises/concept/${slug}/${f}" ]] \
+            || note "missing exercises/concept/${slug}/${f}"
+    done
+done
+
+# ------------------------------------------------------------------- rule 3
+echo "concepts and exercises are in the same order:"
+concept_order=""
+for slug in "${exercise_slugs[@]}"; do
+    taught=$(jq -r --arg s "$slug" \
+        '.exercises.concept[] | select(.slug == $s) | .concepts[0] // empty' "$config")
+    concept_order+="${taught}"$'\n'
+done
+declared_order=$(printf '%s\n' "${concept_slugs[@]}")
+if [[ $(printf '%s' "$concept_order") != "$declared_order" ]]; then
+    note "the concepts array is not in the order the exercises teach them"
+    diff <(printf '%s\n' "$declared_order") <(printf '%s' "$concept_order") \
+        | head -10 | sed 's/^/      /'
+fi
+
+# ------------------------------------------------------------------- rule 4
+echo "no exercise precedes its prerequisites:"
+position=0
+declare -A taught_at=()
+for slug in "${exercise_slugs[@]}"; do
+    position=$((position + 1))
+    while read -r prereq; do
+        [[ -n $prereq ]] || continue
+        at=${taught_at[$prereq]:-}
+        if [[ -z $at ]]; then
+            note "$slug (position $position) needs '$prereq', which no earlier exercise teaches"
+        fi
+    done < <(jq -r --arg s "$slug" \
+        '.exercises.concept[] | select(.slug == $s) | .prerequisites[]?' "$config")
+
+    taught=$(jq -r --arg s "$slug" \
+        '.exercises.concept[] | select(.slug == $s) | .concepts[0] // empty' "$config")
+    [[ -n $taught ]] && taught_at[$taught]=$position
+done
+
+# ------------------------------------------------------------------- rule 6
+echo "practice exercises are sorted by difficulty then name:"
+actual=$(jq -r '.exercises.practice[] | "\(.difficulty)\t\(.name)\t\(.slug)"' "$config")
+# LC_ALL=C with -f makes the name comparison case-insensitive and stable;
+# -k1n orders difficulty numerically rather than as text, so 10 follows 9.
+expected=$(LC_ALL=C sort -t$'\t' -k1n,1 -k2f,2 <<< "$actual")
+if [[ $actual != "$expected" ]]; then
+    note "the practice list is out of order; expected:"
+    diff <(cut -f3 <<< "$actual") <(cut -f3 <<< "$expected") | head -10 | sed 's/^/      /'
+fi
+first=$(head -1 <<< "$expected" | cut -f3)
+if [[ $first != hello-world ]]; then
+    note "sorted, the first practice exercise is '$first' and should be hello-world"
+fi
+
+echo
+if (( problems == 0 )); then
+    practice_count=$(jq '.exercises.practice | length' "$config")
+    echo "config OK: ${#concept_slugs[@]} concepts, ${#exercise_slugs[@]} concept exercises, ${practice_count} practice exercises"
+    exit 0
+fi
+echo "${problems} problem(s) found"
+exit 1
