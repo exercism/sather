@@ -1,0 +1,27 @@
+class CIPHER_WHEEL is
+
+   is_letter(c : CHAR) : BOOL is
+      return c.is_alpha;
+   end;
+
+   shout(c : CHAR) : CHAR is
+      -- .upper already leaves anything that is not a letter alone.
+      return c.upper;
+   end;
+
+   code(c : CHAR) : INT is
+      return c.int;
+   end;
+
+   first_character(word : STR) : CHAR is
+      return word[0];
+   end;
+
+   turn(c : CHAR, places : INT) : CHAR is
+      -- How far along the alphabet c is, moved by `places', brought back
+      -- into 0..25 by %, and turned into a letter again.
+      along ::= (c.int - 'a'.int + places) % 26;
+      return ('a'.int + along).char;
+   end;
+
+end; -- class CIPHER_WHEEL

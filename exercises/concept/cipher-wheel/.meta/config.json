@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "cipher_wheel.sa"
+    ],
+    "test": [
+      "cipher_wheel_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "secret-agent",
+  "blurb": "Learn about characters by building a detective's cipher wheel."
+}

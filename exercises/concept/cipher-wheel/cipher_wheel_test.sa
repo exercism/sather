@@ -1,0 +1,34 @@
+class CIPHER_WHEEL_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CIPHER_WHEEL");
+
+      test("a small letter", CIPHER_WHEEL::is_letter('m'), true);
+      test("a capital", CIPHER_WHEEL::is_letter('M'), true);
+      test("a digit", CIPHER_WHEEL::is_letter('7'), false);
+      test("a space", CIPHER_WHEEL::is_letter(' '), false);
+
+      test("shout a small letter", CIPHER_WHEEL::shout('m'), 'M');
+      test("shout a capital", CIPHER_WHEEL::shout('M'), 'M');
+      test("shout a digit", CIPHER_WHEEL::shout('7'), '7');
+
+      test("the code for a", CIPHER_WHEEL::code('a'), 97);
+      test("the code for b", CIPHER_WHEEL::code('b'), 98);
+      test("the code for A", CIPHER_WHEEL::code('A'), 65);
+      test("the code for 0", CIPHER_WHEEL::code('0'), 48);
+
+      test("first of a name", CIPHER_WHEEL::first_character("Marlowe"), 'M');
+      test("first of one letter", CIPHER_WHEEL::first_character("x"), 'x');
+
+      test("three along", CIPHER_WHEEL::turn('a', 3), 'd');
+      test("not moved at all", CIPHER_WHEEL::turn('a', 0), 'a');
+      test("round the end", CIPHER_WHEEL::turn('z', 1), 'a');
+      test("well round the end", CIPHER_WHEEL::turn('y', 3), 'b');
+      test("a whole turn", CIPHER_WHEEL::turn('m', 26), 'm');
+      test("backwards", CIPHER_WHEEL::turn('d', -3), 'a');
+      test("backwards round the end", CIPHER_WHEEL::turn('a', -1), 'z');
+
+      finish;
+   end;
+end; -- class CIPHER_WHEEL_TEST

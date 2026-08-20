@@ -101,6 +101,30 @@
           "conditionals"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "dance-formation",
+        "name": "Dance Formation",
+        "uuid": "9e99481e-278e-4248-92ca-1f9a1f3cd8f7",
+        "concepts": [
+          "arrays"
+        ],
+        "prerequisites": [
+          "loops"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "cipher-wheel",
+        "name": "Cipher Wheel",
+        "uuid": "a50b4742-3706-49dc-9e59-121e4ecb00b2",
+        "concepts": [
+          "characters"
+        ],
+        "prerequisites": [
+          "loops"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -144,6 +168,16 @@
       "uuid": "7ccfb838-0ecd-4740-af6f-7e1e141788eb",
       "slug": "loops",
       "name": "Loops"
+    },
+    {
+      "uuid": "b6181cf4-dc4e-4236-b8b8-62423cf0bfe2",
+      "slug": "arrays",
+      "name": "Arrays"
+    },
+    {
+      "uuid": "2d12770d-8eec-494e-a68e-b35b88fa69ad",
+      "slug": "characters",
+      "name": "Characters"
     }
   ],
   "key_features": [],

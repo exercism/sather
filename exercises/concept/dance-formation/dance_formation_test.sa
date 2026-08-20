@@ -1,0 +1,44 @@
+class DANCE_FORMATION_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("DANCE_FORMATION");
+
+      test("three dancers",
+           DANCE_FORMATION::dancer_count(|"Mia", "Ana", "Ben"|), 3);
+      test("one dancer",
+           DANCE_FORMATION::dancer_count(|"Mia"|), 1);
+
+      test("who leads three",
+           DANCE_FORMATION::leader(|"Mia", "Ana", "Ben"|), "Mia");
+      test("who leads two",
+           DANCE_FORMATION::leader(|"Ana", "Ben"|), "Ana");
+
+      test("back of three",
+           DANCE_FORMATION::back_marker(|"Mia", "Ana", "Ben"|), "Ben");
+      test("back of two",
+           DANCE_FORMATION::back_marker(|"Mia", "Ana"|), "Ana");
+      test("back of five",
+           DANCE_FORMATION::back_marker(|"Mia", "Ana", "Ben", "Sam", "Lee"|),
+           "Lee");
+      test("back of one",
+           DANCE_FORMATION::back_marker(|"Mia"|), "Mia");
+
+      opening ::= DANCE_FORMATION::opening_row;
+      test("the opening row is three long", opening.size, 3);
+      test("who opens at the front", opening[0], "Mia");
+      test("who opens in the middle", opening[1], "Ana");
+      test("who opens at the back", opening[2], "Ben");
+
+      test("three dancers stepping",
+           DANCE_FORMATION::total_steps(|8, 16, 8|), 32);
+      test("one dancer stepping",
+           DANCE_FORMATION::total_steps(|12|), 12);
+      test("nobody stepping",
+           DANCE_FORMATION::total_steps(|0, 0, 0|), 0);
+      test("a longer routine",
+           DANCE_FORMATION::total_steps(|4, 4, 8, 8, 16|), 40);
+
+      finish;
+   end;
+end; -- class DANCE_FORMATION_TEST

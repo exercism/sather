@@ -1,0 +1,31 @@
+class DANCE_FORMATION is
+
+   dancer_count(row : ARRAY{STR}) : INT is
+      return row.size;
+   end;
+
+   leader(row : ARRAY{STR}) : STR is
+      return row[0];
+   end;
+
+   back_marker(row : ARRAY{STR}) : STR is
+      -- Positions run from 0, so the last one is one before the size.
+      return row[row.size - 1];
+   end;
+
+   opening_row : ARRAY{STR} is
+      return |"Mia", "Ana", "Ben"|;
+   end;
+
+   total_steps(steps : ARRAY{INT}) : INT is
+      total ::= 0;
+      i ::= 0;
+      loop
+         until!(i >= steps.size);
+         total := total + steps[i];
+         i := i + 1;
+      end;
+      return total;
+   end;
+
+end; -- class DANCE_FORMATION

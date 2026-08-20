@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "dance_formation.sa"
+    ],
+    "test": [
+      "dance_formation_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "dancing-dots",
+  "blurb": "Learn about arrays by arranging dancers into formation."
+}
