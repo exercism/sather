@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "warm_up_laps.sa"
+    ],
+    "test": [
+      "warm_up_laps_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "array-loops",
+  "blurb": "Learn about loops by counting laps at netball training."
+}

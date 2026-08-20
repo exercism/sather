@@ -75,6 +75,32 @@
           "basics"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "casting-call",
+        "name": "Casting Call",
+        "uuid": "00c4eea3-da24-4fbd-af14-ef54a5bcac98",
+        "concepts": [
+          "conditionals"
+        ],
+        "prerequisites": [
+          "booleans"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "warm-up-laps",
+        "name": "Warm Up Laps",
+        "uuid": "1a855b8c-ea53-49ce-8470-5b1140ae7bb7",
+        "concepts": [
+          "loops"
+        ],
+        "prerequisites": [
+          "numbers",
+          "strings",
+          "conditionals"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -108,6 +134,16 @@
       "uuid": "f1990d11-f6d5-42f0-9cfd-c676408b3029",
       "slug": "booleans",
       "name": "Booleans"
+    },
+    {
+      "uuid": "d8fc3427-07c6-4658-be1a-205377671677",
+      "slug": "conditionals",
+      "name": "Conditionals"
+    },
+    {
+      "uuid": "7ccfb838-0ecd-4740-af6f-7e1e141788eb",
+      "slug": "loops",
+      "name": "Loops"
     }
   ],
   "key_features": [],

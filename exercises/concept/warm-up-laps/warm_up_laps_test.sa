@@ -1,0 +1,33 @@
+class WARM_UP_LAPS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("WARM_UP_LAPS");
+
+      test("no laps at all", WARM_UP_LAPS::distance_run(0), 0);
+      test("one lap", WARM_UP_LAPS::distance_run(1), 100);
+      test("two laps", WARM_UP_LAPS::distance_run(2), 210);
+      test("three laps", WARM_UP_LAPS::distance_run(3), 330);
+      test("a whole warm up", WARM_UP_LAPS::distance_run(10), 1450);
+
+      test("no distance to cover", WARM_UP_LAPS::laps_to_reach(0), 0);
+      test("less than one lap", WARM_UP_LAPS::laps_to_reach(50), 1);
+      test("exactly one lap", WARM_UP_LAPS::laps_to_reach(100), 1);
+      test("one metre more than one lap",
+           WARM_UP_LAPS::laps_to_reach(101), 2);
+      test("exactly three laps", WARM_UP_LAPS::laps_to_reach(330), 3);
+      test("one metre more than three laps",
+           WARM_UP_LAPS::laps_to_reach(331), 4);
+
+      test("the very first lap is over 50",
+           WARM_UP_LAPS::first_long_lap(50), 1);
+      test("lap 3 is the first over 115",
+           WARM_UP_LAPS::first_long_lap(115), 3);
+      test("100 is not over 100",
+           WARM_UP_LAPS::first_long_lap(100), 2);
+      test("a long way in",
+           WARM_UP_LAPS::first_long_lap(195), 11);
+
+      finish;
+   end;
+end; -- class WARM_UP_LAPS_TEST

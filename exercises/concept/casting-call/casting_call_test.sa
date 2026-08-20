@@ -1,0 +1,45 @@
+class CASTING_CALL_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CASTING_CALL");
+
+      test("a clear yes", CASTING_CALL::audition_outcome(9), "Cast");
+      test("just enough to be cast",
+           CASTING_CALL::audition_outcome(8), "Cast");
+      test("just short of being cast",
+           CASTING_CALL::audition_outcome(7), "Recalled");
+      test("bottom of the recall band",
+           CASTING_CALL::audition_outcome(5), "Recalled");
+      test("below the recall band",
+           CASTING_CALL::audition_outcome(4), "Thank you");
+      test("nothing at all", CASTING_CALL::audition_outcome(0), "Thank you");
+
+      test("a young performer", CASTING_CALL::age_group(11), "Juniors");
+      test("the last of the juniors", CASTING_CALL::age_group(12), "Juniors");
+      test("the first of the middles", CASTING_CALL::age_group(13), "Middles");
+      test("the last of the middles", CASTING_CALL::age_group(15), "Middles");
+      test("the first of the seniors", CASTING_CALL::age_group(16), "Seniors");
+      test("an older performer", CASTING_CALL::age_group(18), "Seniors");
+
+      test("juniors come back first",
+           CASTING_CALL::callback_time("Juniors"), "4pm");
+      test("middles come back next",
+           CASTING_CALL::callback_time("Middles"), "5pm");
+      test("seniors come back last",
+           CASTING_CALL::callback_time("Seniors"), "6pm");
+
+      test("high score and sings",
+           CASTING_CALL::casting_note(9, true), "Lead");
+      test("just high enough and sings",
+           CASTING_CALL::casting_note(8, true), "Lead");
+      test("high score but does not sing",
+           CASTING_CALL::casting_note(9, false), "Speaking part");
+      test("low score but sings",
+           CASTING_CALL::casting_note(4, true), "Chorus");
+      test("low score and does not sing",
+           CASTING_CALL::casting_note(4, false), "Chorus");
+
+      finish;
+   end;
+end; -- class CASTING_CALL_TEST

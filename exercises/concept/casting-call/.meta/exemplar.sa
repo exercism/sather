@@ -1,0 +1,45 @@
+class CASTING_CALL is
+
+   audition_outcome(score : INT) : STR is
+      -- Most demanding test first: 9 satisfies both, and must be caught here.
+      if score >= 8 then
+         return "Cast";
+      elsif score >= 5 then
+         return "Recalled";
+      else
+         return "Thank you";
+      end;
+   end;
+
+   age_group(age : INT) : STR is
+      if age < 13 then
+         return "Juniors";
+      elsif age < 16 then
+         return "Middles";
+      else
+         return "Seniors";
+      end;
+   end;
+
+   callback_time(group : STR) : STR is
+      if group = "Juniors" then
+         return "4pm";
+      elsif group = "Middles" then
+         return "5pm";
+      else
+         return "6pm";
+      end;
+   end;
+
+   casting_note(score : INT, sings : BOOL) : STR is
+      if score >= 8 and sings then
+         return "Lead";
+      elsif score >= 8 then
+         -- Only reached when the score is high and they do not sing.
+         return "Speaking part";
+      else
+         return "Chorus";
+      end;
+   end;
+
+end; -- class CASTING_CALL
