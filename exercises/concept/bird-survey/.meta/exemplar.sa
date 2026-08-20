@@ -1,0 +1,49 @@
+class BIRD_SURVEY is
+
+   total_seen(counts : ARRAY{INT}) : INT is
+      total ::= 0;
+      loop
+         total := total + counts.elt!;
+      end;
+      return total;
+   end;
+
+   busiest_day(counts : ARRAY{INT}) : INT is
+      best ::= 0;
+      loop
+         best := best.max(counts.elt!);
+      end;
+      return best;
+   end;
+
+   days_over(counts : ARRAY{INT}, than : INT) : INT is
+      found ::= 0;
+      loop
+         -- Asked once. A second counts.elt! here would walk the array again.
+         if counts.elt! > than then found := found + 1; end;
+      end;
+      return found;
+   end;
+
+   hides_to_check(days : INT) : INT is
+      total ::= 0;
+      loop
+         total := total + 1.upto!(days);
+      end;
+      return total;
+   end;
+
+   first_busy_day(counts : ARRAY{INT}, than : INT) : INT is
+      -- The answer is a position, so walk positions rather than values.
+      answer ::= -1;
+      loop
+         i ::= 0.upto!(counts.size - 1);
+         if counts[i] > than then
+            answer := i;
+            break!;
+         end;
+      end;
+      return answer;
+   end;
+
+end; -- class BIRD_SURVEY

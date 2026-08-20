@@ -1,0 +1,45 @@
+class BIRD_SURVEY_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("BIRD_SURVEY");
+
+      test("three days", BIRD_SURVEY::total_seen(|3, 0, 7|), 10);
+      test("one day", BIRD_SURVEY::total_seen(|5|), 5);
+      test("a quiet week",
+           BIRD_SURVEY::total_seen(|0, 0, 0, 0, 0, 0, 0|), 0);
+      test("a busy week",
+           BIRD_SURVEY::total_seen(|2, 5, 1, 9, 4, 0, 3|), 24);
+
+      test("best of three", BIRD_SURVEY::busiest_day(|3, 0, 7|), 7);
+      test("best is first", BIRD_SURVEY::busiest_day(|9, 3, 1|), 9);
+      test("best is only", BIRD_SURVEY::busiest_day(|4|), 4);
+      test("nothing seen all week",
+           BIRD_SURVEY::busiest_day(|0, 0, 0|), 0);
+
+      test("two days over two",
+           BIRD_SURVEY::days_over(|3, 0, 7|, 2), 2);
+      test("exactly two does not count",
+           BIRD_SURVEY::days_over(|2, 2, 2|, 2), 0);
+      test("every day counts",
+           BIRD_SURVEY::days_over(|3, 4, 5|, 0), 3);
+      test("no day counts",
+           BIRD_SURVEY::days_over(|3, 4, 5|, 9), 0);
+
+      test("four days of hides", BIRD_SURVEY::hides_to_check(4), 10);
+      test("one day of hides", BIRD_SURVEY::hides_to_check(1), 1);
+      test("no days at all", BIRD_SURVEY::hides_to_check(0), 0);
+      test("a fortnight", BIRD_SURVEY::hides_to_check(14), 105);
+
+      test("the third day is the first busy one",
+           BIRD_SURVEY::first_busy_day(|3, 0, 7|, 5), 2);
+      test("the first day is busy enough",
+           BIRD_SURVEY::first_busy_day(|3, 0, 7|, 2), 0);
+      test("no day is that busy",
+           BIRD_SURVEY::first_busy_day(|3, 0, 7|, 9), (-1));
+      test("the earlier of two busy days",
+           BIRD_SURVEY::first_busy_day(|1, 8, 9|, 5), 1);
+
+      finish;
+   end;
+end; -- class BIRD_SURVEY_TEST

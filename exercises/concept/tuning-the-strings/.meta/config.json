@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "tuning_the_strings.sa"
+    ],
+    "test": [
+      "tuning_the_strings_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "decimal",
+  "blurb": "Learn about floating-point numbers by tuning a violin."
+}

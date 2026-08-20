@@ -1,0 +1,44 @@
+class TUNING_THE_STRINGS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("TUNING_THE_STRINGS");
+
+      test("concert A up an octave",
+           TUNING_THE_STRINGS::octave_up(440.0d), 880.0d);
+      test("a lower note up an octave",
+           TUNING_THE_STRINGS::octave_up(196.0d), 392.0d);
+      test("up an octave from a fraction",
+           TUNING_THE_STRINGS::octave_up(220.5d), 441.0d);
+
+      test("concert A down an octave",
+           TUNING_THE_STRINGS::octave_down(440.0d), 220.0d);
+      test("down an octave into a fraction",
+           TUNING_THE_STRINGS::octave_down(441.0d), 220.5d);
+
+      test("between two close notes",
+           TUNING_THE_STRINGS::midpoint(440.0d, 442.0d), 441.0d);
+      test("between two far apart",
+           TUNING_THE_STRINGS::midpoint(220.0d, 440.0d), 330.0d);
+      test("between a note and itself",
+           TUNING_THE_STRINGS::midpoint(440.0d, 440.0d), 440.0d);
+
+      test("sharp of the reference",
+           TUNING_THE_STRINGS::beats_per_second(441.5d, 440.0d), 1.5d);
+      test("flat of the reference",
+           TUNING_THE_STRINGS::beats_per_second(438.5d, 440.0d), 1.5d);
+      test("dead in tune",
+           TUNING_THE_STRINGS::beats_per_second(440.0d, 440.0d), 0.0d);
+
+      test("forty five minutes between two",
+           TUNING_THE_STRINGS::minutes_each(45, 2), 22.5d);
+      test("an hour between four",
+           TUNING_THE_STRINGS::minutes_each(60, 4), 15.0d);
+      test("seven minutes between two",
+           TUNING_THE_STRINGS::minutes_each(7, 2), 3.5d);
+      test("ten minutes between four",
+           TUNING_THE_STRINGS::minutes_each(10, 4), 2.5d);
+
+      finish;
+   end;
+end; -- class TUNING_THE_STRINGS_TEST

@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "bird_survey.sa"
+    ],
+    "test": [
+      "bird_survey_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "bird-count",
+  "blurb": "Learn about iterators by counting birds for a local survey."
+}

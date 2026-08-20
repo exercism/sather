@@ -3,7 +3,7 @@
   "slug": "sather",
   "active": false,
   "status": {
-    "concept_exercises": false,
+    "concept_exercises": true,
     "test_runner": false,
     "representer": false,
     "analyzer": false
@@ -12,7 +12,7 @@
   "version": 3,
   "online_editor": {
     "indent_style": "space",
-    "indent_size": 4
+    "indent_size": 3
   },
   "files": {
     "solution": [
@@ -125,6 +125,30 @@
           "loops"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "tuning-the-strings",
+        "name": "Tuning the Strings",
+        "uuid": "b7f1f02a-968f-4a95-a0af-51143a9c8af0",
+        "concepts": [
+          "floating-point"
+        ],
+        "prerequisites": [
+          "loops"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "bird-survey",
+        "name": "Bird Survey",
+        "uuid": "2dc60e3e-30c6-41bb-b2fb-da82c85e7b6e",
+        "concepts": [
+          "iterators"
+        ],
+        "prerequisites": [
+          "arrays"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -178,6 +202,16 @@
       "uuid": "2d12770d-8eec-494e-a68e-b35b88fa69ad",
       "slug": "characters",
       "name": "Characters"
+    },
+    {
+      "uuid": "99ddc297-3889-4ab9-8769-92f4852b3080",
+      "slug": "floating-point",
+      "name": "Floating-point Numbers"
+    },
+    {
+      "uuid": "5cd79ead-56a9-475a-8a58-31fe1b0da352",
+      "slug": "iterators",
+      "name": "Iterators"
     }
   ],
   "key_features": [],

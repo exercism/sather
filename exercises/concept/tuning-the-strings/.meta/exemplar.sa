@@ -1,0 +1,27 @@
+class TUNING_THE_STRINGS is
+
+   octave_up(hz : FLTD) : FLTD is
+      return hz * 2.0d;
+   end;
+
+   octave_down(hz : FLTD) : FLTD is
+      return hz / 2.0d;
+   end;
+
+   midpoint(low, high : FLTD) : FLTD is
+      return (low + high) / 2.0d;
+   end;
+
+   beats_per_second(played, target : FLTD) : FLTD is
+      -- .abs applies to the difference, so the order of the two makes no
+      -- difference to the answer.
+      return (played - target).abs;
+   end;
+
+   minutes_each(minutes, players : INT) : FLTD is
+      -- Convert first: (minutes / players).fltd would have thrown the
+      -- fraction away before there was anywhere to keep it.
+      return minutes.fltd / players.fltd;
+   end;
+
+end; -- class TUNING_THE_STRINGS
