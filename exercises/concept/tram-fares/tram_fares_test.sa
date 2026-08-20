@@ -1,0 +1,36 @@
+class TRAM_FARES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("TRAM_FARES");
+
+      test("the free tram zone", TRAM_FARES::zone_fare(0), 0);
+      test("zone one", TRAM_FARES::zone_fare(1), 550);
+      test("zone two", TRAM_FARES::zone_fare(2), 370);
+      test("no such zone", TRAM_FARES::zone_fare(7), 0);
+      test("a negative zone", TRAM_FARES::zone_fare((-1)), 0);
+
+      test("a full fare", TRAM_FARES::ticket_kind('f'), "Full fare");
+      test("a child", TRAM_FARES::ticket_kind('c'), "Concession");
+      test("a student", TRAM_FARES::ticket_kind('s'), "Concession");
+      test("a free pass", TRAM_FARES::ticket_kind('x'), "Free pass");
+      test("an unreadable ticket",
+           TRAM_FARES::ticket_kind('q'), "Unknown");
+
+      test("saturday", TRAM_FARES::day_type("Sat"), "Weekend");
+      test("sunday", TRAM_FARES::day_type("Sun"), "Weekend");
+      test("monday", TRAM_FARES::day_type("Mon"), "Weekday");
+      test("wednesday", TRAM_FARES::day_type("Wed"), "Weekday");
+      test("friday", TRAM_FARES::day_type("Fri"), "Weekday");
+      test("not a day at all", TRAM_FARES::day_type("Funday"), "Unknown");
+
+      test("capped on a saturday", TRAM_FARES::daily_cap("Sat"), 700);
+      test("capped on a sunday", TRAM_FARES::daily_cap("Sun"), 700);
+      test("capped on a tuesday", TRAM_FARES::daily_cap("Tue"), 1100);
+      test("capped on a thursday", TRAM_FARES::daily_cap("Thu"), 1100);
+      test("no cap for a day nobody knows",
+           TRAM_FARES::daily_cap("Funday"), 0);
+
+      finish;
+   end;
+end; -- class TRAM_FARES_TEST

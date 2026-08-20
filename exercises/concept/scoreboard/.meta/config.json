@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "scoreboard.sa"
+    ],
+    "test": [
+      "scoreboard_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "high-score",
+  "blurb": "Learn to give a class state by running the scoreboard at a netball match."
+}

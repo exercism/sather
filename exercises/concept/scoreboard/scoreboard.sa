@@ -1,0 +1,9 @@
+class SCOREBOARD is
+
+   attr home_team, away_team : STR;
+   attr home_score, away_score : INT;
+
+   -- Write create, home_goal, away_goal, summary, leader and margin
+   -- between here and the end of the class.
+
+end; -- class SCOREBOARD

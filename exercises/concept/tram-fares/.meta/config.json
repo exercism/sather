@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "tram_fares.sa"
+    ],
+    "test": [
+      "tram_fares_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "take-a-number",
+  "blurb": "Learn about case statements by working out fares on the Melbourne trams."
+}

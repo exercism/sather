@@ -173,6 +173,30 @@
           "characters"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "tram-fares",
+        "name": "Tram Fares",
+        "uuid": "e3d69f28-934f-45f5-84cc-c86df5b110a2",
+        "concepts": [
+          "case-statements"
+        ],
+        "prerequisites": [
+          "iterator-combination"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "scoreboard",
+        "name": "Scoreboard",
+        "uuid": "664ac5f9-688a-4547-85fe-7768885696fb",
+        "concepts": [
+          "classes-with-state"
+        ],
+        "prerequisites": [
+          "case-statements"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -246,6 +270,16 @@
       "uuid": "f0006cfa-a457-4343-9c06-35f6b052a728",
       "slug": "string-builders",
       "name": "String Builders"
+    },
+    {
+      "uuid": "e09f3eb5-362d-485b-a9ad-a5e608ffaf0a",
+      "slug": "case-statements",
+      "name": "Case Statements"
+    },
+    {
+      "uuid": "4ef2257d-82da-46b7-afb9-6a428c3833d2",
+      "slug": "classes-with-state",
+      "name": "Classes with State"
     }
   ],
   "key_features": [],

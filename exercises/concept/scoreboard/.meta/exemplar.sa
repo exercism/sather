@@ -1,0 +1,41 @@
+class SCOREBOARD is
+
+   attr home_team, away_team : STR;
+   attr home_score, away_score : INT;
+
+   create(home, away : STR) : SAME is
+      board ::= new;
+      board.home_team := home;
+      board.away_team := away;
+      -- The scores are left alone: an INT attribute starts at nought.
+      return board;
+   end;
+
+   home_goal is
+      home_score := home_score + 1;
+   end;
+
+   away_goal is
+      away_score := away_score + 1;
+   end;
+
+   summary : STR is
+      return home_team + " " + home_score + " - "
+           + away_score + " " + away_team;
+   end;
+
+   leader : STR is
+      if home_score > away_score then
+         return home_team;
+      elsif away_score > home_score then
+         return away_team;
+      else
+         return "Draw";
+      end;
+   end;
+
+   margin : INT is
+      return (home_score - away_score).abs;
+   end;
+
+end; -- class SCOREBOARD
