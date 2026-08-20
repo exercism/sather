@@ -1,0 +1,40 @@
+class SAFETY_CHECK_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SAFETY_CHECK");
+
+      test("down and clean", SAFETY_CHECK::mat_ready(true, true), true);
+      test("down but not clean",
+           SAFETY_CHECK::mat_ready(true, false), false);
+      test("clean but not down",
+           SAFETY_CHECK::mat_ready(false, true), false);
+      test("neither", SAFETY_CHECK::mat_ready(false, false), false);
+
+      test("mat only", SAFETY_CHECK::something_below(true, false), true);
+      test("net only", SAFETY_CHECK::something_below(false, true), true);
+      test("both", SAFETY_CHECK::something_below(true, true), true);
+      test("nothing at all",
+           SAFETY_CHECK::something_below(false, false), false);
+
+      test("not yet briefed", SAFETY_CHECK::needs_briefing(false), true);
+      test("already briefed", SAFETY_CHECK::needs_briefing(true), false);
+
+      test("too young", SAFETY_CHECK::old_enough(12), false);
+      test("just old enough", SAFETY_CHECK::old_enough(13), true);
+      test("well old enough", SAFETY_CHECK::old_enough(16), true);
+
+      test("everything in order",
+           SAFETY_CHECK::cleared(14, true, true, true), true);
+      test("too young for it",
+           SAFETY_CHECK::cleared(12, true, true, true), false);
+      test("never briefed",
+           SAFETY_CHECK::cleared(14, false, true, true), false);
+      test("mat not down",
+           SAFETY_CHECK::cleared(14, true, false, true), false);
+      test("mat not clean",
+           SAFETY_CHECK::cleared(14, true, true, false), false);
+
+      finish;
+   end;
+end; -- class SAFETY_CHECK_TEST

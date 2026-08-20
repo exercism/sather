@@ -51,6 +51,30 @@
           "basics"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "programme-notes",
+        "name": "Programme Notes",
+        "uuid": "0d44f6f5-1b83-45d4-95d8-c125c7e4ac21",
+        "concepts": [
+          "strings"
+        ],
+        "prerequisites": [
+          "basics"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "safety-check",
+        "name": "Safety Check",
+        "uuid": "f2874f13-a70f-4c24-af78-8a6055770fbc",
+        "concepts": [
+          "booleans"
+        ],
+        "prerequisites": [
+          "basics"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -74,6 +98,16 @@
       "uuid": "ae368d9e-6a33-4f9b-93fe-ded5f47a597f",
       "slug": "numbers",
       "name": "Numbers"
+    },
+    {
+      "uuid": "7445d0cf-f3f1-451c-ace3-6dd424bda25d",
+      "slug": "strings",
+      "name": "Strings"
+    },
+    {
+      "uuid": "f1990d11-f6d5-42f0-9cfd-c676408b3029",
+      "slug": "booleans",
+      "name": "Booleans"
     }
   ],
   "key_features": [],

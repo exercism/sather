@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "safety_check.sa"
+    ],
+    "test": [
+      "safety_check_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "booleans",
+  "blurb": "Learn about booleans by running the safety checks at the circus."
+}

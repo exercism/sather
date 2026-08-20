@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "programme_notes.sa"
+    ],
+    "test": [
+      "programme_notes_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "strings",
+  "blurb": "Learn about strings by writing the programme for a violin recital."
+}

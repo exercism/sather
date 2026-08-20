@@ -1,0 +1,24 @@
+class SAFETY_CHECK is
+
+   mat_ready(mat_down, mat_clean : BOOL) : BOOL is
+      return mat_down and mat_clean;
+   end;
+
+   something_below(mat_below, net_below : BOOL) : BOOL is
+      return mat_below or net_below;
+   end;
+
+   needs_briefing(briefed : BOOL) : BOOL is
+      return ~briefed;
+   end;
+
+   old_enough(age : INT) : BOOL is
+      -- Thirteen is old enough, so this is >= rather than >.
+      return age >= 13;
+   end;
+
+   cleared(age : INT, briefed, mat_down, mat_clean : BOOL) : BOOL is
+      return old_enough(age) and briefed and mat_ready(mat_down, mat_clean);
+   end;
+
+end; -- class SAFETY_CHECK

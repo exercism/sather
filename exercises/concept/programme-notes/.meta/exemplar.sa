@@ -1,0 +1,24 @@
+class PROGRAMME_NOTES is
+
+   full_title(piece, composer : STR) : STR is
+      return piece + " by " + composer;
+   end;
+
+   title_length(title : STR) : INT is
+      return title.size;
+   end;
+
+   opening_letters(title : STR, count : INT) : STR is
+      return title.head(count);
+   end;
+
+   closing_letters(title : STR, count : INT) : STR is
+      return title.tail(count);
+   end;
+
+   short_title(title : STR) : STR is
+      -- Six letters is the width the programme allows.
+      return title.head(6) + "...";
+   end;
+
+end; -- class PROGRAMME_NOTES

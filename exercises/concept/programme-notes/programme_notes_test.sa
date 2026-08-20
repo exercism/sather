@@ -1,0 +1,38 @@
+class PROGRAMME_NOTES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PROGRAMME_NOTES");
+
+      test("piece and composer",
+           PROGRAMME_NOTES::full_title("Nocturne", "Chopin"),
+           "Nocturne by Chopin");
+      test("a longer piece",
+           PROGRAMME_NOTES::full_title("The Lark Ascending", "Vaughan Williams"),
+           "The Lark Ascending by Vaughan Williams");
+
+      test("length of a title",
+           PROGRAMME_NOTES::title_length("Nocturne"), 8);
+      test("spaces count too",
+           PROGRAMME_NOTES::title_length("The Lark Ascending"), 18);
+      test("nothing at all",
+           PROGRAMME_NOTES::title_length(""), 0);
+
+      test("three from the front",
+           PROGRAMME_NOTES::opening_letters("Nocturne", 3), "Noc");
+      test("one from the front",
+           PROGRAMME_NOTES::opening_letters("Nocturne", 1), "N");
+
+      test("four from the end",
+           PROGRAMME_NOTES::closing_letters("Nocturne", 4), "urne");
+      test("two from the end",
+           PROGRAMME_NOTES::closing_letters("Nocturne", 2), "ne");
+
+      test("a title that needs cutting",
+           PROGRAMME_NOTES::short_title("Nocturne in E flat"), "Noctur...");
+      test("another one",
+           PROGRAMME_NOTES::short_title("Prelude and Fugue"), "Prelud...");
+
+      finish;
+   end;
+end; -- class PROGRAMME_NOTES_TEST
