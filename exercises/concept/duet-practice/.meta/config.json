@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "duet_practice.sa"
+    ],
+    "test": [
+      "duet_practice_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "itab-combination",
+  "blurb": "Learn how several iterators share one loop by rehearsing a violin duet."
+}

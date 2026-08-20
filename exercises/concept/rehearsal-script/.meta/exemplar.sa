@@ -1,0 +1,42 @@
+class REHEARSAL_SCRIPT is
+
+   repeat_cue(cue : STR, times : INT) : STR is
+      script ::= #FSTR;
+      loop
+         ignored ::= 1.upto!(times);
+         script := script + cue;
+      end;
+      return script.str;
+   end;
+
+   initials(names : ARRAY{STR}) : STR is
+      letters ::= #FSTR;
+      loop
+         -- An FSTR takes a CHAR directly, so no conversion is needed.
+         letters := letters + names.elt![0];
+      end;
+      return letters.str;
+   end;
+
+   numbered_lines(lines : ARRAY{STR}) : STR is
+      script ::= #FSTR;
+      loop
+         number ::= 1.up!;
+         text ::= lines.elt!;
+         -- The separator goes before every line but the first, which puts
+         -- no new line after the last.
+         if number > 1 then script := script + "\n"; end;
+         script := script + number + ". " + text;
+      end;
+      return script.str;
+   end;
+
+   shout(line : STR) : STR is
+      loud ::= #FSTR;
+      loop
+         loud := loud + line.elt!.upper;
+      end;
+      return loud.str;
+   end;
+
+end; -- class REHEARSAL_SCRIPT

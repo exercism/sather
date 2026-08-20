@@ -1,0 +1,44 @@
+class DUET_PRACTICE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("DUET_PRACTICE");
+
+      test("the second part is shorter",
+           DUET_PRACTICE::bars_together(|4, 4, 8, 8|, |4, 4|), 2);
+      test("the first part is shorter",
+           DUET_PRACTICE::bars_together(|4, 4|, |4, 4, 8, 8|), 2);
+      test("the same length",
+           DUET_PRACTICE::bars_together(|4, 4, 8|, |2, 2, 2|), 3);
+      none ::= #ARRAY{INT}(0);
+      test("one part is empty",
+           DUET_PRACTICE::bars_together(|4, 4|, none), 0);
+
+      test("two bars in unison",
+           DUET_PRACTICE::in_unison(|4, 4, 8|, |4, 2, 8|), 2);
+      test("nothing in unison",
+           DUET_PRACTICE::in_unison(|4, 4|, |2, 2|), 0);
+      test("everything in unison",
+           DUET_PRACTICE::in_unison(|4, 2|, |4, 2|), 2);
+      test("a match beyond the shorter part does not count",
+           DUET_PRACTICE::in_unison(|4, 8, 8|, |4|), 1);
+
+      test("the first part is louder once",
+           DUET_PRACTICE::louder_bars(|4, 8, 2|, |4, 2, 8|), 1);
+      test("the first part is never louder",
+           DUET_PRACTICE::louder_bars(|1, 1|, |4, 4|), 0);
+      test("the first part is always louder",
+           DUET_PRACTICE::louder_bars(|9, 9|, |4, 4|), 2);
+
+      test("three bars weighted",
+           DUET_PRACTICE::weighted_total(|4, 4, 8|), 36);
+      test("one bar weighted",
+           DUET_PRACTICE::weighted_total(|7|), 7);
+      test("nothing to weigh",
+           DUET_PRACTICE::weighted_total(none), 0);
+      test("four bars weighted",
+           DUET_PRACTICE::weighted_total(|1, 1, 1, 1|), 10);
+
+      finish;
+   end;
+end; -- class DUET_PRACTICE_TEST

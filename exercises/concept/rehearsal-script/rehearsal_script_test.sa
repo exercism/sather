@@ -1,0 +1,42 @@
+class REHEARSAL_SCRIPT_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("REHEARSAL_SCRIPT");
+
+      test("three times", REHEARSAL_SCRIPT::repeat_cue("Ha", 3), "HaHaHa");
+      test("once", REHEARSAL_SCRIPT::repeat_cue("Ha", 1), "Ha");
+      test("not at all", REHEARSAL_SCRIPT::repeat_cue("Ha", 0), "");
+      test("a longer cue",
+           REHEARSAL_SCRIPT::repeat_cue("Knock! ", 2), "Knock! Knock! ");
+
+      test("three in the cast",
+           REHEARSAL_SCRIPT::initials(|"Mia", "Ana", "Ben"|), "MAB");
+      test("one in the cast",
+           REHEARSAL_SCRIPT::initials(|"Mia"|), "M");
+      test("a bigger cast",
+           REHEARSAL_SCRIPT::initials(|"Mia", "Ana", "Ben", "Sam", "Lee"|),
+           "MABSL");
+
+      test("two lines",
+           REHEARSAL_SCRIPT::numbered_lines(|"Enter", "Exit"|),
+           "1. Enter\n2. Exit");
+      test("one line",
+           REHEARSAL_SCRIPT::numbered_lines(|"Enter"|), "1. Enter");
+      test("no lines at all",
+           REHEARSAL_SCRIPT::numbered_lines(#ARRAY{STR}(0)), "");
+      test("three lines",
+           REHEARSAL_SCRIPT::numbered_lines(|"Enter", "Speak", "Exit"|),
+           "1. Enter\n2. Speak\n3. Exit");
+
+      test("a quiet line",
+           REHEARSAL_SCRIPT::shout("quiet please"), "QUIET PLEASE");
+      test("already loud",
+           REHEARSAL_SCRIPT::shout("LOUD"), "LOUD");
+      test("nothing to shout", REHEARSAL_SCRIPT::shout(""), "");
+      test("marks are left alone",
+           REHEARSAL_SCRIPT::shout("who's there?"), "WHO'S THERE?");
+
+      finish;
+   end;
+end; -- class REHEARSAL_SCRIPT_TEST

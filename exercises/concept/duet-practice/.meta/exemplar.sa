@@ -1,0 +1,47 @@
+class DUET_PRACTICE is
+
+   bars_together(first, second : ARRAY{INT}) : INT is
+      -- The loop ends when the shorter part runs out, so counting the turns
+      -- is the whole answer.
+      bars ::= 0;
+      loop
+         ignored_one ::= first.elt!;
+         ignored_two ::= second.elt!;
+         bars := bars + 1;
+      end;
+      return bars;
+   end;
+
+   in_unison(first, second : ARRAY{INT}) : INT is
+      same ::= 0;
+      loop
+         one ::= first.elt!;
+         two ::= second.elt!;
+         if one = two then same := same + 1; end;
+      end;
+      return same;
+   end;
+
+   louder_bars(first, second : ARRAY{INT}) : INT is
+      louder ::= 0;
+      loop
+         one ::= first.elt!;
+         two ::= second.elt!;
+         if one > two then louder := louder + 1; end;
+      end;
+      return louder;
+   end;
+
+   weighted_total(part : ARRAY{INT}) : INT is
+      -- up! never ends; part.elt! does, and so decides the length of the
+      -- loop. That is the whole trick.
+      total ::= 0;
+      loop
+         number ::= 1.up!;
+         notes ::= part.elt!;
+         total := total + number * notes;
+      end;
+      return total;
+   end;
+
+end; -- class DUET_PRACTICE

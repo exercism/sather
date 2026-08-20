@@ -149,6 +149,30 @@
           "arrays"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "duet-practice",
+        "name": "Duet Practice",
+        "uuid": "41db2f60-456f-4414-9e32-9c145ea0c725",
+        "concepts": [
+          "iterator-combination"
+        ],
+        "prerequisites": [
+          "iterators"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "rehearsal-script",
+        "name": "Rehearsal Script",
+        "uuid": "e143bf61-8c6d-4daf-b0bd-b62eb924f576",
+        "concepts": [
+          "string-builders"
+        ],
+        "prerequisites": [
+          "characters"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -212,6 +236,16 @@
       "uuid": "5cd79ead-56a9-475a-8a58-31fe1b0da352",
       "slug": "iterators",
       "name": "Iterators"
+    },
+    {
+      "uuid": "1bc7754f-e750-4ce4-967b-1a83bc3b0311",
+      "slug": "iterator-combination",
+      "name": "Iterator Combination"
+    },
+    {
+      "uuid": "f0006cfa-a457-4343-9c06-35f6b052a728",
+      "slug": "string-builders",
+      "name": "String Builders"
     }
   ],
   "key_features": [],

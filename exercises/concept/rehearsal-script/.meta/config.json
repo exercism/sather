@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "rehearsal_script.sa"
+    ],
+    "test": [
+      "rehearsal_script_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "anagrams",
+  "blurb": "Learn to build strings efficiently by typing up a rehearsal script."
+}
