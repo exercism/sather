@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "case_notes.sa"
+    ],
+    "test": [
+      "case_notes_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "census",
+  "blurb": "Learn about growable lists by keeping a detective's case notes."
+}

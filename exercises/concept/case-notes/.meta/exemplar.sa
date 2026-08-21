@@ -1,0 +1,32 @@
+class CASE_NOTES is
+
+   new_case : LIST{STR} is
+      return #LIST{STR};
+   end;
+
+   add_clue(notes : LIST{STR}, clue : STR) is
+      -- No return type: append changes the list it is given.
+      notes.append(clue);
+   end;
+
+   clue_count(notes : LIST{STR}) : INT is
+      return notes.size;
+   end;
+
+   rule_out(notes : LIST{STR}, position : INT) is
+      -- Everything after this position moves up one.
+      notes.remove_index(position);
+   end;
+
+   summary(notes : LIST{STR}) : STR is
+      line ::= #FSTR;
+      loop
+         place ::= 1.up!;
+         clue ::= notes.elt!;
+         if place > 1 then line := line + "; "; end;
+         line := line + clue;
+      end;
+      return line.str;
+   end;
+
+end; -- class CASE_NOTES

@@ -1,0 +1,58 @@
+class UNDERSTUDY_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("UNDERSTUDY");
+
+      test("shouting", UNDERSTUDY::shout("who's there"), "WHO'S THERE");
+      test("shouting what is already loud",
+           UNDERSTUDY::shout("STOP"), "STOP");
+      test("whispering",
+           UNDERSTUDY::whisper("Who's There"), "...who's there...");
+      test("whispering nothing", UNDERSTUDY::whisper(""), "......");
+
+      loud ::= bind(UNDERSTUDY::shout(_));
+      quiet ::= bind(UNDERSTUDY::whisper(_));
+
+      test("rehearsing loudly",
+           UNDERSTUDY::rehearse("who's there", loud), "WHO'S THERE");
+      test("rehearsing quietly",
+           UNDERSTUDY::rehearse("Who's There", quiet), "...who's there...");
+
+      test("a scene played loudly",
+           UNDERSTUDY::run_scene(|"Enter", "Exit"|, loud), "ENTER EXIT");
+      test("a scene played quietly",
+           UNDERSTUDY::run_scene(|"Enter", "Exit"|, quiet),
+           "...enter... ...exit...");
+      test("a scene of one line",
+           UNDERSTUDY::run_scene(|"Enter"|, loud), "ENTER");
+      test("a scene of nothing",
+           UNDERSTUDY::run_scene(#ARRAY{STR}(0), loud), "");
+
+      shouter ::= UNDERSTUDY::understudy_for("shout");
+      test("the shouting understudy",
+           shouter.call("who's there"), "WHO'S THERE");
+      whisperer ::= UNDERSTUDY::understudy_for("whisper");
+      test("the whispering understudy",
+           whisperer.call("Who's There"), "...who's there...");
+      other ::= UNDERSTUDY::understudy_for("mumble");
+      test("anything else whispers",
+           other.call("Who's There"), "...who's there...");
+
+      -- One handed straight to a routine that takes a ROUT.
+      test("an understudy can be rehearsed like any other part",
+           UNDERSTUDY::rehearse("who's there", shouter), "WHO'S THERE");
+
+      test("repeating three times", UNDERSTUDY::repeat(3, "Ha"), "HaHaHa");
+      test("repeating once", UNDERSTUDY::repeat(1, "Ha"), "Ha");
+      test("repeating not at all", UNDERSTUDY::repeat(0, "Ha"), "");
+
+      test("the doubler doubles", UNDERSTUDY::doubler.call("Ha"), "HaHa");
+      test("the doubler doubles anything",
+           UNDERSTUDY::doubler.call("Knock! "), "Knock! Knock! ");
+      test("and it is a part like any other",
+           UNDERSTUDY::rehearse("Ha", UNDERSTUDY::doubler), "HaHa");
+
+      finish;
+   end;
+end; -- class UNDERSTUDY_TEST

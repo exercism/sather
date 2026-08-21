@@ -1,0 +1,55 @@
+class UNDERSTUDY is
+
+   shout(line : STR) : STR is
+      return line.upper;
+   end;
+
+   whisper(line : STR) : STR is
+      return "..." + line.lower + "...";
+   end;
+
+   rehearse(line : STR, part : ROUT{STR}:STR) : STR is
+      -- No idea what `part' does, which is the point.
+      return part.call(line);
+   end;
+
+   run_scene(lines : ARRAY{STR}, part : ROUT{STR}:STR) : STR is
+      scene ::= #FSTR;
+      loop
+         position ::= 1.up!;
+         line ::= lines.elt!;
+         if position > 1 then scene := scene + " "; end;
+         scene := scene + part.call(line);
+      end;
+      return scene.str;
+   end;
+
+   understudy_for(style : STR) : ROUT{STR}:STR is
+      -- bind has to be the right-hand side of an assignment; it cannot go
+      -- straight into a return.
+      part : ROUT{STR}:STR;
+      if style = "shout" then
+         part := bind(shout(_));
+      else
+         part := bind(whisper(_));
+      end;
+      return part;
+   end;
+
+   repeat(times : INT, line : STR) : STR is
+      said ::= #FSTR;
+      loop
+         ignored ::= 1.upto!(times);
+         said := said + line;
+      end;
+      return said.str;
+   end;
+
+   doubler : ROUT{STR}:STR is
+      -- The 2 is fixed now; only the _ becomes an argument, so this is a
+      -- ROUT{STR}:STR and not a ROUT{INT,STR}:STR.
+      part ::= bind(repeat(2, _));
+      return part;
+   end;
+
+end; -- class UNDERSTUDY

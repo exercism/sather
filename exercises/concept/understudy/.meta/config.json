@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "understudy.sa"
+    ],
+    "test": [
+      "understudy_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "role-playing-game",
+  "blurb": "Learn about bound routines by arranging understudies for a school play."
+}

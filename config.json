@@ -293,6 +293,31 @@
           "code-inclusion"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "understudy",
+        "name": "Understudy",
+        "uuid": "7047e149-7fb6-43f1-a721-3b2aa081d0f8",
+        "concepts": [
+          "bound-routines"
+        ],
+        "prerequisites": [
+          "generic-classes"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "case-notes",
+        "name": "Case Notes",
+        "uuid": "098026eb-fb59-473e-966d-6cff36c93d35",
+        "concepts": [
+          "lists"
+        ],
+        "prerequisites": [
+          "arrays",
+          "generic-classes"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -416,6 +441,16 @@
       "uuid": "be022748-df06-422e-a501-fdd06ef96404",
       "slug": "generic-classes",
       "name": "Generic Classes"
+    },
+    {
+      "uuid": "f77050d3-8459-48d5-b924-9eec144b74fc",
+      "slug": "bound-routines",
+      "name": "Bound Routines"
+    },
+    {
+      "uuid": "5c0a4432-8d7a-4373-b68a-3d0304934f38",
+      "slug": "lists",
+      "name": "Lists"
     }
   ],
   "key_features": [],
