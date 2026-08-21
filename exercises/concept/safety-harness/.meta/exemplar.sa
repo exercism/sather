@@ -1,0 +1,37 @@
+class SAFETY_HARNESS is
+
+   readonly attr limit : INT;
+
+   create(kg : INT) : SAME
+      -- A harness rated for nothing is not a harness.
+      pre kg > 0
+   is
+      harness ::= new;
+      harness.limit := kg;
+      return harness;
+   end;
+
+   spare_capacity(load : INT) : INT
+      pre load >= 0 and load <= limit
+      -- Follows from the pre, and records why the answer can be trusted.
+      post result >= 0
+   is
+      return limit - load;
+   end;
+
+   percent_used(load : INT) : INT
+      pre load >= 0
+      post result >= 0
+   is
+      -- Multiply before dividing, or integer division takes everything.
+      return load * 100 / limit;
+   end;
+
+   is_safe(load : INT) : BOOL
+      -- No pre: asking about a silly load is the whole point of asking.
+      post result = (load <= limit)
+   is
+      return load <= limit;
+   end;
+
+end; -- class SAFETY_HARNESS

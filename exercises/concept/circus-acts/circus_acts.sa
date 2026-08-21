@@ -1,0 +1,7 @@
+abstract class $ACT is
+   -- Every act can be asked these two things, and nothing else.
+   name : STR;
+   minutes : INT;
+end; -- abstract class $ACT
+
+-- Write JUGGLING, TUMBLING, TRAPEZE and CIRCUS_ACTS below.

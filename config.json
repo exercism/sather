@@ -221,6 +221,30 @@
           "classes-with-state"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "safety-harness",
+        "name": "Safety Harness",
+        "uuid": "c4ab17e1-2cdb-4cb5-a205-48cd50643a84",
+        "concepts": [
+          "contracts"
+        ],
+        "prerequisites": [
+          "classes-with-state"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "circus-acts",
+        "name": "Circus Acts",
+        "uuid": "8bbbafc6-b7bd-44d4-bbbc-14932d102226",
+        "concepts": [
+          "abstract-classes"
+        ],
+        "prerequisites": [
+          "classes-with-state"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -314,6 +338,16 @@
       "uuid": "1b5bd661-1709-413f-829b-4bca17c768e4",
       "slug": "exceptions",
       "name": "Exceptions"
+    },
+    {
+      "uuid": "41c52d25-f1b0-4e13-ac84-41a217ccbd88",
+      "slug": "contracts",
+      "name": "Contracts"
+    },
+    {
+      "uuid": "9aab6704-8d44-48ca-8a30-fd8a45244bf4",
+      "slug": "abstract-classes",
+      "name": "Abstract Classes"
     }
   ],
   "key_features": [],

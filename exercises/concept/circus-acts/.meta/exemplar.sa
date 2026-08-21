@@ -1,0 +1,81 @@
+abstract class $ACT is
+   -- Every act can be asked these two things, and nothing else.
+   name : STR;
+   minutes : INT;
+end; -- abstract class $ACT
+
+class JUGGLING < $ACT is
+
+   create : SAME is return new; end;
+
+   name : STR is return "Juggling"; end;
+
+   minutes : INT is return 5; end;
+
+end; -- class JUGGLING
+
+class TUMBLING < $ACT is
+
+   create : SAME is return new; end;
+
+   name : STR is return "Tumbling"; end;
+
+   minutes : INT is return 3; end;
+
+end; -- class TUMBLING
+
+class TRAPEZE < $ACT is
+
+   -- An act may hold whatever it likes. $ACT neither knows nor cares.
+   readonly attr height : INT;
+
+   create(metres : INT) : SAME is
+      act ::= new;
+      act.height := metres;
+      return act;
+   end;
+
+   name : STR is return "Trapeze at " + height + "m"; end;
+
+   minutes : INT is return 8; end;
+
+end; -- class TRAPEZE
+
+class CIRCUS_ACTS is
+
+   total_minutes(acts : ARRAY{$ACT}) : INT is
+      total ::= 0;
+      loop
+         -- Which minutes runs is decided by what the act really is.
+         total := total + acts.elt!.minutes;
+      end;
+      return total;
+   end;
+
+   billing(acts : ARRAY{$ACT}) : STR is
+      line ::= #FSTR;
+      loop
+         position ::= 1.up!;
+         act ::= acts.elt!;
+         if position > 1 then line := line + ", "; end;
+         line := line + act.name;
+      end;
+      return line.str;
+   end;
+
+   longest(acts : ARRAY{$ACT}) : STR is
+      -- Starting below any real length means the first act always wins,
+      -- so an empty show needs no special case.
+      best ::= -1;
+      answer ::= "";
+      loop
+         act ::= acts.elt!;
+         if act.minutes > best then
+            best := act.minutes;
+            answer := act.name;
+         end;
+      end;
+      return answer;
+   end;
+
+end; -- class CIRCUS_ACTS

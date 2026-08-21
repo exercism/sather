@@ -1,0 +1,39 @@
+class SAFETY_HARNESS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SAFETY_HARNESS");
+
+      harness ::= #SAFETY_HARNESS(120);
+      test("the rating is remembered", harness.limit, 120);
+
+      test("spare on an empty harness", harness.spare_capacity(0), 120);
+      test("spare with a load on", harness.spare_capacity(40), 80);
+      test("spare at the limit", harness.spare_capacity(120), 0);
+
+      test("nothing used", harness.percent_used(0), 0);
+      test("half used", harness.percent_used(60), 50);
+      test("all used", harness.percent_used(120), 100);
+      test("a part percent is rounded down",
+           harness.percent_used(59), 49);
+      test("over the limit is over a hundred",
+           harness.percent_used(240), 200);
+
+      test("well within the limit", harness.is_safe(40), true);
+      test("exactly at the limit", harness.is_safe(120), true);
+      test("over the limit", harness.is_safe(121), false);
+      test("far over the limit", harness.is_safe(200), false);
+      test("nothing on it at all", harness.is_safe(0), true);
+
+      -- A second harness with its own rating.
+      light ::= #SAFETY_HARNESS(50);
+      test("the second rating is its own", light.limit, 50);
+      test("and its spare capacity follows it",
+           light.spare_capacity(20), 30);
+      test("and so does its percentage", light.percent_used(25), 50);
+      test("and so does its limit", light.is_safe(60), false);
+      test("the first harness is unaffected", harness.limit, 120);
+
+      finish;
+   end;
+end; -- class SAFETY_HARNESS_TEST

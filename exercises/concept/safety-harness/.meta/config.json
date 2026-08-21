@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "safety_harness.sa"
+    ],
+    "test": [
+      "safety_harness_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "last-will",
+  "blurb": "Learn about contracts by rigging the safety harnesses at the circus."
+}

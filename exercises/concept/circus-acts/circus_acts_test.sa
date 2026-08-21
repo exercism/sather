@@ -1,0 +1,50 @@
+class CIRCUS_ACTS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CIRCUS_ACTS");
+
+      test("juggling is named", JUGGLING::create.name, "Juggling");
+      test("juggling takes five", JUGGLING::create.minutes, 5);
+      test("tumbling is named", TUMBLING::create.name, "Tumbling");
+      test("tumbling takes three", TUMBLING::create.minutes, 3);
+      test("a trapeze says how high", #TRAPEZE(4).name, "Trapeze at 4m");
+      test("a higher trapeze", #TRAPEZE(12).name, "Trapeze at 12m");
+      test("trapeze takes eight", #TRAPEZE(4).minutes, 8);
+
+      -- One array holding three different classes.
+      show : ARRAY{$ACT} := |#JUGGLING, #TRAPEZE(4), #TUMBLING|;
+
+      test("a two act show",
+           CIRCUS_ACTS::total_minutes(|#JUGGLING, #TUMBLING|), 8);
+      test("the whole show", CIRCUS_ACTS::total_minutes(show), 16);
+      test("one act only",
+           CIRCUS_ACTS::total_minutes(|#TUMBLING|), 3);
+      test("no acts at all",
+           CIRCUS_ACTS::total_minutes(#ARRAY{$ACT}(0)), 0);
+
+      test("billing two acts",
+           CIRCUS_ACTS::billing(|#JUGGLING, #TUMBLING|),
+           "Juggling, Tumbling");
+      test("billing the whole show",
+           CIRCUS_ACTS::billing(show),
+           "Juggling, Trapeze at 4m, Tumbling");
+      test("billing one act",
+           CIRCUS_ACTS::billing(|#TUMBLING|), "Tumbling");
+      test("billing nothing",
+           CIRCUS_ACTS::billing(#ARRAY{$ACT}(0)), "");
+
+      test("the longest of two",
+           CIRCUS_ACTS::longest(|#JUGGLING, #TUMBLING|), "Juggling");
+      test("the longest of the show",
+           CIRCUS_ACTS::longest(show), "Trapeze at 4m");
+      test("the earlier of two equals",
+           CIRCUS_ACTS::longest(|#JUGGLING, #JUGGLING|), "Juggling");
+      test("the longest of one",
+           CIRCUS_ACTS::longest(|#TUMBLING|), "Tumbling");
+      test("nothing is the longest of nothing",
+           CIRCUS_ACTS::longest(#ARRAY{$ACT}(0)), "");
+
+      finish;
+   end;
+end; -- class CIRCUS_ACTS_TEST

@@ -1,0 +1,9 @@
+class SAFETY_HARNESS is
+
+   readonly attr limit : INT;
+
+   -- Write create, spare_capacity, percent_used and is_safe between here
+   -- and the end of the class. Each one carries a contract; the
+   -- instructions say which.
+
+end; -- class SAFETY_HARNESS

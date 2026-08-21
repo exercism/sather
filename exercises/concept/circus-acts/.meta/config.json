@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "circus_acts.sa"
+    ],
+    "test": [
+      "circus_acts_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "amusement-park",
+  "blurb": "Learn about abstract classes by programming a circus show."
+}
