@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "finals_ladder.sa"
+    ],
+    "test": [
+      "finals_ladder_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "ordinal-numbers",
+  "blurb": "Learn to sort by any rule you like by working out the netball finals ladder."
+}

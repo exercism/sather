@@ -1,0 +1,74 @@
+class FINALS_LADDER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("FINALS_LADDER");
+
+      vixens ::= #TEAM("Vixens", 24, 40);
+      magpies ::= #TEAM("Magpies", 20, 90);
+      swifts ::= #TEAM("Swifts", 20, 10);
+      firebirds ::= #TEAM("Firebirds", 8, (-60));
+
+      test("more points comes first",
+           FINALS_LADDER::higher(vixens, magpies), true);
+      test("fewer points does not",
+           FINALS_LADDER::higher(magpies, vixens), false);
+      test("level on points, better difference first",
+           FINALS_LADDER::higher(magpies, swifts), true);
+      test("level on points, worse difference does not",
+           FINALS_LADDER::higher(swifts, magpies), false);
+      test("a team does not come before itself",
+           FINALS_LADDER::higher(vixens, vixens), false);
+
+      teams : ARRAY{TEAM} := |swifts, firebirds, vixens, magpies|;
+
+      ranked ::= FINALS_LADDER::ladder(teams);
+      test("the ladder is in order",
+           FINALS_LADDER::names(ranked),
+           "Vixens, Magpies, Swifts, Firebirds");
+      test("the ladder is the same length", ranked.size, 4);
+      test("the array handed in is untouched",
+           FINALS_LADDER::names(teams),
+           "Swifts, Firebirds, Vixens, Magpies");
+
+      test("naming an empty ladder",
+           FINALS_LADDER::names(#ARRAY{TEAM}(0)), "");
+      test("naming one team",
+           FINALS_LADDER::names(|vixens|), "Vixens");
+
+      test("the premiers", FINALS_LADDER::premiers(teams), "Vixens");
+      test("premiers of one team",
+           FINALS_LADDER::premiers(|firebirds|), "Firebirds");
+      test("nobody wins nothing",
+           FINALS_LADDER::premiers(#ARRAY{TEAM}(0)), "");
+
+      -- The same sort, a different rule.
+      by_length ::= FINALS_LADDER::shortest_first(
+         |"Magpies", "Vixens", "Swifts", "Firebirds"|);
+      test("ordered by length, ties alphabetical",
+           by_length[0] + ", " + by_length[1] + ", "
+           + by_length[2] + ", " + by_length[3],
+           "Swifts, Vixens, Magpies, Firebirds");
+
+      words : ARRAY{STR} := |"bbb", "a", "ccc", "dd"|;
+      ordered ::= FINALS_LADDER::shortest_first(words);
+      test("shortest first, ties alphabetical",
+           ordered[0] + ordered[1] + ordered[2] + ordered[3],
+           "addbbbccc");
+      test("the tie-break really is alphabetical",
+           FINALS_LADDER::shorter("zzz", "aaa"), false);
+      test("and the other way round",
+           FINALS_LADDER::shorter("aaa", "zzz"), true);
+      test("a word does not come before itself",
+           FINALS_LADDER::shorter("aaa", "aaa"), false);
+      test("the words handed in are untouched",
+           words[0] + words[1] + words[2] + words[3], "bbbacccdd");
+
+      test("ordering one word",
+           FINALS_LADDER::shortest_first(|"only"|)[0], "only");
+      test("ordering nothing",
+           FINALS_LADDER::shortest_first(#ARRAY{STR}(0)).size, 0);
+
+      finish;
+   end;
+end; -- class FINALS_LADDER_TEST

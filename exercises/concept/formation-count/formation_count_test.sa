@@ -1,0 +1,57 @@
+class FORMATION_COUNT_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("FORMATION_COUNT");
+
+      test("no dancers, one line up",
+           FORMATION_COUNT::line_ups(0), #INTI(1));
+      test("one dancer", FORMATION_COUNT::line_ups(1), #INTI(1));
+      test("three dancers", FORMATION_COUNT::line_ups(3), #INTI(6));
+      test("five dancers", FORMATION_COUNT::line_ups(5), #INTI(120));
+      test("twelve dancers, the last that fits in an INT",
+           FORMATION_COUNT::line_ups(12), #INTI(479001600));
+
+      test("thirteen dancers, which an INT cannot hold",
+           FORMATION_COUNT::line_ups_text(13), "6227020800");
+      test("twenty dancers",
+           FORMATION_COUNT::line_ups_text(20), "2432902008176640000");
+      test("twenty five dancers",
+           FORMATION_COUNT::line_ups_text(25),
+           "15511210043330985984000000");
+      test("thirty dancers",
+           FORMATION_COUNT::line_ups_text(30),
+           "265252859812191058636308480000000");
+
+      test("a third of the show", FORMATION_COUNT::share(3), #RAT(1, 3));
+      test("half the show", FORMATION_COUNT::share(2), #RAT(1, 2));
+      test("the whole show", FORMATION_COUNT::share(1), #RAT(1, 1));
+      test("a tenth of the show", FORMATION_COUNT::share(10), #RAT(1, 10));
+
+      test("a half and a third",
+           FORMATION_COUNT::combined(#RAT(1, 2), #RAT(1, 3)), #RAT(5, 6));
+      test("two thirds",
+           FORMATION_COUNT::combined(#RAT(1, 3), #RAT(1, 3)), #RAT(2, 3));
+      test("two halves make a whole",
+           FORMATION_COUNT::combined(#RAT(1, 2), #RAT(1, 2)), #RAT(1));
+      test("a tenth and two tenths, exactly",
+           FORMATION_COUNT::combined(#RAT(1, 10), #RAT(2, 10)),
+           #RAT(3, 10));
+      test("and it really is three tenths",
+           (FORMATION_COUNT::combined(#RAT(1, 10), #RAT(2, 10))
+            = #RAT(3, 10)), true);
+
+      test("three thirds fill the show",
+           FORMATION_COUNT::covers_whole_show(#RAT(3, 3)), true);
+      test("one fills the show",
+           FORMATION_COUNT::covers_whole_show(#RAT(1)), true);
+      test("two thirds do not",
+           FORMATION_COUNT::covers_whole_show(#RAT(2, 3)), false);
+      test("nothing does not",
+           FORMATION_COUNT::covers_whole_show(#RAT(0, 5)), false);
+      test("more than the whole show is not the whole show",
+           FORMATION_COUNT::covers_whole_show(#RAT(4, 3)), false);
+
+      finish;
+   end;
+end; -- class FORMATION_COUNT_TEST

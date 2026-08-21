@@ -1,0 +1,28 @@
+class FORMATION_COUNT is
+
+   line_ups(dancers : INT) : INTI is
+      -- factorial of nought is one, which is the answer wanted, so there is
+      -- no special case to write.
+      return #INTI(dancers).factorial;
+   end;
+
+   line_ups_text(dancers : INT) : STR is
+      return line_ups(dancers).str;
+   end;
+
+   share(acts : INT) : RAT is
+      return #RAT(1, acts);
+   end;
+
+   combined(first, second : RAT) : RAT is
+      -- Exact, and already in lowest terms.
+      return first + second;
+   end;
+
+   covers_whole_show(part : RAT) : BOOL is
+      -- Comparing two RATs compares the fractions. Going through FLTD here
+      -- would put back the rounding this type exists to avoid.
+      return part = #RAT(1);
+   end;
+
+end; -- class FORMATION_COUNT

@@ -1,0 +1,65 @@
+class TEAM is
+
+   readonly attr name : STR;
+   readonly attr points, difference : INT;
+
+   create(team_name : STR, season_points, goal_difference : INT) : SAME is
+      team ::= new;
+      team.name := team_name;
+      team.points := season_points;
+      team.difference := goal_difference;
+      return team;
+   end;
+
+end; -- class TEAM
+
+class FINALS_LADDER is
+
+   higher(a, b : TEAM) : BOOL is
+      -- Points settle it whenever they differ; only then does the goal
+      -- difference get a say. The other order would make points irrelevant.
+      if a.points /= b.points then
+         return a.points > b.points;
+      end;
+      return a.difference > b.difference;
+   end;
+
+   ladder(teams : ARRAY{TEAM}) : ARRAY{TEAM} is
+      -- A copy, because insertion_sort_by orders the array itself and the
+      -- caller's must be left alone.
+      ranked ::= teams.copy;
+      ranked.insertion_sort_by(bind(higher(_, _)));
+      return ranked;
+   end;
+
+   names(teams : ARRAY{TEAM}) : STR is
+      line ::= #FSTR;
+      loop
+         place ::= 1.up!;
+         team ::= teams.elt!;
+         if place > 1 then line := line + ", "; end;
+         line := line + team.name;
+      end;
+      return line.str;
+   end;
+
+   premiers(teams : ARRAY{TEAM}) : STR is
+      if teams.size = 0 then return ""; end;
+      return ladder(teams)[0].name;
+   end;
+
+   shorter(a, b : STR) : BOOL is
+      -- Two parts, like higher. The tie-break matters: the sort is not
+      -- stable, so equal-length names would otherwise come out either way.
+      if a.size /= b.size then return a.size < b.size; end;
+      return a < b;
+   end;
+
+   shortest_first(words : ARRAY{STR}) : ARRAY{STR} is
+      -- The same sort as ladder, told a different rule.
+      ordered ::= words.copy;
+      ordered.insertion_sort_by(bind(shorter(_, _)));
+      return ordered;
+   end;
+
+end; -- class FINALS_LADDER

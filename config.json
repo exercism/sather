@@ -318,6 +318,32 @@
           "generic-classes"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "finals-ladder",
+        "name": "Finals Ladder",
+        "uuid": "5f629db1-f463-4af9-b96f-ebc2417d9ed4",
+        "concepts": [
+          "sorting"
+        ],
+        "prerequisites": [
+          "arrays",
+          "bound-routines"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "formation-count",
+        "name": "Formation Count",
+        "uuid": "062aaa09-6388-4c48-8fc0-6f5c0f04f7ff",
+        "concepts": [
+          "exact-numbers"
+        ],
+        "prerequisites": [
+          "numbers",
+          "floating-point"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -451,6 +477,16 @@
       "uuid": "5c0a4432-8d7a-4373-b68a-3d0304934f38",
       "slug": "lists",
       "name": "Lists"
+    },
+    {
+      "uuid": "8e8c20cc-1868-4150-8e12-1a6a6b05fe94",
+      "slug": "sorting",
+      "name": "Sorting"
+    },
+    {
+      "uuid": "664a42f9-b7c0-4d19-b42f-c1c9c380cf96",
+      "slug": "exact-numbers",
+      "name": "Exact Numbers"
     }
   ],
   "key_features": [],

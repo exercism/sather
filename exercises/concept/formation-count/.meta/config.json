@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "formation_count.sa"
+    ],
+    "test": [
+      "formation_count_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "numbers",
+  "blurb": "Learn about unbounded integers and exact fractions by counting dance formations."
+}

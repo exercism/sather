@@ -1,0 +1,20 @@
+class TEAM is
+
+   readonly attr name : STR;
+   readonly attr points, difference : INT;
+
+   create(team_name : STR, season_points, goal_difference : INT) : SAME is
+      team ::= new;
+      team.name := team_name;
+      team.points := season_points;
+      team.difference := goal_difference;
+      return team;
+   end;
+
+end; -- class TEAM
+
+class FINALS_LADDER is
+
+   -- Write your routines between here and the end of the class.
+
+end; -- class FINALS_LADDER
