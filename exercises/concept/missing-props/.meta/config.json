@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "missing_props.sa"
+    ],
+    "test": [
+      "missing_props_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "errors",
+  "blurb": "Learn about exceptions by running the props table for a school play."
+}

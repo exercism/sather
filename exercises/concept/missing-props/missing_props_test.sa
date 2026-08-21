@@ -1,0 +1,57 @@
+class MISSING_PROPS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("MISSING_PROPS");
+
+      props ::= #FMAP{STR,INT};
+      props := props.insert("crown", 2);
+      props := props.insert("lantern", 0);
+      props := props.insert("letter", 5);
+
+      test("two crowns", MISSING_PROPS::count_of(props, "crown"), 2);
+      test("no lanterns left", MISSING_PROPS::count_of(props, "lantern"), 0);
+      test("five letters", MISSING_PROPS::count_of(props, "letter"), 5);
+
+      protect
+         ignored ::= MISSING_PROPS::count_of(props, "sword");
+         test("an unknown prop raises",
+              "no exception raised", "Unknown prop: sword");
+      when $STR then
+         test("an unknown prop raises",
+              exception.str, "Unknown prop: sword");
+      end;
+
+      test("taking a crown", MISSING_PROPS::take_one(props, "crown"), 1);
+      test("taking a letter", MISSING_PROPS::take_one(props, "letter"), 4);
+
+      protect
+         ignored ::= MISSING_PROPS::take_one(props, "lantern");
+         test("taking what has run out raises",
+              "no exception raised", "Out of lantern");
+      when $STR then
+         test("taking what has run out raises",
+              exception.str, "Out of lantern");
+      end;
+
+      protect
+         ignored ::= MISSING_PROPS::take_one(props, "sword");
+         test("taking an unknown prop raises through",
+              "no exception raised", "Unknown prop: sword");
+      when $STR then
+         test("taking an unknown prop raises through",
+              exception.str, "Unknown prop: sword");
+      end;
+
+      test("reporting a prop that is there",
+           MISSING_PROPS::report(props, "crown"), "Took crown, 1 left");
+      test("reporting the last of a prop",
+           MISSING_PROPS::report(props, "letter"), "Took letter, 4 left");
+      test("reporting one that has run out",
+           MISSING_PROPS::report(props, "lantern"), "Out of lantern");
+      test("reporting one nobody has heard of",
+           MISSING_PROPS::report(props, "sword"), "Unknown prop: sword");
+
+      finish;
+   end;
+end; -- class MISSING_PROPS_TEST

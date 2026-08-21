@@ -197,6 +197,30 @@
           "case-statements"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "field-guide",
+        "name": "Field Guide",
+        "uuid": "9cfda443-a98c-4926-961a-d59cf319e721",
+        "concepts": [
+          "maps-and-sets"
+        ],
+        "prerequisites": [
+          "case-statements"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "missing-props",
+        "name": "Missing Props",
+        "uuid": "c30bd4df-e666-4bf6-b600-7d1fbfba47d1",
+        "concepts": [
+          "exceptions"
+        ],
+        "prerequisites": [
+          "classes-with-state"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -280,6 +304,16 @@
       "uuid": "4ef2257d-82da-46b7-afb9-6a428c3833d2",
       "slug": "classes-with-state",
       "name": "Classes with State"
+    },
+    {
+      "uuid": "438913e8-0871-4bf4-a479-e179707a1056",
+      "slug": "maps-and-sets",
+      "name": "Maps and Sets"
+    },
+    {
+      "uuid": "1b5bd661-1709-413f-829b-4bca17c768e4",
+      "slug": "exceptions",
+      "name": "Exceptions"
     }
   ],
   "key_features": [],

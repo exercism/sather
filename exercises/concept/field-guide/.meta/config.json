@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "field_guide.sa"
+    ],
+    "test": [
+      "field_guide_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "pal-picker",
+  "blurb": "Learn about maps and sets by keeping a field guide to Australian animals."
+}

@@ -1,0 +1,37 @@
+class FIELD_GUIDE is
+
+   is_listed(guide : FMAP{STR,STR}, animal : STR) : BOOL is
+      return guide.has_ind(animal);
+   end;
+
+   habitat_of(guide : FMAP{STR,STR}, animal : STR) : STR is
+      -- Ask before fetching: get on a missing key answers a void string,
+      -- which would not fail here but somewhere else later.
+      if guide.has_ind(animal) then
+         return guide.get(animal);
+      else
+         return "Unknown";
+      end;
+   end;
+
+   add_entry(guide : FMAP{STR,STR}, animal, habitat : STR)
+         : FMAP{STR,STR} is
+      -- insert answers the map to use from now on, which is usually the one
+      -- handed in, changed in place. Returning the answer is what matters.
+      return guide.insert(animal, habitat);
+   end;
+
+   entry_count(guide : FMAP{STR,STR}) : INT is
+      return guide.size;
+   end;
+
+   all_habitats(guide : FMAP{STR,STR}) : FSET{STR} is
+      habitats ::= #FSET{STR};
+      loop
+         -- A set keeps one copy, so shared habitats need no handling.
+         habitats := habitats.insert(guide.target!);
+      end;
+      return habitats;
+   end;
+
+end; -- class FIELD_GUIDE
