@@ -269,6 +269,30 @@
           "abstract-classes"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "bush-walk",
+        "name": "Bush Walk",
+        "uuid": "64b36bde-2ac7-45c6-9e24-be5d8f7cc379",
+        "concepts": [
+          "custom-iterators"
+        ],
+        "prerequisites": [
+          "code-inclusion"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "lost-property",
+        "name": "Lost Property",
+        "uuid": "2a2882de-451c-4563-881d-28d661c703a5",
+        "concepts": [
+          "generic-classes"
+        ],
+        "prerequisites": [
+          "code-inclusion"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -382,6 +406,16 @@
       "uuid": "38381813-b931-4793-89f9-244a97b2066b",
       "slug": "code-inclusion",
       "name": "Code Inclusion"
+    },
+    {
+      "uuid": "963a400c-cc1c-4921-9262-095b3d504922",
+      "slug": "custom-iterators",
+      "name": "Custom Iterators"
+    },
+    {
+      "uuid": "be022748-df06-422e-a501-fdd06ef96404",
+      "slug": "generic-classes",
+      "name": "Generic Classes"
     }
   ],
   "key_features": [],

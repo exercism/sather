@@ -1,0 +1,93 @@
+class BUSH_WALK_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("BUSH_WALK");
+
+      -- An iterator can only be called inside a loop, so each check
+      -- collects what it gives into a string first.
+
+      markers ::= #FSTR;
+      loop markers := markers + BUSH_WALK::markers!(100, 3) + " "; end;
+      test("three markers a hundred apart",
+           markers.str, "100 200 300 ");
+
+      wide ::= #FSTR;
+      loop wide := wide + BUSH_WALK::markers!(250, 2) + " "; end;
+      test("two markers further apart", wide.str, "250 500 ");
+
+      none ::= #FSTR;
+      loop none := none + BUSH_WALK::markers!(100, 0) + " "; end;
+      test("no markers at all", none.str, "");
+
+      one ::= #FSTR;
+      loop one := one + BUSH_WALK::markers!(50, 1) + " "; end;
+      test("a single marker", one.str, "50 ");
+
+      stopped ::= #FSTR;
+      loop
+         stopped := stopped
+            + BUSH_WALK::until_end!(|"gum", "wattle", "end", "banksia"|)
+            + " ";
+      end;
+      test("stops at the end and does not give it",
+           stopped.str, "gum wattle ");
+
+      no_end ::= #FSTR;
+      loop
+         no_end := no_end
+            + BUSH_WALK::until_end!(|"gum", "wattle"|) + " ";
+      end;
+      test("gives everything when there is no end",
+           no_end.str, "gum wattle ");
+
+      straight ::= #FSTR;
+      loop
+         straight := straight + BUSH_WALK::until_end!(|"end", "gum"|) + " ";
+      end;
+      test("stops before giving anything", straight.str, "");
+
+      birds ::= #FSTR;
+      loop
+         birds := birds
+            + BUSH_WALK::birds!(|"gum", "Emu", "wattle", "Galah"|) + " ";
+      end;
+      test("only the capitalised sightings", birds.str, "Emu Galah ");
+
+      no_birds ::= #FSTR;
+      loop
+         no_birds := no_birds + BUSH_WALK::birds!(|"gum", "wattle"|) + " ";
+      end;
+      test("no birds at all", no_birds.str, "");
+
+      all_birds ::= #FSTR;
+      loop
+         all_birds := all_birds + BUSH_WALK::birds!(|"Emu", "Galah"|) + " ";
+      end;
+      test("nothing but birds", all_birds.str, "Emu Galah ");
+
+      numbered ::= #FSTR;
+      loop
+         numbered := numbered + BUSH_WALK::numbered!(|"gum", "Emu"|) + " ";
+      end;
+      test("numbered from one", numbered.str, "1. gum 2. Emu ");
+
+      numbered_one ::= #FSTR;
+      loop
+         numbered_one := numbered_one
+            + BUSH_WALK::numbered!(|"gum"|) + " ";
+      end;
+      test("numbering a single sighting", numbered_one.str, "1. gum ");
+
+      -- Two calls to the same iterator in one loop are two separate walks.
+      paired ::= #FSTR;
+      loop
+         paired := paired + BUSH_WALK::markers!(10, 4)
+                          + "/" + BUSH_WALK::markers!(10, 4) + " ";
+      end;
+      test("each call site keeps its own place",
+           paired.str, "10/10 20/20 30/30 40/40 ");
+
+      finish;
+   end;
+end; -- class BUSH_WALK_TEST

@@ -1,0 +1,6 @@
+class BUSH_WALK is
+
+   -- Write your iterators between here and the end of the class.
+   -- Every one of them has a name ending in "!".
+
+end; -- class BUSH_WALK

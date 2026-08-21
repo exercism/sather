@@ -1,0 +1,36 @@
+class LOST_BOX{T < $STR} is
+   -- The constraint is what lets item.str be called in describe. Without
+   -- it nothing is known about a T beyond being able to move it about.
+
+   attr item : T;
+   readonly attr handed_in_by : STR;
+   readonly attr claimed : BOOL;
+
+   create(thing : T, who : STR) : SAME is
+      box ::= new;
+      box.item := thing;
+      box.handed_in_by := who;
+      -- claimed is left alone: a BOOL attribute starts false.
+      return box;
+   end;
+
+   claim is
+      claimed := true;
+   end;
+
+   waiting : BOOL is
+      return ~claimed;
+   end;
+
+   replace(thing : T) : T is
+      -- Keep the old one before overwriting, or it is gone.
+      was ::= item;
+      item := thing;
+      return was;
+   end;
+
+   describe : STR is
+      return item.str + ", handed in by " + handed_in_by;
+   end;
+
+end; -- class LOST_BOX{T}

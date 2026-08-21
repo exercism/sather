@@ -1,0 +1,8 @@
+class LOST_BOX{T} is
+
+   -- Write create, claim, claimed, waiting, replace and describe between
+   -- here and the end of the class.
+   --
+   -- Task 5 needs the class header above changed. The instructions say how.
+
+end; -- class LOST_BOX{T}

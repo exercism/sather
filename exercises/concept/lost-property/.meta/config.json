@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "lost_property.sa"
+    ],
+    "test": [
+      "lost_property_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "sorting-room",
+  "blurb": "Learn about generic classes by running the school lost property office."
+}
