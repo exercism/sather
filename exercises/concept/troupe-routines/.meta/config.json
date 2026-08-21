@@ -1,0 +1,20 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "troupe_routines.sa"
+    ],
+    "test": [
+      "troupe_routines_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "blurb": "Learn how Sather reuses code by choreographing a dance troupe."
+}

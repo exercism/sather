@@ -1,0 +1,34 @@
+class WARM_UP is
+
+   counts : INT is return 8; end;
+
+   describe : STR is return counts.str + " counts"; end;
+
+end; -- class WARM_UP
+
+class JAZZ_ROUTINE is
+
+   -- Everything, unchanged.
+   include WARM_UP;
+
+end; -- class JAZZ_ROUTINE
+
+class TAP_ROUTINE is
+
+   -- describe is left out, which is what makes room for the one below.
+   include WARM_UP describe -> ;
+
+   describe : STR is return "Tap: " + counts + " counts"; end;
+
+end; -- class TAP_ROUTINE
+
+class FINALE is
+
+   -- counts arrives under another name, so this class can have its own.
+   include WARM_UP counts -> warm_up_counts, describe -> ;
+
+   counts : INT is return warm_up_counts * 2; end;
+
+   describe : STR is return "Finale: " + counts + " counts"; end;
+
+end; -- class FINALE

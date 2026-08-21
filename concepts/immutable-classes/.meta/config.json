@@ -1,0 +1,7 @@
+{
+  "blurb": "Values rather than objects: copied when assigned, never void, and never changed.",
+  "authors": [
+    "keiravillekode"
+  ],
+  "contributors": []
+}

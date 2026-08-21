@@ -1,0 +1,31 @@
+class TROUPE_ROUTINES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("TROUPE_ROUTINES");
+
+      test("the warm up counts", WARM_UP::counts, 8);
+      test("the warm up describes itself", WARM_UP::describe, "8 counts");
+
+      test("jazz takes the counts", JAZZ_ROUTINE::counts, 8);
+      test("jazz takes the description",
+           JAZZ_ROUTINE::describe, "8 counts");
+
+      test("tap takes the counts", TAP_ROUTINE::counts, 8);
+      test("tap describes itself its own way",
+           TAP_ROUTINE::describe, "Tap: 8 counts");
+
+      test("the finale keeps the warm up counts under its own name",
+           FINALE::warm_up_counts, 8);
+      test("the finale doubles them", FINALE::counts, 16);
+      test("and describes itself with the doubled figure",
+           FINALE::describe, "Finale: 16 counts");
+
+      -- Including a class does not change it.
+      test("the warm up is untouched by any of it", WARM_UP::counts, 8);
+      test("and still describes itself the same way",
+           WARM_UP::describe, "8 counts");
+
+      finish;
+   end;
+end; -- class TROUPE_ROUTINES_TEST

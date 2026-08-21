@@ -1,0 +1,9 @@
+class WARM_UP is
+
+   counts : INT is return 8; end;
+
+   describe : STR is return counts.str + " counts"; end;
+
+end; -- class WARM_UP
+
+-- Write JAZZ_ROUTINE, TAP_ROUTINE and FINALE below.

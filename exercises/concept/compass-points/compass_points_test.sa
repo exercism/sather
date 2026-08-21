@@ -1,0 +1,57 @@
+class COMPASS_POINTS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("BEARING");
+
+      test("due north", #BEARING(0).degrees, 0);
+      test("due east", #BEARING(90).degrees, 90);
+      test("the last degree", #BEARING(359).degrees, 359);
+      test("right round", #BEARING(360).degrees, 0);
+      test("past north", #BEARING(370).degrees, 10);
+      test("back past north", #BEARING((-10)).degrees, 350);
+      test("a long way round", #BEARING(725).degrees, 5);
+
+      test("turning within the circle",
+           #BEARING(90).turned(45).degrees, 135);
+      test("turning past north",
+           #BEARING(350).turned(20).degrees, 10);
+      test("turning back past north",
+           #BEARING(10).turned((-20)).degrees, 350);
+      test("turning not at all",
+           #BEARING(90).turned(0).degrees, 90);
+
+      original ::= #BEARING(350);
+      turned ::= original.turned(20);
+      test("the turned bearing is new", turned.degrees, 10);
+      test("the original is untouched", original.degrees, 350);
+
+      test("the same bearing", (#BEARING(10) = #BEARING(10)), true);
+      test("the same after coming round",
+           (#BEARING(10) = #BEARING(370)), true);
+      test("different bearings",
+           (#BEARING(10) = #BEARING(11)), false);
+
+      test("north", #BEARING(0).point, "N");
+      test("just short of north east", #BEARING(22).point, "N");
+      test("just into north east", #BEARING(23).point, "NE");
+      test("north east", #BEARING(45).point, "NE");
+      test("east", #BEARING(90).point, "E");
+      test("south east", #BEARING(135).point, "SE");
+      test("south", #BEARING(180).point, "S");
+      test("still south at 200", #BEARING(200).point, "S");
+      test("just into south west", #BEARING(203).point, "SW");
+      test("south west", #BEARING(225).point, "SW");
+      test("west", #BEARING(270).point, "W");
+      test("north west", #BEARING(315).point, "NW");
+      test("round to north again", #BEARING(350).point, "N");
+      test("the last degree is north", #BEARING(359).point, "N");
+
+      test("written down", #BEARING(90).str, "90 degrees (E)");
+      test("written down at north", #BEARING(0).str, "0 degrees (N)");
+      test("written down south west",
+           #BEARING(225).str, "225 degrees (SW)");
+
+      finish;
+   end;
+end; -- class COMPASS_POINTS_TEST

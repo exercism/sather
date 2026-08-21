@@ -1,0 +1,45 @@
+immutable class BEARING is
+
+   readonly attr degrees : INT;
+
+   create(d : INT) : SAME is
+      -- No new: an immutable object always exists, with every attribute at
+      -- its empty value.
+      b : SAME;
+      -- Sather's % never answers negative for a positive right-hand side,
+      -- so this brings -10 round to 350 on its own.
+      return b.degrees(d % 360);
+   end;
+
+   turned(by : INT) : SAME is
+      -- Answers a new bearing; the one this was called on is untouched.
+      return #BEARING(degrees + by);
+   end;
+
+   is_eq(other : SAME) : BOOL is
+      return degrees = other.degrees;
+   end;
+
+   point : STR is
+      -- Shift by half a segment first, so each point is measured from its
+      -- centre rather than its edge.
+      case ((degrees + 22) / 45) % 8
+      when 0 then return "N";
+      when 1 then return "NE";
+      when 2 then return "E";
+      when 3 then return "SE";
+      when 4 then return "S";
+      when 5 then return "SW";
+      when 6 then return "W";
+      when 7 then return "NW";
+      else return "N";
+      end;
+   end;
+
+   str : STR is
+      -- degrees.str, not degrees: a string may have a number added to it,
+      -- but a number may not have a string added to it.
+      return degrees.str + " degrees (" + point + ")";
+   end;
+
+end; -- class BEARING

@@ -1,0 +1,8 @@
+immutable class BEARING is
+
+   readonly attr degrees : INT;
+
+   -- Write create, turned, is_eq, point and str between here and the end
+   -- of the class.
+
+end; -- class BEARING

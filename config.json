@@ -245,6 +245,30 @@
           "classes-with-state"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "compass-points",
+        "name": "Compass Points",
+        "uuid": "55a2f91c-a4e4-4109-a32d-95b4c98aab76",
+        "concepts": [
+          "immutable-classes"
+        ],
+        "prerequisites": [
+          "classes-with-state"
+        ],
+        "status": "beta"
+      },
+      {
+        "slug": "troupe-routines",
+        "name": "Troupe Routines",
+        "uuid": "25b432e9-9a4a-49c1-a08f-dfedd4eed965",
+        "concepts": [
+          "code-inclusion"
+        ],
+        "prerequisites": [
+          "abstract-classes"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -348,6 +372,16 @@
       "uuid": "9aab6704-8d44-48ca-8a30-fd8a45244bf4",
       "slug": "abstract-classes",
       "name": "Abstract Classes"
+    },
+    {
+      "uuid": "d8818a6a-34a2-41c2-aa29-e56f5a9dec25",
+      "slug": "immutable-classes",
+      "name": "Immutable Classes"
+    },
+    {
+      "uuid": "38381813-b931-4793-89f9-244a97b2066b",
+      "slug": "code-inclusion",
+      "name": "Code Inclusion"
     }
   ],
   "key_features": [],

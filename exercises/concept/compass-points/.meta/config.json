@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "compass_points.sa"
+    ],
+    "test": [
+      "compass_points_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "exercism_test.sa"
+    ]
+  },
+  "icon": "maps",
+  "blurb": "Learn about immutable classes by taking compass bearings on a New Zealand tramp."
+}
