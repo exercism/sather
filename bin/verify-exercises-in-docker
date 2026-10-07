@@ -44,7 +44,7 @@ run_tests() {
         --mount type=bind,src="${PWD}",dst=/solution \
         --mount type=bind,src="${PWD}",dst=/output \
         --mount type=tmpfs,dst=/tmp \
-        exercism/sather-test-runner "${slug}" /solution /output
+        exercism/sather-test-runner "${slug}" /solution /output || return 1
     jq -e '.status == "pass"' "${PWD}/results.json" >/dev/null 2>&1
 }
 
@@ -60,11 +60,11 @@ verify_exercise() {
 
     (
         trap 'rm -rf "$tmp_dir"' EXIT    # remove tempdir when subshell ends
-        cp -r "${dir}/." "${tmp_dir}"
-        cd "${tmp_dir}"
+        cp -r "${dir}/." "${tmp_dir}" || exit 1
+        cd "${tmp_dir}" || exit 1
 
-        copy_example_or_examplar_to_solution
-        run_tests "${slug}"
+        copy_example_or_examplar_to_solution || exit 1
+        run_tests "${slug}" || { cat results.json; exit 1; }
     )
 }
 
@@ -74,13 +74,20 @@ verify_exercises() {
 
     shopt -s nullglob
     count=0
+    failed=()
     for exercise_dir in ./exercises/{concept,practice}/${exercise_slug}/; do
         if [[ -d "${exercise_dir}" ]]; then
-            verify_exercise "${exercise_dir}"
+            verify_exercise "${exercise_dir}" || failed+=("$(basename "${exercise_dir}")")
             ((++count))
         fi
     done
     ((count > 0)) || die 'no matching exercises found!'
+
+    if ((${#failed[@]} > 0)); then
+        echo "${#failed[@]} of ${count} exercise(s) failed:" >&2
+        printf '  %s\n' "${failed[@]}" >&2
+        exit 1
+    fi
 }
 
 pull_docker_image
