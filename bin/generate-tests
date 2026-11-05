@@ -1,0 +1,391 @@
+#!/usr/bin/env python3
+"""Generate practice exercise test files from problem-specifications.
+
+For every practice exercise with a `.meta/template.j2`, this reads the
+exercise's canonical-data.json, keeps the cases that `.meta/tests.toml`
+includes, appends any track-specific cases from
+`.meta/additional-test-cases.json`, and renders the template to the
+exercise's test file (as named in `.meta/config.json`).
+
+The shared macros and the Sather literal filters are documented in
+generator/README.md.
+
+Usage:
+    bin/generate-tests                  generate every exercise with a template
+    bin/generate-tests leap hamming     generate the named exercises
+    bin/generate-tests --check          fail if any test file is out of date
+
+problem-specifications is found, in order, at --spec-path, at
+$PROBLEM_SPECIFICATIONS, or in configlet's cache (populated by any
+`bin/configlet sync` run).
+"""
+
+import argparse
+import difflib
+import json
+import os
+import re
+import sys
+import tomllib
+from pathlib import Path
+
+try:
+    import jinja2
+except ModuleNotFoundError:
+    sys.exit("bin/generate-tests needs Jinja2: pip install -r generator/requirements.txt")
+
+TRACK = Path(__file__).resolve().parent.parent
+PRACTICE = TRACK / "exercises" / "practice"
+GENERATOR = TRACK / "generator"
+PROBSPECS_URL = "https://github.com/exercism/problem-specifications/blob/main/exercises"
+
+INT_MIN = -(2**31)
+INT_MAX = 2**31 - 1
+
+
+class GeneratorError(Exception):
+    pass
+
+
+# --------------------------------------------------------------------------
+# Locating and reading the data
+
+
+def find_problem_specifications(explicit):
+    candidates = []
+    if explicit:
+        candidates.append(Path(explicit))
+    if os.environ.get("PROBLEM_SPECIFICATIONS"):
+        candidates.append(Path(os.environ["PROBLEM_SPECIFICATIONS"]))
+    cache = os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache"
+    candidates.append(Path(cache) / "exercism" / "configlet" / "problem-specifications")
+    for path in candidates:
+        if (path / "exercises").is_dir():
+            return path
+    raise GeneratorError(
+        "could not find problem-specifications; run `bin/fetch-configlet && "
+        "bin/configlet sync` to populate configlet's cache, or pass --spec-path"
+    )
+
+
+def read_json(path):
+    with open(path, encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def flatten(cases, groups=()):
+    """Yield (group descriptions, leaf case) for nested canonical cases."""
+    for case in cases:
+        if "cases" in case:
+            yield from flatten(case["cases"], groups + (case["description"],))
+        else:
+            yield groups, case
+
+
+def prepare(case, groups, additional):
+    """Copy a leaf case and add the fields every template can rely on."""
+    case = dict(case)
+    for key in ("description", "property", "input", "expected"):
+        if key not in case:
+            raise GeneratorError(f"case {case.get('description')!r} has no {key!r}")
+    expected = case["expected"]
+    case["groups"] = list(groups)
+    case["full_description"] = " - ".join([*groups, case["description"]])
+    case["uuid"] = case.get("uuid")
+    case["scenarios"] = case.get("scenarios", [])
+    case["additional"] = additional
+    case["is_error"] = isinstance(expected, dict) and "error" in expected
+    case["error"] = expected["error"] if case["is_error"] else None
+    return case
+
+
+def load_cases(specs, exercise):
+    slug = exercise.name
+    canonical_path = specs / "exercises" / slug / "canonical-data.json"
+    additional_path = exercise / ".meta" / "additional-test-cases.json"
+    tests_path = exercise / ".meta" / "tests.toml"
+
+    canonical = read_json(canonical_path) if canonical_path.exists() else None
+    if canonical is None and not additional_path.exists():
+        raise GeneratorError(
+            f"no canonical data at {canonical_path} and no {additional_path.name}"
+        )
+
+    cases = []
+    if canonical is not None:
+        if not tests_path.exists():
+            raise GeneratorError(f"{tests_path} is missing; run bin/configlet sync --tests")
+        with open(tests_path, "rb") as handle:
+            tests = tomllib.load(handle)
+        unknown = []
+        for groups, case in flatten(canonical["cases"]):
+            entry = tests.get(case["uuid"])
+            if entry is None:
+                unknown.append(case["uuid"])
+            elif entry.get("include", True):
+                cases.append(prepare(case, groups, additional=False))
+        if unknown:
+            print(
+                f"  {slug}: {len(unknown)} canonical case(s) not in tests.toml; "
+                f"run bin/configlet sync --tests --exercise {slug}",
+                file=sys.stderr,
+            )
+
+    if additional_path.exists():
+        additional = read_json(additional_path)
+        if isinstance(additional, dict):
+            additional = additional.get("cases", [])
+        for groups, case in flatten(additional):
+            cases.append(prepare(case, groups, additional=True))
+
+    for index, case in enumerate(cases, start=1):
+        case["index"] = index
+    return canonical, cases
+
+
+# --------------------------------------------------------------------------
+# Filters: JSON values to Sather source
+
+
+def sa_str(value):
+    """A STR literal; None becomes void."""
+    if value is None:
+        return "void"
+    escapes = {"\\": "\\\\", '"': '\\"', "\n": "\\n", "\t": "\\t", "\r": "\\r"}
+    return '"' + "".join(escapes.get(ch, ch) for ch in str(value)) + '"'
+
+
+def sa_char(value):
+    """A CHAR literal from a one-character string."""
+    if not isinstance(value, str) or len(value.encode("utf-8")) != 1:
+        raise GeneratorError(f"sa_char needs a single ASCII character, got {value!r}")
+    escapes = {"\\": "\\\\", "'": "\\'", "\n": "\\n", "\t": "\\t", "\r": "\\r"}
+    return "'" + escapes.get(value, value) + "'"
+
+
+def sa_int(value):
+    """An INT literal. Negative values are parenthesised, as Sather needs
+    them to be in argument lists and array literals."""
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise GeneratorError(f"sa_int needs an integer, got {value!r}")
+    if not INT_MIN <= value <= INT_MAX:
+        raise GeneratorError(f"{value} does not fit in a 32-bit INT; use sa_inti")
+    return f"({value})" if value < 0 else str(value)
+
+
+def sa_inti(value):
+    """An INTI (arbitrary precision) expression."""
+    return f'#INTI("{int(value)}")'
+
+
+def _float_text(value):
+    text = repr(float(value))
+    mantissa, _, exponent = text.partition("e")
+    if "." not in mantissa:
+        mantissa += ".0"
+    return mantissa + ("e" + exponent.lstrip("+") if exponent else "")
+
+
+def sa_flt(value):
+    text = _float_text(value)
+    return f"({text})" if float(value) < 0 else text
+
+
+def sa_fltd(value):
+    text = _float_text(value) + "d"
+    return f"({text})" if float(value) < 0 else text
+
+
+def sa_bool(value):
+    if not isinstance(value, bool):
+        raise GeneratorError(f"sa_bool needs a boolean, got {value!r}")
+    return "true" if value else "false"
+
+
+def sa_type(value):
+    """The Sather type that `sa` renders a JSON value as."""
+    if isinstance(value, bool):
+        return "BOOL"
+    if isinstance(value, int):
+        return "INT"
+    if isinstance(value, float):
+        return "FLTD"
+    if isinstance(value, str):
+        return "STR"
+    if isinstance(value, list):
+        if not value:
+            raise GeneratorError("cannot infer the element type of an empty list")
+        return "ARRAY{" + sa_type(value[0]) + "}"
+    raise GeneratorError(f"no Sather type for {value!r}")
+
+
+def sa_as(value, type_name):
+    """Render a JSON value as the named Sather type, e.g. an integer as FLTD."""
+    scalar = {"INT": sa_int, "INTI": sa_inti, "FLT": sa_flt, "FLTD": sa_fltd,
+              "BOOL": sa_bool, "STR": sa_str, "CHAR": sa_char}
+    if type_name in scalar:
+        return scalar[type_name](value)
+    if type_name.startswith("ARRAY{") and type_name.endswith("}"):
+        return sa_array(value, type_name[len("ARRAY{"):-1])
+    raise GeneratorError(f"sa_as does not know the type {type_name}")
+
+
+def sa_array(values, elem=None):
+    """An ARRAY literal. `elem` names the element type, which then decides
+    how elements are rendered; it is needed for an empty array, and inferred
+    from the first element otherwise."""
+    if elem is None:
+        elem = sa_type(values[0]) if values else None
+    if not values:
+        if elem is None:
+            raise GeneratorError("an empty array needs its element type, as in sa('INT')")
+        return "#ARRAY{" + elem + "}(0)"
+    body = ", ".join(sa_as(v, elem) for v in values)
+    # Keep the bars of nested literals apart: | |1, 2|, |3| |
+    if body.startswith("|") or body.endswith("|"):
+        body = f" {body} "
+    return "|" + body + "|"
+
+
+def sa(value, elem=None):
+    """Render any JSON value as a Sather literal: null as void, booleans as
+    BOOL, integers as INT, floats as FLTD, strings as STR, lists as ARRAY.
+    `elem` gives the element type of a list (required when it is empty)."""
+    if value is None:
+        return "void"
+    if isinstance(value, bool):
+        return sa_bool(value)
+    if isinstance(value, int):
+        return sa_int(value)
+    if isinstance(value, float):
+        return sa_fltd(value)
+    if isinstance(value, str):
+        return sa_str(value)
+    if isinstance(value, list):
+        return sa_array(value, elem)
+    raise GeneratorError(f"no Sather literal for {value!r}; render it in the template")
+
+
+def map_str(mapping):
+    """An object's entries as "key=value" pairs in ascending key order,
+    joined by commas: the form the map_str() macro gives an FMAP."""
+    return ",".join(f"{key}={mapping[key]}" for key in sorted(mapping))
+
+
+def snake(name):
+    """lowerCamelCase property names to Sather snake_case routine names."""
+    name = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
+    return re.sub(r"[^A-Za-z0-9]+", "_", name).strip("_").lower()
+
+
+def upper_snake(name):
+    return snake(name).upper()
+
+
+# --------------------------------------------------------------------------
+# Rendering
+
+
+def environment(exercise):
+    env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader([exercise / ".meta", GENERATOR]),
+        trim_blocks=True,
+        lstrip_blocks=True,
+        keep_trailing_newline=True,
+        undefined=jinja2.StrictUndefined,
+    )
+    for f in (sa, sa_str, sa_char, sa_int, sa_inti, sa_flt, sa_fltd, sa_bool,
+              sa_array, sa_as, sa_type, map_str, snake, upper_snake):
+        env.filters[f.__name__] = f
+    env.tests["error"] = lambda case: case["is_error"]
+    env.tests["ascii"] = lambda s: str(s).isascii()
+    return env
+
+
+def tidy(text):
+    """Strip trailing whitespace and collapse runs of blank lines, so that
+    templates can be written for readability rather than exact spacing."""
+    lines = [line.rstrip() for line in text.strip("\n").splitlines()]
+    out = []
+    for line in lines:
+        if line or (out and out[-1]):
+            out.append(line)
+    return "\n".join(out) + "\n"
+
+
+def render(specs, exercise):
+    slug = exercise.name
+    config = read_json(exercise / ".meta" / "config.json")
+    canonical, cases = load_cases(specs, exercise)
+    solution_class = slug.replace("-", "_").upper()
+    context = {
+        "slug": slug,
+        "class_name": solution_class,
+        "test_class": solution_class + "_TEST",
+        "cases": cases,
+        "properties": sorted({case["property"] for case in cases}),
+        "canonical": canonical or {},
+        "canonical_url": f"{PROBSPECS_URL}/{slug}/canonical-data.json" if canonical else None,
+        "has_additional": any(case["additional"] for case in cases),
+    }
+    template = environment(exercise).get_template("template.j2")
+    test_file = exercise / config["files"]["test"][0]
+    return test_file, tidy(template.render(context)), len(cases)
+
+
+def exercises_to_generate(names):
+    if not names:
+        return sorted(p.parent.parent for p in PRACTICE.glob("*/.meta/template.j2"))
+    out = []
+    for name in names:
+        path = PRACTICE / Path(name).name
+        if not (path / ".meta" / "template.j2").exists():
+            raise GeneratorError(f"{path.relative_to(TRACK)}/.meta/template.j2 does not exist")
+        out.append(path)
+    return out
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("exercises", nargs="*", help="exercise slugs (default: all with a template)")
+    parser.add_argument("--check", action="store_true",
+                        help="report test files that differ from what would be generated")
+    parser.add_argument("-p", "--spec-path", help="path to a problem-specifications clone")
+    args = parser.parse_args()
+
+    try:
+        specs = find_problem_specifications(args.spec_path)
+        exercises = exercises_to_generate(args.exercises)
+    except GeneratorError as error:
+        sys.exit(f"bin/generate-tests: {error}")
+
+    failed = False
+    for exercise in exercises:
+        slug = exercise.name
+        try:
+            test_file, text, count = render(specs, exercise)
+        except (GeneratorError, jinja2.TemplateError) as error:
+            print(f"  {slug}: {type(error).__name__}: {error}", file=sys.stderr)
+            failed = True
+            continue
+        old = test_file.read_text(encoding="utf-8") if test_file.exists() else ""
+        rel = test_file.relative_to(TRACK)
+        if args.check:
+            if old != text:
+                failed = True
+                print(f"  {slug}: {rel} is out of date", file=sys.stderr)
+                sys.stderr.writelines(difflib.unified_diff(
+                    old.splitlines(True), text.splitlines(True),
+                    f"{rel} (current)", f"{rel} (generated)"))
+        elif old != text:
+            test_file.write_text(text, encoding="utf-8")
+            print(f"  {slug}: wrote {rel} ({count} cases)")
+        else:
+            print(f"  {slug}: up to date ({count} cases)")
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

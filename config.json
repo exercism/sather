@@ -354,6 +354,22 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1
+      },
+      {
+        "slug": "leap",
+        "name": "Leap",
+        "uuid": "4f42562e-a565-467f-b5f9-336c761fb1d2",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1
+      },
+      {
+        "slug": "two-fer",
+        "name": "Two-Fer",
+        "uuid": "e0b71083-663c-418d-998b-f378ee805e8a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1
       }
     ]
   },

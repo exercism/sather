@@ -5,3 +5,4 @@ bin/configlet.exe
 bin/latest-configlet.tar.gz
 bin/latest-configlet.zip
 bin/configlet.zip
+__pycache__/

@@ -67,3 +67,20 @@ Optionally, you can also specify the exercise's difficulty (via `-d`) and/or aut
 ```shell
 bin/add-practice-exercise -a foobar -d 3 <exercise-slug>
 ```
+
+The script copies in the test harness and, when the exercise has canonical data, a starting `.meta/template.j2`.
+
+## Generating tests
+
+Practice exercise test files are generated from [problem-specifications][problem-specifications] canonical data by `bin/generate-tests`, using each exercise's `.meta/template.j2`:
+
+```shell
+pip install -r generator/requirements.txt
+bin/generate-tests              # every exercise with a template
+bin/generate-tests leap         # one exercise
+bin/generate-tests --check      # report test files that are out of date
+```
+
+See [generator/README.md](generator/README.md) for how templates are written.
+
+[problem-specifications]: https://github.com/exercism/problem-specifications

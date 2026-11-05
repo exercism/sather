@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Synopsis:
+# Sort the practice exercises in config.json by difficulty, then by
+# case-insensitive name. CI checks this order (.github/workflows/sorted.yml).
+
+# Example:
+# bin/reorder-exercises
+
+set -euo pipefail
+
+die() { echo >&2 "$*"; exit 1; }
+
+command -v jq >/dev/null 2>&1 ||
+    die "jq is required but not installed. Please install it and make sure it's in your PATH."
+
+[[ -f config.json ]] || die "Run this script from the repo's root directory."
+
+jq '.exercises.practice |= sort_by(.difficulty, (.name | ascii_downcase))' config.json > config.json.tmp &&
+    mv config.json.tmp config.json
