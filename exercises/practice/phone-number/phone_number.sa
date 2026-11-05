@@ -1,0 +1,16 @@
+class PHONE_NUMBER is
+
+   clean(phrase : STR) : STR is
+      -- The ten digits of a NANP number, with punctuation and an optional
+      -- leading country code of 1 removed.
+      --
+      -- Raise, in this order of checking: "letters not permitted",
+      -- "punctuations not permitted", "must not be fewer than 10 digits",
+      -- "must not be greater than 11 digits", "11 digits must start with 1",
+      -- "area code cannot start with zero", "area code cannot start with
+      -- one", "exchange code cannot start with zero", "exchange code cannot
+      -- start with one".
+      return "";
+   end;
+
+end; -- class PHONE_NUMBER

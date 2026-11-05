@@ -1,0 +1,10 @@
+class NUCLEOTIDE_COUNT is
+
+   counts(strand : STR) : FMAP{STR,INT} is
+      -- How many of each nucleotide the strand holds. The map always has
+      -- all four keys "A", "C", "G" and "T", even when the count is nought.
+      -- Raise "Invalid nucleotide in strand" for any other character.
+      return #FMAP{STR,INT};
+   end;
+
+end; -- class NUCLEOTIDE_COUNT

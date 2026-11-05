@@ -1,0 +1,26 @@
+class PRIME_FACTORS is
+
+   factors(number : INT) : ARRAY{INT} is
+      found : FLIST{INT} := #FLIST{INT};
+      n ::= number;
+      d ::= 2;
+      loop
+         until!(d * d > n);
+         loop
+            until!(n % d /= 0);
+            found := found.push(d);
+            n := n / d;
+         end;
+         d := d + 1;
+      end;
+      if n > 1 then found := found.push(n) end;
+
+      res : ARRAY{INT} := #ARRAY{INT}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[i];
+      end;
+      return res;
+   end;
+
+end; -- class PRIME_FACTORS

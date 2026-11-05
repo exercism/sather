@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      stones_{{ case.index }} : ARRAY{ARRAY{INT}} := {{ case.input.dominoes | sa("ARRAY{INT}") }};
+{{ m.test(case, "DOMINOES::can_chain(stones_" ~ case.index ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

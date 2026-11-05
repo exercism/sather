@@ -1,0 +1,21 @@
+class RNA_TRANSCRIPTION_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("RNA_TRANSCRIPTION");
+
+      test("Empty RNA sequence", RNA_TRANSCRIPTION::to_rna(""), "");
+
+      test("RNA complement of cytosine is guanine", RNA_TRANSCRIPTION::to_rna("C"), "G");
+
+      test("RNA complement of guanine is cytosine", RNA_TRANSCRIPTION::to_rna("G"), "C");
+
+      test("RNA complement of thymine is adenine", RNA_TRANSCRIPTION::to_rna("T"), "A");
+
+      test("RNA complement of adenine is uracil", RNA_TRANSCRIPTION::to_rna("A"), "U");
+
+      test("RNA complement", RNA_TRANSCRIPTION::to_rna("ACGTGGTCTTAA"), "UGCACCAGAAUU");
+
+      finish;
+   end;
+end; -- class RNA_TRANSCRIPTION_TEST

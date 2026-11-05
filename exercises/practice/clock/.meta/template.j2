@@ -1,0 +1,16 @@
+{% import "macros.j2" as m with context %}
+{% macro clock(c) %}#CLOCK({{ c.hour | sa }}, {{ c.minute | sa }}){% endmacro %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% if case.property == "create" %}
+{{ m.test(case, clock(case.input) ~ ".str", case.expected | sa) }}
+{% elif case.property == "add" %}
+{{ m.test(case, clock(case.input) ~ ".plus(" ~ case.input.value | sa ~ ").str", case.expected | sa) }}
+{% elif case.property == "subtract" %}
+{{ m.test(case, clock(case.input) ~ ".minus(" ~ case.input.value | sa ~ ").str", case.expected | sa) }}
+{% else %}
+{{ m.test(case, "(" ~ clock(case.input.clock1) ~ " = " ~ clock(case.input.clock2) ~ ")", case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

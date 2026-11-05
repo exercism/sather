@@ -1,0 +1,17 @@
+class COLLATZ_CONJECTURE is
+
+   steps(number : INT) : INT is
+      if number < 1 then
+         raise "Only positive integers are allowed";
+      end;
+      n ::= number;
+      count ::= 0;
+      loop
+         until!(n = 1);
+         if n % 2 = 0 then n := n / 2 else n := 3 * n + 1 end;
+         count := count + 1;
+      end;
+      return count;
+   end;
+
+end; -- class COLLATZ_CONJECTURE

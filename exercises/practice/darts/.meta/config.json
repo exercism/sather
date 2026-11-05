@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "darts.sa"
+    ],
+    "test": [
+      "darts_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Calculate the points scored in a single toss of a Darts game.",
+  "source": "Inspired by an exercise created by a professor Della Paolera in Argentina"
+}

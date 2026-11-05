@@ -1,0 +1,10 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set items = case.input["items"] or [] %}
+      weights_{{ case.index }} : ARRAY{INT} := {{ items | map(attribute="weight") | list | sa("INT") }};
+      values_{{ case.index }} : ARRAY{INT} := {{ items | map(attribute="value") | list | sa("INT") }};
+{{ m.test(case, "KNAPSACK::maximum_value(weights_" ~ case.index ~ ", values_" ~ case.index ~ ", " ~ case.input.maximumWeight | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

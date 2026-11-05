@@ -1,0 +1,31 @@
+class SCRABBLE_SCORE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SCRABBLE_SCORE");
+
+      test("lowercase letter", SCRABBLE_SCORE::score("a"), 1);
+
+      test("uppercase letter", SCRABBLE_SCORE::score("A"), 1);
+
+      test("valuable letter", SCRABBLE_SCORE::score("f"), 4);
+
+      test("short word", SCRABBLE_SCORE::score("at"), 2);
+
+      test("short, valuable word", SCRABBLE_SCORE::score("zoo"), 12);
+
+      test("medium word", SCRABBLE_SCORE::score("street"), 6);
+
+      test("medium, valuable word", SCRABBLE_SCORE::score("quirky"), 22);
+
+      test("long, mixed-case word", SCRABBLE_SCORE::score("OxyphenButazone"), 41);
+
+      test("english-like word", SCRABBLE_SCORE::score("pinata"), 8);
+
+      test("empty input", SCRABBLE_SCORE::score(""), 0);
+
+      test("entire alphabet available", SCRABBLE_SCORE::score("abcdefghijklmnopqrstuvwxyz"), 87);
+
+      finish;
+   end;
+end; -- class SCRABBLE_SCORE_TEST

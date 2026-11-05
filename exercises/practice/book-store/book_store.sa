@@ -1,0 +1,10 @@
+class BOOK_STORE is
+
+   total(basket : ARRAY{INT}) : INT is
+      -- Cheapest price in cents for a basket of book numbers 1..5.
+      -- Groups of distinct books are discounted: 2 books 5%, 3 books 10%,
+      -- 4 books 20%, 5 books 25%.
+      return 0;
+   end;
+
+end; -- class BOOK_STORE

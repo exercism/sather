@@ -1,0 +1,10 @@
+class SADDLE_POINTS is
+
+   saddle_points(matrix : ARRAY{ARRAY{INT}}) : ARRAY{ARRAY{INT}} is
+      -- Every position that is the largest in its row and the smallest in
+      -- its column, as an array of two-element arrays holding the row and
+      -- the column, both counted from one. Ordered by row, then column.
+      return #ARRAY{ARRAY{INT}}(0);
+   end;
+
+end; -- class SADDLE_POINTS

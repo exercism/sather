@@ -1,0 +1,39 @@
+class ATBASH_CIPHER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ATBASH_CIPHER");
+
+      test("encode - encode yes", ATBASH_CIPHER::encode("yes"), "bvh");
+
+      test("encode - encode no", ATBASH_CIPHER::encode("no"), "ml");
+
+      test("encode - encode OMG", ATBASH_CIPHER::encode("OMG"), "lnt");
+
+      test("encode - encode spaces", ATBASH_CIPHER::encode("O M G"), "lnt");
+
+      test("encode - encode mindblowingly", ATBASH_CIPHER::encode("mindblowingly"), "nrmwy oldrm tob");
+
+      test("encode - encode numbers", ATBASH_CIPHER::encode("Testing,1 2 3, testing."), "gvhgr mt123 gvhgr mt");
+
+      test("encode - encode deep thought", ATBASH_CIPHER::encode("Truth is fiction."), "gifgs rhurx grlm");
+
+      test("encode - encode all the letters", ATBASH_CIPHER::encode("The quick brown fox jumps over the lazy dog."), "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt");
+
+      test("decode - decode exercism", ATBASH_CIPHER::decode("vcvix rhn"), "exercism");
+
+      test("decode - decode a sentence", ATBASH_CIPHER::decode("zmlyh gzxov rhlug vmzhg vkkrm thglm v"), "anobstacleisoftenasteppingstone");
+
+      test("decode - decode numbers", ATBASH_CIPHER::decode("gvhgr mt123 gvhgr mt"), "testing123testing");
+
+      test("decode - decode all the letters", ATBASH_CIPHER::decode("gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"), "thequickbrownfoxjumpsoverthelazydog");
+
+      test("decode - decode with too many spaces", ATBASH_CIPHER::decode("vc vix    r hn"), "exercism");
+
+      test("decode - decode with no spaces", ATBASH_CIPHER::decode("zmlyhgzxovrhlugvmzhgvkkrmthglmv"), "anobstacleisoftenasteppingstone");
+
+      test("encode boundary characters", ATBASH_CIPHER::encode("/09:@AMNZ[`amnz{"), "09znm aznma");
+
+      finish;
+   end;
+end; -- class ATBASH_CIPHER_TEST

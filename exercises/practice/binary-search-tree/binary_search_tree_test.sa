@@ -1,0 +1,69 @@
+class BINARY_SEARCH_TREE_TEST is
+   include EXERCISM_TEST;
+
+   private tree_str(n : BINARY_SEARCH_TREE) : STR is
+      -- "(data left right)", with "." for an absent subtree.
+      if void(n) then return "." end;
+      return "(" + n.data + " " + tree_str(n.left) + " " + tree_str(n.right) + ")";
+   end;
+
+   main is
+      class_name("BINARY_SEARCH_TREE");
+
+      items_1 : ARRAY{STR} := |"4"|;
+      tree_1 ::= #BINARY_SEARCH_TREE(items_1);
+      test("data is retained", tree_str(tree_1), "(4 . .)");
+
+      items_2 : ARRAY{STR} := |"4", "2"|;
+      tree_2 ::= #BINARY_SEARCH_TREE(items_2);
+      test("insert data at proper node - smaller number at left node", tree_str(tree_2), "(4 (2 . .) .)");
+
+      items_3 : ARRAY{STR} := |"4", "4"|;
+      tree_3 ::= #BINARY_SEARCH_TREE(items_3);
+      test("insert data at proper node - same number at left node", tree_str(tree_3), "(4 (4 . .) .)");
+
+      items_4 : ARRAY{STR} := |"4", "5"|;
+      tree_4 ::= #BINARY_SEARCH_TREE(items_4);
+      test("insert data at proper node - greater number at right node", tree_str(tree_4), "(4 . (5 . .))");
+
+      items_5 : ARRAY{STR} := |"4", "2", "6", "1", "3", "5", "7"|;
+      tree_5 ::= #BINARY_SEARCH_TREE(items_5);
+      test("can create complex tree", tree_str(tree_5), "(4 (2 (1 . .) (3 . .)) (6 (5 . .) (7 . .)))");
+
+      items_6 : ARRAY{STR} := |"2"|;
+      tree_6 ::= #BINARY_SEARCH_TREE(items_6);
+      expected_6 : ARRAY{STR} := |"2"|;
+      test("can sort data - can sort single number", tree_6.sorted_data.str, expected_6.str);
+
+      items_7 : ARRAY{STR} := |"2", "1"|;
+      tree_7 ::= #BINARY_SEARCH_TREE(items_7);
+      expected_7 : ARRAY{STR} := |"1", "2"|;
+      test("can sort data - can sort if second number is smaller than first", tree_7.sorted_data.str, expected_7.str);
+
+      items_8 : ARRAY{STR} := |"2", "2"|;
+      tree_8 ::= #BINARY_SEARCH_TREE(items_8);
+      expected_8 : ARRAY{STR} := |"2", "2"|;
+      test("can sort data - can sort if second number is same as first", tree_8.sorted_data.str, expected_8.str);
+
+      items_9 : ARRAY{STR} := |"2", "3"|;
+      tree_9 ::= #BINARY_SEARCH_TREE(items_9);
+      expected_9 : ARRAY{STR} := |"2", "3"|;
+      test("can sort data - can sort if second number is greater than first", tree_9.sorted_data.str, expected_9.str);
+
+      items_10 : ARRAY{STR} := |"2", "1", "3", "6", "7", "5"|;
+      tree_10 ::= #BINARY_SEARCH_TREE(items_10);
+      expected_10 : ARRAY{STR} := |"1", "2", "3", "5", "6", "7"|;
+      test("can sort data - can sort complex tree", tree_10.sorted_data.str, expected_10.str);
+
+      items_11 : ARRAY{STR} := #ARRAY{STR}(0);
+      tree_11 ::= #BINARY_SEARCH_TREE(items_11);
+      test("empty input yields a leaf", tree_str(tree_11), ".");
+
+      items_12 : ARRAY{STR} := #ARRAY{STR}(0);
+      tree_12 ::= #BINARY_SEARCH_TREE(items_12);
+      expected_12 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("can sort empty input", tree_12.sorted_data.str, expected_12.str);
+
+      finish;
+   end;
+end; -- class BINARY_SEARCH_TREE_TEST

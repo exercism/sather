@@ -1,0 +1,57 @@
+class PIG_LATIN_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PIG_LATIN");
+
+      test("ay is added to words that start with vowels - word beginning with a", PIG_LATIN::translate("apple"), "appleay");
+
+      test("ay is added to words that start with vowels - word beginning with e", PIG_LATIN::translate("ear"), "earay");
+
+      test("ay is added to words that start with vowels - word beginning with i", PIG_LATIN::translate("igloo"), "iglooay");
+
+      test("ay is added to words that start with vowels - word beginning with o", PIG_LATIN::translate("object"), "objectay");
+
+      test("ay is added to words that start with vowels - word beginning with u", PIG_LATIN::translate("under"), "underay");
+
+      test("ay is added to words that start with vowels - word beginning with a vowel and followed by a qu", PIG_LATIN::translate("equal"), "equalay");
+
+      test("first letter and ay are moved to the end of words that start with consonants - word beginning with p", PIG_LATIN::translate("pig"), "igpay");
+
+      test("first letter and ay are moved to the end of words that start with consonants - word beginning with k", PIG_LATIN::translate("koala"), "oalakay");
+
+      test("first letter and ay are moved to the end of words that start with consonants - word beginning with x", PIG_LATIN::translate("xenon"), "enonxay");
+
+      test("first letter and ay are moved to the end of words that start with consonants - word beginning with q without a following u", PIG_LATIN::translate("qat"), "atqay");
+
+      test("first letter and ay are moved to the end of words that start with consonants - word beginning with consonant and vowel containing qu", PIG_LATIN::translate("liquid"), "iquidlay");
+
+      test("some letter clusters are treated like a single consonant - word beginning with ch", PIG_LATIN::translate("chair"), "airchay");
+
+      test("some letter clusters are treated like a single consonant - word beginning with qu", PIG_LATIN::translate("queen"), "eenquay");
+
+      test("some letter clusters are treated like a single consonant - word beginning with qu and a preceding consonant", PIG_LATIN::translate("square"), "aresquay");
+
+      test("some letter clusters are treated like a single consonant - word beginning with th", PIG_LATIN::translate("therapy"), "erapythay");
+
+      test("some letter clusters are treated like a single consonant - word beginning with thr", PIG_LATIN::translate("thrush"), "ushthray");
+
+      test("some letter clusters are treated like a single consonant - word beginning with sch", PIG_LATIN::translate("school"), "oolschay");
+
+      test("some letter clusters are treated like a single vowel - word beginning with yt", PIG_LATIN::translate("yttria"), "yttriaay");
+
+      test("some letter clusters are treated like a single vowel - word beginning with xr", PIG_LATIN::translate("xray"), "xrayay");
+
+      test("position of y in a word determines if it is a consonant or a vowel - y is treated like a consonant at the beginning of a word", PIG_LATIN::translate("yellow"), "ellowyay");
+
+      test("position of y in a word determines if it is a consonant or a vowel - y is treated like a vowel at the end of a consonant cluster", PIG_LATIN::translate("rhythm"), "ythmrhay");
+
+      test("position of y in a word determines if it is a consonant or a vowel - y as second letter in two letter word", PIG_LATIN::translate("my"), "ymay");
+
+      test("phrases are translated - a whole phrase", PIG_LATIN::translate("why do squids enjoy xrays"), "ywhay oday idssquay enjoyay xraysay");
+
+      test("phrase covering all four rules", PIG_LATIN::translate("shy yttrium qubits glow"), "yshay yttriumay bitsquay owglay");
+
+      finish;
+   end;
+end; -- class PIG_LATIN_TEST

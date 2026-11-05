@@ -1,0 +1,10 @@
+[
+  {
+    "description": "three digit prime",
+    "property": "convert",
+    "input": {
+      "number": 829
+    },
+    "expected": "829"
+  }
+]

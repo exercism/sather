@@ -1,0 +1,47 @@
+class PERFECT_NUMBERS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PERFECT_NUMBERS");
+
+      test("Perfect numbers - Smallest perfect number is classified correctly", PERFECT_NUMBERS::classify(6), "perfect");
+
+      test("Perfect numbers - Medium perfect number is classified correctly", PERFECT_NUMBERS::classify(28), "perfect");
+
+      test("Perfect numbers - Large perfect number is classified correctly", PERFECT_NUMBERS::classify(33550336), "perfect");
+
+      test("Abundant numbers - Smallest abundant number is classified correctly", PERFECT_NUMBERS::classify(12), "abundant");
+
+      test("Abundant numbers - Medium abundant number is classified correctly", PERFECT_NUMBERS::classify(30), "abundant");
+
+      test("Abundant numbers - Large abundant number is classified correctly", PERFECT_NUMBERS::classify(33550335), "abundant");
+
+      test("Abundant numbers - Perfect square abundant number is classified correctly", PERFECT_NUMBERS::classify(196), "abundant");
+
+      test("Deficient numbers - Smallest prime deficient number is classified correctly", PERFECT_NUMBERS::classify(2), "deficient");
+
+      test("Deficient numbers - Smallest non-prime deficient number is classified correctly", PERFECT_NUMBERS::classify(4), "deficient");
+
+      test("Deficient numbers - Medium deficient number is classified correctly", PERFECT_NUMBERS::classify(32), "deficient");
+
+      test("Deficient numbers - Large deficient number is classified correctly", PERFECT_NUMBERS::classify(33550337), "deficient");
+
+      test("Deficient numbers - Edge case (no factors other than itself) is classified correctly", PERFECT_NUMBERS::classify(1), "deficient");
+
+      protect
+         ignored ::= PERFECT_NUMBERS::classify(0);
+         test("Invalid inputs - Zero is rejected (as it is not a positive integer)", "no exception raised", "Classification is only possible for positive integers.");
+      when $STR then
+         test("Invalid inputs - Zero is rejected (as it is not a positive integer)", exception.str, "Classification is only possible for positive integers.");
+      end;
+
+      protect
+         ignored ::= PERFECT_NUMBERS::classify((-1));
+         test("Invalid inputs - Negative integer is rejected (as it is not a positive integer)", "no exception raised", "Classification is only possible for positive integers.");
+      when $STR then
+         test("Invalid inputs - Negative integer is rejected (as it is not a positive integer)", exception.str, "Classification is only possible for positive integers.");
+      end;
+
+      finish;
+   end;
+end; -- class PERFECT_NUMBERS_TEST

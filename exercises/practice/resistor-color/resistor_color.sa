@@ -1,0 +1,13 @@
+class RESISTOR_COLOR is
+
+   colors : ARRAY{STR} is
+      -- The resistor colours, in order.
+      return #ARRAY{STR}(0);
+   end;
+
+   color_code(color : STR) : INT is
+      -- The value of a single colour band.
+      return 0;
+   end;
+
+end; -- class RESISTOR_COLOR

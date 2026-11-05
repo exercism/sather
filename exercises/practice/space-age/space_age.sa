@@ -1,0 +1,9 @@
+class SPACE_AGE is
+
+   age(planet : STR, seconds : INT) : FLTD is
+      -- Age in years on the given planet, one Earth year being
+      -- 31557600 seconds. Raise a string exception for an unknown planet.
+      return 0.0d;
+   end;
+
+end; -- class SPACE_AGE

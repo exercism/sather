@@ -1,0 +1,83 @@
+class LIST_OPS is
+
+   append(first, second : ARRAY{INT}) : ARRAY{INT} is
+      answer : ARRAY{INT} := #ARRAY{INT}(first.size + second.size);
+      at ::= 0;
+      loop answer[at] := first.elt!; at := at + 1; end;
+      loop answer[at] := second.elt!; at := at + 1; end;
+      return answer;
+   end;
+
+   concat(lists : ARRAY{ARRAY{INT}}) : ARRAY{INT} is
+      total ::= 0;
+      loop total := total + lists.elt!.size; end;
+      answer : ARRAY{INT} := #ARRAY{INT}(total);
+      at ::= 0;
+      loop
+         list ::= lists.elt!;
+         loop answer[at] := list.elt!; at := at + 1; end;
+      end;
+      return answer;
+   end;
+
+   filter(list : ARRAY{INT}, keep : ROUT{INT}:BOOL) : ARRAY{INT} is
+      kept ::= #LIST{INT};
+      loop
+         entry ::= list.elt!;
+         if keep.call(entry) then kept.append(entry); end;
+      end;
+      answer : ARRAY{INT} := #ARRAY{INT}(kept.size);
+      loop
+         i ::= 0.upto!(kept.size - 1);
+         answer[i] := kept[i];
+      end;
+      return answer;
+   end;
+
+   length(list : ARRAY{INT}) : INT is
+      counted ::= 0;
+      loop
+         ignored ::= list.elt!;
+         counted := counted + 1;
+      end;
+      return counted;
+   end;
+
+   map(list : ARRAY{INT}, f : ROUT{INT}:INT) : ARRAY{INT} is
+      answer : ARRAY{INT} := #ARRAY{INT}(list.size);
+      loop
+         i ::= 0.upto!(list.size - 1);
+         answer[i] := f.call(list[i]);
+      end;
+      return answer;
+   end;
+
+   foldl(list : ARRAY{FLTD}, start : FLTD, f : ROUT{FLTD,FLTD}:FLTD)
+         : FLTD is
+      running ::= start;
+      loop running := f.call(running, list.elt!); end;
+      return running;
+   end;
+
+   foldr(list : ARRAY{FLTD}, start : FLTD, f : ROUT{FLTD,FLTD}:FLTD)
+         : FLTD is
+      running ::= start;
+      i ::= list.size - 1;
+      loop
+         until!(i < 0);
+         running := f.call(running, list[i]);
+         i := i - 1;
+      end;
+      return running;
+   end;
+
+   reverse(list : ARRAY{INT}) : ARRAY{INT} is
+      answer : ARRAY{INT} := #ARRAY{INT}(list.size);
+      loop
+         i ::= 0.upto!(list.size - 1);
+         answer[i] := list[list.size - 1 - i];
+      end;
+      return answer;
+   end;
+
+end; -- class LIST_OPS

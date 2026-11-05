@@ -1,0 +1,22 @@
+{% import "macros.j2" as m with context %}
+{# A canonical tree as tree_str renders one: "(value left right)", "." for none. #}
+{% macro tree(node) %}{% if not node %}.{% else %}({{ node.v }} {{ tree(node.l) }} {{ tree(node.r) }}){% endif %}{% endmacro %}
+{% call m.begin() %}
+   private tree_str(n : TREE_NODE) : STR is
+      -- "(value left right)", with "." for an absent subtree.
+      if void(n) then return "." end;
+      return "(" + n.v + " " + tree_str(n.l) + " " + tree_str(n.r) + ")";
+   end;
+{% endcall %}
+{% for case in cases %}
+
+      pre_{{ case.index }} : ARRAY{STR} := {{ case.input.preorder | sa("STR") }};
+      ino_{{ case.index }} : ARRAY{STR} := {{ case.input.inorder | sa("STR") }};
+{% set call = "SATELLITE::tree_from_traversals(pre_" ~ case.index ~ ", ino_" ~ case.index ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test(case, "tree_str(" ~ call ~ ")", tree(case.expected) | sa_str) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

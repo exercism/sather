@@ -1,0 +1,12 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set call = "PHONE_NUMBER::clean(" ~ case.input.phrase | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test(case, call, case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

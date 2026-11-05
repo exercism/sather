@@ -1,0 +1,68 @@
+class YACHT is
+
+   private tally(dice : ARRAY{INT}) : ARRAY{INT} is
+      -- counts[n] is how many dice show n. Index 0 is unused, so the
+      -- numbers line up with the faces.
+      counts : ARRAY{INT} := #ARRAY{INT}(7);
+      loop counts[dice.elt!] := counts[dice.elt!] + 1; end;
+      return counts;
+   end;
+
+   private total(dice : ARRAY{INT}) : INT is
+      sum ::= 0;
+      loop sum := sum + dice.elt!; end;
+      return sum;
+   end;
+
+   private number_score(dice : ARRAY{INT}, face : INT) : INT is
+      return tally(dice)[face] * face;
+   end;
+
+   score(dice : ARRAY{INT}, category : STR) : INT is
+      counts ::= tally(dice);
+      case category
+      when "ones" then return number_score(dice, 1);
+      when "twos" then return number_score(dice, 2);
+      when "threes" then return number_score(dice, 3);
+      when "fours" then return number_score(dice, 4);
+      when "fives" then return number_score(dice, 5);
+      when "sixes" then return number_score(dice, 6);
+      when "choice" then return total(dice);
+      when "yacht" then
+         loop
+            if counts[1.upto!(6)] = 5 then return 50; end;
+         end;
+         return 0;
+      when "four of a kind" then
+         loop
+            face ::= 1.upto!(6);
+            -- Five of a kind contains four of a kind.
+            if counts[face] >= 4 then return face * 4; end;
+         end;
+         return 0;
+      when "full house" then
+         has_three ::= false;
+         has_two ::= false;
+         loop
+            n ::= counts[1.upto!(6)];
+            if n = 3 then has_three := true; end;
+            if n = 2 then has_two := true; end;
+         end;
+         if has_three and has_two then return total(dice); end;
+         return 0;
+      when "little straight" then
+         loop
+            if counts[1.upto!(5)] /= 1 then return 0; end;
+         end;
+         return 30;
+      when "big straight" then
+         loop
+            if counts[2.upto!(6)] /= 1 then return 0; end;
+         end;
+         return 30;
+      else
+         return 0;
+      end;
+   end;
+
+end; -- class YACHT

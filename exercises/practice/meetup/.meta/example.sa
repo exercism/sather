@@ -1,0 +1,74 @@
+class MEETUP is
+
+   private is_leap(year : INT) : BOOL is
+      return year % 4 = 0 and (year % 100 /= 0 or year % 400 = 0);
+   end;
+
+   private days_in(year, month : INT) : INT is
+      lengths : ARRAY{INT} := |31, 28, 31, 30, 31, 30,
+                               31, 31, 30, 31, 30, 31|;
+      if month = 2 and is_leap(year) then return 29; end;
+      return lengths[month - 1];
+   end;
+
+   private weekday(year, month, day : INT) : INT is
+      -- Zeller's congruence, answering 0 for Sunday through 6 for
+      -- Saturday. January and February count as months 13 and 14 of the
+      -- year before, which is why the year is stepped back for them.
+      y ::= year;
+      m ::= month;
+      if m < 3 then m := m + 12; y := y - 1; end;
+      k ::= y % 100;
+      j ::= y / 100;
+      h ::= (day + 13 * (m + 1) / 5 + k + k / 4 + j / 4 + 5 * j) % 7;
+      -- Zeller answers 0 for Saturday, so shift to make Sunday 0.
+      return (h + 6) % 7;
+   end;
+
+   private day_number(name : STR) : INT is
+      case name
+      when "Sunday" then return 0;
+      when "Monday" then return 1;
+      when "Tuesday" then return 2;
+      when "Wednesday" then return 3;
+      when "Thursday" then return 4;
+      when "Friday" then return 5;
+      when "Saturday" then return 6;
+      else return 0;
+      end;
+   end;
+
+   private two(n : INT) : STR is
+      if n < 10 then return "0" + n; end;
+      return n.str;
+   end;
+
+   day(year, month : INT, week, dayofweek : STR) : STR is
+      wanted ::= day_number(dayofweek);
+      last ::= days_in(year, month);
+      -- Every day of the month that falls on the wanted weekday.
+      matches ::= #LIST{INT};
+      loop
+         d ::= 1.upto!(last);
+         if weekday(year, month, d) = wanted then matches.append(d); end;
+      end;
+      chosen ::= 0;
+      case week
+      when "first" then chosen := matches[0];
+      when "second" then chosen := matches[1];
+      when "third" then chosen := matches[2];
+      when "fourth" then chosen := matches[3];
+      when "last" then chosen := matches[matches.size - 1];
+      when "teenth" then
+         loop
+            d ::= matches.elt!;
+            -- Exactly one of the seven teenth days falls on any weekday.
+            if d >= 13 and d <= 19 then chosen := d; end;
+         end;
+      else
+         chosen := matches[0];
+      end;
+      return year.str + "-" + two(month) + "-" + two(chosen);
+   end;
+
+end; -- class MEETUP

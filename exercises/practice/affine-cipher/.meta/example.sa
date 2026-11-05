@@ -1,0 +1,73 @@
+class AFFINE_CIPHER is
+
+   const m : INT := 26;
+
+   private gcd(x, y : INT) : INT is
+      a ::= x; b ::= y;
+      loop
+         until!(b = 0);
+         t ::= a % b;
+         a := b;
+         b := t;
+      end;
+      return a;
+   end;
+
+   private check(a : INT) is
+      -- Without a and 26 coprime there is no inverse, so decode could not
+      -- undo encode and the cipher would lose information.
+      if gcd(a, m) /= 1 then raise "a and m must be coprime."; end;
+   end;
+
+   private inverse(a : INT) : INT is
+      -- 26 is small enough that searching beats the extended Euclidean
+      -- algorithm for clarity.
+      n ::= 1;
+      loop
+         until!(a * n % m = 1);
+         n := n + 1;
+      end;
+      return n;
+   end;
+
+   encode(phrase : STR, a, b : INT) : STR is
+      check(a);
+      plain ::= #FSTR;
+      loop
+         c ::= phrase.elt!;
+         if c.is_alpha then
+            x ::= c.lower.int - 'a'.int;
+            plain := plain + ('a'.int + (a * x + b) % m).char;
+         elsif c.is_digit then
+            plain := plain + c;
+         end;
+      end;
+      text ::= plain.str;
+      grouped ::= #FSTR;
+      loop
+         i ::= 0.upto!(text.size - 1);
+         if i > 0 and i % 5 = 0 then grouped := grouped + " "; end;
+         grouped := grouped + text[i];
+      end;
+      return grouped.str;
+   end;
+
+   decode(phrase : STR, a, b : INT) : STR is
+      check(a);
+      inv ::= inverse(a);
+      plain ::= #FSTR;
+      loop
+         c ::= phrase.elt!;
+         if c.is_alpha then
+            y ::= c.lower.int - 'a'.int;
+            -- + m before the last mod, since y - b may be negative.
+            x ::= inv * ((y - b) % m + m) % m;
+            plain := plain + ('a'.int + x).char;
+         elsif c.is_digit then
+            plain := plain + c;
+         end;
+      end;
+      return plain.str;
+   end;
+
+end; -- class AFFINE_CIPHER

@@ -1,0 +1,12 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set call = "SIEVE::primes(" ~ case.input.limit | sa ~ ")" %}
+{% if case.property == "countPrimes" %}
+{{ m.test(case, call ~ ".size", case.expected | sa) }}
+{% else %}
+{{ m.test_str(case, call, case.expected | sa("INT"), "ARRAY{INT}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

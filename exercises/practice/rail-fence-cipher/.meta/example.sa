@@ -1,0 +1,58 @@
+class RAIL_FENCE_CIPHER is
+
+   private pattern(length, rails : INT) : ARRAY{INT} is
+      -- Which rail each position of the message lands on: 0, 1, ... down
+      -- to the bottom rail, then back up, and so on.
+      rail_of : ARRAY{INT} := #ARRAY{INT}(length);
+      rail ::= 0;
+      step ::= 1;
+      loop
+         i ::= 0.upto!(length - 1);
+         rail_of[i] := rail;
+         if rails > 1 then
+            if rail = 0 then step := 1;
+            elsif rail = rails - 1 then step := -1;
+            end;
+            rail := rail + step;
+         end;
+      end;
+      return rail_of;
+   end;
+
+   encode(msg : STR, rails : INT) : STR is
+      if void(msg) or msg.size = 0 then return ""; end;
+      rail_of ::= pattern(msg.size, rails);
+      out_text ::= #FSTR;
+      loop
+         rail ::= 0.upto!(rails - 1);
+         loop
+            i ::= 0.upto!(msg.size - 1);
+            if rail_of[i] = rail then out_text := out_text + msg[i]; end;
+         end;
+      end;
+      return out_text.str;
+   end;
+
+   decode(msg : STR, rails : INT) : STR is
+      if void(msg) or msg.size = 0 then return ""; end;
+      rail_of ::= pattern(msg.size, rails);
+      -- Walk the rails in the same order encode wrote them, handing out
+      -- the ciphertext one character at a time.
+      plain : ARRAY{CHAR} := #ARRAY{CHAR}(msg.size);
+      next ::= 0;
+      loop
+         rail ::= 0.upto!(rails - 1);
+         loop
+            i ::= 0.upto!(msg.size - 1);
+            if rail_of[i] = rail then
+               plain[i] := msg[next];
+               next := next + 1;
+            end;
+         end;
+      end;
+      answer ::= #FSTR;
+      loop answer := answer + plain.elt!; end;
+      return answer.str;
+   end;
+
+end; -- class RAIL_FENCE_CIPHER

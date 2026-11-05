@@ -1,0 +1,39 @@
+class ISOGRAM_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ISOGRAM");
+
+      test("empty string", ISOGRAM::is_isogram(""), true);
+
+      test("isogram with only lower case characters", ISOGRAM::is_isogram("isogram"), true);
+
+      test("word with one duplicated character", ISOGRAM::is_isogram("eleven"), false);
+
+      test("word with one duplicated character from the end of the alphabet", ISOGRAM::is_isogram("zzyzx"), false);
+
+      test("longest reported english isogram", ISOGRAM::is_isogram("subdermatoglyphic"), true);
+
+      test("word with duplicated character in mixed case", ISOGRAM::is_isogram("Alphabet"), false);
+
+      test("word with duplicated character in mixed case, lowercase first", ISOGRAM::is_isogram("alphAbet"), false);
+
+      test("hypothetical isogrammic word with hyphen", ISOGRAM::is_isogram("thumbscrew-japingly"), true);
+
+      test("hypothetical word with duplicated character following hyphen", ISOGRAM::is_isogram("thumbscrew-jappingly"), false);
+
+      test("isogram with duplicated hyphen", ISOGRAM::is_isogram("six-year-old"), true);
+
+      test("made-up name that is an isogram", ISOGRAM::is_isogram("Emily Jung Schwartzkopf"), true);
+
+      test("duplicated character in the middle", ISOGRAM::is_isogram("accentor"), false);
+
+      test("same first and last characters", ISOGRAM::is_isogram("angola"), false);
+
+      test("word with duplicated character and with two hyphens", ISOGRAM::is_isogram("up-to-date"), false);
+
+      test("26 letter name", ISOGRAM::is_isogram("Mamungkukumpurangkuntjunya"), false);
+
+      finish;
+   end;
+end; -- class ISOGRAM_TEST

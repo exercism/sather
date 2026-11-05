@@ -1,0 +1,72 @@
+class TRIANGLE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("TRIANGLE");
+
+      sides_1 : ARRAY{FLTD} := |2.0d, 2.0d, 2.0d|;
+      test("equilateral triangle - all sides are equal", TRIANGLE::equilateral(sides_1), true);
+
+      sides_2 : ARRAY{FLTD} := |2.0d, 3.0d, 2.0d|;
+      test("equilateral triangle - any side is unequal", TRIANGLE::equilateral(sides_2), false);
+
+      sides_3 : ARRAY{FLTD} := |5.0d, 4.0d, 6.0d|;
+      test("equilateral triangle - no sides are equal", TRIANGLE::equilateral(sides_3), false);
+
+      sides_4 : ARRAY{FLTD} := |0.0d, 0.0d, 0.0d|;
+      test("equilateral triangle - all zero sides is not a triangle", TRIANGLE::equilateral(sides_4), false);
+
+      sides_5 : ARRAY{FLTD} := |0.5d, 0.5d, 0.5d|;
+      test("equilateral triangle - sides may be floats", TRIANGLE::equilateral(sides_5), true);
+
+      sides_6 : ARRAY{FLTD} := |3.0d, 4.0d, 4.0d|;
+      test("isosceles triangle - last two sides are equal", TRIANGLE::isosceles(sides_6), true);
+
+      sides_7 : ARRAY{FLTD} := |4.0d, 4.0d, 3.0d|;
+      test("isosceles triangle - first two sides are equal", TRIANGLE::isosceles(sides_7), true);
+
+      sides_8 : ARRAY{FLTD} := |4.0d, 3.0d, 4.0d|;
+      test("isosceles triangle - first and last sides are equal", TRIANGLE::isosceles(sides_8), true);
+
+      sides_9 : ARRAY{FLTD} := |4.0d, 4.0d, 4.0d|;
+      test("isosceles triangle - equilateral triangles are also isosceles", TRIANGLE::isosceles(sides_9), true);
+
+      sides_10 : ARRAY{FLTD} := |2.0d, 3.0d, 4.0d|;
+      test("isosceles triangle - no sides are equal", TRIANGLE::isosceles(sides_10), false);
+
+      sides_11 : ARRAY{FLTD} := |1.0d, 1.0d, 3.0d|;
+      test("isosceles triangle - first triangle inequality violation", TRIANGLE::isosceles(sides_11), false);
+
+      sides_12 : ARRAY{FLTD} := |1.0d, 3.0d, 1.0d|;
+      test("isosceles triangle - second triangle inequality violation", TRIANGLE::isosceles(sides_12), false);
+
+      sides_13 : ARRAY{FLTD} := |3.0d, 1.0d, 1.0d|;
+      test("isosceles triangle - third triangle inequality violation", TRIANGLE::isosceles(sides_13), false);
+
+      sides_14 : ARRAY{FLTD} := |0.5d, 0.4d, 0.5d|;
+      test("isosceles triangle - sides may be floats", TRIANGLE::isosceles(sides_14), true);
+
+      sides_15 : ARRAY{FLTD} := |5.0d, 4.0d, 6.0d|;
+      test("scalene triangle - no sides are equal", TRIANGLE::scalene(sides_15), true);
+
+      sides_16 : ARRAY{FLTD} := |4.0d, 4.0d, 4.0d|;
+      test("scalene triangle - all sides are equal", TRIANGLE::scalene(sides_16), false);
+
+      sides_17 : ARRAY{FLTD} := |4.0d, 4.0d, 3.0d|;
+      test("scalene triangle - first and second sides are equal", TRIANGLE::scalene(sides_17), false);
+
+      sides_18 : ARRAY{FLTD} := |3.0d, 4.0d, 3.0d|;
+      test("scalene triangle - first and third sides are equal", TRIANGLE::scalene(sides_18), false);
+
+      sides_19 : ARRAY{FLTD} := |4.0d, 3.0d, 3.0d|;
+      test("scalene triangle - second and third sides are equal", TRIANGLE::scalene(sides_19), false);
+
+      sides_20 : ARRAY{FLTD} := |7.0d, 3.0d, 2.0d|;
+      test("scalene triangle - may not violate triangle inequality", TRIANGLE::scalene(sides_20), false);
+
+      sides_21 : ARRAY{FLTD} := |0.5d, 0.4d, 0.6d|;
+      test("scalene triangle - sides may be floats", TRIANGLE::scalene(sides_21), true);
+
+      finish;
+   end;
+end; -- class TRIANGLE_TEST

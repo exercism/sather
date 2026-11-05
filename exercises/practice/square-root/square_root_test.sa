@@ -1,0 +1,25 @@
+class SQUARE_ROOT_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SQUARE_ROOT");
+
+      test("root of 1", SQUARE_ROOT::square_root(1), 1);
+
+      test("root of 4", SQUARE_ROOT::square_root(4), 2);
+
+      test("root of 25", SQUARE_ROOT::square_root(25), 5);
+
+      test("root of 81", SQUARE_ROOT::square_root(81), 9);
+
+      test("root of 196", SQUARE_ROOT::square_root(196), 14);
+
+      test("root of 65025", SQUARE_ROOT::square_root(65025), 255);
+
+      test("root of 5764801", SQUARE_ROOT::square_root(5764801), 2401);
+
+      test("max perfect square in range", SQUARE_ROOT::square_root(2147395600), 46340);
+
+      finish;
+   end;
+end; -- class SQUARE_ROOT_TEST

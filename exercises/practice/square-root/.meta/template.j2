@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "SQUARE_ROOT::square_root(" ~ case.input.radicand | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

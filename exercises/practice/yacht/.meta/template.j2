@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      dice_{{ case.index }} : ARRAY{INT} := {{ case.input.dice | sa("INT") }};
+{{ m.test(case, "YACHT::score(dice_" ~ case.index ~ ", " ~ case.input.category | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

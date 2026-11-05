@@ -1,0 +1,33 @@
+class PYTHAGOREAN_TRIPLET_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PYTHAGOREAN_TRIPLET");
+
+      expected_1 : ARRAY{ARRAY{INT}} := | |3, 4, 5| |;
+      test("triplets whose sum is 12", PYTHAGOREAN_TRIPLET::triplets_with_sum(12).str, expected_1.str);
+
+      expected_2 : ARRAY{ARRAY{INT}} := | |27, 36, 45| |;
+      test("triplets whose sum is 108", PYTHAGOREAN_TRIPLET::triplets_with_sum(108).str, expected_2.str);
+
+      expected_3 : ARRAY{ARRAY{INT}} := | |200, 375, 425| |;
+      test("triplets whose sum is 1000", PYTHAGOREAN_TRIPLET::triplets_with_sum(1000).str, expected_3.str);
+
+      expected_4 : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(0);
+      test("no matching triplets for 1001", PYTHAGOREAN_TRIPLET::triplets_with_sum(1001).str, expected_4.str);
+
+      expected_5 : ARRAY{ARRAY{INT}} := | |9, 40, 41|, |15, 36, 39| |;
+      test("returns all matching triplets", PYTHAGOREAN_TRIPLET::triplets_with_sum(90).str, expected_5.str);
+
+      expected_6 : ARRAY{ARRAY{INT}} := | |40, 399, 401|, |56, 390, 394|, |105, 360, 375|, |120, 350, 370|, |140, 336, 364|, |168, 315, 357|, |210, 280, 350|, |240, 252, 348| |;
+      test("several matching triplets", PYTHAGOREAN_TRIPLET::triplets_with_sum(840).str, expected_6.str);
+
+      expected_7 : ARRAY{ARRAY{INT}} := | |1200, 14375, 14425|, |1875, 14000, 14125|, |5000, 12000, 13000|, |6000, 11250, 12750|, |7500, 10000, 12500| |;
+      test("triplets for large number", PYTHAGOREAN_TRIPLET::triplets_with_sum(30000).str, expected_7.str);
+
+      expected_8 : ARRAY{ARRAY{INT}} := | |68145, 71672, 98897| |;
+      test("triplets for very large number", PYTHAGOREAN_TRIPLET::triplets_with_sum(238714).str, expected_8.str);
+
+      finish;
+   end;
+end; -- class PYTHAGOREAN_TRIPLET_TEST

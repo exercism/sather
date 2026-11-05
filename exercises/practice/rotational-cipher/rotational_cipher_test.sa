@@ -1,0 +1,31 @@
+class ROTATIONAL_CIPHER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ROTATIONAL_CIPHER");
+
+      test("rotate a by 0, same output as input", ROTATIONAL_CIPHER::rotate("a", 0), "a");
+
+      test("rotate a by 1", ROTATIONAL_CIPHER::rotate("a", 1), "b");
+
+      test("rotate a by 26, same output as input", ROTATIONAL_CIPHER::rotate("a", 26), "a");
+
+      test("rotate m by 13", ROTATIONAL_CIPHER::rotate("m", 13), "z");
+
+      test("rotate n by 13 with wrap around alphabet", ROTATIONAL_CIPHER::rotate("n", 13), "a");
+
+      test("rotate capital letters", ROTATIONAL_CIPHER::rotate("OMG", 5), "TRL");
+
+      test("rotate spaces", ROTATIONAL_CIPHER::rotate("O M G", 5), "T R L");
+
+      test("rotate numbers", ROTATIONAL_CIPHER::rotate("Testing 1 2 3 testing", 4), "Xiwxmrk 1 2 3 xiwxmrk");
+
+      test("rotate punctuation", ROTATIONAL_CIPHER::rotate("Let's eat, Grandma!", 21), "Gzo'n zvo, Bmviyhv!");
+
+      test("rotate all letters", ROTATIONAL_CIPHER::rotate("The quick brown fox jumps over the lazy dog.", 13), "Gur dhvpx oebja sbk whzcf bire gur ynml qbt.");
+
+      test("rotate boundary characters", ROTATIONAL_CIPHER::rotate("/09:@AMNZ[`amnz{", 13), "/09:@NZAM[`nzam{");
+
+      finish;
+   end;
+end; -- class ROTATIONAL_CIPHER_TEST

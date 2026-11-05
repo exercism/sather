@@ -1,0 +1,63 @@
+class ROMAN_NUMERALS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ROMAN_NUMERALS");
+
+      test("1 is I", ROMAN_NUMERALS::roman(1), "I");
+
+      test("2 is II", ROMAN_NUMERALS::roman(2), "II");
+
+      test("3 is III", ROMAN_NUMERALS::roman(3), "III");
+
+      test("4 is IV", ROMAN_NUMERALS::roman(4), "IV");
+
+      test("5 is V", ROMAN_NUMERALS::roman(5), "V");
+
+      test("6 is VI", ROMAN_NUMERALS::roman(6), "VI");
+
+      test("9 is IX", ROMAN_NUMERALS::roman(9), "IX");
+
+      test("16 is XVI", ROMAN_NUMERALS::roman(16), "XVI");
+
+      test("27 is XXVII", ROMAN_NUMERALS::roman(27), "XXVII");
+
+      test("48 is XLVIII", ROMAN_NUMERALS::roman(48), "XLVIII");
+
+      test("49 is XLIX", ROMAN_NUMERALS::roman(49), "XLIX");
+
+      test("59 is LIX", ROMAN_NUMERALS::roman(59), "LIX");
+
+      test("66 is LXVI", ROMAN_NUMERALS::roman(66), "LXVI");
+
+      test("93 is XCIII", ROMAN_NUMERALS::roman(93), "XCIII");
+
+      test("141 is CXLI", ROMAN_NUMERALS::roman(141), "CXLI");
+
+      test("163 is CLXIII", ROMAN_NUMERALS::roman(163), "CLXIII");
+
+      test("166 is CLXVI", ROMAN_NUMERALS::roman(166), "CLXVI");
+
+      test("402 is CDII", ROMAN_NUMERALS::roman(402), "CDII");
+
+      test("575 is DLXXV", ROMAN_NUMERALS::roman(575), "DLXXV");
+
+      test("666 is DCLXVI", ROMAN_NUMERALS::roman(666), "DCLXVI");
+
+      test("911 is CMXI", ROMAN_NUMERALS::roman(911), "CMXI");
+
+      test("1024 is MXXIV", ROMAN_NUMERALS::roman(1024), "MXXIV");
+
+      test("1666 is MDCLXVI", ROMAN_NUMERALS::roman(1666), "MDCLXVI");
+
+      test("3000 is MMM", ROMAN_NUMERALS::roman(3000), "MMM");
+
+      test("3001 is MMMI", ROMAN_NUMERALS::roman(3001), "MMMI");
+
+      test("3888 is MMMDCCCLXXXVIII", ROMAN_NUMERALS::roman(3888), "MMMDCCCLXXXVIII");
+
+      test("3999 is MMMCMXCIX", ROMAN_NUMERALS::roman(3999), "MMMCMXCIX");
+
+      finish;
+   end;
+end; -- class ROMAN_NUMERALS_TEST

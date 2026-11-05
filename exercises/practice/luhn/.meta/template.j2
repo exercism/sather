@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "LUHN::is_valid(" ~ case.input.value | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

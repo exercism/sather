@@ -1,0 +1,59 @@
+class LARGEST_SERIES_PRODUCT_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("LARGEST_SERIES_PRODUCT");
+
+      test("finds the largest product if span equals length", LARGEST_SERIES_PRODUCT::largest_product("29", 2), 18);
+
+      test("can find the largest product of 2 with numbers in order", LARGEST_SERIES_PRODUCT::largest_product("0123456789", 2), 72);
+
+      test("can find the largest product of 2", LARGEST_SERIES_PRODUCT::largest_product("576802143", 2), 48);
+
+      test("can find the largest product of 3 with numbers in order", LARGEST_SERIES_PRODUCT::largest_product("0123456789", 3), 504);
+
+      test("can find the largest product of 3", LARGEST_SERIES_PRODUCT::largest_product("1027839564", 3), 270);
+
+      test("can find the largest product of 5 with numbers in order", LARGEST_SERIES_PRODUCT::largest_product("0123456789", 5), 15120);
+
+      test("can get the largest product of a big number", LARGEST_SERIES_PRODUCT::largest_product("73167176531330624919225119674426574742355349194934", 6), 23520);
+
+      test("reports zero if the only digits are zero", LARGEST_SERIES_PRODUCT::largest_product("0000", 2), 0);
+
+      test("reports zero if all spans include zero", LARGEST_SERIES_PRODUCT::largest_product("99099", 3), 0);
+
+      protect
+         ignored ::= LARGEST_SERIES_PRODUCT::largest_product("123", 4);
+         test("rejects span longer than string length", "no exception raised", "span must not exceed string length");
+      when $STR then
+         test("rejects span longer than string length", exception.str, "span must not exceed string length");
+      end;
+
+      test("reports 1 for empty string and empty product (0 span)", LARGEST_SERIES_PRODUCT::largest_product("", 0), 1);
+
+      test("reports 1 for nonempty string and empty product (0 span)", LARGEST_SERIES_PRODUCT::largest_product("123", 0), 1);
+
+      protect
+         ignored ::= LARGEST_SERIES_PRODUCT::largest_product("", 1);
+         test("rejects empty string and nonzero span", "no exception raised", "span must not exceed string length");
+      when $STR then
+         test("rejects empty string and nonzero span", exception.str, "span must not exceed string length");
+      end;
+
+      protect
+         ignored ::= LARGEST_SERIES_PRODUCT::largest_product("1234a5", 2);
+         test("rejects invalid character in digits", "no exception raised", "digits input must only contain digits");
+      when $STR then
+         test("rejects invalid character in digits", exception.str, "digits input must only contain digits");
+      end;
+
+      protect
+         ignored ::= LARGEST_SERIES_PRODUCT::largest_product("12345", (-1));
+         test("rejects negative span", "no exception raised", "span must not be negative");
+      when $STR then
+         test("rejects negative span", exception.str, "span must not be negative");
+      end;
+
+      finish;
+   end;
+end; -- class LARGEST_SERIES_PRODUCT_TEST

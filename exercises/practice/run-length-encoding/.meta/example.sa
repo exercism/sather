@@ -1,0 +1,42 @@
+class RUN_LENGTH_ENCODING is
+
+   encode(text : STR) : STR is
+      if void(text) then return "" end;
+      r : FSTR := #FSTR(text.size);
+      i ::= 0;
+      loop
+         until!(i >= text.size);
+         c ::= text[i];
+         run ::= 1;
+         loop
+            until!(i + run >= text.size or text[i + run] /= c);
+            run := run + 1;
+         end;
+         if run > 1 then r := r + run.str end;
+         r := r + c;
+         i := i + run;
+      end;
+      return r.str;
+   end;
+
+   decode(text : STR) : STR is
+      if void(text) then return "" end;
+      r : FSTR := #FSTR(text.size * 2);
+      count ::= 0;
+      loop
+         c ::= text.elt!;
+         if c.is_digit then
+            count := count * 10 + (c.int - '0'.int);
+         else
+            if count = 0 then count := 1 end;
+            loop
+               k ::= 1.upto!(count);
+               r := r + c;
+            end;
+            count := 0;
+         end;
+      end;
+      return r.str;
+   end;
+
+end; -- class RUN_LENGTH_ENCODING

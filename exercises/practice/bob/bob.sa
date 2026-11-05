@@ -1,0 +1,10 @@
+class BOB is
+
+   response(hey_bob : STR) : STR is
+      -- Bob answers "Sure." to a question, "Whoa, chill out!" to shouting,
+      -- "Calm down, I know what I'm doing!" to a shouted question,
+      -- "Fine. Be that way!" to silence, and "Whatever." to anything else.
+      return "";
+   end;
+
+end; -- class BOB

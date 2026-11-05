@@ -1,0 +1,17 @@
+class RESISTOR_COLOR is
+
+   colors : ARRAY{STR} is
+      return |"black", "brown", "red", "orange", "yellow",
+              "green", "blue", "violet", "grey", "white"|;
+   end;
+
+   color_code(color : STR) : INT is
+      all ::= colors;
+      loop
+         i ::= 0.upto!(all.size - 1);
+         if all[i] = color then return i end;
+      end;
+      raise "unknown colour";
+   end;
+
+end; -- class RESISTOR_COLOR

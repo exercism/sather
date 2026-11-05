@@ -1,0 +1,14 @@
+{% import "macros.j2" as m with context %}
+{% call m.begin() %}
+{{ m.map_str() }}
+{% endcall %}
+{% for case in cases %}
+
+{% set call = "NUCLEOTIDE_COUNT::counts(" ~ case.input.strand | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test(case, "map_str(" ~ call ~ ")", case.expected | map_str | sa_str) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

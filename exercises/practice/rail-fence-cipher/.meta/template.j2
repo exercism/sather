@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "RAIL_FENCE_CIPHER::" ~ case.property ~ "(" ~ case.input.msg | sa ~ ", " ~ case.input.rails | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

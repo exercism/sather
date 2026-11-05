@@ -1,0 +1,46 @@
+class COMPLEX is
+
+   readonly attr real, imaginary : FLTD;
+
+   create(r, i : FLTD) : SAME is
+      -- The complex number r + i*i, where i squared is -1.
+      return new;
+   end;
+
+   plus(other : SAME) : SAME is
+      -- (a + bi) + (c + di) = (a + c) + (b + d)i
+      return self;
+   end;
+
+   minus(other : SAME) : SAME is
+      -- (a + bi) - (c + di) = (a - c) + (b - d)i
+      return self;
+   end;
+
+   times(other : SAME) : SAME is
+      -- (a + bi)(c + di) = (ac - bd) + (bc + ad)i
+      return self;
+   end;
+
+   div(other : SAME) : SAME is
+      -- (a + bi)/(c + di) = ((ac + bd) + (bc - ad)i) / (c*c + d*d)
+      return self;
+   end;
+
+   abs : FLTD is
+      -- The distance from the origin: the square root of a*a + b*b.
+      return 0.0d;
+   end;
+
+   conjugate : SAME is
+      -- a + bi becomes a - bi.
+      return self;
+   end;
+
+   exp : SAME is
+      -- e raised to this number, which is
+      -- e^a * (cos b + i sin b).
+      return self;
+   end;
+
+end; -- class COMPLEX

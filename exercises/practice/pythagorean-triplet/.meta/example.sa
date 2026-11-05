@@ -1,0 +1,52 @@
+class PYTHAGOREAN_TRIPLET is
+
+   private gcd(x, y : INT) : INT is
+      a ::= x; b ::= y;
+      loop until!(b = 0); t ::= a % b; a := b; b := t end;
+      return a;
+   end;
+
+   triplets_with_sum(n : INT) : ARRAY{ARRAY{INT}} is
+      -- Euclid's formula: every triplet is k(p*p - q*q), 2kpq, k(p*p + q*q)
+      -- for coprime p > q > 0 of opposite parity, and sums to 2kp(p + q).
+      -- Every value stays near sqrt(n) or below n, so nothing overflows INT,
+      -- as squaring the sides of a large triplet would.
+      found ::= #LIST{ARRAY{INT}};
+      p ::= 2;
+      loop
+         until!(2 * p * (p + 1) > n);
+         q ::= 1;
+         loop
+            until!(q >= p);
+            s ::= 2 * p * (p + q);
+            if (p - q) % 2 = 1 and gcd(p, q) = 1 and n % s = 0 then
+               k ::= n / s;
+               a ::= k * (p * p - q * q);
+               b ::= 2 * k * p * q;
+               if a > b then t ::= a; a := b; b := t end;
+               triplet : ARRAY{INT} := |a, b, k * (p * p + q * q)|;
+               found.append(triplet);
+            end;
+            q := q + 1;
+         end;
+         p := p + 1;
+      end;
+      answer : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         answer[i] := found[i];
+      end;
+      -- Order by the smallest side.
+      loop
+         i ::= 0.upto!(answer.size - 1);
+         loop
+            j ::= (i + 1).upto!(answer.size - 1);
+            if answer[j][0] < answer[i][0] then
+               t ::= answer[i]; answer[i] := answer[j]; answer[j] := t;
+            end;
+         end;
+      end;
+      return answer;
+   end;
+
+end; -- class PYTHAGOREAN_TRIPLET

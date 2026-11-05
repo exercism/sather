@@ -1,0 +1,110 @@
+class PHONE_NUMBER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PHONE_NUMBER");
+
+      test("cleans the number", PHONE_NUMBER::clean("(223) 456-7890"), "2234567890");
+
+      test("cleans numbers with dots", PHONE_NUMBER::clean("223.456.7890"), "2234567890");
+
+      test("cleans numbers with multiple spaces", PHONE_NUMBER::clean("223 456   7890   "), "2234567890");
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("123456789");
+         test("invalid when 9 digits", "no exception raised", "must not be fewer than 10 digits");
+      when $STR then
+         test("invalid when 9 digits", exception.str, "must not be fewer than 10 digits");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("22234567890");
+         test("invalid when 11 digits does not start with a 1", "no exception raised", "11 digits must start with 1");
+      when $STR then
+         test("invalid when 11 digits does not start with a 1", exception.str, "11 digits must start with 1");
+      end;
+
+      test("valid when 11 digits and starting with 1", PHONE_NUMBER::clean("12234567890"), "2234567890");
+
+      test("valid when 11 digits and starting with 1 even with punctuation", PHONE_NUMBER::clean("+1 (223) 456-7890"), "2234567890");
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("321234567890");
+         test("invalid when more than 11 digits", "no exception raised", "must not be greater than 11 digits");
+      when $STR then
+         test("invalid when more than 11 digits", exception.str, "must not be greater than 11 digits");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("523-abc-7890");
+         test("invalid with letters", "no exception raised", "letters not permitted");
+      when $STR then
+         test("invalid with letters", exception.str, "letters not permitted");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("523-@:!-7890");
+         test("invalid with punctuations", "no exception raised", "punctuations not permitted");
+      when $STR then
+         test("invalid with punctuations", exception.str, "punctuations not permitted");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("(023) 456-7890");
+         test("invalid if area code starts with 0", "no exception raised", "area code cannot start with zero");
+      when $STR then
+         test("invalid if area code starts with 0", exception.str, "area code cannot start with zero");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("(123) 456-7890");
+         test("invalid if area code starts with 1", "no exception raised", "area code cannot start with one");
+      when $STR then
+         test("invalid if area code starts with 1", exception.str, "area code cannot start with one");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("(223) 056-7890");
+         test("invalid if exchange code starts with 0", "no exception raised", "exchange code cannot start with zero");
+      when $STR then
+         test("invalid if exchange code starts with 0", exception.str, "exchange code cannot start with zero");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("(223) 156-7890");
+         test("invalid if exchange code starts with 1", "no exception raised", "exchange code cannot start with one");
+      when $STR then
+         test("invalid if exchange code starts with 1", exception.str, "exchange code cannot start with one");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("1 (023) 456-7890");
+         test("invalid if area code starts with 0 on valid 11-digit number", "no exception raised", "area code cannot start with zero");
+      when $STR then
+         test("invalid if area code starts with 0 on valid 11-digit number", exception.str, "area code cannot start with zero");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("1 (123) 456-7890");
+         test("invalid if area code starts with 1 on valid 11-digit number", "no exception raised", "area code cannot start with one");
+      when $STR then
+         test("invalid if area code starts with 1 on valid 11-digit number", exception.str, "area code cannot start with one");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("1 (223) 056-7890");
+         test("invalid if exchange code starts with 0 on valid 11-digit number", "no exception raised", "exchange code cannot start with zero");
+      when $STR then
+         test("invalid if exchange code starts with 0 on valid 11-digit number", exception.str, "exchange code cannot start with zero");
+      end;
+
+      protect
+         ignored ::= PHONE_NUMBER::clean("1 (223) 156-7890");
+         test("invalid if exchange code starts with 1 on valid 11-digit number", "no exception raised", "exchange code cannot start with one");
+      when $STR then
+         test("invalid if exchange code starts with 1 on valid 11-digit number", exception.str, "exchange code cannot start with one");
+      end;
+
+      finish;
+   end;
+end; -- class PHONE_NUMBER_TEST

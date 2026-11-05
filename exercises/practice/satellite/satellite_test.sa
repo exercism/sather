@@ -1,0 +1,74 @@
+class SATELLITE_TEST is
+   include EXERCISM_TEST;
+
+   private tree_str(n : TREE_NODE) : STR is
+      -- "(value left right)", with "." for an absent subtree.
+      if void(n) then return "." end;
+      return "(" + n.v + " " + tree_str(n.l) + " " + tree_str(n.r) + ")";
+   end;
+
+   main is
+      class_name("SATELLITE");
+
+      pre_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      ino_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Empty tree", tree_str(SATELLITE::tree_from_traversals(pre_1, ino_1)), ".");
+
+      pre_2 : ARRAY{STR} := |"a"|;
+      ino_2 : ARRAY{STR} := |"a"|;
+      test("Tree with one item", tree_str(SATELLITE::tree_from_traversals(pre_2, ino_2)), "(a . .)");
+
+      pre_3 : ARRAY{STR} := |"a", "i", "x", "f", "r"|;
+      ino_3 : ARRAY{STR} := |"i", "a", "f", "x", "r"|;
+      test("Tree with many items", tree_str(SATELLITE::tree_from_traversals(pre_3, ino_3)), "(a (i . .) (x (f . .) (r . .)))");
+
+      pre_4 : ARRAY{STR} := |"a", "b"|;
+      ino_4 : ARRAY{STR} := |"b", "a", "r"|;
+      protect
+         ignored ::= SATELLITE::tree_from_traversals(pre_4, ino_4);
+         test("Reject traversals of different length", "no exception raised", "traversals must have the same length");
+      when $STR then
+         test("Reject traversals of different length", exception.str, "traversals must have the same length");
+      end;
+
+      pre_5 : ARRAY{STR} := |"x", "y", "z"|;
+      ino_5 : ARRAY{STR} := |"a", "b", "c"|;
+      protect
+         ignored ::= SATELLITE::tree_from_traversals(pre_5, ino_5);
+         test("Reject inconsistent traversals of same length", "no exception raised", "traversals must have the same elements");
+      when $STR then
+         test("Reject inconsistent traversals of same length", exception.str, "traversals must have the same elements");
+      end;
+
+      pre_6 : ARRAY{STR} := |"a", "b", "a"|;
+      ino_6 : ARRAY{STR} := |"b", "a", "a"|;
+      protect
+         ignored ::= SATELLITE::tree_from_traversals(pre_6, ino_6);
+         test("Reject traversals with repeated items", "no exception raised", "traversals must contain unique items");
+      when $STR then
+         test("Reject traversals with repeated items", exception.str, "traversals must contain unique items");
+      end;
+
+      pre_7 : ARRAY{STR} := |"a", "b", "c", "d"|;
+      ino_7 : ARRAY{STR} := |"d", "c", "b", "a"|;
+      test("A degenerate binary tree", tree_str(SATELLITE::tree_from_traversals(pre_7, ino_7)), "(a (b (c (d . .) .) .) .)");
+
+      pre_8 : ARRAY{STR} := |"a", "b", "c", "d"|;
+      ino_8 : ARRAY{STR} := |"a", "b", "c", "d"|;
+      test("Another degenerate binary tree", tree_str(SATELLITE::tree_from_traversals(pre_8, ino_8)), "(a . (b . (c . (d . .))))");
+
+      pre_9 : ARRAY{STR} := |"a", "b", "d", "g", "h", "c", "e", "f", "i"|;
+      ino_9 : ARRAY{STR} := |"g", "d", "h", "b", "a", "e", "c", "i", "f"|;
+      test("Tree with many more items", tree_str(SATELLITE::tree_from_traversals(pre_9, ino_9)), "(a (b (d (g . .) (h . .)) .) (c (e . .) (f (i . .) .)))");
+
+      pre_10 : ARRAY{STR} := |"b", "a"|;
+      ino_10 : ARRAY{STR} := |"a", "b"|;
+      test("Left leaning tree of two", tree_str(SATELLITE::tree_from_traversals(pre_10, ino_10)), "(b (a . .) .)");
+
+      pre_11 : ARRAY{STR} := |"a", "b"|;
+      ino_11 : ARRAY{STR} := |"a", "b"|;
+      test("Right leaning tree of two", tree_str(SATELLITE::tree_from_traversals(pre_11, ino_11)), "(a . (b . .))");
+
+      finish;
+   end;
+end; -- class SATELLITE_TEST

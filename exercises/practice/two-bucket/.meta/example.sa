@@ -1,0 +1,82 @@
+class BUCKET_RESULT is
+
+   readonly attr moves : INT;
+   readonly attr goal_bucket : STR;
+   readonly attr other_bucket : INT;
+
+   create(count : INT, which : STR, rest : INT) : SAME is
+      r ::= new;
+      r.moves := count;
+      r.goal_bucket := which;
+      r.other_bucket := rest;
+      return r;
+   end;
+
+end; -- class BUCKET_RESULT
+
+class TWO_BUCKET is
+
+   measure(one, two, goal : INT, start : STR) : BUCKET_RESULT is
+      -- Breadth-first over the states, so the first time the goal appears
+      -- is by definition in the fewest moves. A state is (a, b), the
+      -- amounts in the two buckets, and there are at most (one+1)(two+1)
+      -- of them.
+      states ::= (one + 1) * (two + 1);
+      seen : ARRAY{BOOL} := #ARRAY{BOOL}(states);
+      queue : ARRAY{INT} := #ARRAY{INT}(states);
+      depth : ARRAY{INT} := #ARRAY{INT}(states);
+
+      a ::= 0; b ::= 0;
+      if start = "one" then a := one; else b := two; end;
+      first ::= a * (two + 1) + b;
+      seen[first] := true;
+      queue[0] := first;
+      depth[0] := 1;
+      head ::= 0;
+      tail ::= 1;
+
+      loop
+         until!(head >= tail);
+         code ::= queue[head];
+         moves ::= depth[head];
+         head := head + 1;
+         here_a ::= code / (two + 1);
+         here_b ::= code % (two + 1);
+         if here_a = goal then
+            return #BUCKET_RESULT(moves, "one", here_b);
+         end;
+         if here_b = goal then
+            return #BUCKET_RESULT(moves, "two", here_a);
+         end;
+
+         -- The six moves, as pairs of new amounts.
+         pour_to_two ::= (two - here_b).min(here_a);
+         pour_to_one ::= (one - here_a).min(here_b);
+         next_a : ARRAY{INT} := |one, here_a, 0, here_a,
+                                 here_a - pour_to_two, here_a + pour_to_one|;
+         next_b : ARRAY{INT} := |here_b, two, here_b, 0,
+                                 here_b + pour_to_two, here_b - pour_to_one|;
+         loop
+            k ::= 0.upto!(5);
+            na ::= next_a[k];
+            nb ::= next_b[k];
+            -- The forbidden state: the starting bucket empty and the other
+            -- one full.
+            allowed ::= true;
+            if start = "one" and na = 0 and nb = two then allowed := false; end;
+            if start = "two" and nb = 0 and na = one then allowed := false; end;
+            if allowed then
+               code_next ::= na * (two + 1) + nb;
+               if ~seen[code_next] then
+                  seen[code_next] := true;
+                  queue[tail] := code_next;
+                  depth[tail] := moves + 1;
+                  tail := tail + 1;
+               end;
+            end;
+         end;
+      end;
+      raise "impossible";
+   end;
+
+end; -- class TWO_BUCKET

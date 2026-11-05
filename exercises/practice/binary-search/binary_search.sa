@@ -1,0 +1,9 @@
+class BINARY_SEARCH is
+
+   find(haystack : ARRAY{INT}, needle : INT) : INT is
+      -- Index of `needle' in the sorted array `haystack'.
+      -- Raise a string exception if it is not there.
+      return 0;
+   end;
+
+end; -- class BINARY_SEARCH

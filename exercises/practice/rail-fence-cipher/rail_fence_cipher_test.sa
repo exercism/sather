@@ -1,0 +1,29 @@
+class RAIL_FENCE_CIPHER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("RAIL_FENCE_CIPHER");
+
+      test("encode - encode with two rails", RAIL_FENCE_CIPHER::encode("XOXOXOXOXOXOXOXOXO", 2), "XXXXXXXXXOOOOOOOOO");
+
+      test("encode - encode with three rails", RAIL_FENCE_CIPHER::encode("WEAREDISCOVEREDFLEEATONCE", 3), "WECRLTEERDSOEEFEAOCAIVDEN");
+
+      test("encode - encode with ending in the middle", RAIL_FENCE_CIPHER::encode("EXERCISES", 4), "ESXIEECSR");
+
+      test("decode - decode with three rails", RAIL_FENCE_CIPHER::decode("TEITELHDVLSNHDTISEIIEA", 3), "THEDEVILISINTHEDETAILS");
+
+      test("decode - decode with five rails", RAIL_FENCE_CIPHER::decode("EIEXMSMESAORIWSCE", 5), "EXERCISMISAWESOME");
+
+      test("decode - decode with six rails", RAIL_FENCE_CIPHER::decode("133714114238148966225439541018335470986172518171757571896261", 6), "112358132134558914423337761098715972584418167651094617711286");
+
+      test("decode with seven rails", RAIL_FENCE_CIPHER::decode("AGGWRHNAEROTOESTRADWETHCTTRENAAVOTHEAOECTRESIRMKEINNNEWOOENESANO", 7), "ANANCIENTADAGEWARNSNEVERGOTOSEAWITHTWOCHRONOMETERSTAKEONEORTHREE");
+
+      test("encode with one rail", RAIL_FENCE_CIPHER::encode("ABC", 1), "ABC");
+
+      test("encode alphabet", RAIL_FENCE_CIPHER::encode("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 2), "ACEGIKMOQSUWYBDFHJLNPRTVXZ");
+
+      test("decode alphabet", RAIL_FENCE_CIPHER::decode("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 2), "ANBOCPDQERFSGTHUIVJWKXLYMZ");
+
+      finish;
+   end;
+end; -- class RAIL_FENCE_CIPHER_TEST

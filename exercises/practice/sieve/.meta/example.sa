@@ -1,0 +1,33 @@
+class SIEVE is
+
+   primes(limit : INT) : ARRAY{INT} is
+      if limit < 2 then return #ARRAY{INT}(0) end;
+      composite : ARRAY{BOOL} := #ARRAY{BOOL}(limit + 1);
+      found : FLIST{INT} := #FLIST{INT};
+      loop
+         n ::= 2.upto!(limit);
+         if ~composite[n] then
+            found := found.push(n);
+            -- Marking starts at n * n, which would overflow INT once n
+            -- passes the square root of limit; by then nothing is left
+            -- to mark.
+            if n <= limit / n then
+               m ::= n * n;
+               loop
+                  until!(m > limit);
+                  composite[m] := true;
+                  m := m + n;
+               end;
+            end;
+         end;
+      end;
+
+      res : ARRAY{INT} := #ARRAY{INT}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[i];
+      end;
+      return res;
+   end;
+
+end; -- class SIEVE

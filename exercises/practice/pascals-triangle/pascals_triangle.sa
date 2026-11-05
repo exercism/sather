@@ -1,0 +1,8 @@
+class PASCALS_TRIANGLE is
+
+   rows(count : INT) : ARRAY{ARRAY{INT}} is
+      -- The first `count' rows of Pascal's triangle.
+      return #ARRAY{ARRAY{INT}}(0);
+   end;
+
+end; -- class PASCALS_TRIANGLE

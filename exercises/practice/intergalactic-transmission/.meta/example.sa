@@ -1,0 +1,65 @@
+class INTERGALACTIC_TRANSMISSION is
+
+   private ones(byte : INT) : INT is
+      total ::= 0;
+      n ::= byte;
+      loop
+         until!(n = 0);
+         total := total + n % 2;
+         n := n / 2;
+      end;
+      return total;
+   end;
+
+   transmit_sequence(message : ARRAY{INT}) : ARRAY{INT} is
+      if void(message) or message.size = 0 then return #ARRAY{INT}(0); end;
+      -- Every seven message bits become one transmitted byte, so round the
+      -- bit count up to the next multiple of seven.
+      bits ::= message.size * 8;
+      groups ::= (bits + 6) / 7;
+      answer : ARRAY{INT} := #ARRAY{INT}(groups);
+      loop
+         g ::= 0.upto!(groups - 1);
+         seven ::= 0;
+         loop
+            b ::= 0.upto!(6);
+            at ::= g * 7 + b;
+            bit ::= 0;
+            if at < bits then
+               -- Bit `at' of the message, counting from the top of byte 0.
+               byte ::= message[at / 8];
+               bit := byte / (1).lshift(7 - at % 8) % 2;
+            end;
+            seven := seven * 2 + bit;
+         end;
+         -- The bottom bit makes the number of one bits even.
+         answer[g] := seven * 2 + ones(seven) % 2;
+      end;
+      return answer;
+   end;
+
+   decode_message(message : ARRAY{INT}) : ARRAY{INT} is
+      if void(message) or message.size = 0 then return #ARRAY{INT}(0); end;
+      loop
+         if ones(message.elt!) % 2 /= 0 then raise "wrong parity"; end;
+      end;
+      -- Seven bits from each byte, then as many whole bytes as those make.
+      bits ::= message.size * 7;
+      whole ::= bits / 8;
+      answer : ARRAY{INT} := #ARRAY{INT}(whole);
+      loop
+         i ::= 0.upto!(whole - 1);
+         byte ::= 0;
+         loop
+            b ::= 0.upto!(7);
+            at ::= i * 8 + b;
+            seven ::= message[at / 7] / 2;
+            bit ::= seven / (1).lshift(6 - at % 7) % 2;
+            byte := byte * 2 + bit;
+         end;
+         answer[i] := byte;
+      end;
+      return answer;
+   end;
+
+end; -- class INTERGALACTIC_TRANSMISSION

@@ -1,0 +1,50 @@
+class BINARY_SEARCH_TREE is
+
+   private attr node_data : STR;
+   private attr node_left, node_right : BINARY_SEARCH_TREE;
+
+   private insert_into(tree : SAME, item : STR) : SAME is
+      if void(tree) then
+         fresh : SAME := new;
+         fresh.node_data := item;
+         return fresh;
+      end;
+      if item <= tree.node_data then
+         tree.node_left := insert_into(tree.node_left, item);
+      else
+         tree.node_right := insert_into(tree.node_right, item);
+      end;
+      return tree;
+   end;
+
+   create(items : ARRAY{STR}) : SAME is
+      res : SAME := void;
+      loop
+         res := insert_into(res, items.elt!);
+      end;
+      return res;
+   end;
+
+   data : STR is return node_data end;
+   left : SAME is return node_left end;
+   right : SAME is return node_right end;
+
+   private collect(tree : SAME, into : FLIST{STR}) : FLIST{STR} is
+      acc ::= into;
+      if void(tree) then return acc end;
+      acc := collect(tree.node_left, acc);
+      acc := acc.push(tree.node_data);
+      return collect(tree.node_right, acc);
+   end;
+
+   sorted_data : ARRAY{STR} is
+      found ::= collect(self, #FLIST{STR});
+      res : ARRAY{STR} := #ARRAY{STR}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[i];
+      end;
+      return res;
+   end;
+
+end; -- class BINARY_SEARCH_TREE

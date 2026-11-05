@@ -1,0 +1,28 @@
+class ISBN_VERIFIER is
+
+   is_valid(isbn : STR) : BOOL is
+      total ::= 0;
+      seen ::= 0;
+      loop
+         c ::= isbn.elt!;
+         if c /= '-' then
+            seen := seen + 1;
+            -- Anything past the tenth character makes it too long, and
+            -- catching it here saves a second pass.
+            if seen > 10 then return false; end;
+            digit ::= 0;
+            if c.is_digit then
+               digit := c.int - '0'.int;
+            elsif c = 'X' and seen = 10 then
+               -- Only the check digit may be X.
+               digit := 10;
+            else
+               return false;
+            end;
+            total := total + digit * (11 - seen);
+         end;
+      end;
+      return seen = 10 and total % 11 = 0;
+   end;
+
+end; -- class ISBN_VERIFIER

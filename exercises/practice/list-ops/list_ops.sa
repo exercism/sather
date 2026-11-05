@@ -1,0 +1,52 @@
+class LIST_OPS is
+
+   -- Write these without the library's own versions: the point is the
+   -- shape of each operation, not finding it in ARRAY.
+   --
+   -- The folds work on FLTD rather than INT, because one of the functions
+   -- folded is division and the answers depend on keeping the fraction.
+
+   append(first, second : ARRAY{INT}) : ARRAY{INT} is
+      -- The two lists, one after the other.
+      return first;
+   end;
+
+   concat(lists : ARRAY{ARRAY{INT}}) : ARRAY{INT} is
+      -- All the lists, one after another.
+      return #ARRAY{INT}(0);
+   end;
+
+   filter(list : ARRAY{INT}, keep : ROUT{INT}:BOOL) : ARRAY{INT} is
+      -- Only the entries `keep' answers true for.
+      return list;
+   end;
+
+   length(list : ARRAY{INT}) : INT is
+      -- How many entries.
+      return 0;
+   end;
+
+   map(list : ARRAY{INT}, f : ROUT{INT}:INT) : ARRAY{INT} is
+      -- Each entry replaced by what `f' answers for it.
+      return list;
+   end;
+
+   foldl(list : ARRAY{FLTD}, start : FLTD, f : ROUT{FLTD,FLTD}:FLTD)
+         : FLTD is
+      -- Work along the list from the left, keeping a running value that
+      -- starts at `start'. Each step is f.call(running, entry).
+      return start;
+   end;
+
+   foldr(list : ARRAY{FLTD}, start : FLTD, f : ROUT{FLTD,FLTD}:FLTD)
+         : FLTD is
+      -- The same, from the right.
+      return start;
+   end;
+
+   reverse(list : ARRAY{INT}) : ARRAY{INT} is
+      -- The entries in the opposite order.
+      return list;
+   end;
+
+end; -- class LIST_OPS

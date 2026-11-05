@@ -1,0 +1,42 @@
+class BOB is
+
+   trim(s : STR) : STR is
+      if void(s) then return "" end;
+      first ::= 0;
+      last ::= s.size - 1;
+      loop
+         until!(first > last or ~s[first].is_space);
+         first := first + 1;
+      end;
+      loop
+         until!(last < first or ~s[last].is_space);
+         last := last - 1;
+      end;
+      if first > last then return "" end;
+      return s.substring(first, last - first + 1);
+   end;
+
+   response(hey_bob : STR) : STR is
+      remark ::= trim(hey_bob);
+      if remark.size = 0 then return "Fine. Be that way!" end;
+
+      has_letter ::= false;
+      shouting ::= true;
+      loop
+         c ::= remark.elt!;
+         if c.is_alpha then
+            has_letter := true;
+            if c /= c.upper then shouting := false end;
+         end;
+      end;
+      shouting := shouting and has_letter;
+
+      question ::= remark[remark.size - 1] = '?';
+
+      if shouting and question then return "Calm down, I know what I'm doing!" end;
+      if shouting then return "Whoa, chill out!" end;
+      if question then return "Sure." end;
+      return "Whatever.";
+   end;
+
+end; -- class BOB

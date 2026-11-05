@@ -1,0 +1,27 @@
+class NTH_PRIME is
+
+   is_prime(n : INT) : BOOL is
+      if n < 2 then return false end;
+      if n % 2 = 0 then return n = 2 end;
+      d ::= 3;
+      loop
+         until!(d * d > n);
+         if n % d = 0 then return false end;
+         d := d + 2;
+      end;
+      return true;
+   end;
+
+   prime(number : INT) : INT is
+      if number < 1 then raise "there is no zeroth prime" end;
+      count ::= 0;
+      candidate ::= 1;
+      loop
+         until!(count = number);
+         candidate := candidate + 1;
+         if is_prime(candidate) then count := count + 1 end;
+      end;
+      return candidate;
+   end;
+
+end; -- class NTH_PRIME

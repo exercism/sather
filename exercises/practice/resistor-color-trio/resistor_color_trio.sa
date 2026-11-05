@@ -1,0 +1,9 @@
+class RESISTOR_COLOR_TRIO is
+
+   label(colors : ARRAY{STR}) : STR is
+      -- The resistance of the first three colour bands, as a label such
+      -- as "33 ohms" or "2 kiloohms".
+      return "";
+   end;
+
+end; -- class RESISTOR_COLOR_TRIO

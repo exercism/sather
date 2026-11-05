@@ -1,0 +1,8 @@
+class SCRABBLE_SCORE is
+
+   score(word : STR) : INT is
+      -- Return the Scrabble score of `word'. Case does not matter.
+      return 0;
+   end;
+
+end; -- class SCRABBLE_SCORE

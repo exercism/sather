@@ -1,0 +1,24 @@
+class TRIANGLE is
+
+   private valid(sides : ARRAY{FLTD}) : BOOL is
+      a ::= sides[0]; b ::= sides[1]; c ::= sides[2];
+      if a <= 0.0d or b <= 0.0d or c <= 0.0d then return false end;
+      return (a + b >= c) and (b + c >= a) and (a + c >= b);
+   end;
+
+   equilateral(sides : ARRAY{FLTD}) : BOOL is
+      if ~valid(sides) then return false end;
+      return sides[0] = sides[1] and sides[1] = sides[2];
+   end;
+
+   isosceles(sides : ARRAY{FLTD}) : BOOL is
+      if ~valid(sides) then return false end;
+      return sides[0] = sides[1] or sides[1] = sides[2] or sides[0] = sides[2];
+   end;
+
+   scalene(sides : ARRAY{FLTD}) : BOOL is
+      if ~valid(sides) then return false end;
+      return ~isosceles(sides);
+   end;
+
+end; -- class TRIANGLE

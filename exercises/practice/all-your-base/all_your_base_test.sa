@@ -1,0 +1,129 @@
+class ALL_YOUR_BASE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ALL_YOUR_BASE");
+
+      digits_1 : ARRAY{INT} := |1|;
+      expected_1 : ARRAY{INT} := |1|;
+      test("single bit one to decimal", ALL_YOUR_BASE::rebase(digits_1, 2, 10).str, expected_1.str);
+
+      digits_2 : ARRAY{INT} := |1, 0, 1|;
+      expected_2 : ARRAY{INT} := |5|;
+      test("binary to single decimal", ALL_YOUR_BASE::rebase(digits_2, 2, 10).str, expected_2.str);
+
+      digits_3 : ARRAY{INT} := |5|;
+      expected_3 : ARRAY{INT} := |1, 0, 1|;
+      test("single decimal to binary", ALL_YOUR_BASE::rebase(digits_3, 10, 2).str, expected_3.str);
+
+      digits_4 : ARRAY{INT} := |1, 0, 1, 0, 1, 0|;
+      expected_4 : ARRAY{INT} := |4, 2|;
+      test("binary to multiple decimal", ALL_YOUR_BASE::rebase(digits_4, 2, 10).str, expected_4.str);
+
+      digits_5 : ARRAY{INT} := |4, 2|;
+      expected_5 : ARRAY{INT} := |1, 0, 1, 0, 1, 0|;
+      test("decimal to binary", ALL_YOUR_BASE::rebase(digits_5, 10, 2).str, expected_5.str);
+
+      digits_6 : ARRAY{INT} := |1, 1, 2, 0|;
+      expected_6 : ARRAY{INT} := |2, 10|;
+      test("trinary to hexadecimal", ALL_YOUR_BASE::rebase(digits_6, 3, 16).str, expected_6.str);
+
+      digits_7 : ARRAY{INT} := |2, 10|;
+      expected_7 : ARRAY{INT} := |1, 1, 2, 0|;
+      test("hexadecimal to trinary", ALL_YOUR_BASE::rebase(digits_7, 16, 3).str, expected_7.str);
+
+      digits_8 : ARRAY{INT} := |3, 46, 60|;
+      expected_8 : ARRAY{INT} := |6, 10, 45|;
+      test("15-bit integer", ALL_YOUR_BASE::rebase(digits_8, 97, 73).str, expected_8.str);
+
+      digits_9 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_9 : ARRAY{INT} := |0|;
+      test("empty list", ALL_YOUR_BASE::rebase(digits_9, 2, 10).str, expected_9.str);
+
+      digits_10 : ARRAY{INT} := |0|;
+      expected_10 : ARRAY{INT} := |0|;
+      test("single zero", ALL_YOUR_BASE::rebase(digits_10, 10, 2).str, expected_10.str);
+
+      digits_11 : ARRAY{INT} := |0, 0, 0|;
+      expected_11 : ARRAY{INT} := |0|;
+      test("multiple zeros", ALL_YOUR_BASE::rebase(digits_11, 10, 2).str, expected_11.str);
+
+      digits_12 : ARRAY{INT} := |0, 6, 0|;
+      expected_12 : ARRAY{INT} := |4, 2|;
+      test("leading zeros", ALL_YOUR_BASE::rebase(digits_12, 7, 10).str, expected_12.str);
+
+      digits_13 : ARRAY{INT} := |0|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_13, 1, 10);
+         test("input base is one", "no exception raised", "input base must be >= 2");
+      when $STR then
+         test("input base is one", exception.str, "input base must be >= 2");
+      end;
+
+      digits_14 : ARRAY{INT} := #ARRAY{INT}(0);
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_14, 0, 10);
+         test("input base is zero", "no exception raised", "input base must be >= 2");
+      when $STR then
+         test("input base is zero", exception.str, "input base must be >= 2");
+      end;
+
+      digits_15 : ARRAY{INT} := |1|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_15, (-2), 10);
+         test("input base is negative", "no exception raised", "input base must be >= 2");
+      when $STR then
+         test("input base is negative", exception.str, "input base must be >= 2");
+      end;
+
+      digits_16 : ARRAY{INT} := |1, (-1), 1, 0, 1, 0|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_16, 2, 10);
+         test("negative digit", "no exception raised", "all digits must satisfy 0 <= d < input base");
+      when $STR then
+         test("negative digit", exception.str, "all digits must satisfy 0 <= d < input base");
+      end;
+
+      digits_17 : ARRAY{INT} := |1, 2, 1, 0, 1, 0|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_17, 2, 10);
+         test("invalid positive digit", "no exception raised", "all digits must satisfy 0 <= d < input base");
+      when $STR then
+         test("invalid positive digit", exception.str, "all digits must satisfy 0 <= d < input base");
+      end;
+
+      digits_18 : ARRAY{INT} := |1, 0, 1, 0, 1, 0|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_18, 2, 1);
+         test("output base is one", "no exception raised", "output base must be >= 2");
+      when $STR then
+         test("output base is one", exception.str, "output base must be >= 2");
+      end;
+
+      digits_19 : ARRAY{INT} := |7|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_19, 10, 0);
+         test("output base is zero", "no exception raised", "output base must be >= 2");
+      when $STR then
+         test("output base is zero", exception.str, "output base must be >= 2");
+      end;
+
+      digits_20 : ARRAY{INT} := |1|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_20, 2, (-7));
+         test("output base is negative", "no exception raised", "output base must be >= 2");
+      when $STR then
+         test("output base is negative", exception.str, "output base must be >= 2");
+      end;
+
+      digits_21 : ARRAY{INT} := |1|;
+      protect
+         ignored ::= ALL_YOUR_BASE::rebase(digits_21, (-2), (-7));
+         test("both bases are negative", "no exception raised", "input base must be >= 2");
+      when $STR then
+         test("both bases are negative", exception.str, "input base must be >= 2");
+      end;
+
+      finish;
+   end;
+end; -- class ALL_YOUR_BASE_TEST

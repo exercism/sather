@@ -1,0 +1,12 @@
+class ALPHAMETICS is
+
+   solve(puzzle : STR) : FMAP{STR,INT} is
+      -- Find the digit for each letter that makes the sum true. Keys are
+      -- single-character strings. No letter may lead a word with zero, and
+      -- no two letters share a digit.
+      -- Return an empty map when there is no solution: every solvable
+      -- puzzle assigns at least one letter.
+      return #FMAP{STR,INT};
+   end;
+
+end; -- class ALPHAMETICS

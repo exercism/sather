@@ -1,0 +1,9 @@
+class CHANGE is
+
+   change(coins : ARRAY{INT}, target : INT) : ARRAY{INT} is
+      -- Fewest coins adding up to `target', in ascending order.
+      -- Raise a string exception if that is impossible.
+      return #ARRAY{INT}(0);
+   end;
+
+end; -- class CHANGE

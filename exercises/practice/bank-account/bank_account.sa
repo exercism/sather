@@ -1,0 +1,42 @@
+class BANK_ACCOUNT is
+
+   private attr is_open : BOOL;
+   private attr held : INT;
+
+   -- The canonical tests include cases that operate on one account from
+   -- several threads at once. Sather 1.2's serial runtime has no threads,
+   -- so those cases are left out and this class does not need to guard
+   -- against concurrent access.
+   --
+   -- `open' and `close' would read awkwardly beside FILE's own routines,
+   -- so the operations are named open_account and close_account.
+
+   create : SAME is
+      res : SAME := new;
+      return res;
+   end;
+
+   open_account is
+      -- Open the account. Raise if it is open already.
+   end;
+
+   close_account is
+      -- Close the account. Raise if it is not open.
+   end;
+
+   balance : INT is
+      -- The amount held. Raise if the account is not open.
+      return 0;
+   end;
+
+   deposit(amount : INT) is
+      -- Add to the balance. Raise if the account is closed or the amount
+      -- is not positive.
+   end;
+
+   withdraw(amount : INT) is
+      -- Take from the balance. Raise if the account is closed, the amount
+      -- is not positive, or the amount is more than the balance.
+   end;
+
+end; -- class BANK_ACCOUNT

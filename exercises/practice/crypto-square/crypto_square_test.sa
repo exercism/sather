@@ -1,0 +1,25 @@
+class CRYPTO_SQUARE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CRYPTO_SQUARE");
+
+      test("empty plaintext results in an empty ciphertext", CRYPTO_SQUARE::ciphertext(""), "");
+
+      test("normalization results in empty plaintext", CRYPTO_SQUARE::ciphertext("... --- ..."), "");
+
+      test("Lowercase", CRYPTO_SQUARE::ciphertext("A"), "a");
+
+      test("Remove spaces", CRYPTO_SQUARE::ciphertext("  b "), "b");
+
+      test("Remove punctuation", CRYPTO_SQUARE::ciphertext("@1,%!"), "1");
+
+      test("9 character plaintext results in 3 chunks of 3 characters", CRYPTO_SQUARE::ciphertext("This is fun!"), "tsf hiu isn");
+
+      test("8 character plaintext results in 3 chunks, the last one with a trailing space", CRYPTO_SQUARE::ciphertext("Chill out."), "clu hlt io ");
+
+      test("54 character plaintext results in 8 chunks, the last two with trailing spaces", CRYPTO_SQUARE::ciphertext("If man was meant to stay on the ground, god would have given us roots."), "imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau ");
+
+      finish;
+   end;
+end; -- class CRYPTO_SQUARE_TEST

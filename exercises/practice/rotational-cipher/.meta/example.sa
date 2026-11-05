@@ -1,0 +1,19 @@
+class ROTATIONAL_CIPHER is
+
+   rotate(text : STR, shift_key : INT) : STR is
+      if void(text) then return "" end;
+      r : FSTR := #FSTR(text.size);
+      loop
+         c ::= text.elt!;
+         if c.is_alpha then
+            base ::= 'a'.int;
+            if c = c.upper then base := 'A'.int end;
+            r := r + (base + (c.int - base + shift_key) % 26).char;
+         else
+            r := r + c;
+         end;
+      end;
+      return r.str;
+   end;
+
+end; -- class ROTATIONAL_CIPHER

@@ -1,0 +1,27 @@
+class MATCHING_BRACKETS is
+
+   is_paired(text : STR) : BOOL is
+      if void(text) then return true end;
+      stack : FSTR := #FSTR(16);
+      loop
+         c ::= text.elt!;
+         case c
+         when '(', '[', '{' then
+            stack := stack + c;
+         when ')', ']', '}' then
+            if stack.size = 0 then return false end;
+            top ::= stack[stack.size - 1];
+            matched ::= (top = '(' and c = ')')
+                     or (top = '[' and c = ']')
+                     or (top = '{' and c = '}');
+            if ~matched then return false end;
+            stack := stack.head(stack.size - 1);
+         else
+            -- Sather raises "No applicable target in case statement" when
+            -- nothing matches, so non-bracket characters need an arm.
+         end;
+      end;
+      return stack.size = 0;
+   end;
+
+end; -- class MATCHING_BRACKETS

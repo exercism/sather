@@ -1,0 +1,19 @@
+class PERFECT_NUMBERS is
+
+   classify(number : INT) : STR is
+      if number < 1 then
+         raise "Classification is only possible for positive integers.";
+      end;
+      total ::= 0;
+      d ::= 1;
+      loop
+         until!(d > number / 2);
+         if number % d = 0 then total := total + d end;
+         d := d + 1;
+      end;
+      if total = number then return "perfect" end;
+      if total > number then return "abundant" end;
+      return "deficient";
+   end;
+
+end; -- class PERFECT_NUMBERS

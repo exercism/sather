@@ -1,0 +1,40 @@
+class ANAGRAM is
+
+   private lower(s : STR) : STR is
+      r : FSTR := #FSTR(s.size);
+      loop r := r + s.elt!.lower end;
+      return r.str;
+   end;
+
+   private histogram(s : STR) : ARRAY{INT} is
+      counts : ARRAY{INT} := #ARRAY{INT}(26);
+      loop
+         c ::= s.elt!;
+         if c.is_alpha then
+            i ::= c.lower.int - 'a'.int;
+            counts[i] := counts[i] + 1;
+         end;
+      end;
+      return counts;
+   end;
+
+   find(subject : STR, candidates : ARRAY{STR}) : ARRAY{STR} is
+      target ::= lower(subject);
+      wanted ::= histogram(subject);
+      found : FLIST{STR} := #FLIST{STR};
+      loop
+         cand ::= candidates.elt!;
+         if lower(cand) /= target and histogram(cand).str = wanted.str then
+            found := found.push(cand);
+         end;
+      end;
+
+      res : ARRAY{STR} := #ARRAY{STR}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[i];
+      end;
+      return res;
+   end;
+
+end; -- class ANAGRAM

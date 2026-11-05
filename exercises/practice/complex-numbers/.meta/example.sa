@@ -1,0 +1,48 @@
+class COMPLEX is
+
+   readonly attr real, imaginary : FLTD;
+
+   create(r, i : FLTD) : SAME is
+      z ::= new;
+      z.real := r;
+      z.imaginary := i;
+      return z;
+   end;
+
+   plus(other : SAME) : SAME is
+      return #COMPLEX(real + other.real, imaginary + other.imaginary);
+   end;
+
+   minus(other : SAME) : SAME is
+      return #COMPLEX(real - other.real, imaginary - other.imaginary);
+   end;
+
+   times(other : SAME) : SAME is
+      return #COMPLEX(real * other.real - imaginary * other.imaginary,
+                      imaginary * other.real + real * other.imaginary);
+   end;
+
+   div(other : SAME) : SAME is
+      -- Multiply top and bottom by the conjugate of the bottom, which
+      -- makes the bottom real.
+      bottom ::= other.real * other.real + other.imaginary * other.imaginary;
+      return #COMPLEX(
+         (real * other.real + imaginary * other.imaginary) / bottom,
+         (imaginary * other.real - real * other.imaginary) / bottom);
+   end;
+
+   abs : FLTD is
+      return (real * real + imaginary * imaginary).sqrt;
+   end;
+
+   conjugate : SAME is
+      return #COMPLEX(real, -imaginary);
+   end;
+
+   exp : SAME is
+      -- Euler: e^(a+bi) = e^a (cos b + i sin b).
+      magnitude ::= real.exp;
+      return #COMPLEX(magnitude * imaginary.cos, magnitude * imaginary.sin);
+   end;
+
+end; -- class COMPLEX

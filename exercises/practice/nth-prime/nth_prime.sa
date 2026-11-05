@@ -1,0 +1,9 @@
+class NTH_PRIME is
+
+   prime(number : INT) : INT is
+      -- Return the `number'th prime, counting from 1.
+      -- Raise a string exception if there is no such prime.
+      return 0;
+   end;
+
+end; -- class NTH_PRIME

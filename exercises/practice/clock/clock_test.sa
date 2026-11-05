@@ -1,0 +1,113 @@
+class CLOCK_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CLOCK");
+
+      test("Create a new clock with an initial time - on the hour", #CLOCK(8, 0).str, "08:00");
+
+      test("Create a new clock with an initial time - past the hour", #CLOCK(11, 9).str, "11:09");
+
+      test("Create a new clock with an initial time - midnight is zero hours", #CLOCK(24, 0).str, "00:00");
+
+      test("Create a new clock with an initial time - hour rolls over", #CLOCK(25, 0).str, "01:00");
+
+      test("Create a new clock with an initial time - hour rolls over continuously", #CLOCK(100, 0).str, "04:00");
+
+      test("Create a new clock with an initial time - sixty minutes is next hour", #CLOCK(1, 60).str, "02:00");
+
+      test("Create a new clock with an initial time - minutes roll over", #CLOCK(0, 160).str, "02:40");
+
+      test("Create a new clock with an initial time - minutes roll over continuously", #CLOCK(0, 1723).str, "04:43");
+
+      test("Create a new clock with an initial time - hour and minutes roll over", #CLOCK(25, 160).str, "03:40");
+
+      test("Create a new clock with an initial time - hour and minutes roll over continuously", #CLOCK(201, 3001).str, "11:01");
+
+      test("Create a new clock with an initial time - hour and minutes roll over to exactly midnight", #CLOCK(72, 8640).str, "00:00");
+
+      test("Create a new clock with an initial time - negative hour", #CLOCK((-1), 15).str, "23:15");
+
+      test("Create a new clock with an initial time - negative hour rolls over", #CLOCK((-25), 0).str, "23:00");
+
+      test("Create a new clock with an initial time - negative hour rolls over continuously", #CLOCK((-91), 0).str, "05:00");
+
+      test("Create a new clock with an initial time - negative minutes", #CLOCK(1, (-40)).str, "00:20");
+
+      test("Create a new clock with an initial time - negative minutes roll over", #CLOCK(1, (-160)).str, "22:20");
+
+      test("Create a new clock with an initial time - negative minutes roll over continuously", #CLOCK(1, (-4820)).str, "16:40");
+
+      test("Create a new clock with an initial time - negative sixty minutes is previous hour", #CLOCK(2, (-60)).str, "01:00");
+
+      test("Create a new clock with an initial time - negative hour and minutes both roll over", #CLOCK((-25), (-160)).str, "20:20");
+
+      test("Create a new clock with an initial time - negative hour and minutes both roll over continuously", #CLOCK((-121), (-5810)).str, "22:10");
+
+      test("Add minutes - add minutes", #CLOCK(10, 0).plus(3).str, "10:03");
+
+      test("Add minutes - add no minutes", #CLOCK(6, 41).plus(0).str, "06:41");
+
+      test("Add minutes - add to next hour", #CLOCK(0, 45).plus(40).str, "01:25");
+
+      test("Add minutes - add more than one hour", #CLOCK(10, 0).plus(61).str, "11:01");
+
+      test("Add minutes - add more than two hours with carry", #CLOCK(0, 45).plus(160).str, "03:25");
+
+      test("Add minutes - add across midnight", #CLOCK(23, 59).plus(2).str, "00:01");
+
+      test("Add minutes - add more than one day (1500 min = 25 hrs)", #CLOCK(5, 32).plus(1500).str, "06:32");
+
+      test("Add minutes - add more than two days", #CLOCK(1, 1).plus(3500).str, "11:21");
+
+      test("Subtract minutes - subtract minutes", #CLOCK(10, 3).minus(3).str, "10:00");
+
+      test("Subtract minutes - subtract to previous hour", #CLOCK(10, 3).minus(30).str, "09:33");
+
+      test("Subtract minutes - subtract more than an hour", #CLOCK(10, 3).minus(70).str, "08:53");
+
+      test("Subtract minutes - subtract across midnight", #CLOCK(0, 3).minus(4).str, "23:59");
+
+      test("Subtract minutes - subtract more than two hours", #CLOCK(0, 0).minus(160).str, "21:20");
+
+      test("Subtract minutes - subtract more than two hours with borrow", #CLOCK(6, 15).minus(160).str, "03:35");
+
+      test("Subtract minutes - subtract more than one day (1500 min = 25 hrs)", #CLOCK(5, 32).minus(1500).str, "04:32");
+
+      test("Subtract minutes - subtract more than two days", #CLOCK(2, 20).minus(3000).str, "00:20");
+
+      test("Compare two clocks for equality - clocks with same time", (#CLOCK(15, 37) = #CLOCK(15, 37)), true);
+
+      test("Compare two clocks for equality - clocks a minute apart", (#CLOCK(15, 36) = #CLOCK(15, 37)), false);
+
+      test("Compare two clocks for equality - clocks an hour apart", (#CLOCK(14, 37) = #CLOCK(15, 37)), false);
+
+      test("Compare two clocks for equality - clocks with hour overflow", (#CLOCK(10, 37) = #CLOCK(34, 37)), true);
+
+      test("Compare two clocks for equality - clocks with hour overflow by several days", (#CLOCK(3, 11) = #CLOCK(99, 11)), true);
+
+      test("Compare two clocks for equality - clocks with negative hour", (#CLOCK(22, 40) = #CLOCK((-2), 40)), true);
+
+      test("Compare two clocks for equality - clocks with negative hour that wraps", (#CLOCK(17, 3) = #CLOCK((-31), 3)), true);
+
+      test("Compare two clocks for equality - clocks with negative hour that wraps multiple times", (#CLOCK(13, 49) = #CLOCK((-83), 49)), true);
+
+      test("Compare two clocks for equality - clocks with minute overflow", (#CLOCK(0, 1) = #CLOCK(0, 1441)), true);
+
+      test("Compare two clocks for equality - clocks with minute overflow by several days", (#CLOCK(2, 2) = #CLOCK(2, 4322)), true);
+
+      test("Compare two clocks for equality - clocks with negative minute", (#CLOCK(2, 40) = #CLOCK(3, (-20))), true);
+
+      test("Compare two clocks for equality - clocks with negative minute that wraps", (#CLOCK(4, 10) = #CLOCK(5, (-1490))), true);
+
+      test("Compare two clocks for equality - clocks with negative minute that wraps multiple times", (#CLOCK(6, 15) = #CLOCK(6, (-4305))), true);
+
+      test("Compare two clocks for equality - clocks with negative hours and minutes", (#CLOCK(7, 32) = #CLOCK((-12), (-268))), true);
+
+      test("Compare two clocks for equality - clocks with negative hours and minutes that wrap", (#CLOCK(18, 7) = #CLOCK((-54), (-11513))), true);
+
+      test("Compare two clocks for equality - full clock and zeroed clock", (#CLOCK(24, 0) = #CLOCK(0, 0)), true);
+
+      finish;
+   end;
+end; -- class CLOCK_TEST

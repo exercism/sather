@@ -1,0 +1,17 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set i = case.input %}
+{% set call = "TWO_BUCKET::measure(" ~ i.bucketOne | sa ~ ", " ~ i.bucketTwo | sa ~ ", " ~ i.goal | sa ~ ", " ~ i.startBucket | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{% set result = "result_" ~ case.index %}
+      {{ result }} ::= {{ call }};
+{{ m.test(case, result ~ ".moves", case.expected.moves | sa, name=case.full_description ~ " - moves") }}
+{{ m.test(case, result ~ ".goal_bucket", case.expected.goalBucket | sa, name=case.full_description ~ " - goal bucket") }}
+{{ m.test(case, result ~ ".other_bucket", case.expected.otherBucket | sa, name=case.full_description ~ " - other bucket") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

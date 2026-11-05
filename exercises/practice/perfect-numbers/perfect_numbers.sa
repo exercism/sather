@@ -1,0 +1,9 @@
+class PERFECT_NUMBERS is
+
+   classify(number : INT) : STR is
+      -- "perfect", "abundant" or "deficient", by comparing `number' with
+      -- the sum of its factors. Raise a string exception if not positive.
+      return "";
+   end;
+
+end; -- class PERFECT_NUMBERS

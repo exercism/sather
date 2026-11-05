@@ -1,0 +1,53 @@
+class NUCLEOTIDE_COUNT_TEST is
+   include EXERCISM_TEST;
+
+   private map_str(m : FMAP{STR,INT}) : STR is
+      -- Keys ascending, "key=value" joined by commas. FMAP iterates in
+      -- hash order, which is not comparable.
+      if void(m) or m.size = 0 then return "" end;
+      keys : ARRAY{STR} := #ARRAY{STR}(m.size);
+      i ::= 0;
+      loop
+         p ::= m.pair!;
+         keys[i] := p.t1;
+         i := i + 1;
+      end;
+      loop
+         a ::= 0.upto!(keys.size - 1);
+         loop
+            b ::= (a + 1).upto!(keys.size - 1);
+            if keys[b] < keys[a] then
+               t ::= keys[a]; keys[a] := keys[b]; keys[b] := t;
+            end;
+         end;
+      end;
+      r : FSTR := #FSTR(32);
+      loop
+         k ::= 0.upto!(keys.size - 1);
+         if k > 0 then r := r + "," end;
+         r := r + keys[k] + "=" + m.get(keys[k]).str;
+      end;
+      return r.str;
+   end;
+
+   main is
+      class_name("NUCLEOTIDE_COUNT");
+
+      test("empty strand", map_str(NUCLEOTIDE_COUNT::counts("")), "A=0,C=0,G=0,T=0");
+
+      test("can count one nucleotide in single-character input", map_str(NUCLEOTIDE_COUNT::counts("G")), "A=0,C=0,G=1,T=0");
+
+      test("strand with repeated nucleotide", map_str(NUCLEOTIDE_COUNT::counts("GGGGGGG")), "A=0,C=0,G=7,T=0");
+
+      test("strand with multiple nucleotides", map_str(NUCLEOTIDE_COUNT::counts("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC")), "A=20,C=12,G=17,T=21");
+
+      protect
+         ignored ::= NUCLEOTIDE_COUNT::counts("AGXXACT");
+         test("strand with invalid nucleotides", "no exception raised", "Invalid nucleotide in strand");
+      when $STR then
+         test("strand with invalid nucleotides", exception.str, "Invalid nucleotide in strand");
+      end;
+
+      finish;
+   end;
+end; -- class NUCLEOTIDE_COUNT_TEST

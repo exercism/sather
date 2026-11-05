@@ -1,0 +1,13 @@
+class ZEBRA_PUZZLE is
+
+   drinks_water : STR is
+      -- Which resident drinks water?
+      return "";
+   end;
+
+   owns_zebra : STR is
+      -- Which resident owns the zebra?
+      return "";
+   end;
+
+end; -- class ZEBRA_PUZZLE

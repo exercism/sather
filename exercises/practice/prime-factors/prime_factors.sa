@@ -1,0 +1,8 @@
+class PRIME_FACTORS is
+
+   factors(number : INT) : ARRAY{INT} is
+      -- Return the prime factors of `number' in ascending order.
+      return #ARRAY{INT}(0);
+   end;
+
+end; -- class PRIME_FACTORS

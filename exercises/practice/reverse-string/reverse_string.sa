@@ -1,0 +1,9 @@
+class REVERSE_STRING is
+
+   reverse(text : STR) : STR is
+      -- Return `text' with its characters in the opposite order.
+      -- ('value' is a Sather keyword, so the argument is named `text'.)
+      return "";
+   end;
+
+end; -- class REVERSE_STRING

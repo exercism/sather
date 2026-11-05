@@ -1,0 +1,38 @@
+[
+  {
+    "description": "decode with seven rails",
+    "property": "decode",
+    "input": {
+      "msg": "AGGWRHNAEROTOESTRADWETHCTTRENAAVOTHEAOECTRESIRMKEINNNEWOOENESANO",
+      "rails": 7
+    },
+    "expected": "ANANCIENTADAGEWARNSNEVERGOTOSEAWITHTWOCHRONOMETERSTAKEONEORTHREE"
+  },
+  {
+    "description": "encode with one rail",
+    "property": "encode",
+    "input": {
+      "msg": "ABC",
+      "rails": 1
+    },
+    "expected": "ABC"
+  },
+  {
+    "description": "encode alphabet",
+    "property": "encode",
+    "input": {
+      "msg": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "rails": 2
+    },
+    "expected": "ACEGIKMOQSUWYBDFHJLNPRTVXZ"
+  },
+  {
+    "description": "decode alphabet",
+    "property": "decode",
+    "input": {
+      "msg": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "rails": 2
+    },
+    "expected": "ANBOCPDQERFSGTHUIVJWKXLYMZ"
+  }
+]

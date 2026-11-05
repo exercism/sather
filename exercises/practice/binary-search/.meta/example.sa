@@ -1,0 +1,17 @@
+class BINARY_SEARCH is
+
+   find(haystack : ARRAY{INT}, needle : INT) : INT is
+      low ::= 0;
+      high ::= haystack.size - 1;
+      loop
+         until!(low > high);
+         mid ::= low + (high - low) / 2;
+         if haystack[mid] = needle then return mid
+         elsif haystack[mid] < needle then low := mid + 1
+         else high := mid - 1
+         end;
+      end;
+      raise "value not in array";
+   end;
+
+end; -- class BINARY_SEARCH

@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "ARMSTRONG_NUMBERS::is_armstrong_number(" ~ case.input.number | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

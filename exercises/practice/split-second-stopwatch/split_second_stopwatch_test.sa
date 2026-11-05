@@ -1,0 +1,239 @@
+class SPLIT_SECOND_STOPWATCH_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SPLIT_SECOND_STOPWATCH");
+
+      watch_1 ::= #STOPWATCH;
+      test("new stopwatch starts in ready state [2. state]", watch_1.state, "ready");
+
+      watch_2 ::= #STOPWATCH;
+      test("new stopwatch's current lap has no elapsed time [2. currentLap]", watch_2.current_lap, "00:00:00");
+
+      watch_3 ::= #STOPWATCH;
+      test("new stopwatch's total has no elapsed time [2. total]", watch_3.total, "00:00:00");
+
+      watch_4 ::= #STOPWATCH;
+      laps_4_2 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("new stopwatch does not have previous laps [2. previousLaps]", watch_4.previous_laps.str, laps_4_2.str);
+
+      watch_5 ::= #STOPWATCH;
+      watch_5.start;
+      test("start from ready state changes state to running [3. state]", watch_5.state, "running");
+
+      watch_6 ::= #STOPWATCH;
+      watch_6.start;
+      laps_6_3 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("start does not change previous laps [3. previousLaps]", watch_6.previous_laps.str, laps_6_3.str);
+
+      watch_7 ::= #STOPWATCH;
+      watch_7.start;
+      watch_7.advance("00:00:05");
+      test("start initiates time tracking for current lap [4. currentLap]", watch_7.current_lap, "00:00:05");
+
+      watch_8 ::= #STOPWATCH;
+      watch_8.start;
+      watch_8.advance("00:00:23");
+      test("start initiates time tracking for total [4. total]", watch_8.total, "00:00:23");
+
+      watch_9 ::= #STOPWATCH;
+      watch_9.start;
+      protect
+         watch_9.start;
+         test("start cannot be called from running state [3. start]", "no exception raised", "cannot start an already running stopwatch");
+      when $STR then
+         test("start cannot be called from running state [3. start]", exception.str, "cannot start an already running stopwatch");
+      end;
+
+      watch_10 ::= #STOPWATCH;
+      watch_10.start;
+      watch_10.stop;
+      test("stop from running state changes state to stopped [4. state]", watch_10.state, "stopped");
+
+      watch_11 ::= #STOPWATCH;
+      watch_11.start;
+      watch_11.advance("00:00:05");
+      watch_11.stop;
+      watch_11.advance("00:00:08");
+      test("stop pauses time tracking for current lap [6. currentLap]", watch_11.current_lap, "00:00:05");
+
+      watch_12 ::= #STOPWATCH;
+      watch_12.start;
+      watch_12.advance("00:00:13");
+      watch_12.stop;
+      watch_12.advance("00:00:44");
+      test("stop pauses time tracking for total [6. total]", watch_12.total, "00:00:13");
+
+      watch_13 ::= #STOPWATCH;
+      protect
+         watch_13.stop;
+         test("stop cannot be called from ready state [2. stop]", "no exception raised", "cannot stop a stopwatch that is not running");
+      when $STR then
+         test("stop cannot be called from ready state [2. stop]", exception.str, "cannot stop a stopwatch that is not running");
+      end;
+
+      watch_14 ::= #STOPWATCH;
+      watch_14.start;
+      watch_14.stop;
+      protect
+         watch_14.stop;
+         test("stop cannot be called from stopped state [4. stop]", "no exception raised", "cannot stop a stopwatch that is not running");
+      when $STR then
+         test("stop cannot be called from stopped state [4. stop]", exception.str, "cannot stop a stopwatch that is not running");
+      end;
+
+      watch_15 ::= #STOPWATCH;
+      watch_15.start;
+      watch_15.stop;
+      watch_15.start;
+      test("start from stopped state changes state to running [5. state]", watch_15.state, "running");
+
+      watch_16 ::= #STOPWATCH;
+      watch_16.start;
+      watch_16.advance("00:01:20");
+      watch_16.stop;
+      watch_16.advance("00:00:20");
+      watch_16.start;
+      watch_16.advance("00:00:08");
+      test("start from stopped state resumes time tracking for current lap [8. currentLap]", watch_16.current_lap, "00:01:28");
+
+      watch_17 ::= #STOPWATCH;
+      watch_17.start;
+      watch_17.advance("00:00:23");
+      watch_17.stop;
+      watch_17.advance("00:00:44");
+      watch_17.start;
+      watch_17.advance("00:00:09");
+      test("start from stopped state resumes time tracking for total [8. total]", watch_17.total, "00:00:32");
+
+      watch_18 ::= #STOPWATCH;
+      watch_18.start;
+      watch_18.advance("00:01:38");
+      watch_18.lap;
+      laps_18_5 : ARRAY{STR} := |"00:01:38"|;
+      test("lap adds current lap to previous laps [5. previousLaps]", watch_18.previous_laps.str, laps_18_5.str);
+
+      watch_18.advance("00:00:44");
+      watch_18.lap;
+      laps_18_8 : ARRAY{STR} := |"00:01:38", "00:00:44"|;
+      test("lap adds current lap to previous laps [8. previousLaps]", watch_18.previous_laps.str, laps_18_8.str);
+
+      watch_19 ::= #STOPWATCH;
+      watch_19.start;
+      watch_19.advance("00:08:22");
+      watch_19.lap;
+      test("lap resets current lap and resumes time tracking [5. currentLap]", watch_19.current_lap, "00:00:00");
+
+      watch_19.advance("00:00:15");
+      test("lap resets current lap and resumes time tracking [7. currentLap]", watch_19.current_lap, "00:00:15");
+
+      watch_20 ::= #STOPWATCH;
+      watch_20.start;
+      watch_20.advance("00:00:22");
+      watch_20.lap;
+      watch_20.advance("00:00:33");
+      test("lap continues time tracking for total [6. total]", watch_20.total, "00:00:55");
+
+      watch_21 ::= #STOPWATCH;
+      protect
+         watch_21.lap;
+         test("lap cannot be called from ready state [2. lap]", "no exception raised", "cannot lap a stopwatch that is not running");
+      when $STR then
+         test("lap cannot be called from ready state [2. lap]", exception.str, "cannot lap a stopwatch that is not running");
+      end;
+
+      watch_22 ::= #STOPWATCH;
+      watch_22.start;
+      watch_22.stop;
+      protect
+         watch_22.lap;
+         test("lap cannot be called from stopped state [4. lap]", "no exception raised", "cannot lap a stopwatch that is not running");
+      when $STR then
+         test("lap cannot be called from stopped state [4. lap]", exception.str, "cannot lap a stopwatch that is not running");
+      end;
+
+      watch_23 ::= #STOPWATCH;
+      watch_23.start;
+      watch_23.advance("00:11:22");
+      watch_23.lap;
+      laps_23_5 : ARRAY{STR} := |"00:11:22"|;
+      test("stop does not change previous laps [5. previousLaps]", watch_23.previous_laps.str, laps_23_5.str);
+
+      watch_23.stop;
+      laps_23_7 : ARRAY{STR} := |"00:11:22"|;
+      test("stop does not change previous laps [7. previousLaps]", watch_23.previous_laps.str, laps_23_7.str);
+
+      watch_24 ::= #STOPWATCH;
+      watch_24.start;
+      watch_24.stop;
+      watch_24.reset;
+      test("reset from stopped state changes state to ready [5. state]", watch_24.state, "ready");
+
+      watch_25 ::= #STOPWATCH;
+      watch_25.start;
+      watch_25.advance("00:00:10");
+      watch_25.stop;
+      watch_25.reset;
+      test("reset resets current lap [6. currentLap]", watch_25.current_lap, "00:00:00");
+
+      watch_26 ::= #STOPWATCH;
+      watch_26.start;
+      watch_26.advance("00:00:10");
+      watch_26.lap;
+      watch_26.advance("00:00:20");
+      watch_26.lap;
+      laps_26_7 : ARRAY{STR} := |"00:00:10", "00:00:20"|;
+      test("reset clears previous laps [7. previousLaps]", watch_26.previous_laps.str, laps_26_7.str);
+
+      watch_26.stop;
+      watch_26.reset;
+      laps_26_10 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("reset clears previous laps [10. previousLaps]", watch_26.previous_laps.str, laps_26_10.str);
+
+      watch_27 ::= #STOPWATCH;
+      protect
+         watch_27.reset;
+         test("reset cannot be called from ready state [2. reset]", "no exception raised", "cannot reset a stopwatch that is not stopped");
+      when $STR then
+         test("reset cannot be called from ready state [2. reset]", exception.str, "cannot reset a stopwatch that is not stopped");
+      end;
+
+      watch_28 ::= #STOPWATCH;
+      watch_28.start;
+      protect
+         watch_28.reset;
+         test("reset cannot be called from running state [3. reset]", "no exception raised", "cannot reset a stopwatch that is not stopped");
+      when $STR then
+         test("reset cannot be called from running state [3. reset]", exception.str, "cannot reset a stopwatch that is not stopped");
+      end;
+
+      watch_29 ::= #STOPWATCH;
+      watch_29.start;
+      watch_29.advance("01:23:45");
+      test("supports very long laps [4. currentLap]", watch_29.current_lap, "01:23:45");
+
+      watch_29.lap;
+      laps_29_6 : ARRAY{STR} := |"01:23:45"|;
+      test("supports very long laps [6. previousLaps]", watch_29.previous_laps.str, laps_29_6.str);
+
+      watch_29.advance("04:01:40");
+      test("supports very long laps [8. currentLap]", watch_29.current_lap, "04:01:40");
+
+      test("supports very long laps [9. total]", watch_29.total, "05:25:25");
+
+      watch_29.lap;
+      laps_29_11 : ARRAY{STR} := |"01:23:45", "04:01:40"|;
+      test("supports very long laps [11. previousLaps]", watch_29.previous_laps.str, laps_29_11.str);
+
+      watch_29.advance("08:43:05");
+      test("supports very long laps [13. currentLap]", watch_29.current_lap, "08:43:05");
+
+      test("supports very long laps [14. total]", watch_29.total, "14:08:30");
+
+      watch_29.lap;
+      laps_29_16 : ARRAY{STR} := |"01:23:45", "04:01:40", "08:43:05"|;
+      test("supports very long laps [16. previousLaps]", watch_29.previous_laps.str, laps_29_16.str);
+
+      finish;
+   end;
+end; -- class SPLIT_SECOND_STOPWATCH_TEST

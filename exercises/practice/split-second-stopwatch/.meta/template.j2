@@ -1,0 +1,27 @@
+{% import "macros.j2" as m with context %}
+{% set queries = {"state": "state", "currentLap": "current_lap", "total": "total"} %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set watch = "watch_" ~ case.index %}
+      {{ watch }} ::= #STOPWATCH;
+{% for cmd in case.input.commands %}
+{% set name = case.full_description ~ " [" ~ loop.index ~ ". " ~ cmd.command ~ "]" %}
+{% if cmd.command == "advanceTime" %}
+      {{ watch }}.advance({{ cmd.by | sa }});
+{% elif cmd.command in ["start", "stop", "lap", "reset"] %}
+{% if cmd.expected is mapping and "error" in cmd.expected %}
+{{ m.test_error(case, watch ~ "." ~ cmd.command, returns=false, name=name, error=cmd.expected.error) }}
+{% else %}
+      {{ watch }}.{{ cmd.command }};
+{% endif %}
+{% elif cmd.command == "previousLaps" %}
+{% set want = "laps_" ~ case.index ~ "_" ~ loop.index %}
+      {{ want }} : ARRAY{STR} := {{ cmd.expected | sa("STR") }};
+{{ m.test(case, watch ~ ".previous_laps.str", want ~ ".str", name=name) }}
+{% elif cmd.command in queries %}
+{{ m.test(case, watch ~ "." ~ queries[cmd.command], cmd.expected | sa, name=name) }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{{ m.end() }}

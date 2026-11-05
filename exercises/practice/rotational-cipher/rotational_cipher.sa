@@ -1,0 +1,9 @@
+class ROTATIONAL_CIPHER is
+
+   rotate(text : STR, shift_key : INT) : STR is
+      -- Rotate each letter by `shift_key' places, keeping case and
+      -- leaving everything else alone.
+      return "";
+   end;
+
+end; -- class ROTATIONAL_CIPHER

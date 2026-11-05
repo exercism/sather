@@ -1,0 +1,35 @@
+class BUCKET_RESULT is
+
+   -- How the goal was reached: how many moves it took, which bucket holds
+   -- the goal amount at the end, and how much is in the other one.
+
+   readonly attr moves : INT;
+   readonly attr goal_bucket : STR;
+   readonly attr other_bucket : INT;
+
+   create(count : INT, which : STR, rest : INT) : SAME is
+      r ::= new;
+      r.moves := count;
+      r.goal_bucket := which;
+      r.other_bucket := rest;
+      return r;
+   end;
+
+end; -- class BUCKET_RESULT
+
+class TWO_BUCKET is
+
+   measure(one, two, goal : INT, start : STR) : BUCKET_RESULT is
+      -- Reach exactly `goal' litres in one of the buckets, in as few moves
+      -- as possible. A move is filling a bucket, emptying it, or pouring
+      -- one into the other until the first is empty or the second is full.
+      --
+      -- The bucket named by `start' is filled first, and after that the
+      -- other bucket may never be left holding exactly its own capacity
+      -- while the starting one is empty.
+      --
+      -- Raise "impossible" when the goal cannot be reached.
+      return #BUCKET_RESULT(0, "one", 0);
+   end;
+
+end; -- class TWO_BUCKET

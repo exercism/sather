@@ -1,0 +1,39 @@
+class CLOCK is
+
+   readonly attr hour, minute : INT;
+
+   const day : INT := 24 * 60;
+
+   create(h, m : INT) : SAME is
+      clock ::= new;
+      total ::= h * 60 + m;
+      -- Sather's % never answers negative for a positive right-hand side,
+      -- so this brings a negative time round without a special case.
+      total := total % day;
+      clock.hour := total / 60;
+      clock.minute := total % 60;
+      return clock;
+   end;
+
+   plus(minutes : INT) : SAME is
+      return #CLOCK(hour, minute + minutes);
+   end;
+
+   minus(minutes : INT) : SAME is
+      return #CLOCK(hour, minute - minutes);
+   end;
+
+   is_eq(other : SAME) : BOOL is
+      return hour = other.hour and minute = other.minute;
+   end;
+
+   private two(n : INT) : STR is
+      if n < 10 then return "0" + n; end;
+      return n.str;
+   end;
+
+   str : STR is
+      return two(hour) + ":" + two(minute);
+   end;
+
+end; -- class CLOCK

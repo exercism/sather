@@ -1,0 +1,10 @@
+class FLOWER_FIELD is
+
+   annotate(garden : ARRAY{STR}) : ARRAY{STR} is
+      -- Replace each empty square with the number of flowers touching it,
+      -- counting the eight neighbours. A square touching none stays a
+      -- space. Flowers, written '*', are left as they are.
+      return garden;
+   end;
+
+end; -- class FLOWER_FIELD

@@ -1,0 +1,23 @@
+class TREE_NODE is
+
+   attr v : STR;
+   attr l, r : TREE_NODE;
+
+   create(val : STR) : SAME is
+      -- ('value' is a Sather keyword, so the argument is named `val'.)
+      res : SAME := new;
+      res.v := val;
+      return res;
+   end;
+
+end; -- class TREE_NODE
+
+class SATELLITE is
+
+   tree_from_traversals(preorder, inorder : ARRAY{STR}) : TREE_NODE is
+      -- Rebuild the tree the two traversals describe.
+      -- Raise a string exception if they disagree.
+      return void;
+   end;
+
+end; -- class SATELLITE

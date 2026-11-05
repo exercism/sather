@@ -1,0 +1,9 @@
+class RESISTOR_COLOR_TOLERANCE is
+
+   label(colors : ARRAY{STR}) : STR is
+      -- The resistance and tolerance of 1, 4 or 5 colour bands, as a label
+      -- such as "33 ohms ±2%" or "2.54 megaohms ±1%".
+      return "";
+   end;
+
+end; -- class RESISTOR_COLOR_TOLERANCE

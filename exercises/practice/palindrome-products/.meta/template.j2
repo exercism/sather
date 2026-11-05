@@ -1,0 +1,20 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set call = "PALINDROME_PRODUCTS::" ~ case.property ~ "(" ~ case.input.min | sa ~ ", " ~ case.input.max | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% elif case.expected.value is none %}
+{{ m.test(case, call ~ ".found", false | sa) }}
+{% else %}
+{% set found = "found_" ~ case.index %}
+{# Factor pairs in ascending order, each pair smaller factor first. #}
+{% set factors = case.expected.factors | map("sort") | list | sort %}
+      {{ found }} ::= {{ call }};
+{{ m.test(case, found ~ ".found", true | sa, name=case.full_description ~ " - found") }}
+{{ m.test(case, found ~ ".number", case.expected.value | sa, name=case.full_description ~ " - value") }}
+{{ m.test_str(case, found ~ ".factors", factors | sa("ARRAY{INT}"), "ARRAY{ARRAY{INT}}", name=case.full_description ~ " - factors") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

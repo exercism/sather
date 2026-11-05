@@ -1,0 +1,8 @@
+class RNA_TRANSCRIPTION is
+
+   to_rna(dna : STR) : STR is
+      -- Transcribe a DNA strand to RNA: G->C, C->G, T->A, A->U.
+      return "";
+   end;
+
+end; -- class RNA_TRANSCRIPTION

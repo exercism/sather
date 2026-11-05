@@ -1,0 +1,16 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set robot = "robot_" ~ case.index %}
+{% set start = case.input.position %}
+{% set want = case.expected %}
+      {{ robot }} ::= #ROBOT({{ start.x | sa }}, {{ start.y | sa }}, {{ case.input.direction | sa }});
+{% if case.property == "move" %}
+      {{ robot }}.move({{ case.input.instructions | sa }});
+{% endif %}
+{{ m.test(case, robot ~ ".x", want.position.x | sa, name=case.full_description ~ " - x") }}
+{{ m.test(case, robot ~ ".y", want.position.y | sa, name=case.full_description ~ " - y") }}
+{{ m.test(case, robot ~ ".direction", want.direction | sa, name=case.full_description ~ " - direction") }}
+{% endfor %}
+{{ m.end() }}

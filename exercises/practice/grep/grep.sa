@@ -1,0 +1,15 @@
+class GREP is
+
+   search(pattern : STR, flags, files : ARRAY{STR}) : ARRAY{STR} is
+      -- Matching lines from `files', one per element.
+      --   -n  prefix each line with its number
+      --   -l  give only the names of files that matched
+      --   -i  ignore case
+      --   -v  keep the lines that do not match
+      --   -x  match whole lines only
+      -- When more than one file is searched, each line is prefixed with
+      -- its file name.
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class GREP

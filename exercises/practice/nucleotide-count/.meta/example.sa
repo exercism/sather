@@ -1,0 +1,25 @@
+class NUCLEOTIDE_COUNT is
+
+   counts(strand : STR) : FMAP{STR,INT} is
+      -- All four keys exist from the start, so an absent nucleotide reads
+      -- as nought rather than as missing.
+      tally : FMAP{STR,INT} := #FMAP{STR,INT};
+      tally := tally.insert("A", 0);
+      tally := tally.insert("C", 0);
+      tally := tally.insert("G", 0);
+      tally := tally.insert("T", 0);
+      if void(strand) then return tally; end;
+      loop
+         c ::= strand.elt!;
+         case c
+         when 'A', 'C', 'G', 'T' then
+            key ::= c.str;
+            tally := tally.insert(key, tally.get(key) + 1);
+         else
+            raise "Invalid nucleotide in strand";
+         end;
+      end;
+      return tally;
+   end;
+
+end; -- class NUCLEOTIDE_COUNT

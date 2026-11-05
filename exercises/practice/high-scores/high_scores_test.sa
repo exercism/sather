@@ -1,0 +1,73 @@
+class HIGH_SCORES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("HIGH_SCORES");
+
+      scores_1 : ARRAY{INT} := |30, 50, 20, 70|;
+      hs_1 ::= #HIGH_SCORES(scores_1);
+      expected_1 : ARRAY{INT} := |30, 50, 20, 70|;
+      test("List of scores", hs_1.scores.str, expected_1.str);
+
+      scores_2 : ARRAY{INT} := |100, 0, 90, 30|;
+      hs_2 ::= #HIGH_SCORES(scores_2);
+      test("Latest score", hs_2.latest, 30);
+
+      scores_3 : ARRAY{INT} := |40, 100, 70|;
+      hs_3 ::= #HIGH_SCORES(scores_3);
+      test("Personal best", hs_3.personal_best, 100);
+
+      scores_4 : ARRAY{INT} := |10, 30, 90, 30, 100, 20, 10, 0, 30, 40, 40, 70, 70|;
+      hs_4 ::= #HIGH_SCORES(scores_4);
+      expected_4 : ARRAY{INT} := |100, 90, 70|;
+      test("Top 3 scores - Personal top three from a list of scores", hs_4.personal_top_three.str, expected_4.str);
+
+      scores_5 : ARRAY{INT} := |20, 10, 30|;
+      hs_5 ::= #HIGH_SCORES(scores_5);
+      expected_5 : ARRAY{INT} := |30, 20, 10|;
+      test("Top 3 scores - Personal top highest to lowest", hs_5.personal_top_three.str, expected_5.str);
+
+      scores_6 : ARRAY{INT} := |40, 20, 40, 30|;
+      hs_6 ::= #HIGH_SCORES(scores_6);
+      expected_6 : ARRAY{INT} := |40, 40, 30|;
+      test("Top 3 scores - Personal top when there is a tie", hs_6.personal_top_three.str, expected_6.str);
+
+      scores_7 : ARRAY{INT} := |30, 70|;
+      hs_7 ::= #HIGH_SCORES(scores_7);
+      expected_7 : ARRAY{INT} := |70, 30|;
+      test("Top 3 scores - Personal top when there are less than 3", hs_7.personal_top_three.str, expected_7.str);
+
+      scores_8 : ARRAY{INT} := |40|;
+      hs_8 ::= #HIGH_SCORES(scores_8);
+      expected_8 : ARRAY{INT} := |40|;
+      test("Top 3 scores - Personal top when there is only one", hs_8.personal_top_three.str, expected_8.str);
+
+      scores_9 : ARRAY{INT} := |70, 50, 20, 30|;
+      hs_9 ::= #HIGH_SCORES(scores_9);
+      ignored_9 ::= hs_9.personal_top_three;
+      test("Top 3 scores - Latest score after personal top scores", hs_9.latest, 30);
+
+      scores_10 : ARRAY{INT} := |30, 50, 20, 70|;
+      hs_10 ::= #HIGH_SCORES(scores_10);
+      ignored_10 ::= hs_10.personal_top_three;
+      expected_10 : ARRAY{INT} := |30, 50, 20, 70|;
+      test("Top 3 scores - Scores after personal top scores", hs_10.scores.str, expected_10.str);
+
+      scores_11 : ARRAY{INT} := |20, 70, 15, 25, 30|;
+      hs_11 ::= #HIGH_SCORES(scores_11);
+      ignored_11 ::= hs_11.personal_best;
+      test("Top 3 scores - Latest score after personal best", hs_11.latest, 30);
+
+      scores_12 : ARRAY{INT} := |20, 70, 15, 25, 30|;
+      hs_12 ::= #HIGH_SCORES(scores_12);
+      ignored_12 ::= hs_12.personal_best;
+      expected_12 : ARRAY{INT} := |20, 70, 15, 25, 30|;
+      test("Top 3 scores - Scores after personal best", hs_12.scores.str, expected_12.str);
+
+      scores_13 : ARRAY{INT} := |80, 70, 90, 10, 20, 30|;
+      hs_13 ::= #HIGH_SCORES(scores_13);
+      test("Latest score can be outside top three", hs_13.latest, 30);
+
+      finish;
+   end;
+end; -- class HIGH_SCORES_TEST

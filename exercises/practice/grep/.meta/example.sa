@@ -1,0 +1,104 @@
+class GREP is
+
+   private has_flag(flags : ARRAY{STR}, wanted : STR) : BOOL is
+      loop
+         if flags.elt! = wanted then return true end;
+      end;
+      return false;
+   end;
+
+   private lower(s : STR) : STR is
+      r : FSTR := #FSTR(s.size);
+      loop r := r + s.elt!.lower end;
+      return r.str;
+   end;
+
+   private contains(hay, needle : STR) : BOOL is
+      if needle.size = 0 then return true end;
+      if needle.size > hay.size then return false end;
+      loop
+         start ::= 0.upto!(hay.size - needle.size);
+         same ::= true;
+         loop
+            k ::= 0.upto!(needle.size - 1);
+            if hay[start + k] /= needle[k] then same := false end;
+         end;
+         if same then return true end;
+      end;
+      return false;
+   end;
+
+   private lines_of(name : STR) : ARRAY{STR} is
+      f ::= FILE::open_for_read(name);
+      text ::= f.str;
+      found : FLIST{STR} := #FLIST{STR};
+      current : FSTR := #FSTR(80);
+      loop
+         c ::= text.elt!;
+         if c = '\n' then
+            found := found.push(current.str);
+            current := #FSTR(80);
+         else
+            current := current + c;
+         end;
+      end;
+      if current.size > 0 then found := found.push(current.str) end;
+
+      res : ARRAY{STR} := #ARRAY{STR}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[i];
+      end;
+      return res;
+   end;
+
+   search(pattern : STR, flags, files : ARRAY{STR}) : ARRAY{STR} is
+      numbered ::= has_flag(flags, "-n");
+      names_only ::= has_flag(flags, "-l");
+      insensitive ::= has_flag(flags, "-i");
+      inverted ::= has_flag(flags, "-v");
+      exact ::= has_flag(flags, "-x");
+      many ::= files.size > 1;
+
+      needle ::= pattern;
+      if insensitive then needle := lower(needle) end;
+
+      found : FLIST{STR} := #FLIST{STR};
+      loop
+         name ::= files.elt!;
+         body ::= lines_of(name);
+         loop
+            n ::= 0.upto!(body.size - 1);
+            line ::= body[n];
+            hay ::= line;
+            if insensitive then hay := lower(hay) end;
+
+            hit : BOOL;
+            if exact then hit := hay = needle
+            else          hit := contains(hay, needle)
+            end;
+            if inverted then hit := ~hit end;
+
+            if hit then
+               if names_only then
+                  found := found.push(name);
+                  break!;
+               end;
+               shown : FSTR := #FSTR(line.size + 16);
+               if many then shown := shown + name + ":" end;
+               if numbered then shown := shown + (n + 1).str + ":" end;
+               shown := shown + line;
+               found := found.push(shown.str);
+            end;
+         end;
+      end;
+
+      res : ARRAY{STR} := #ARRAY{STR}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[i];
+      end;
+      return res;
+   end;
+
+end; -- class GREP

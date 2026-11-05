@@ -1,0 +1,137 @@
+class BANK_ACCOUNT_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("BANK_ACCOUNT");
+
+      account_1 ::= #BANK_ACCOUNT;
+      account_1.open_account;
+      test("Newly opened account has zero balance", account_1.balance, 0);
+
+      account_2 ::= #BANK_ACCOUNT;
+      account_2.open_account;
+      account_2.deposit(100);
+      test("Single deposit", account_2.balance, 100);
+
+      account_3 ::= #BANK_ACCOUNT;
+      account_3.open_account;
+      account_3.deposit(100);
+      account_3.deposit(50);
+      test("Multiple deposits", account_3.balance, 150);
+
+      account_4 ::= #BANK_ACCOUNT;
+      account_4.open_account;
+      account_4.deposit(100);
+      account_4.withdraw(75);
+      test("Withdraw once", account_4.balance, 25);
+
+      account_5 ::= #BANK_ACCOUNT;
+      account_5.open_account;
+      account_5.deposit(100);
+      account_5.withdraw(80);
+      account_5.withdraw(20);
+      test("Withdraw twice", account_5.balance, 0);
+
+      account_6 ::= #BANK_ACCOUNT;
+      account_6.open_account;
+      account_6.deposit(100);
+      account_6.deposit(110);
+      account_6.withdraw(200);
+      account_6.deposit(60);
+      account_6.withdraw(50);
+      test("Can do multiple operations sequentially", account_6.balance, 20);
+
+      account_7 ::= #BANK_ACCOUNT;
+      protect
+         account_7.open_account;
+         account_7.close_account;
+         account_7_seen_3 ::= account_7.balance;
+         test("Cannot check balance of closed account", "no exception raised", "account not open");
+      when $STR then
+         test("Cannot check balance of closed account", exception.str, "account not open");
+      end;
+
+      account_8 ::= #BANK_ACCOUNT;
+      protect
+         account_8.open_account;
+         account_8.close_account;
+         account_8.deposit(50);
+         test("Cannot deposit into closed account", "no exception raised", "account not open");
+      when $STR then
+         test("Cannot deposit into closed account", exception.str, "account not open");
+      end;
+
+      account_9 ::= #BANK_ACCOUNT;
+      protect
+         account_9.deposit(50);
+         test("Cannot deposit into unopened account", "no exception raised", "account not open");
+      when $STR then
+         test("Cannot deposit into unopened account", exception.str, "account not open");
+      end;
+
+      account_10 ::= #BANK_ACCOUNT;
+      protect
+         account_10.open_account;
+         account_10.close_account;
+         account_10.withdraw(50);
+         test("Cannot withdraw from closed account", "no exception raised", "account not open");
+      when $STR then
+         test("Cannot withdraw from closed account", exception.str, "account not open");
+      end;
+
+      account_11 ::= #BANK_ACCOUNT;
+      protect
+         account_11.close_account;
+         test("Cannot close an account that was not opened", "no exception raised", "account not open");
+      when $STR then
+         test("Cannot close an account that was not opened", exception.str, "account not open");
+      end;
+
+      account_12 ::= #BANK_ACCOUNT;
+      protect
+         account_12.open_account;
+         account_12.open_account;
+         test("Cannot open an already opened account", "no exception raised", "account already open");
+      when $STR then
+         test("Cannot open an already opened account", exception.str, "account already open");
+      end;
+
+      account_13 ::= #BANK_ACCOUNT;
+      account_13.open_account;
+      account_13.deposit(50);
+      account_13.close_account;
+      account_13.open_account;
+      test("Reopened account does not retain balance", account_13.balance, 0);
+
+      account_14 ::= #BANK_ACCOUNT;
+      protect
+         account_14.open_account;
+         account_14.deposit(25);
+         account_14.withdraw(50);
+         test("Cannot withdraw more than deposited", "no exception raised", "amount must be less than balance");
+      when $STR then
+         test("Cannot withdraw more than deposited", exception.str, "amount must be less than balance");
+      end;
+
+      account_15 ::= #BANK_ACCOUNT;
+      protect
+         account_15.open_account;
+         account_15.deposit(100);
+         account_15.withdraw((-50));
+         test("Cannot withdraw negative", "no exception raised", "amount must be greater than 0");
+      when $STR then
+         test("Cannot withdraw negative", exception.str, "amount must be greater than 0");
+      end;
+
+      account_16 ::= #BANK_ACCOUNT;
+      protect
+         account_16.open_account;
+         account_16.deposit((-50));
+         test("Cannot deposit negative", "no exception raised", "amount must be greater than 0");
+      when $STR then
+         test("Cannot deposit negative", exception.str, "amount must be greater than 0");
+      end;
+
+      finish;
+   end;
+end; -- class BANK_ACCOUNT_TEST

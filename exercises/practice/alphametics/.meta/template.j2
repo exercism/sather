@@ -1,0 +1,10 @@
+{% import "macros.j2" as m with context %}
+{% call m.begin() %}
+{{ m.map_str() }}
+{% endcall %}
+{% for case in cases %}
+
+{# An unsolvable puzzle expects null: an empty map. #}
+{{ m.test(case, "map_str(ALPHAMETICS::solve(" ~ case.input.puzzle | sa ~ "))", (case.expected or {}) | map_str | sa_str) }}
+{% endfor %}
+{{ m.end() }}

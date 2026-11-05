@@ -1,0 +1,18 @@
+class TRIANGLE is
+
+   equilateral(sides : ARRAY{FLTD}) : BOOL is
+      -- All three sides the same length.
+      return false;
+   end;
+
+   isosceles(sides : ARRAY{FLTD}) : BOOL is
+      -- At least two sides the same length.
+      return false;
+   end;
+
+   scalene(sides : ARRAY{FLTD}) : BOOL is
+      -- All three sides different.
+      return false;
+   end;
+
+end; -- class TRIANGLE

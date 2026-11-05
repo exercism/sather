@@ -1,0 +1,17 @@
+class ISOGRAM is
+
+   is_isogram(phrase : STR) : BOOL is
+      if void(phrase) then return true end;
+      seen : FSET{CHAR} := #FSET{CHAR};
+      loop
+         c ::= phrase.elt!;
+         if c.is_alpha then
+            lower ::= c.lower;
+            if seen.has(lower) then return false end;
+            seen := seen.insert(lower);
+         end;
+      end;
+      return true;
+   end;
+
+end; -- class ISOGRAM

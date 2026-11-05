@@ -1,0 +1,12 @@
+class LARGEST_SERIES_PRODUCT is
+
+   largest_product(digits : STR, span : INT) : INT is
+      -- The largest product of `span' consecutive digits in `digits'.
+      -- A span of nought has an empty product, which is one.
+      -- Raise "span must not be negative" for a negative span,
+      -- "span must not exceed string length" for one too long, and
+      -- "digits input must only contain digits" for anything but digits.
+      return 0;
+   end;
+
+end; -- class LARGEST_SERIES_PRODUCT

@@ -1,0 +1,28 @@
+class CIRCULAR_BUFFER is
+
+   create(capacity : INT) : SAME is
+      -- A buffer holding at most `capacity' items.
+      return new;
+   end;
+
+   read : INT is
+      -- The oldest item, removing it.
+      -- Raise "buffer is empty" when there is nothing to read.
+      return 0;
+   end;
+
+   write(item : INT) is
+      -- Add an item.
+      -- Raise "buffer is full" when there is no room.
+   end;
+
+   overwrite(item : INT) is
+      -- Add an item, replacing the oldest when there is no room.
+      -- This never fails.
+   end;
+
+   clear is
+      -- Forget everything in the buffer.
+   end;
+
+end; -- class CIRCULAR_BUFFER

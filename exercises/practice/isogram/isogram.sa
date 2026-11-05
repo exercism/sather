@@ -1,0 +1,8 @@
+class ISOGRAM is
+
+   is_isogram(phrase : STR) : BOOL is
+      -- Return true if no letter repeats. Ignore case, spaces and hyphens.
+      return false;
+   end;
+
+end; -- class ISOGRAM

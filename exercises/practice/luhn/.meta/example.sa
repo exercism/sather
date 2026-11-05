@@ -1,0 +1,27 @@
+class LUHN is
+
+   is_valid(text : STR) : BOOL is
+      if void(text) then return false end;
+      digits ::= 0;
+      total ::= 0;
+      i ::= text.size - 1;
+      loop
+         until!(i < 0);
+         c ::= text[i];
+         if c /= ' ' then
+            if ~c.is_digit then return false end;
+            d ::= c.int - '0'.int;
+            if digits % 2 = 1 then
+               d := d * 2;
+               if d > 9 then d := d - 9 end;
+            end;
+            total := total + d;
+            digits := digits + 1;
+         end;
+         i := i - 1;
+      end;
+      if digits <= 1 then return false end;
+      return total % 10 = 0;
+   end;
+
+end; -- class LUHN

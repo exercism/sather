@@ -1,0 +1,45 @@
+class CONNECT_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CONNECT");
+
+      board_1 : ARRAY{STR} := |". . . . .", " . . . . .", "  . . . . .", "   . . . . .", "    . . . . ."|;
+      test("an empty board has no winner", CONNECT::winner(board_1), "");
+
+      board_2 : ARRAY{STR} := |"X"|;
+      test("X can win on a 1x1 board", CONNECT::winner(board_2), "X");
+
+      board_3 : ARRAY{STR} := |"O"|;
+      test("O can win on a 1x1 board", CONNECT::winner(board_3), "O");
+
+      board_4 : ARRAY{STR} := |"O O O X", " X . . X", "  X . . X", "   X O O O"|;
+      test("only edges does not make a winner", CONNECT::winner(board_4), "");
+
+      board_5 : ARRAY{STR} := |"X O . .", " O X X X", "  O X O .", "   . O X .", "    X X O O"|;
+      test("illegal diagonal does not make a winner", CONNECT::winner(board_5), "");
+
+      board_6 : ARRAY{STR} := |"X . . .", " . X O .", "  O . X O", "   . O . X", "    . . O ."|;
+      test("nobody wins crossing adjacent angles", CONNECT::winner(board_6), "");
+
+      board_7 : ARRAY{STR} := |". O . .", " O X X X", "  O X O .", "   X X O X", "    . O X ."|;
+      test("X wins crossing from left to right", CONNECT::winner(board_7), "X");
+
+      board_8 : ARRAY{STR} := |". . X .", " X X . .", "  . X X X", "   O O O O"|;
+      test("X wins with left-hand dead end fork", CONNECT::winner(board_8), "X");
+
+      board_9 : ARRAY{STR} := |". . X X", " X X . .", "  . X X .", "   O O O O"|;
+      test("X wins with right-hand dead end fork", CONNECT::winner(board_9), "X");
+
+      board_10 : ARRAY{STR} := |". O . .", " O X X X", "  O O O .", "   X X O X", "    . O X ."|;
+      test("O wins crossing from top to bottom", CONNECT::winner(board_10), "O");
+
+      board_11 : ARRAY{STR} := |". X X . .", " X . X . X", "  . X . X .", "   . X X . .", "    O O O O O"|;
+      test("X wins using a convoluted path", CONNECT::winner(board_11), "X");
+
+      board_12 : ARRAY{STR} := |"O X X X X X X X X", " O X O O O O O O O", "  O X O X X X X X O", "   O X O X O O O X O", "    O X O X X X O X O", "     O X O O O X O X O", "      O X X X X X O X O", "       O O O O O O O X O", "        X X X X X X X X O"|;
+      test("X wins using a spiral path", CONNECT::winner(board_12), "X");
+
+      finish;
+   end;
+end; -- class CONNECT_TEST

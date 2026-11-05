@@ -1,0 +1,11 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% if case.property == "allergicTo" %}
+{{ m.test(case, "ALLERGIES::allergic_to(" ~ case.input.item | sa ~ ", " ~ case.input.score | sa ~ ")", case.expected | sa) }}
+{% else %}
+{{ m.test_str(case, "ALLERGIES::list(" ~ case.input.score | sa ~ ")", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

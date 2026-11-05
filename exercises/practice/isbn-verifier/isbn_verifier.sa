@@ -1,0 +1,13 @@
+class ISBN_VERIFIER is
+
+   is_valid(isbn : STR) : BOOL is
+      -- Answer whether `isbn' is a valid ISBN-10.
+      --
+      -- Ten characters after any dashes are removed. The first nine are
+      -- digits; the last is a digit or 'X', which stands for ten. It is
+      -- valid when the sum of each digit times its position, counting the
+      -- first as ten down to the last as one, is a multiple of eleven.
+      return false;
+   end;
+
+end; -- class ISBN_VERIFIER

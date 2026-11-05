@@ -1,0 +1,134 @@
+class GREP_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("GREP");
+
+      flags_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      files_1 : ARRAY{STR} := |"iliad.txt"|;
+      expected_1 : ARRAY{STR} := |"Of Atreus, Agamemnon, King of men."|;
+      test("Test grepping a single file - One file, one match, no flags", GREP::search("Agamemnon", flags_1, files_1).str, expected_1.str);
+
+      flags_2 : ARRAY{STR} := |"-n"|;
+      files_2 : ARRAY{STR} := |"paradise-lost.txt"|;
+      expected_2 : ARRAY{STR} := |"2:Of that Forbidden Tree, whose mortal tast"|;
+      test("Test grepping a single file - One file, one match, print line numbers flag", GREP::search("Forbidden", flags_2, files_2).str, expected_2.str);
+
+      flags_3 : ARRAY{STR} := |"-i"|;
+      files_3 : ARRAY{STR} := |"paradise-lost.txt"|;
+      expected_3 : ARRAY{STR} := |"Of that Forbidden Tree, whose mortal tast"|;
+      test("Test grepping a single file - One file, one match, case-insensitive flag", GREP::search("FORBIDDEN", flags_3, files_3).str, expected_3.str);
+
+      flags_4 : ARRAY{STR} := |"-l"|;
+      files_4 : ARRAY{STR} := |"paradise-lost.txt"|;
+      expected_4 : ARRAY{STR} := |"paradise-lost.txt"|;
+      test("Test grepping a single file - One file, one match, print file names flag", GREP::search("Forbidden", flags_4, files_4).str, expected_4.str);
+
+      flags_5 : ARRAY{STR} := |"-x"|;
+      files_5 : ARRAY{STR} := |"paradise-lost.txt"|;
+      expected_5 : ARRAY{STR} := |"With loss of Eden, till one greater Man"|;
+      test("Test grepping a single file - One file, one match, match entire lines flag", GREP::search("With loss of Eden, till one greater Man", flags_5, files_5).str, expected_5.str);
+
+      flags_6 : ARRAY{STR} := |"-n", "-i", "-x"|;
+      files_6 : ARRAY{STR} := |"iliad.txt"|;
+      expected_6 : ARRAY{STR} := |"9:Of Atreus, Agamemnon, King of men."|;
+      test("Test grepping a single file - One file, one match, multiple flags", GREP::search("OF ATREUS, Agamemnon, KIng of MEN.", flags_6, files_6).str, expected_6.str);
+
+      flags_7 : ARRAY{STR} := #ARRAY{STR}(0);
+      files_7 : ARRAY{STR} := |"midsummer-night.txt"|;
+      expected_7 : ARRAY{STR} := |"Nor how it may concern my modesty,", "But I beseech your grace that I may know", "The worst that may befall me in this case,"|;
+      test("Test grepping a single file - One file, several matches, no flags", GREP::search("may", flags_7, files_7).str, expected_7.str);
+
+      flags_8 : ARRAY{STR} := |"-n"|;
+      files_8 : ARRAY{STR} := |"midsummer-night.txt"|;
+      expected_8 : ARRAY{STR} := |"3:Nor how it may concern my modesty,", "5:But I beseech your grace that I may know", "6:The worst that may befall me in this case,"|;
+      test("Test grepping a single file - One file, several matches, print line numbers flag", GREP::search("may", flags_8, files_8).str, expected_8.str);
+
+      flags_9 : ARRAY{STR} := |"-x"|;
+      files_9 : ARRAY{STR} := |"midsummer-night.txt"|;
+      expected_9 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Test grepping a single file - One file, several matches, match entire lines flag", GREP::search("may", flags_9, files_9).str, expected_9.str);
+
+      flags_10 : ARRAY{STR} := |"-i"|;
+      files_10 : ARRAY{STR} := |"iliad.txt"|;
+      expected_10 : ARRAY{STR} := |"Achilles sing, O Goddess! Peleus' son;", "The noble Chief Achilles from the son"|;
+      test("Test grepping a single file - One file, several matches, case-insensitive flag", GREP::search("ACHILLES", flags_10, files_10).str, expected_10.str);
+
+      flags_11 : ARRAY{STR} := |"-v"|;
+      files_11 : ARRAY{STR} := |"paradise-lost.txt"|;
+      expected_11 : ARRAY{STR} := |"Brought Death into the World, and all our woe,", "With loss of Eden, till one greater Man", "Restore us, and regain the blissful Seat,", "Sing Heav'nly Muse, that on the secret top", "That Shepherd, who first taught the chosen Seed"|;
+      test("Test grepping a single file - One file, several matches, inverted flag", GREP::search("Of", flags_11, files_11).str, expected_11.str);
+
+      flags_12 : ARRAY{STR} := |"-n", "-l", "-x", "-i"|;
+      files_12 : ARRAY{STR} := |"iliad.txt"|;
+      expected_12 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Test grepping a single file - One file, no matches, various flags", GREP::search("Gandalf", flags_12, files_12).str, expected_12.str);
+
+      flags_13 : ARRAY{STR} := |"-n", "-l"|;
+      files_13 : ARRAY{STR} := |"iliad.txt"|;
+      expected_13 : ARRAY{STR} := |"iliad.txt"|;
+      test("Test grepping a single file - One file, one match, file flag takes precedence over line flag", GREP::search("ten", flags_13, files_13).str, expected_13.str);
+
+      flags_14 : ARRAY{STR} := |"-x", "-v"|;
+      files_14 : ARRAY{STR} := |"iliad.txt"|;
+      expected_14 : ARRAY{STR} := |"Achilles sing, O Goddess! Peleus' son;", "His wrath pernicious, who ten thousand woes", "Caused to Achaia's host, sent many a soul", "And Heroes gave (so stood the will of Jove)", "To dogs and to all ravening fowls a prey,", "When fierce dispute had separated once", "The noble Chief Achilles from the son", "Of Atreus, Agamemnon, King of men."|;
+      test("Test grepping a single file - One file, several matches, inverted and match entire lines flags", GREP::search("Illustrious into Ades premature,", flags_14, files_14).str, expected_14.str);
+
+      flags_15 : ARRAY{STR} := #ARRAY{STR}(0);
+      files_15 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_15 : ARRAY{STR} := |"iliad.txt:Of Atreus, Agamemnon, King of men."|;
+      test("Test grepping multiples files at once - Multiple files, one match, no flags", GREP::search("Agamemnon", flags_15, files_15).str, expected_15.str);
+
+      flags_16 : ARRAY{STR} := #ARRAY{STR}(0);
+      files_16 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_16 : ARRAY{STR} := |"midsummer-night.txt:Nor how it may concern my modesty,", "midsummer-night.txt:But I beseech your grace that I may know", "midsummer-night.txt:The worst that may befall me in this case,"|;
+      test("Test grepping multiples files at once - Multiple files, several matches, no flags", GREP::search("may", flags_16, files_16).str, expected_16.str);
+
+      flags_17 : ARRAY{STR} := |"-n"|;
+      files_17 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_17 : ARRAY{STR} := |"midsummer-night.txt:5:But I beseech your grace that I may know", "midsummer-night.txt:6:The worst that may befall me in this case,", "paradise-lost.txt:2:Of that Forbidden Tree, whose mortal tast", "paradise-lost.txt:6:Sing Heav'nly Muse, that on the secret top"|;
+      test("Test grepping multiples files at once - Multiple files, several matches, print line numbers flag", GREP::search("that", flags_17, files_17).str, expected_17.str);
+
+      flags_18 : ARRAY{STR} := |"-l"|;
+      files_18 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_18 : ARRAY{STR} := |"iliad.txt", "paradise-lost.txt"|;
+      test("Test grepping multiples files at once - Multiple files, one match, print file names flag", GREP::search("who", flags_18, files_18).str, expected_18.str);
+
+      flags_19 : ARRAY{STR} := |"-i"|;
+      files_19 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_19 : ARRAY{STR} := |"iliad.txt:Caused to Achaia's host, sent many a soul", "iliad.txt:Illustrious into Ades premature,", "iliad.txt:And Heroes gave (so stood the will of Jove)", "iliad.txt:To dogs and to all ravening fowls a prey,", "midsummer-night.txt:I do entreat your grace to pardon me.", "midsummer-night.txt:In such a presence here to plead my thoughts;", "midsummer-night.txt:If I refuse to wed Demetrius.", "paradise-lost.txt:Brought Death into the World, and all our woe,", "paradise-lost.txt:Restore us, and regain the blissful Seat,", "paradise-lost.txt:Sing Heav'nly Muse, that on the secret top"|;
+      test("Test grepping multiples files at once - Multiple files, several matches, case-insensitive flag", GREP::search("TO", flags_19, files_19).str, expected_19.str);
+
+      flags_20 : ARRAY{STR} := |"-v"|;
+      files_20 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_20 : ARRAY{STR} := |"iliad.txt:Achilles sing, O Goddess! Peleus' son;", "iliad.txt:The noble Chief Achilles from the son", "midsummer-night.txt:If I refuse to wed Demetrius."|;
+      test("Test grepping multiples files at once - Multiple files, several matches, inverted flag", GREP::search("a", flags_20, files_20).str, expected_20.str);
+
+      flags_21 : ARRAY{STR} := |"-x"|;
+      files_21 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_21 : ARRAY{STR} := |"midsummer-night.txt:But I beseech your grace that I may know"|;
+      test("Test grepping multiples files at once - Multiple files, one match, match entire lines flag", GREP::search("But I beseech your grace that I may know", flags_21, files_21).str, expected_21.str);
+
+      flags_22 : ARRAY{STR} := |"-n", "-i", "-x"|;
+      files_22 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_22 : ARRAY{STR} := |"paradise-lost.txt:4:With loss of Eden, till one greater Man"|;
+      test("Test grepping multiples files at once - Multiple files, one match, multiple flags", GREP::search("WITH LOSS OF EDEN, TILL ONE GREATER MAN", flags_22, files_22).str, expected_22.str);
+
+      flags_23 : ARRAY{STR} := |"-n", "-l", "-x", "-i"|;
+      files_23 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_23 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Test grepping multiples files at once - Multiple files, no matches, various flags", GREP::search("Frodo", flags_23, files_23).str, expected_23.str);
+
+      flags_24 : ARRAY{STR} := |"-n", "-l"|;
+      files_24 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_24 : ARRAY{STR} := |"iliad.txt", "paradise-lost.txt"|;
+      test("Test grepping multiples files at once - Multiple files, several matches, file flag takes precedence over line number flag", GREP::search("who", flags_24, files_24).str, expected_24.str);
+
+      flags_25 : ARRAY{STR} := |"-x", "-v"|;
+      files_25 : ARRAY{STR} := |"iliad.txt", "midsummer-night.txt", "paradise-lost.txt"|;
+      expected_25 : ARRAY{STR} := |"iliad.txt:Achilles sing, O Goddess! Peleus' son;", "iliad.txt:His wrath pernicious, who ten thousand woes", "iliad.txt:Caused to Achaia's host, sent many a soul", "iliad.txt:And Heroes gave (so stood the will of Jove)", "iliad.txt:To dogs and to all ravening fowls a prey,", "iliad.txt:When fierce dispute had separated once", "iliad.txt:The noble Chief Achilles from the son", "iliad.txt:Of Atreus, Agamemnon, King of men.", "midsummer-night.txt:I do entreat your grace to pardon me.", "midsummer-night.txt:I know not by what power I am made bold,", "midsummer-night.txt:Nor how it may concern my modesty,", "midsummer-night.txt:In such a presence here to plead my thoughts;", "midsummer-night.txt:But I beseech your grace that I may know", "midsummer-night.txt:The worst that may befall me in this case,", "midsummer-night.txt:If I refuse to wed Demetrius.", "paradise-lost.txt:Of Mans First Disobedience, and the Fruit", "paradise-lost.txt:Of that Forbidden Tree, whose mortal tast", "paradise-lost.txt:Brought Death into the World, and all our woe,", "paradise-lost.txt:With loss of Eden, till one greater Man", "paradise-lost.txt:Restore us, and regain the blissful Seat,", "paradise-lost.txt:Sing Heav'nly Muse, that on the secret top", "paradise-lost.txt:Of Oreb, or of Sinai, didst inspire", "paradise-lost.txt:That Shepherd, who first taught the chosen Seed"|;
+      test("Test grepping multiples files at once - Multiple files, several matches, inverted and match entire lines flags", GREP::search("Illustrious into Ades premature,", flags_25, files_25).str, expected_25.str);
+
+      finish;
+   end;
+end; -- class GREP_TEST

@@ -1,0 +1,58 @@
+class ROBOT is
+
+   readonly attr x, y : INT;
+   readonly attr direction : STR;
+
+   create(start_x, start_y : INT, facing : STR) : SAME is
+      robot ::= new;
+      robot.x := start_x;
+      robot.y := start_y;
+      robot.direction := facing;
+      return robot;
+   end;
+
+   private compass : ARRAY{STR} is
+      -- Clockwise, so turning right is one step along and turning left is
+      -- one step back.
+      return |"north", "east", "south", "west"|;
+   end;
+
+   private facing_index : INT is
+      points ::= compass;
+      loop
+         i ::= 0.upto!(3);
+         if points[i] = direction then return i; end;
+      end;
+      return 0;
+   end;
+
+   private turn(by : INT) is
+      -- + 4 before the mod, since turning left from north goes negative.
+      direction := compass[(facing_index + by + 4) % 4];
+   end;
+
+   private advance is
+      case direction
+      when "north" then y := y + 1;
+      when "east" then x := x + 1;
+      when "south" then y := y - 1;
+      when "west" then x := x - 1;
+      else
+         -- Not a direction; nothing to do.
+      end;
+   end;
+
+   move(instructions : STR) is
+      if void(instructions) then return; end;
+      loop
+         case instructions.elt!
+         when 'L' then turn(-1);
+         when 'R' then turn(1);
+         when 'A' then advance;
+         else
+            -- Not an instruction; ignored.
+         end;
+      end;
+   end;
+
+end; -- class ROBOT

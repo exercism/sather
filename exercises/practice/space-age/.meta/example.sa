@@ -1,0 +1,20 @@
+class SPACE_AGE is
+
+   age(planet : STR, seconds : INT) : FLTD is
+      earth_year ::= 31557600.0d;
+      orbit : FLTD;
+      case planet
+      when "Earth"   then orbit := 1.0d;
+      when "Mercury" then orbit := 0.2408467d;
+      when "Venus"   then orbit := 0.61519726d;
+      when "Mars"    then orbit := 1.8808158d;
+      when "Jupiter" then orbit := 11.862615d;
+      when "Saturn"  then orbit := 29.447498d;
+      when "Uranus"  then orbit := 84.016846d;
+      when "Neptune" then orbit := 164.79132d;
+      else raise "not a planet";
+      end;
+      return seconds.fltd / (earth_year * orbit);
+   end;
+
+end; -- class SPACE_AGE

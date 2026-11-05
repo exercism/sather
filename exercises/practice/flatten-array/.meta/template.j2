@@ -1,0 +1,16 @@
+{% import "macros.j2" as m with context %}
+{# A canonical nested value as a NESTED expression. #}
+{% macro nested(node) %}
+{%- if node is none %}NESTED::nothing
+{%- elif node is number %}#NESTED({{ node | sa }})
+{%- elif node %}#NESTED(|{% for n in node %}{{ nested(n) }}{{ ", " if not loop.last }}{% endfor %}|)
+{%- else %}#NESTED(#ARRAY{NESTED}(0))
+{%- endif %}
+{%- endmacro %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      input_{{ case.index }} ::= {{ nested(case.input.array) }};
+{{ m.test_str(case, "FLATTEN_ARRAY::flatten(input_" ~ case.index ~ ")", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% endfor %}
+{{ m.end() }}

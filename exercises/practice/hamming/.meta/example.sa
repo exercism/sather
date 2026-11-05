@@ -1,0 +1,20 @@
+class HAMMING is
+
+   distance(strand1, strand2 : STR) : INT is
+      a ::= strand1; b ::= strand2;
+      if void(a) then a := "" end;
+      if void(b) then b := "" end;
+      if a.size /= b.size then
+         raise "strands must be of equal length";
+      end;
+      d ::= 0;
+      i ::= 0;
+      loop
+         until!(i >= a.size);
+         if a[i] /= b[i] then d := d + 1 end;
+         i := i + 1;
+      end;
+      return d;
+   end;
+
+end; -- class HAMMING

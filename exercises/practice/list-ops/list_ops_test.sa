@@ -1,0 +1,97 @@
+class LIST_OPS_TEST is
+   include EXERCISM_TEST;
+
+   -- The functions the canonical cases describe as lambdas. A bound
+   -- routine has to be bound to a real routine, so they live here.
+   private sum(acc, el : FLTD) : FLTD is return el + acc; end;
+   private product(acc, el : FLTD) : FLTD is return el * acc; end;
+   private quotient(acc, el : FLTD) : FLTD is return el / acc; end;
+   private odd(x : INT) : BOOL is return x % 2 = 1; end;
+   private add_one(x : INT) : INT is return x + 1; end;
+
+   main is
+      class_name("LIST_OPS");
+
+      a_1 : ARRAY{INT} := #ARRAY{INT}(0);
+      b_1 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_1 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("append entries to a list and return the new list - empty lists", LIST_OPS::append(a_1, b_1).str, expected_1.str);
+
+      a_2 : ARRAY{INT} := #ARRAY{INT}(0);
+      b_2 : ARRAY{INT} := |1, 2, 3, 4|;
+      expected_2 : ARRAY{INT} := |1, 2, 3, 4|;
+      test("append entries to a list and return the new list - list to empty list", LIST_OPS::append(a_2, b_2).str, expected_2.str);
+
+      a_3 : ARRAY{INT} := |1, 2, 3, 4|;
+      b_3 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_3 : ARRAY{INT} := |1, 2, 3, 4|;
+      test("append entries to a list and return the new list - empty list to list", LIST_OPS::append(a_3, b_3).str, expected_3.str);
+
+      a_4 : ARRAY{INT} := |1, 2|;
+      b_4 : ARRAY{INT} := |2, 3, 4, 5|;
+      expected_4 : ARRAY{INT} := |1, 2, 2, 3, 4, 5|;
+      test("append entries to a list and return the new list - non-empty lists", LIST_OPS::append(a_4, b_4).str, expected_4.str);
+
+      lists_5 : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(0);
+      expected_5 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("concatenate a list of lists - empty list", LIST_OPS::concat(lists_5).str, expected_5.str);
+
+      lists_6 : ARRAY{ARRAY{INT}} := | |1, 2|, |3|, #ARRAY{INT}(0), |4, 5, 6| |;
+      expected_6 : ARRAY{INT} := |1, 2, 3, 4, 5, 6|;
+      test("concatenate a list of lists - list of lists", LIST_OPS::concat(lists_6).str, expected_6.str);
+
+      l_7 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_7 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("filter list returning only values that satisfy the filter function - empty list", LIST_OPS::filter(l_7, bind(odd(_))).str, expected_7.str);
+
+      l_8 : ARRAY{INT} := |1, 2, 3, 5|;
+      expected_8 : ARRAY{INT} := |1, 3, 5|;
+      test("filter list returning only values that satisfy the filter function - non-empty list", LIST_OPS::filter(l_8, bind(odd(_))).str, expected_8.str);
+
+      l_9 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("returns the length of a list - empty list", LIST_OPS::length(l_9), 0);
+
+      l_10 : ARRAY{INT} := |1, 2, 3, 4|;
+      test("returns the length of a list - non-empty list", LIST_OPS::length(l_10), 4);
+
+      l_11 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_11 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("return a list of elements whose values equal the list value transformed by the mapping function - empty list", LIST_OPS::map(l_11, bind(add_one(_))).str, expected_11.str);
+
+      l_12 : ARRAY{INT} := |1, 3, 5, 7|;
+      expected_12 : ARRAY{INT} := |2, 4, 6, 8|;
+      test("return a list of elements whose values equal the list value transformed by the mapping function - non-empty list", LIST_OPS::map(l_12, bind(add_one(_))).str, expected_12.str);
+
+      l_13 : ARRAY{FLTD} := #ARRAY{FLTD}(0);
+      test("folds (reduces) the given list from the left with a function - empty list", LIST_OPS::foldl(l_13, 2.0d, bind(product(_, _))).str, 2.0d.str);
+
+      l_14 : ARRAY{FLTD} := |1.0d, 2.0d, 3.0d, 4.0d|;
+      test("folds (reduces) the given list from the left with a function - direction independent function applied to non-empty list", LIST_OPS::foldl(l_14, 5.0d, bind(sum(_, _))).str, 15.0d.str);
+
+      l_15 : ARRAY{FLTD} := |1.0d, 2.0d, 3.0d, 4.0d|;
+      test("folds (reduces) the given list from the left with a function - direction dependent function applied to non-empty list", LIST_OPS::foldl(l_15, 24.0d, bind(quotient(_, _))).str, 64.0d.str);
+
+      l_16 : ARRAY{FLTD} := #ARRAY{FLTD}(0);
+      test("folds (reduces) the given list from the right with a function - empty list", LIST_OPS::foldr(l_16, 2.0d, bind(product(_, _))).str, 2.0d.str);
+
+      l_17 : ARRAY{FLTD} := |1.0d, 2.0d, 3.0d, 4.0d|;
+      test("folds (reduces) the given list from the right with a function - direction independent function applied to non-empty list", LIST_OPS::foldr(l_17, 5.0d, bind(sum(_, _))).str, 15.0d.str);
+
+      l_18 : ARRAY{FLTD} := |1.0d, 2.0d, 3.0d, 4.0d|;
+      test("folds (reduces) the given list from the right with a function - direction dependent function applied to non-empty list", LIST_OPS::foldr(l_18, 24.0d, bind(quotient(_, _))).str, 9.0d.str);
+
+      l_19 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_19 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("reverse the elements of the list - empty list", LIST_OPS::reverse(l_19).str, expected_19.str);
+
+      l_20 : ARRAY{INT} := |1, 3, 5, 7|;
+      expected_20 : ARRAY{INT} := |7, 5, 3, 1|;
+      test("reverse the elements of the list - non-empty even-length list", LIST_OPS::reverse(l_20).str, expected_20.str);
+
+      l_21 : ARRAY{INT} := |1, 3, 5, 7, 9, 11, 13|;
+      expected_21 : ARRAY{INT} := |13, 11, 9, 7, 5, 3, 1|;
+      test("reverse the elements of the list - non-empty odd-length list", LIST_OPS::reverse(l_21).str, expected_21.str);
+
+      finish;
+   end;
+end; -- class LIST_OPS_TEST

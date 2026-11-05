@@ -1,0 +1,52 @@
+class BOOK_STORE is
+
+   private group_price(size : INT) : INT is
+      case size
+      when 0 then return 0;
+      when 1 then return 800;
+      when 2 then return 1520;
+      when 3 then return 2160;
+      when 4 then return 2560;
+      when 5 then return 3000;
+      else        return 0;
+      end;
+   end;
+
+   total(basket : ARRAY{INT}) : INT is
+      counts : ARRAY{INT} := #ARRAY{INT}(5);
+      loop
+         b ::= basket.elt!;
+         counts[b - 1] := counts[b - 1] + 1;
+      end;
+
+      -- Take the widest group of distinct titles that is left, repeatedly.
+      group_sizes : ARRAY{INT} := #ARRAY{INT}(6);
+      loop
+         width ::= 0;
+         loop
+            i ::= 0.upto!(4);
+            if counts[i] > 0 then
+               counts[i] := counts[i] - 1;
+               width := width + 1;
+            end;
+         end;
+         if width = 0 then break! end;
+         group_sizes[width] := group_sizes[width] + 1;
+      end;
+
+      -- A five and a three cost more than two fours.
+      swaps ::= group_sizes[5];
+      if group_sizes[3] < swaps then swaps := group_sizes[3] end;
+      group_sizes[5] := group_sizes[5] - swaps;
+      group_sizes[3] := group_sizes[3] - swaps;
+      group_sizes[4] := group_sizes[4] + 2 * swaps;
+
+      sum ::= 0;
+      loop
+         w ::= 1.upto!(5);
+         sum := sum + group_sizes[w] * group_price(w);
+      end;
+      return sum;
+   end;
+
+end; -- class BOOK_STORE

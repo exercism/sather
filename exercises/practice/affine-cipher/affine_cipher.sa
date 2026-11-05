@@ -1,0 +1,18 @@
+class AFFINE_CIPHER is
+
+   encode(phrase : STR, a, b : INT) : STR is
+      -- Encipher with E(x) = (a*x + b) mod 26, where x is the letter's
+      -- place in the alphabet. Letters are lower-cased, digits are kept as
+      -- they are, everything else is dropped, and the result is written in
+      -- groups of five separated by spaces.
+      -- Raise "a and m must be coprime." when a shares a factor with 26.
+      return "";
+   end;
+
+   decode(phrase : STR, a, b : INT) : STR is
+      -- Undo encode, with no grouping in the answer.
+      -- Raise "a and m must be coprime." when a shares a factor with 26.
+      return "";
+   end;
+
+end; -- class AFFINE_CIPHER

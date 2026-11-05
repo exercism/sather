@@ -1,0 +1,9 @@
+class MATCHING_BRACKETS is
+
+   is_paired(text : STR) : BOOL is
+      -- True if every bracket in `text' is matched and correctly nested.
+      -- ('value' is a Sather keyword, so the argument is named `text'.)
+      return false;
+   end;
+
+end; -- class MATCHING_BRACKETS

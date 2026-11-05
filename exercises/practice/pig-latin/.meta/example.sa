@@ -1,0 +1,39 @@
+class PIG_LATIN is
+
+   private is_vowel(c : CHAR) : BOOL is
+      return c = 'a' or c = 'e' or c = 'i' or c = 'o' or c = 'u';
+   end;
+
+   private word(w : STR) : STR is
+      if w.size = 0 then return w end;
+      if is_vowel(w[0]) or w.head(2) = "xr" or w.head(2) = "yt" then
+         return w + "ay";
+      end;
+      -- Find where the leading consonants end: at a vowel, or at a 'y'
+      -- after the first letter. A 'u' after 'q' goes with the consonants.
+      i ::= 1;
+      loop
+         until!(i >= w.size or is_vowel(w[i]) or w[i] = 'y');
+         i := i + 1;
+      end;
+      if i < w.size and w[i] = 'u' and w[i - 1] = 'q' then i := i + 1 end;
+      return w.tail(w.size - i) + w.head(i) + "ay";
+   end;
+
+   translate(phrase : STR) : STR is
+      res : FSTR := #FSTR(phrase.size * 2);
+      current : FSTR := #FSTR(16);
+      loop
+         c ::= phrase.elt!;
+         if c = ' ' then
+            res := res + word(current.str) + ' ';
+            current := #FSTR(16);
+         else
+            current := current + c;
+         end;
+      end;
+      res := res + word(current.str);
+      return res.str;
+   end;
+
+end; -- class PIG_LATIN

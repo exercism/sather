@@ -1,0 +1,36 @@
+{% import "macros.j2" as m with context %}
+{# Canonical inputs write some values as expressions. #}
+{% set symbols = {"pi": 3.141592653589793, "e": 2.718281828459045, "ln(2)": 0.6931471805599453, "ln(2)/2": 0.34657359027997264, "pi/4": 0.7853981633974483} %}
+{% macro real(v) %}{{ (symbols[v] if v is string else v) | sa_fltd }}{% endmacro %}
+{# A bare number stands for a complex number with no imaginary part. #}
+{% macro cx(z) %}{% if z is sequence %}#COMPLEX({{ real(z[0]) }}, {{ real(z[1]) }}){% else %}#COMPLEX({{ real(z) }}, 0.0d){% endif %}{% endmacro %}
+{% set routines = {"add": "plus", "sub": "minus", "mul": "times", "div": "div"} %}
+{% call m.begin() %}
+   private near(actual, wanted : FLTD) : STR is
+      -- Report the wanted value when the answer is within tolerance, and
+      -- the actual one otherwise, so a failure shows the real number
+      -- rather than just "false". Floating-point results here are not
+      -- exact: e raised to i times pi has an imaginary part of about
+      -- 1.2e-16 rather than nought.
+      if (actual - wanted).abs <= 0.000001d then return wanted.str; end;
+      return actual.str;
+   end;
+{% endcall %}
+{% for case in cases %}
+
+{% if case.property in ["real", "imaginary", "abs"] %}
+{% set want = real(case.expected) %}
+{{ m.test(case, "near(" ~ cx(case.input.z) ~ "." ~ case.property ~ ", " ~ want ~ ")", want ~ ".str") }}
+{% else %}
+{% if case.property in ["conjugate", "exp"] %}
+{% set call = cx(case.input.z) ~ "." ~ case.property %}
+{% else %}
+{% set call = cx(case.input.z1) ~ "." ~ routines[case.property] ~ "(" ~ cx(case.input.z2) ~ ")" %}
+{% endif %}
+{% set want = case.expected if case.expected is sequence else [case.expected, 0] %}
+{% set z = "z_" ~ case.index %}
+      {{ z }} ::= {{ call }};
+{{ m.test(case, "near(" ~ z ~ ".real, " ~ real(want[0]) ~ ") + \" \" + near(" ~ z ~ ".imaginary, " ~ real(want[1]) ~ ")", real(want[0]) ~ ".str + \" \" + " ~ real(want[1]) ~ ".str") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

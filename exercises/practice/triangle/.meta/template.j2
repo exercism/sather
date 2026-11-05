@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      sides_{{ case.index }} : ARRAY{FLTD} := {{ case.input.sides | sa("FLTD") }};
+{{ m.test(case, "TRIANGLE::" ~ case.property ~ "(sides_" ~ case.index ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

@@ -1,0 +1,13 @@
+class ALLERGIES is
+
+   allergic_to(item : STR, score : INT) : BOOL is
+      -- True if the score includes an allergy to `item'.
+      return false;
+   end;
+
+   list(score : INT) : ARRAY{STR} is
+      -- Everything the score says the person is allergic to, in order.
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class ALLERGIES

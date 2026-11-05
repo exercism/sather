@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      grid_{{ case.index }} : ARRAY{STR} := {{ case.input.strings | sa("STR") }};
+{{ m.test(case, "RECTANGLES::count(grid_" ~ case.index ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

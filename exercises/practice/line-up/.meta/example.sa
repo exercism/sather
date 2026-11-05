@@ -1,0 +1,23 @@
+class LINE_UP is
+
+   private suffix(n : INT) : STR is
+      -- 11, 12 and 13 are th, and so is anything ending in them: 111th,
+      -- 112th, 113th. Checking the last two digits first settles that.
+      case n % 100
+      when 11, 12, 13 then return "th";
+      else
+         case n % 10
+         when 1 then return "st";
+         when 2 then return "nd";
+         when 3 then return "rd";
+         else return "th";
+         end;
+      end;
+   end;
+
+   format(name : STR, number : INT) : STR is
+      return name + ", you are the " + number + suffix(number)
+           + " customer we serve today. Thank you!";
+   end;
+
+end; -- class LINE_UP

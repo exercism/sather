@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "ISBN_VERIFIER::is_valid(" ~ case.input.isbn | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

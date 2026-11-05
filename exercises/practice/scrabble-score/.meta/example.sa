@@ -1,0 +1,23 @@
+class SCRABBLE_SCORE is
+
+   letter_value(c : CHAR) : INT is
+      case c.upper
+      when 'A','E','I','O','U','L','N','R','S','T' then return 1;
+      when 'D','G'                                 then return 2;
+      when 'B','C','M','P'                         then return 3;
+      when 'F','H','V','W','Y'                     then return 4;
+      when 'K'                                     then return 5;
+      when 'J','X'                                 then return 8;
+      when 'Q','Z'                                 then return 10;
+      else                                              return 0;
+      end;
+   end;
+
+   score(word : STR) : INT is
+      if void(word) then return 0 end;
+      total ::= 0;
+      loop total := total + letter_value(word.elt!) end;
+      return total;
+   end;
+
+end; -- class SCRABBLE_SCORE

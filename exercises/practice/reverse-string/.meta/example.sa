@@ -1,0 +1,15 @@
+class REVERSE_STRING is
+
+   reverse(text : STR) : STR is
+      if void(text) then return "" end;
+      r : FSTR := #FSTR(text.size);
+      i ::= text.size - 1;
+      loop
+         until!(i < 0);
+         r := r + text[i];
+         i := i - 1;
+      end;
+      return r.str;
+   end;
+
+end; -- class REVERSE_STRING

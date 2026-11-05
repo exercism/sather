@@ -1,0 +1,54 @@
+class CHANGE is
+
+   change(coins : ARRAY{INT}, target : INT) : ARRAY{INT} is
+      if target < 0 then raise "target can't be negative" end;
+
+      -- fewest[n] is the smallest number of coins making n, -1 if none.
+      fewest : ARRAY{INT} := #ARRAY{INT}(target + 1);
+      chosen : ARRAY{INT} := #ARRAY{INT}(target + 1);
+      loop
+         i ::= 1.upto!(target);
+         fewest[i] := -1;
+      end;
+
+      loop
+         i ::= 1.upto!(target);
+         loop
+            c ::= coins.elt!;
+            if c <= i and fewest[i - c] >= 0 then
+               if fewest[i] < 0 or fewest[i - c] + 1 < fewest[i] then
+                  fewest[i] := fewest[i - c] + 1;
+                  chosen[i] := c;
+               end;
+            end;
+         end;
+      end;
+
+      if fewest[target] < 0 then
+         raise "can't make target with given coins";
+      end;
+
+      res : ARRAY{INT} := #ARRAY{INT}(fewest[target]);
+      n ::= target;
+      k ::= 0;
+      loop
+         until!(n = 0);
+         res[k] := chosen[n];
+         n := n - chosen[n];
+         k := k + 1;
+      end;
+
+      -- ascending
+      loop
+         i ::= 0.upto!(res.size - 1);
+         loop
+            j ::= (i + 1).upto!(res.size - 1);
+            if res[j] < res[i] then
+               t ::= res[i]; res[i] := res[j]; res[j] := t;
+            end;
+         end;
+      end;
+      return res;
+   end;
+
+end; -- class CHANGE

@@ -1,0 +1,129 @@
+class INTERGALACTIC_TRANSMISSION_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("INTERGALACTIC_TRANSMISSION");
+
+      message_1 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_1 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("calculate transmit sequences - empty message", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_1).str, expected_1.str);
+
+      message_2 : ARRAY{INT} := |0|;
+      expected_2 : ARRAY{INT} := |0, 0|;
+      test("calculate transmit sequences - 0x00 is transmitted as 0x0000", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_2).str, expected_2.str);
+
+      message_3 : ARRAY{INT} := |2|;
+      expected_3 : ARRAY{INT} := |3, 0|;
+      test("calculate transmit sequences - 0x02 is transmitted as 0x0300", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_3).str, expected_3.str);
+
+      message_4 : ARRAY{INT} := |6|;
+      expected_4 : ARRAY{INT} := |6, 0|;
+      test("calculate transmit sequences - 0x06 is transmitted as 0x0600", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_4).str, expected_4.str);
+
+      message_5 : ARRAY{INT} := |5|;
+      expected_5 : ARRAY{INT} := |5, 129|;
+      test("calculate transmit sequences - 0x05 is transmitted as 0x0581", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_5).str, expected_5.str);
+
+      message_6 : ARRAY{INT} := |41|;
+      expected_6 : ARRAY{INT} := |40, 129|;
+      test("calculate transmit sequences - 0x29 is transmitted as 0x2881", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_6).str, expected_6.str);
+
+      message_7 : ARRAY{INT} := |192, 1, 192, 222|;
+      expected_7 : ARRAY{INT} := |192, 0, 113, 27, 225|;
+      test("calculate transmit sequences - 0xc001c0de is transmitted as 0xc000711be1", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_7).str, expected_7.str);
+
+      message_8 : ARRAY{INT} := |71, 114, 101, 97, 116, 33|;
+      expected_8 : ARRAY{INT} := |71, 184, 153, 172, 23, 160, 132|;
+      test("calculate transmit sequences - six byte message", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_8).str, expected_8.str);
+
+      message_9 : ARRAY{INT} := |71, 114, 101, 97, 116, 49, 33|;
+      expected_9 : ARRAY{INT} := |71, 184, 153, 172, 23, 160, 197, 66|;
+      test("calculate transmit sequences - seven byte message", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_9).str, expected_9.str);
+
+      message_10 : ARRAY{INT} := |192, 1, 19, 55, 192, 222, 33, 33|;
+      expected_10 : ARRAY{INT} := |192, 0, 68, 102, 125, 6, 120, 66, 33, 129|;
+      test("calculate transmit sequences - eight byte message", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_10).str, expected_10.str);
+
+      message_11 : ARRAY{INT} := |69, 120, 101, 114, 99, 105, 115, 109, 32, 105, 115, 32, 97, 119, 101, 115, 111, 109, 101, 33|;
+      expected_11 : ARRAY{INT} := |68, 189, 24, 175, 39, 27, 165, 231, 108, 144, 27, 46, 51, 3, 132, 238, 101, 184, 219, 237, 215, 40, 132|;
+      test("calculate transmit sequences - twenty byte message", INTERGALACTIC_TRANSMISSION::transmit_sequence(message_11).str, expected_11.str);
+
+      message_12 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_12 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("decode received messages - empty message", INTERGALACTIC_TRANSMISSION::decode_message(message_12).str, expected_12.str);
+
+      message_13 : ARRAY{INT} := |0, 0|;
+      expected_13 : ARRAY{INT} := |0|;
+      test("decode received messages - zero message", INTERGALACTIC_TRANSMISSION::decode_message(message_13).str, expected_13.str);
+
+      message_14 : ARRAY{INT} := |3, 0|;
+      expected_14 : ARRAY{INT} := |2|;
+      test("decode received messages - 0x0300 is decoded to 0x02", INTERGALACTIC_TRANSMISSION::decode_message(message_14).str, expected_14.str);
+
+      message_15 : ARRAY{INT} := |5, 129|;
+      expected_15 : ARRAY{INT} := |5|;
+      test("decode received messages - 0x0581 is decoded to 0x05", INTERGALACTIC_TRANSMISSION::decode_message(message_15).str, expected_15.str);
+
+      message_16 : ARRAY{INT} := |40, 129|;
+      expected_16 : ARRAY{INT} := |41|;
+      test("decode received messages - 0x2881 is decoded to 0x29", INTERGALACTIC_TRANSMISSION::decode_message(message_16).str, expected_16.str);
+
+      message_17 : ARRAY{INT} := |7, 0|;
+      protect
+         ignored ::= INTERGALACTIC_TRANSMISSION::decode_message(message_17);
+         test("decode received messages - first byte has wrong parity", "no exception raised", "wrong parity");
+      when $STR then
+         test("decode received messages - first byte has wrong parity", exception.str, "wrong parity");
+      end;
+
+      message_18 : ARRAY{INT} := |3, 104|;
+      protect
+         ignored ::= INTERGALACTIC_TRANSMISSION::decode_message(message_18);
+         test("decode received messages - second byte has wrong parity", "no exception raised", "wrong parity");
+      when $STR then
+         test("decode received messages - second byte has wrong parity", exception.str, "wrong parity");
+      end;
+
+      message_19 : ARRAY{INT} := |207, 75, 0|;
+      expected_19 : ARRAY{INT} := |206, 148|;
+      test("decode received messages - 0xcf4b00 is decoded to 0xce94", INTERGALACTIC_TRANSMISSION::decode_message(message_19).str, expected_19.str);
+
+      message_20 : ARRAY{INT} := |226, 86, 101, 0|;
+      expected_20 : ARRAY{INT} := |226, 173, 144|;
+      test("decode received messages - 0xe2566500 is decoded to 0xe2ad90", INTERGALACTIC_TRANSMISSION::decode_message(message_20).str, expected_20.str);
+
+      message_21 : ARRAY{INT} := |71, 184, 153, 172, 23, 160, 132|;
+      expected_21 : ARRAY{INT} := |71, 114, 101, 97, 116, 33|;
+      test("decode received messages - six byte message", INTERGALACTIC_TRANSMISSION::decode_message(message_21).str, expected_21.str);
+
+      message_22 : ARRAY{INT} := |71, 184, 153, 172, 23, 160, 197, 66|;
+      expected_22 : ARRAY{INT} := |71, 114, 101, 97, 116, 49, 33|;
+      test("decode received messages - seven byte message", INTERGALACTIC_TRANSMISSION::decode_message(message_22).str, expected_22.str);
+
+      message_23 : ARRAY{INT} := |71, 184, 153, 172, 23, 160, 197, 67|;
+      protect
+         ignored ::= INTERGALACTIC_TRANSMISSION::decode_message(message_23);
+         test("decode received messages - last byte has wrong parity", "no exception raised", "wrong parity");
+      when $STR then
+         test("decode received messages - last byte has wrong parity", exception.str, "wrong parity");
+      end;
+
+      message_24 : ARRAY{INT} := |192, 0, 68, 102, 125, 6, 120, 66, 33, 129|;
+      expected_24 : ARRAY{INT} := |192, 1, 19, 55, 192, 222, 33, 33|;
+      test("decode received messages - eight byte message", INTERGALACTIC_TRANSMISSION::decode_message(message_24).str, expected_24.str);
+
+      message_25 : ARRAY{INT} := |68, 189, 24, 175, 39, 27, 165, 231, 108, 144, 27, 46, 51, 3, 132, 238, 101, 184, 219, 237, 215, 40, 132|;
+      expected_25 : ARRAY{INT} := |69, 120, 101, 114, 99, 105, 115, 109, 32, 105, 115, 32, 97, 119, 101, 115, 111, 109, 101, 33|;
+      test("decode received messages - twenty byte message", INTERGALACTIC_TRANSMISSION::decode_message(message_25).str, expected_25.str);
+
+      message_26 : ARRAY{INT} := |68, 189, 24, 175, 39, 27, 165, 231, 108, 144, 27, 46, 51, 3, 132, 239, 101, 184, 219, 237, 215, 40, 132|;
+      protect
+         ignored ::= INTERGALACTIC_TRANSMISSION::decode_message(message_26);
+         test("decode received messages - wrong parity on 16th byte", "no exception raised", "wrong parity");
+      when $STR then
+         test("decode received messages - wrong parity on 16th byte", exception.str, "wrong parity");
+      end;
+
+      finish;
+   end;
+end; -- class INTERGALACTIC_TRANSMISSION_TEST

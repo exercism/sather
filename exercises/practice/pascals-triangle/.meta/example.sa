@@ -1,0 +1,19 @@
+class PASCALS_TRIANGLE is
+
+   rows(count : INT) : ARRAY{ARRAY{INT}} is
+      triangle : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(count);
+      loop
+         r ::= 0.upto!(count - 1);
+         row : ARRAY{INT} := #ARRAY{INT}(r + 1);
+         row[0] := 1;
+         row[r] := 1;
+         loop
+            c ::= 1.upto!(r - 1);
+            row[c] := triangle[r - 1][c - 1] + triangle[r - 1][c];
+         end;
+         triangle[r] := row;
+      end;
+      return triangle;
+   end;
+
+end; -- class PASCALS_TRIANGLE

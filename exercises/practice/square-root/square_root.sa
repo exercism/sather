@@ -1,0 +1,9 @@
+class SQUARE_ROOT is
+
+   square_root(radicand : INT) : INT is
+      -- The integer square root of a perfect square, without using a
+      -- library square root.
+      return 0;
+   end;
+
+end; -- class SQUARE_ROOT

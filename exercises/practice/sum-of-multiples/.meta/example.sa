@@ -1,0 +1,20 @@
+class SUM_OF_MULTIPLES is
+
+   sum(factors : ARRAY{INT}, limit : INT) : INT is
+      total ::= 0;
+      i ::= 1;
+      loop
+         until!(i >= limit);
+         loop
+            f ::= factors.elt!;
+            if f /= 0 and i % f = 0 then
+               total := total + i;
+               break!;
+            end;
+         end;
+         i := i + 1;
+      end;
+      return total;
+   end;
+
+end; -- class SUM_OF_MULTIPLES

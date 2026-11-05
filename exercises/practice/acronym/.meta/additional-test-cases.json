@@ -1,0 +1,10 @@
+[
+  {
+    "description": "all lowercase",
+    "property": "abbreviate",
+    "input": {
+      "phrase": "point of view"
+    },
+    "expected": "POV"
+  }
+]

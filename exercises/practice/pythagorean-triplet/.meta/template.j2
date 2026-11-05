@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test_str(case, "PYTHAGOREAN_TRIPLET::triplets_with_sum(" ~ case.input.n | sa ~ ")", case.expected | sa("ARRAY{INT}"), "ARRAY{ARRAY{INT}}") }}
+{% endfor %}
+{{ m.end() }}
