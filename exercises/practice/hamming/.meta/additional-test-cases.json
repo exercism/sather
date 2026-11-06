@@ -1,0 +1,20 @@
+[
+  {
+    "description": "short identical strands",
+    "property": "distance",
+    "input": {
+      "strand1": "GGACTGA",
+      "strand2": "GGACTGA"
+    },
+    "expected": 0
+  },
+  {
+    "description": "short different strands",
+    "property": "distance",
+    "input": {
+      "strand1": "ACCAGGG",
+      "strand2": "ACTATGG"
+    },
+    "expected": 2
+  }
+]

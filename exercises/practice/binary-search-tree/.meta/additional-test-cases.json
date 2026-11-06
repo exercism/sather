@@ -1,0 +1,18 @@
+[
+  {
+    "description": "empty input yields a leaf",
+    "property": "data",
+    "input": {
+      "treeData": []
+    },
+    "expected": null
+  },
+  {
+    "description": "can sort empty input",
+    "property": "sortedData",
+    "input": {
+      "treeData": []
+    },
+    "expected": []
+  }
+]

@@ -1,0 +1,70 @@
+class CONNECT is
+
+   private cell(board : ARRAY{STR}, r, c : INT) : CHAR is
+      -- Row r is indented by r spaces, and cells are separated by one.
+      row ::= board[r];
+      i ::= r + 2 * c;
+      if i >= row.size then return ' ' end;
+      return row[i];
+   end;
+
+   private wins(board : ARRAY{STR}, rows, cols : INT, player : CHAR) : BOOL is
+      seen : ARRAY{BOOL} := #ARRAY{BOOL}(rows * cols);
+      stack_r : ARRAY{INT} := #ARRAY{INT}(rows * cols);
+      stack_c : ARRAY{INT} := #ARRAY{INT}(rows * cols);
+      top ::= 0;
+
+      -- O runs top to bottom, X runs left to right.
+      loop
+         k ::= 0.upto!(SAMAX(rows, cols) - 1);
+         r : INT; c : INT;
+         if player = 'O' then r := 0; c := k else r := k; c := 0 end;
+         if r < rows and c < cols and cell(board, r, c) = player then
+            if ~seen[r * cols + c] then
+               seen[r * cols + c] := true;
+               stack_r[top] := r; stack_c[top] := c; top := top + 1;
+            end;
+         end;
+      end;
+
+      dr : ARRAY{INT} := |0, 0, (-1), (-1), 1, 1|;
+      dc : ARRAY{INT} := |(-1), 1, 0, 1, (-1), 0|;
+
+      loop
+         until!(top = 0);
+         top := top - 1;
+         r ::= stack_r[top];
+         c ::= stack_c[top];
+         if player = 'O' and r = rows - 1 then return true end;
+         if player = 'X' and c = cols - 1 then return true end;
+         loop
+            d ::= 0.upto!(5);
+            nr ::= r + dr[d];
+            nc ::= c + dc[d];
+            if nr >= 0 and nr < rows and nc >= 0 and nc < cols
+                  and ~seen[nr * cols + nc]
+                  and cell(board, nr, nc) = player then
+               seen[nr * cols + nc] := true;
+               stack_r[top] := nr; stack_c[top] := nc; top := top + 1;
+            end;
+         end;
+      end;
+      return false;
+   end;
+
+   private SAMAX(a, b : INT) : INT is
+      if a > b then return a end;
+      return b;
+   end;
+
+   winner(board : ARRAY{STR}) : STR is
+      rows ::= board.size;
+      if rows = 0 then return "" end;
+      cols ::= (board[0].size + 1) / 2;
+      if cols = 0 then return "" end;
+      if wins(board, rows, cols, 'O') then return "O" end;
+      if wins(board, rows, cols, 'X') then return "X" end;
+      return "";
+   end;
+
+end; -- class CONNECT

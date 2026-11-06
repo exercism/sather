@@ -1,0 +1,52 @@
+class RESISTOR_COLOR_TOLERANCE is
+
+   private code(color : STR) : INT is
+      all : ARRAY{STR} := |"black", "brown", "red", "orange", "yellow",
+                           "green", "blue", "violet", "grey", "white"|;
+      loop
+         i ::= 0.upto!(all.size - 1);
+         if all[i] = color then return i end;
+      end;
+      raise "unknown colour";
+   end;
+
+   private tolerance(color : STR) : STR is
+      case color
+      when "grey"   then return "±0.05%";
+      when "violet" then return "±0.1%";
+      when "blue"   then return "±0.25%";
+      when "green"  then return "±0.5%";
+      when "brown"  then return "±1%";
+      when "red"    then return "±2%";
+      when "gold"   then return "±5%";
+      when "silver" then return "±10%";
+      else raise "unknown tolerance colour";
+      end;
+   end;
+
+   label(colors : ARRAY{STR}) : STR is
+      -- Build the digits as text rather than multiplying: five bands can
+      -- reach 999 000 000 000 ohms, beyond INT.
+      if colors.size = 1 then return code(colors[0]).str + " ohms" end;
+      significant ::= 0;
+      loop
+         significant := 10 * significant + code(colors.elt!(0, colors.size - 2));
+      end;
+      if significant = 0 then
+         return "0 ohms " + tolerance(colors[colors.size - 1]);
+      end;
+      digits : FSTR := #FSTR(16) + significant.str;
+      loop code(colors[colors.size - 2]).times!; digits := digits + '0' end;
+      prefixes : ARRAY{STR} := |"", "kilo", "mega", "giga"|;
+      p ::= ((digits.size - 1) / 3).min(prefixes.size - 1);
+      whole ::= digits.size - 3 * p;
+      fraction ::= digits.str.tail(3 * p);
+      loop while!(fraction.size > 0 and fraction[fraction.size - 1] = '0');
+         fraction := fraction.head(fraction.size - 1);
+      end;
+      res ::= digits.str.head(whole);
+      if fraction.size > 0 then res := res + "." + fraction end;
+      return res + " " + prefixes[p] + "ohms " + tolerance(colors[colors.size - 1]);
+   end;
+
+end; -- class RESISTOR_COLOR_TOLERANCE

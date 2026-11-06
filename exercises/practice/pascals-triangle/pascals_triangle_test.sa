@@ -1,0 +1,33 @@
+class PASCALS_TRIANGLE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PASCALS_TRIANGLE");
+
+      expected_1 : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(0);
+      test("zero rows", PASCALS_TRIANGLE::rows(0).str, expected_1.str);
+
+      expected_2 : ARRAY{ARRAY{INT}} := | |1| |;
+      test("single row", PASCALS_TRIANGLE::rows(1).str, expected_2.str);
+
+      expected_3 : ARRAY{ARRAY{INT}} := | |1|, |1, 1| |;
+      test("two rows", PASCALS_TRIANGLE::rows(2).str, expected_3.str);
+
+      expected_4 : ARRAY{ARRAY{INT}} := | |1|, |1, 1|, |1, 2, 1| |;
+      test("three rows", PASCALS_TRIANGLE::rows(3).str, expected_4.str);
+
+      expected_5 : ARRAY{ARRAY{INT}} := | |1|, |1, 1|, |1, 2, 1|, |1, 3, 3, 1| |;
+      test("four rows", PASCALS_TRIANGLE::rows(4).str, expected_5.str);
+
+      expected_6 : ARRAY{ARRAY{INT}} := | |1|, |1, 1|, |1, 2, 1|, |1, 3, 3, 1|, |1, 4, 6, 4, 1| |;
+      test("five rows", PASCALS_TRIANGLE::rows(5).str, expected_6.str);
+
+      expected_7 : ARRAY{ARRAY{INT}} := | |1|, |1, 1|, |1, 2, 1|, |1, 3, 3, 1|, |1, 4, 6, 4, 1|, |1, 5, 10, 10, 5, 1| |;
+      test("six rows", PASCALS_TRIANGLE::rows(6).str, expected_7.str);
+
+      expected_8 : ARRAY{ARRAY{INT}} := | |1|, |1, 1|, |1, 2, 1|, |1, 3, 3, 1|, |1, 4, 6, 4, 1|, |1, 5, 10, 10, 5, 1|, |1, 6, 15, 20, 15, 6, 1|, |1, 7, 21, 35, 35, 21, 7, 1|, |1, 8, 28, 56, 70, 56, 28, 8, 1|, |1, 9, 36, 84, 126, 126, 84, 36, 9, 1| |;
+      test("ten rows", PASCALS_TRIANGLE::rows(10).str, expected_8.str);
+
+      finish;
+   end;
+end; -- class PASCALS_TRIANGLE_TEST

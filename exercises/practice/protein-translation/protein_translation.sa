@@ -1,0 +1,9 @@
+class PROTEIN_TRANSLATION is
+
+   proteins(strand : STR) : ARRAY{STR} is
+      -- Translate an RNA strand into the proteins it codes for, stopping
+      -- at the first STOP codon. Raise a string exception on a bad codon.
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class PROTEIN_TRANSLATION

@@ -1,0 +1,9 @@
+class RAINDROPS is
+
+   convert(number : INT) : STR is
+      -- "Pling" if divisible by 3, "Plang" by 5, "Plong" by 7,
+      -- concatenated in that order; otherwise the number as a string.
+      return "";
+   end;
+
+end; -- class RAINDROPS

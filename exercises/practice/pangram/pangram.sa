@@ -1,0 +1,9 @@
+class PANGRAM is
+
+   is_pangram(sentence : STR) : BOOL is
+      -- Return true if `sentence' uses every letter of the alphabet
+      -- at least once. Case does not matter.
+      return false;
+   end;
+
+end; -- class PANGRAM

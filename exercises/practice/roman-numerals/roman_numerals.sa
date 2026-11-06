@@ -1,0 +1,8 @@
+class ROMAN_NUMERALS is
+
+   roman(number : INT) : STR is
+      -- Convert `number' to its Roman numeral.
+      return "";
+   end;
+
+end; -- class ROMAN_NUMERALS

@@ -1,0 +1,19 @@
+class INTERGALACTIC_TRANSMISSION is
+
+   transmit_sequence(message : ARRAY{INT}) : ARRAY{INT} is
+      -- Pack the message for transmission. Every byte carries only seven
+      -- bits of message in its top seven positions; the bottom bit is a
+      -- parity bit chosen so that each transmitted byte has an even number
+      -- of one bits. The message bits run together across byte boundaries,
+      -- and the last group is padded with zeroes.
+      return #ARRAY{INT}(0);
+   end;
+
+   decode_message(message : ARRAY{INT}) : ARRAY{INT} is
+      -- Undo transmit_sequence, dropping the padding bits at the end.
+      -- Raise "wrong parity" when any received byte has an odd number of
+      -- one bits.
+      return #ARRAY{INT}(0);
+   end;
+
+end; -- class INTERGALACTIC_TRANSMISSION

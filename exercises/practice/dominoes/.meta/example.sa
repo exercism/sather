@@ -1,0 +1,33 @@
+class DOMINOES is
+
+   private extend(stones : ARRAY{ARRAY{INT}}, used : ARRAY{BOOL},
+                  start, current, placed : INT) : BOOL is
+      if placed = stones.size then return start = current end;
+      loop
+         i ::= 0.upto!(stones.size - 1);
+         if ~used[i] then
+            a ::= stones[i][0];
+            b ::= stones[i][1];
+            if a = current then
+               used[i] := true;
+               if extend(stones, used, start, b, placed + 1) then return true end;
+               used[i] := false;
+            end;
+            if b = current and a /= b then
+               used[i] := true;
+               if extend(stones, used, start, a, placed + 1) then return true end;
+               used[i] := false;
+            end;
+         end;
+      end;
+      return false;
+   end;
+
+   can_chain(stones : ARRAY{ARRAY{INT}}) : BOOL is
+      if stones.size = 0 then return true end;
+      used : ARRAY{BOOL} := #ARRAY{BOOL}(stones.size);
+      used[0] := true;
+      return extend(stones, used, stones[0][0], stones[0][1], 1);
+   end;
+
+end; -- class DOMINOES

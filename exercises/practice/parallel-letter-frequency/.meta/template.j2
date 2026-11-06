@@ -1,0 +1,10 @@
+{% import "macros.j2" as m with context %}
+{% call m.begin() %}
+{{ m.map_str() }}
+{% endcall %}
+{% for case in cases %}
+
+      texts_{{ case.index }} : ARRAY{STR} := {{ case.input.texts | sa("STR") }};
+{{ m.test(case, "map_str(PARALLEL_LETTER_FREQUENCY::frequency(texts_" ~ case.index ~ "))", case.expected | map_str | sa_str) }}
+{% endfor %}
+{{ m.end() }}

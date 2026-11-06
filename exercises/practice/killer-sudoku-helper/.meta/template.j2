@@ -1,0 +1,9 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set cage = case.input.cage %}
+      exclude_{{ case.index }} : ARRAY{INT} := {{ cage.exclude | sa("INT") }};
+{{ m.test_str(case, "KILLER_SUDOKU_HELPER::combinations(" ~ cage.sum | sa ~ ", " ~ cage.size | sa ~ ", exclude_" ~ case.index ~ ")", case.expected | sa("ARRAY{INT}"), "ARRAY{ARRAY{INT}}") }}
+{% endfor %}
+{{ m.end() }}

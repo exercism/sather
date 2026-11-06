@@ -1,0 +1,73 @@
+class ANAGRAM_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ANAGRAM");
+
+      candidates_1 : ARRAY{STR} := |"hello", "world", "zombies", "pants"|;
+      expected_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("no matches", ANAGRAM::find("diaper", candidates_1).str, expected_1.str);
+
+      candidates_2 : ARRAY{STR} := |"lemons", "cherry", "melons"|;
+      expected_2 : ARRAY{STR} := |"lemons", "melons"|;
+      test("detects two anagrams", ANAGRAM::find("solemn", candidates_2).str, expected_2.str);
+
+      candidates_3 : ARRAY{STR} := |"dog", "goody"|;
+      expected_3 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("does not detect anagram subsets", ANAGRAM::find("good", candidates_3).str, expected_3.str);
+
+      candidates_4 : ARRAY{STR} := |"enlists", "google", "inlets", "banana"|;
+      expected_4 : ARRAY{STR} := |"inlets"|;
+      test("detects anagram", ANAGRAM::find("listen", candidates_4).str, expected_4.str);
+
+      candidates_5 : ARRAY{STR} := |"gallery", "ballerina", "regally", "clergy", "largely", "leading"|;
+      expected_5 : ARRAY{STR} := |"gallery", "regally", "largely"|;
+      test("detects three anagrams", ANAGRAM::find("allergy", candidates_5).str, expected_5.str);
+
+      candidates_6 : ARRAY{STR} := |"Eons", "ONES"|;
+      expected_6 : ARRAY{STR} := |"Eons", "ONES"|;
+      test("detects multiple anagrams with different case", ANAGRAM::find("nose", candidates_6).str, expected_6.str);
+
+      candidates_7 : ARRAY{STR} := |"last"|;
+      expected_7 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("does not detect non-anagrams with identical checksum", ANAGRAM::find("mass", candidates_7).str, expected_7.str);
+
+      candidates_8 : ARRAY{STR} := |"cashregister", "Carthorse", "radishes"|;
+      expected_8 : ARRAY{STR} := |"Carthorse"|;
+      test("detects anagrams case-insensitively", ANAGRAM::find("Orchestra", candidates_8).str, expected_8.str);
+
+      candidates_9 : ARRAY{STR} := |"cashregister", "carthorse", "radishes"|;
+      expected_9 : ARRAY{STR} := |"carthorse"|;
+      test("detects anagrams using case-insensitive subject", ANAGRAM::find("Orchestra", candidates_9).str, expected_9.str);
+
+      candidates_10 : ARRAY{STR} := |"cashregister", "Carthorse", "radishes"|;
+      expected_10 : ARRAY{STR} := |"Carthorse"|;
+      test("detects anagrams using case-insensitive possible matches", ANAGRAM::find("orchestra", candidates_10).str, expected_10.str);
+
+      candidates_11 : ARRAY{STR} := |"goGoGO"|;
+      expected_11 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("does not detect an anagram if the original word is repeated", ANAGRAM::find("go", candidates_11).str, expected_11.str);
+
+      candidates_12 : ARRAY{STR} := |"patter"|;
+      expected_12 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("anagrams must use all letters exactly once", ANAGRAM::find("tapper", candidates_12).str, expected_12.str);
+
+      candidates_13 : ARRAY{STR} := |"BANANA"|;
+      expected_13 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("words are not anagrams of themselves", ANAGRAM::find("BANANA", candidates_13).str, expected_13.str);
+
+      candidates_14 : ARRAY{STR} := |"Banana"|;
+      expected_14 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("words are not anagrams of themselves even if letter case is partially different", ANAGRAM::find("BANANA", candidates_14).str, expected_14.str);
+
+      candidates_15 : ARRAY{STR} := |"banana"|;
+      expected_15 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("words are not anagrams of themselves even if letter case is completely different", ANAGRAM::find("BANANA", candidates_15).str, expected_15.str);
+
+      candidates_16 : ARRAY{STR} := |"LISTEN", "Silent"|;
+      expected_16 : ARRAY{STR} := |"Silent"|;
+      test("words other than themselves can be anagrams", ANAGRAM::find("LISTEN", candidates_16).str, expected_16.str);
+
+      finish;
+   end;
+end; -- class ANAGRAM_TEST

@@ -1,0 +1,18 @@
+class RESISTOR_COLOR_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("RESISTOR_COLOR");
+
+      test("Color codes - Black", RESISTOR_COLOR::color_code("black"), 0);
+
+      test("Color codes - White", RESISTOR_COLOR::color_code("white"), 9);
+
+      test("Color codes - Orange", RESISTOR_COLOR::color_code("orange"), 3);
+
+      expected_4 : ARRAY{STR} := |"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"|;
+      test("Colors", RESISTOR_COLOR::colors.str, expected_4.str);
+
+      finish;
+   end;
+end; -- class RESISTOR_COLOR_TEST

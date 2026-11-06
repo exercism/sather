@@ -1,0 +1,59 @@
+class NESTED is
+
+   const number_kind : INT := 0;
+   const nothing_kind : INT := 1;
+   const list_kind : INT := 2;
+
+   readonly attr kind : INT;
+   readonly attr number : INT;
+   readonly attr items : ARRAY{NESTED};
+
+   create(n : INT) : SAME is
+      r ::= new;
+      r.kind := number_kind;
+      r.number := n;
+      return r;
+   end;
+
+   create(list : ARRAY{NESTED}) : SAME is
+      r ::= new;
+      r.kind := list_kind;
+      r.items := list;
+      return r;
+   end;
+
+   nothing : SAME is
+      r ::= new;
+      r.kind := nothing_kind;
+      return r;
+   end;
+
+end; -- class NESTED
+
+class FLATTEN_ARRAY is
+
+   private gather(node : NESTED, into : LIST{INT}) is
+      -- The nesting has no bound, so this recurses rather than looping over
+      -- a fixed number of levels.
+      case node.kind
+      when NESTED::number_kind then
+         into.append(node.number);
+      when NESTED::list_kind then
+         loop gather(node.items.elt!, into); end;
+      else
+         -- Nothing at all: contributes no number.
+      end;
+   end;
+
+   flatten(nested : NESTED) : ARRAY{INT} is
+      found ::= #LIST{INT};
+      gather(nested, found);
+      answer : ARRAY{INT} := #ARRAY{INT}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         answer[i] := found[i];
+      end;
+      return answer;
+   end;
+
+end; -- class FLATTEN_ARRAY

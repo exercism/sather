@@ -1,0 +1,54 @@
+class RECTANGLES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("RECTANGLES");
+
+      grid_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("no rows", RECTANGLES::count(grid_1), 0);
+
+      grid_2 : ARRAY{STR} := |""|;
+      test("no columns", RECTANGLES::count(grid_2), 0);
+
+      grid_3 : ARRAY{STR} := |" "|;
+      test("no rectangles", RECTANGLES::count(grid_3), 0);
+
+      grid_4 : ARRAY{STR} := |"+-+", "| |", "+-+"|;
+      test("one rectangle", RECTANGLES::count(grid_4), 1);
+
+      grid_5 : ARRAY{STR} := |"  +-+", "  | |", "+-+-+", "| |  ", "+-+  "|;
+      test("two rectangles without shared parts", RECTANGLES::count(grid_5), 2);
+
+      grid_6 : ARRAY{STR} := |"  +-+", "  | |", "+-+-+", "| | |", "+-+-+"|;
+      test("five rectangles with shared parts", RECTANGLES::count(grid_6), 5);
+
+      grid_7 : ARRAY{STR} := |"+--+", "+--+"|;
+      test("rectangle of height 1 is counted", RECTANGLES::count(grid_7), 1);
+
+      grid_8 : ARRAY{STR} := |"++", "||", "++"|;
+      test("rectangle of width 1 is counted", RECTANGLES::count(grid_8), 1);
+
+      grid_9 : ARRAY{STR} := |"++", "++"|;
+      test("1x1 square is counted", RECTANGLES::count(grid_9), 1);
+
+      grid_10 : ARRAY{STR} := |"  +-+", "    |", "+-+-+", "| | -", "+-+-+"|;
+      test("only complete rectangles are counted", RECTANGLES::count(grid_10), 1);
+
+      grid_11 : ARRAY{STR} := |"+------+----+", "|      |    |", "+---+--+    |", "|   |       |", "+---+-------+"|;
+      test("rectangles can be of different sizes", RECTANGLES::count(grid_11), 3);
+
+      grid_12 : ARRAY{STR} := |"+------+----+", "|      |    |", "+------+    |", "|   |       |", "+---+-------+"|;
+      test("corner is required for a rectangle to be complete", RECTANGLES::count(grid_12), 2);
+
+      grid_13 : ARRAY{STR} := |"+---+--+----+", "|   +--+----+", "+---+--+    |", "|   +--+----+", "+---+--+--+-+", "+---+--+--+-+", "+------+  | |", "          +-+"|;
+      test("large input with many rectangles", RECTANGLES::count(grid_13), 60);
+
+      grid_14 : ARRAY{STR} := |"+-+ +-+", "| | | |", "+-+-+-+", "  | |  ", "+-+-+-+", "| | | |", "+-+ +-+"|;
+      test("rectangles must have four sides", RECTANGLES::count(grid_14), 5);
+
+      grid_15 : ARRAY{STR} := |"      +-----+--------+    +-----+ ", "++---++-----+--------+---++-----++", "||+--++-----+-+-++   |   ||     ||", "|||  ||     +-+-++-+ |   ||     ||", "|||  ||     | | || | |   ||     ||", "||| +++-----+-+-++-+-+---++-+   ||", "||| |||     | | || | |+--++-+-+ ||", "||| +++---+-+-+-++-+-++--++-+ | ||", "||| |||+--+-+-+-+| | |+--++---+ ||", "||| ||||  | | | || | |+-+||     ||", "||+-++++--+-+++-++-+-++-+++---++||", "||  |+++--+-+++-+--+-+| |||   ||||", "+++-+++++---++--+-++-++-+++---+|||", " |+-+++++---++--+ || || |||   ||||", " |  +++++---++--+-++-++-++++  ||||", " |   ||||   |+----++-++-++++--+++|", " |   |+++---+|    || || ||    || |", "+++  |||+---++----+| || ||    || |", "|||  +++----++----++-++-++----++-+", "+++---++----++-----+-++-++----++  ", "                      +-+         "|;
+      test("very large input", RECTANGLES::count(grid_15), 2063);
+
+      finish;
+   end;
+end; -- class RECTANGLES_TEST

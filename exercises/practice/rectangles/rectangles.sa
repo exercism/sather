@@ -1,0 +1,10 @@
+class RECTANGLES is
+
+   count(grid : ARRAY{STR}) : INT is
+      -- How many rectangles the ASCII diagram holds. Corners are '+',
+      -- horizontal sides '-' and vertical sides '|'. Rectangles may
+      -- overlap and sit inside one another.
+      return 0;
+   end;
+
+end; -- class RECTANGLES

@@ -1,0 +1,13 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      coins_{{ case.index }} : ARRAY{INT} := {{ case.input.coins | sa("INT") }};
+{% set call = "CHANGE::change(coins_" ~ case.index ~ ", " ~ case.input.target | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test_str(case, call, case.expected | sa("INT"), "ARRAY{INT}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

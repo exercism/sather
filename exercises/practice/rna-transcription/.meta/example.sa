@@ -1,0 +1,18 @@
+class RNA_TRANSCRIPTION is
+
+   to_rna(dna : STR) : STR is
+      if void(dna) then return "" end;
+      r : FSTR := #FSTR(dna.size);
+      loop
+         case dna.elt!
+         when 'G' then r := r + 'C';
+         when 'C' then r := r + 'G';
+         when 'T' then r := r + 'A';
+         when 'A' then r := r + 'U';
+         else raise "Invalid nucleotide in strand";
+         end;
+      end;
+      return r.str;
+   end;
+
+end; -- class RNA_TRANSCRIPTION

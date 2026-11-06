@@ -1,0 +1,63 @@
+class BOOK_STORE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("BOOK_STORE");
+
+      basket_1 : ARRAY{INT} := |1|;
+      test("Only a single book", BOOK_STORE::total(basket_1), 800);
+
+      basket_2 : ARRAY{INT} := |2, 2|;
+      test("Two of the same book", BOOK_STORE::total(basket_2), 1600);
+
+      basket_3 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("Empty basket", BOOK_STORE::total(basket_3), 0);
+
+      basket_4 : ARRAY{INT} := |1, 2|;
+      test("Two different books", BOOK_STORE::total(basket_4), 1520);
+
+      basket_5 : ARRAY{INT} := |1, 2, 3|;
+      test("Three different books", BOOK_STORE::total(basket_5), 2160);
+
+      basket_6 : ARRAY{INT} := |1, 2, 3, 4|;
+      test("Four different books", BOOK_STORE::total(basket_6), 2560);
+
+      basket_7 : ARRAY{INT} := |1, 2, 3, 4, 5|;
+      test("Five different books", BOOK_STORE::total(basket_7), 3000);
+
+      basket_8 : ARRAY{INT} := |1, 1, 2, 2, 3, 3, 4, 5|;
+      test("Two groups of four is cheaper than group of five plus group of three", BOOK_STORE::total(basket_8), 5120);
+
+      basket_9 : ARRAY{INT} := |1, 1, 2, 3, 4, 4, 5, 5|;
+      test("Two groups of four is cheaper than groups of five and three", BOOK_STORE::total(basket_9), 5120);
+
+      basket_10 : ARRAY{INT} := |1, 1, 2, 2, 3, 4|;
+      test("Group of four plus group of two is cheaper than two groups of three", BOOK_STORE::total(basket_10), 4080);
+
+      basket_11 : ARRAY{INT} := |1, 1, 2, 2, 3, 3, 4, 4, 5|;
+      test("Two each of first four books and one copy each of rest", BOOK_STORE::total(basket_11), 5560);
+
+      basket_12 : ARRAY{INT} := |1, 1, 2, 2, 3, 3, 4, 4, 5, 5|;
+      test("Two copies of each book", BOOK_STORE::total(basket_12), 6000);
+
+      basket_13 : ARRAY{INT} := |1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 1|;
+      test("Three copies of first book and two each of remaining", BOOK_STORE::total(basket_13), 6800);
+
+      basket_14 : ARRAY{INT} := |1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 1, 2|;
+      test("Three each of first two books and two each of remaining books", BOOK_STORE::total(basket_14), 7520);
+
+      basket_15 : ARRAY{INT} := |1, 1, 2, 2, 3, 3, 4, 5, 1, 1, 2, 2, 3, 3, 4, 5|;
+      test("Four groups of four are cheaper than two groups each of five and three", BOOK_STORE::total(basket_15), 10240);
+
+      basket_16 : ARRAY{INT} := |1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5|;
+      test("Check that groups of four are created properly even when there are more groups of three than groups of five", BOOK_STORE::total(basket_16), 14560);
+
+      basket_17 : ARRAY{INT} := |1, 1, 2, 3, 4|;
+      test("One group of one and four is cheaper than one group of two and three", BOOK_STORE::total(basket_17), 3360);
+
+      basket_18 : ARRAY{INT} := |1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5|;
+      test("One group of one and two plus three groups of four is cheaper than one group of each size", BOOK_STORE::total(basket_18), 10000);
+
+      finish;
+   end;
+end; -- class BOOK_STORE_TEST

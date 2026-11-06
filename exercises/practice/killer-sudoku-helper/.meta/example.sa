@@ -1,0 +1,50 @@
+class KILLER_SUDOKU_HELPER is
+
+   private search(cage_sum, cage_size, start : INT, exclude : ARRAY{INT},
+                  chosen : ARRAY{INT}, depth : INT,
+                  found : FLIST{ARRAY{INT}}) : FLIST{ARRAY{INT}} is
+      acc ::= found;
+      if depth = cage_size then
+         if cage_sum = 0 then
+            row : ARRAY{INT} := #ARRAY{INT}(depth);
+            loop
+               i ::= 0.upto!(depth - 1);
+               row[i] := chosen[i];
+            end;
+            acc := acc.push(row);
+         end;
+         return acc;
+      end;
+      loop
+         d ::= start.upto!(9);
+         if d <= cage_sum then
+            barred ::= false;
+            loop
+               e ::= exclude.elt!;
+               if e = d then barred := true end;
+            end;
+            if ~barred then
+               chosen[depth] := d;
+               acc := search(cage_sum - d, cage_size, d + 1, exclude,
+                             chosen, depth + 1, acc);
+            end;
+         end;
+      end;
+      return acc;
+   end;
+
+   combinations(cage_sum, cage_size : INT, exclude : ARRAY{INT})
+         : ARRAY{ARRAY{INT}} is
+      chosen : ARRAY{INT} := #ARRAY{INT}(cage_size);
+      found : FLIST{ARRAY{INT}} := #FLIST{ARRAY{INT}};
+      found := search(cage_sum, cage_size, 1, exclude, chosen, 0, found);
+
+      res : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[i];
+      end;
+      return res;
+   end;
+
+end; -- class KILLER_SUDOKU_HELPER

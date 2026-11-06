@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "REVERSE_STRING::reverse(" ~ case.input.value | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

@@ -1,0 +1,42 @@
+class SADDLE_POINTS is
+
+   saddle_points(matrix : ARRAY{ARRAY{INT}}) : ARRAY{ARRAY{INT}} is
+      found ::= #LIST{ARRAY{INT}};
+      if void(matrix) or matrix.size = 0 then
+         return #ARRAY{ARRAY{INT}}(0);
+      end;
+      width ::= matrix[0].size;
+      loop
+         r ::= 0.upto!(matrix.size - 1);
+         row ::= matrix[r];
+         loop
+            c ::= 0.upto!(width - 1);
+            here ::= row[c];
+            biggest_in_row ::= true;
+            loop
+               if row[0.upto!(width - 1)] > here then
+                  biggest_in_row := false;
+               end;
+            end;
+            smallest_in_column ::= true;
+            loop
+               if matrix[0.upto!(matrix.size - 1)][c] < here then
+                  smallest_in_column := false;
+               end;
+            end;
+            if biggest_in_row and smallest_in_column then
+               -- Counted from one, as the exercise numbers them.
+               point : ARRAY{INT} := |r + 1, c + 1|;
+               found.append(point);
+            end;
+         end;
+      end;
+      answer : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         answer[i] := found[i];
+      end;
+      return answer;
+   end;
+
+end; -- class SADDLE_POINTS

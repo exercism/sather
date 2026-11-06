@@ -1,0 +1,9 @@
+class ALL_YOUR_BASE is
+
+   rebase(digits : ARRAY{INT}, input_base, output_base : INT) : ARRAY{INT} is
+      -- Convert a sequence of digits from one base to another.
+      -- Raise a string exception if either base or any digit is invalid.
+      return #ARRAY{INT}(0);
+   end;
+
+end; -- class ALL_YOUR_BASE

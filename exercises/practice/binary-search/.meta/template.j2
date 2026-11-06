@@ -1,0 +1,13 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      haystack_{{ case.index }} : ARRAY{INT} := {{ case.input.array | sa("INT") }};
+{% set call = "BINARY_SEARCH::find(haystack_" ~ case.index ~ ", " ~ case.input.value | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test(case, call, case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

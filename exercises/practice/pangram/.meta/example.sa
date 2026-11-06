@@ -1,0 +1,13 @@
+class PANGRAM is
+
+   is_pangram(sentence : STR) : BOOL is
+      if void(sentence) then return false end;
+      seen : FSET{CHAR} := #FSET{CHAR};
+      loop
+         c ::= sentence.elt!;
+         if c.is_alpha then seen := seen.insert(c.lower) end;
+      end;
+      return seen.size = 26;
+   end;
+
+end; -- class PANGRAM

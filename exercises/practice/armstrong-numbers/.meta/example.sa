@@ -1,0 +1,23 @@
+class ARMSTRONG_NUMBERS is
+
+   is_armstrong_number(number : INT) : BOOL is
+      digits ::= number.str.size;
+      total ::= 0;
+      n ::= number;
+      loop
+         until!(n = 0);
+         d ::= n % 10;
+         p ::= 1;
+         k ::= 0;
+         loop
+            until!(k >= digits);
+            p := p * d;
+            k := k + 1;
+         end;
+         total := total + p;
+         n := n / 10;
+      end;
+      return total = number;
+   end;
+
+end; -- class ARMSTRONG_NUMBERS

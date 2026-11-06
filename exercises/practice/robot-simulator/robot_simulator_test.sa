@@ -1,0 +1,151 @@
+class ROBOT_SIMULATOR_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ROBOT_SIMULATOR");
+
+      robot_1 ::= #ROBOT(0, 0, "north");
+      test("Create robot - at origin facing north - x", robot_1.x, 0);
+
+      test("Create robot - at origin facing north - y", robot_1.y, 0);
+
+      test("Create robot - at origin facing north - direction", robot_1.direction, "north");
+
+      robot_2 ::= #ROBOT((-1), (-1), "south");
+      test("Create robot - at negative position facing south - x", robot_2.x, (-1));
+
+      test("Create robot - at negative position facing south - y", robot_2.y, (-1));
+
+      test("Create robot - at negative position facing south - direction", robot_2.direction, "south");
+
+      robot_3 ::= #ROBOT(0, 0, "north");
+      robot_3.move("R");
+      test("Rotating clockwise - changes north to east - x", robot_3.x, 0);
+
+      test("Rotating clockwise - changes north to east - y", robot_3.y, 0);
+
+      test("Rotating clockwise - changes north to east - direction", robot_3.direction, "east");
+
+      robot_4 ::= #ROBOT(0, 0, "east");
+      robot_4.move("R");
+      test("Rotating clockwise - changes east to south - x", robot_4.x, 0);
+
+      test("Rotating clockwise - changes east to south - y", robot_4.y, 0);
+
+      test("Rotating clockwise - changes east to south - direction", robot_4.direction, "south");
+
+      robot_5 ::= #ROBOT(0, 0, "south");
+      robot_5.move("R");
+      test("Rotating clockwise - changes south to west - x", robot_5.x, 0);
+
+      test("Rotating clockwise - changes south to west - y", robot_5.y, 0);
+
+      test("Rotating clockwise - changes south to west - direction", robot_5.direction, "west");
+
+      robot_6 ::= #ROBOT(0, 0, "west");
+      robot_6.move("R");
+      test("Rotating clockwise - changes west to north - x", robot_6.x, 0);
+
+      test("Rotating clockwise - changes west to north - y", robot_6.y, 0);
+
+      test("Rotating clockwise - changes west to north - direction", robot_6.direction, "north");
+
+      robot_7 ::= #ROBOT(0, 0, "north");
+      robot_7.move("L");
+      test("Rotating counter-clockwise - changes north to west - x", robot_7.x, 0);
+
+      test("Rotating counter-clockwise - changes north to west - y", robot_7.y, 0);
+
+      test("Rotating counter-clockwise - changes north to west - direction", robot_7.direction, "west");
+
+      robot_8 ::= #ROBOT(0, 0, "west");
+      robot_8.move("L");
+      test("Rotating counter-clockwise - changes west to south - x", robot_8.x, 0);
+
+      test("Rotating counter-clockwise - changes west to south - y", robot_8.y, 0);
+
+      test("Rotating counter-clockwise - changes west to south - direction", robot_8.direction, "south");
+
+      robot_9 ::= #ROBOT(0, 0, "south");
+      robot_9.move("L");
+      test("Rotating counter-clockwise - changes south to east - x", robot_9.x, 0);
+
+      test("Rotating counter-clockwise - changes south to east - y", robot_9.y, 0);
+
+      test("Rotating counter-clockwise - changes south to east - direction", robot_9.direction, "east");
+
+      robot_10 ::= #ROBOT(0, 0, "east");
+      robot_10.move("L");
+      test("Rotating counter-clockwise - changes east to north - x", robot_10.x, 0);
+
+      test("Rotating counter-clockwise - changes east to north - y", robot_10.y, 0);
+
+      test("Rotating counter-clockwise - changes east to north - direction", robot_10.direction, "north");
+
+      robot_11 ::= #ROBOT(0, 0, "north");
+      robot_11.move("A");
+      test("Moving forward one - facing north increments Y - x", robot_11.x, 0);
+
+      test("Moving forward one - facing north increments Y - y", robot_11.y, 1);
+
+      test("Moving forward one - facing north increments Y - direction", robot_11.direction, "north");
+
+      robot_12 ::= #ROBOT(0, 0, "south");
+      robot_12.move("A");
+      test("Moving forward one - facing south decrements Y - x", robot_12.x, 0);
+
+      test("Moving forward one - facing south decrements Y - y", robot_12.y, (-1));
+
+      test("Moving forward one - facing south decrements Y - direction", robot_12.direction, "south");
+
+      robot_13 ::= #ROBOT(0, 0, "east");
+      robot_13.move("A");
+      test("Moving forward one - facing east increments X - x", robot_13.x, 1);
+
+      test("Moving forward one - facing east increments X - y", robot_13.y, 0);
+
+      test("Moving forward one - facing east increments X - direction", robot_13.direction, "east");
+
+      robot_14 ::= #ROBOT(0, 0, "west");
+      robot_14.move("A");
+      test("Moving forward one - facing west decrements X - x", robot_14.x, (-1));
+
+      test("Moving forward one - facing west decrements X - y", robot_14.y, 0);
+
+      test("Moving forward one - facing west decrements X - direction", robot_14.direction, "west");
+
+      robot_15 ::= #ROBOT(7, 3, "north");
+      robot_15.move("RAALAL");
+      test("Follow series of instructions - moving east and north from README - x", robot_15.x, 9);
+
+      test("Follow series of instructions - moving east and north from README - y", robot_15.y, 4);
+
+      test("Follow series of instructions - moving east and north from README - direction", robot_15.direction, "west");
+
+      robot_16 ::= #ROBOT(0, 0, "north");
+      robot_16.move("LAAARALA");
+      test("Follow series of instructions - moving west and north - x", robot_16.x, (-4));
+
+      test("Follow series of instructions - moving west and north - y", robot_16.y, 1);
+
+      test("Follow series of instructions - moving west and north - direction", robot_16.direction, "west");
+
+      robot_17 ::= #ROBOT(2, (-7), "east");
+      robot_17.move("RRAAAAALA");
+      test("Follow series of instructions - moving west and south - x", robot_17.x, (-3));
+
+      test("Follow series of instructions - moving west and south - y", robot_17.y, (-8));
+
+      test("Follow series of instructions - moving west and south - direction", robot_17.direction, "south");
+
+      robot_18 ::= #ROBOT(8, 4, "south");
+      robot_18.move("LAAARRRALLLL");
+      test("Follow series of instructions - moving east and north - x", robot_18.x, 11);
+
+      test("Follow series of instructions - moving east and north - y", robot_18.y, 5);
+
+      test("Follow series of instructions - moving east and north - direction", robot_18.direction, "north");
+
+      finish;
+   end;
+end; -- class ROBOT_SIMULATOR_TEST

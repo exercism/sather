@@ -1,0 +1,18 @@
+class DIFFERENCE_OF_SQUARES is
+
+   square_of_sum(number : INT) : INT is
+      -- The square of the sum of the first `number' natural numbers.
+      return 0;
+   end;
+
+   sum_of_squares(number : INT) : INT is
+      -- The sum of the squares of the first `number' natural numbers.
+      return 0;
+   end;
+
+   difference_of_squares(number : INT) : INT is
+      -- The difference between the two.
+      return 0;
+   end;
+
+end; -- class DIFFERENCE_OF_SQUARES

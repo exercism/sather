@@ -1,0 +1,92 @@
+class STOPWATCH is
+
+   -- Everything is counted in seconds. `running' says whether advancing
+   -- the clock adds to the totals; `lap_seconds' is the current lap and
+   -- `total_seconds' the whole run, so a lap does not have to be worked
+   -- out by subtracting.
+
+   private attr running : BOOL;
+   private attr started : BOOL;
+   private attr lap_seconds, total_seconds : INT;
+   private attr finished : LIST{STR};
+
+   create : SAME is
+      watch ::= new;
+      watch.finished := #LIST{STR};
+      return watch;
+   end;
+
+   state : STR is
+      if running then return "running"; end;
+      -- A stopwatch that has been started and stopped is "stopped"; one
+      -- that has never run is still "ready".
+      if started then return "stopped"; end;
+      return "ready";
+   end;
+
+   private seconds_of(text : STR) : INT is
+      hours ::= (text[0].int - '0'.int) * 10 + (text[1].int - '0'.int);
+      minutes ::= (text[3].int - '0'.int) * 10 + (text[4].int - '0'.int);
+      secs ::= (text[6].int - '0'.int) * 10 + (text[7].int - '0'.int);
+      return hours * 3600 + minutes * 60 + secs;
+   end;
+
+   private two(n : INT) : STR is
+      if n < 10 then return "0" + n; end;
+      return n.str;
+   end;
+
+   private clock(seconds : INT) : STR is
+      return two(seconds / 3600) + ":" + two(seconds % 3600 / 60)
+           + ":" + two(seconds % 60);
+   end;
+
+   advance(by : STR) is
+      if ~running then return; end;
+      seconds ::= seconds_of(by);
+      lap_seconds := lap_seconds + seconds;
+      total_seconds := total_seconds + seconds;
+   end;
+
+   start is
+      if running then raise "cannot start an already running stopwatch"; end;
+      running := true;
+      started := true;
+   end;
+
+   stop is
+      if ~running then raise "cannot stop a stopwatch that is not running"; end;
+      running := false;
+   end;
+
+   lap is
+      if ~running then raise "cannot lap a stopwatch that is not running"; end;
+      finished.append(clock(lap_seconds));
+      lap_seconds := 0;
+   end;
+
+   reset is
+      if running or ~started then
+         raise "cannot reset a stopwatch that is not stopped";
+      end;
+      running := false;
+      started := false;
+      lap_seconds := 0;
+      total_seconds := 0;
+      finished := #LIST{STR};
+   end;
+
+   current_lap : STR is return clock(lap_seconds); end;
+
+   total : STR is return clock(total_seconds); end;
+
+   previous_laps : ARRAY{STR} is
+      answer : ARRAY{STR} := #ARRAY{STR}(finished.size);
+      loop
+         i ::= 0.upto!(finished.size - 1);
+         answer[i] := finished[i];
+      end;
+      return answer;
+   end;
+
+end; -- class STOPWATCH

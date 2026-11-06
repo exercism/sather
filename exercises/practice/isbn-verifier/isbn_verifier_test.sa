@@ -1,0 +1,51 @@
+class ISBN_VERIFIER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ISBN_VERIFIER");
+
+      test("valid isbn", ISBN_VERIFIER::is_valid("3-598-21508-8"), true);
+
+      test("invalid isbn check digit", ISBN_VERIFIER::is_valid("3-598-21508-9"), false);
+
+      test("valid isbn with a check digit of 10", ISBN_VERIFIER::is_valid("3-598-21507-X"), true);
+
+      test("check digit is a character other than X", ISBN_VERIFIER::is_valid("3-598-21507-A"), false);
+
+      test("invalid check digit in isbn is not treated as zero", ISBN_VERIFIER::is_valid("4-598-21507-B"), false);
+
+      test("invalid character in isbn is not treated as zero", ISBN_VERIFIER::is_valid("3-598-P1581-X"), false);
+
+      test("X is only valid as a check digit", ISBN_VERIFIER::is_valid("3-598-2X507-9"), false);
+
+      test("only one check digit is allowed", ISBN_VERIFIER::is_valid("3-598-21508-96"), false);
+
+      test("X is not substituted by the value 10", ISBN_VERIFIER::is_valid("3-598-2X507-5"), false);
+
+      test("valid isbn without separating dashes", ISBN_VERIFIER::is_valid("3598215088"), true);
+
+      test("isbn without separating dashes and X as check digit", ISBN_VERIFIER::is_valid("359821507X"), true);
+
+      test("isbn without check digit and dashes", ISBN_VERIFIER::is_valid("359821507"), false);
+
+      test("too long isbn and no dashes", ISBN_VERIFIER::is_valid("3598215078X"), false);
+
+      test("too short isbn", ISBN_VERIFIER::is_valid("00"), false);
+
+      test("isbn without check digit", ISBN_VERIFIER::is_valid("3-598-21507"), false);
+
+      test("check digit of X should not be used for 0", ISBN_VERIFIER::is_valid("3-598-21515-X"), false);
+
+      test("empty isbn", ISBN_VERIFIER::is_valid(""), false);
+
+      test("input is 9 characters", ISBN_VERIFIER::is_valid("134456729"), false);
+
+      test("invalid characters are not ignored after checking length", ISBN_VERIFIER::is_valid("3132P34035"), false);
+
+      test("invalid characters are not ignored before checking length", ISBN_VERIFIER::is_valid("3598P215088"), false);
+
+      test("input is too long but contains a valid isbn", ISBN_VERIFIER::is_valid("98245726788"), false);
+
+      finish;
+   end;
+end; -- class ISBN_VERIFIER_TEST

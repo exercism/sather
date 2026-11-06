@@ -1,0 +1,37 @@
+class ALL_YOUR_BASE is
+
+   rebase(digits : ARRAY{INT}, input_base, output_base : INT) : ARRAY{INT} is
+      if input_base < 2 then raise "input base must be >= 2" end;
+      if output_base < 2 then raise "output base must be >= 2" end;
+
+      total ::= 0;
+      loop
+         d ::= digits.elt!;
+         if d < 0 or d >= input_base then
+            raise "all digits must satisfy 0 <= d < input base";
+         end;
+         total := total * input_base + d;
+      end;
+
+      if total = 0 then
+         zero : ARRAY{INT} := |0|;
+         return zero;
+      end;
+
+      found : FLIST{INT} := #FLIST{INT};
+      n ::= total;
+      loop
+         until!(n = 0);
+         found := found.push(n % output_base);
+         n := n / output_base;
+      end;
+
+      res : ARRAY{INT} := #ARRAY{INT}(found.size);
+      loop
+         i ::= 0.upto!(found.size - 1);
+         res[i] := found[found.size - 1 - i];
+      end;
+      return res;
+   end;
+
+end; -- class ALL_YOUR_BASE

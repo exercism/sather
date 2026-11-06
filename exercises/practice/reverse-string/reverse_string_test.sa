@@ -1,0 +1,21 @@
+class REVERSE_STRING_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("REVERSE_STRING");
+
+      test("an empty string", REVERSE_STRING::reverse(""), "");
+
+      test("a word", REVERSE_STRING::reverse("robot"), "tobor");
+
+      test("a capitalized word", REVERSE_STRING::reverse("Ramen"), "nemaR");
+
+      test("a sentence with punctuation", REVERSE_STRING::reverse("I'm hungry!"), "!yrgnuh m'I");
+
+      test("a palindrome", REVERSE_STRING::reverse("racecar"), "racecar");
+
+      test("an even-sized word", REVERSE_STRING::reverse("drawer"), "reward");
+
+      finish;
+   end;
+end; -- class REVERSE_STRING_TEST

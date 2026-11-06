@@ -1,0 +1,12 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set call = "PROTEIN_TRANSLATION::proteins(" ~ case.input.strand | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test_str(case, call, case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

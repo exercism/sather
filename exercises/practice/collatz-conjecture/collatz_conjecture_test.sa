@@ -1,0 +1,31 @@
+class COLLATZ_CONJECTURE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("COLLATZ_CONJECTURE");
+
+      test("zero steps for one", COLLATZ_CONJECTURE::steps(1), 0);
+
+      test("divide if even", COLLATZ_CONJECTURE::steps(16), 4);
+
+      test("even and odd steps", COLLATZ_CONJECTURE::steps(12), 9);
+
+      test("large number of even and odd steps", COLLATZ_CONJECTURE::steps(1000000), 152);
+
+      protect
+         ignored ::= COLLATZ_CONJECTURE::steps(0);
+         test("zero is an error", "no exception raised", "Only positive integers are allowed");
+      when $STR then
+         test("zero is an error", exception.str, "Only positive integers are allowed");
+      end;
+
+      protect
+         ignored ::= COLLATZ_CONJECTURE::steps((-15));
+         test("negative value is an error", "no exception raised", "Only positive integers are allowed");
+      when $STR then
+         test("negative value is an error", exception.str, "Only positive integers are allowed");
+      end;
+
+      finish;
+   end;
+end; -- class COLLATZ_CONJECTURE_TEST

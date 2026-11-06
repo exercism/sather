@@ -1,0 +1,147 @@
+class ZEBRA_PUZZLE is
+
+   -- Houses are numbered 0..4 from the left. Each attribute is searched as
+   -- a permutation of the five houses, and the constraints that mention
+   -- only the attributes chosen so far are checked before going deeper,
+   -- so most of the 5!^5 arrangements are never built.
+
+   private const norwegian := 0;
+   private const ukrainian := 1;
+   private const englishman := 2;
+   private const spaniard := 3;
+   private const japanese := 4;
+
+   private shared nat, col, drink, smoke, pet : ARRAY{INT};
+   private shared solved : BOOL;
+
+   private next_to(a, b : INT) : BOOL is
+      d ::= a - b;
+      return d = 1 or d = -1;
+   end;
+
+   private permute(used : ARRAY{BOOL}, into : ARRAY{INT},
+                   depth : INT, checker : INT) : BOOL is
+      if depth = 5 then return stage_ok(checker) end;
+      loop
+         house ::= 0.upto!(4);
+         if ~used[house] then
+            used[house] := true;
+            into[depth] := house;
+            if permute(used, into, depth + 1, checker) then
+               used[house] := false;
+               return true;
+            end;
+            used[house] := false;
+         end;
+      end;
+      return false;
+   end;
+
+   private stage_ok(checker : INT) : BOOL is
+      case checker
+      when 0 then return colours_ok;
+      when 1 then return drinks_ok;
+      when 2 then return smokes_ok;
+      when 3 then return pets_ok;
+      else        return false;
+      end;
+   end;
+
+   -- Attribute orders: nationalities as declared above; colours red,
+   -- green, ivory, yellow, blue; drinks coffee, tea, milk, juice, water;
+   -- smokes old_gold, kools, chesterfields, lucky_strike, parliaments;
+   -- pets dog, snails, fox, horse, zebra.
+
+   private colours_ok : BOOL is
+      if nat[englishman] /= col[0] then return false end;   -- red
+      if col[1] /= col[2] + 1 then return false end;        -- green right of ivory
+      if nat[norwegian] /= 0 then return false end;
+      if ~next_to(nat[norwegian], col[4]) then return false end;
+      return search_drinks;
+   end;
+
+   private drinks_ok : BOOL is
+      if col[1] /= drink[0] then return false end;          -- green drinks coffee
+      if nat[ukrainian] /= drink[1] then return false end;  -- tea
+      if drink[2] /= 2 then return false end;               -- milk in the middle
+      return search_smokes;
+   end;
+
+   private smokes_ok : BOOL is
+      if col[3] /= smoke[1] then return false end;          -- yellow, kools
+      if smoke[3] /= drink[3] then return false end;        -- lucky strike, juice
+      if nat[japanese] /= smoke[4] then return false end;   -- parliaments
+      return search_pets;
+   end;
+
+   private pets_ok : BOOL is
+      if nat[spaniard] /= pet[0] then return false end;     -- dog
+      if smoke[0] /= pet[1] then return false end;          -- old gold, snails
+      if ~next_to(smoke[2], pet[2]) then return false end;  -- chesterfields, fox
+      if ~next_to(smoke[1], pet[3]) then return false end;  -- kools, horse
+      solved := true;
+      return true;
+   end;
+
+   private search_pets : BOOL is
+      pet := #ARRAY{INT}(5);
+      return permute(#ARRAY{BOOL}(5), pet, 0, 3);
+   end;
+
+   private search_smokes : BOOL is
+      smoke := #ARRAY{INT}(5);
+      return permute(#ARRAY{BOOL}(5), smoke, 0, 2);
+   end;
+
+   private search_drinks : BOOL is
+      drink := #ARRAY{INT}(5);
+      return permute(#ARRAY{BOOL}(5), drink, 0, 1);
+   end;
+
+   private name_of(house : INT) : STR is
+      if nat[norwegian] = house then return "Norwegian" end;
+      if nat[ukrainian] = house then return "Ukrainian" end;
+      if nat[englishman] = house then return "Englishman" end;
+      if nat[spaniard] = house then return "Spaniard" end;
+      return "Japanese";
+   end;
+
+   drinks_water : STR is
+      run_search;
+      return name_of(drink[4]);
+   end;
+
+   owns_zebra : STR is
+      run_search;
+      return name_of(pet[4]);
+   end;
+
+   private run_search is
+      if solved then return end;
+      nat := #ARRAY{INT}(5);
+      col := #ARRAY{INT}(5);
+      ignored ::= outer_permute(0);
+   end;
+
+   private outer_permute(depth : INT) : BOOL is
+      -- Nationalities, then colours, then the rest through stage_ok.
+      if depth = 5 then
+         col := #ARRAY{INT}(5);
+         return permute(#ARRAY{BOOL}(5), col, 0, 0);
+      end;
+      loop
+         house ::= 0.upto!(4);
+         taken ::= false;
+         loop
+            k ::= 0.upto!(depth - 1);
+            if nat[k] = house then taken := true end;
+         end;
+         if ~taken then
+            nat[depth] := house;
+            if outer_permute(depth + 1) then return true end;
+         end;
+      end;
+      return false;
+   end;
+
+end; -- class ZEBRA_PUZZLE

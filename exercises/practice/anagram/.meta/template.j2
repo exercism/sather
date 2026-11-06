@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      candidates_{{ case.index }} : ARRAY{STR} := {{ case.input.candidates | sa("STR") }};
+{{ m.test_str(case, "ANAGRAM::find(" ~ case.input.subject | sa ~ ", candidates_" ~ case.index ~ ")", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endfor %}
+{{ m.end() }}

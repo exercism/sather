@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "parallel_letter_frequency.sa"
+    ],
+    "test": [
+      "parallel_letter_frequency_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Count the frequency of letters in texts using parallel computation."
+}

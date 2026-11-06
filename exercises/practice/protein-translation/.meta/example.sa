@@ -1,0 +1,37 @@
+class PROTEIN_TRANSLATION is
+
+   protein_for(codon : STR) : STR is
+      case codon
+      when "AUG"                             then return "Methionine";
+      when "UUU", "UUC"                      then return "Phenylalanine";
+      when "UUA", "UUG"                      then return "Leucine";
+      when "UCU", "UCC", "UCA", "UCG"        then return "Serine";
+      when "UAU", "UAC"                      then return "Tyrosine";
+      when "UGU", "UGC"                      then return "Cysteine";
+      when "UGG"                             then return "Tryptophan";
+      when "UAA", "UAG", "UGA"               then return "STOP";
+      else raise "Invalid codon";
+      end;
+   end;
+
+   proteins(strand : STR) : ARRAY{STR} is
+      found : FLIST{STR} := #FLIST{STR};
+      i ::= 0;
+      loop
+         until!(i >= strand.size);
+         if strand.size - i < 3 then raise "Invalid codon" end;
+         p ::= protein_for(strand.substring(i, 3));
+         if p = "STOP" then break! end;
+         found := found.push(p);
+         i := i + 3;
+      end;
+
+      res : ARRAY{STR} := #ARRAY{STR}(found.size);
+      loop
+         j ::= 0.upto!(found.size - 1);
+         res[j] := found[j];
+      end;
+      return res;
+   end;
+
+end; -- class PROTEIN_TRANSLATION

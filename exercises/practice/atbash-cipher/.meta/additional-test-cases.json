@@ -1,0 +1,10 @@
+[
+  {
+    "description": "encode boundary characters",
+    "property": "encode",
+    "input": {
+      "phrase": "/09:@AMNZ[`amnz{"
+    },
+    "expected": "09znm aznma"
+  }
+]

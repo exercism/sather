@@ -1,0 +1,128 @@
+class COMPLEX_NUMBERS_TEST is
+   include EXERCISM_TEST;
+
+   private near(actual, wanted : FLTD) : STR is
+      -- Report the wanted value when the answer is within tolerance, and
+      -- the actual one otherwise, so a failure shows the real number
+      -- rather than just "false". Floating-point results here are not
+      -- exact: e raised to i times pi has an imaginary part of about
+      -- 1.2e-16 rather than nought.
+      if (actual - wanted).abs <= 0.000001d then return wanted.str; end;
+      return actual.str;
+   end;
+
+   main is
+      class_name("COMPLEX_NUMBERS");
+
+      test("Real part - Real part of a purely real number", near(#COMPLEX(1.0d, 0.0d).real, 1.0d), 1.0d.str);
+
+      test("Real part - Real part of a purely imaginary number", near(#COMPLEX(0.0d, 1.0d).real, 0.0d), 0.0d.str);
+
+      test("Real part - Real part of a number with real and imaginary part", near(#COMPLEX(1.0d, 2.0d).real, 1.0d), 1.0d.str);
+
+      test("Imaginary part - Imaginary part of a purely real number", near(#COMPLEX(1.0d, 0.0d).imaginary, 0.0d), 0.0d.str);
+
+      test("Imaginary part - Imaginary part of a purely imaginary number", near(#COMPLEX(0.0d, 1.0d).imaginary, 1.0d), 1.0d.str);
+
+      test("Imaginary part - Imaginary part of a number with real and imaginary part", near(#COMPLEX(1.0d, 2.0d).imaginary, 2.0d), 2.0d.str);
+
+      z_7 ::= #COMPLEX(0.0d, 1.0d).times(#COMPLEX(0.0d, 1.0d));
+      test("Imaginary unit", near(z_7.real, (-1.0d)) + " " + near(z_7.imaginary, 0.0d), (-1.0d).str + " " + 0.0d.str);
+
+      z_8 ::= #COMPLEX(1.0d, 0.0d).plus(#COMPLEX(2.0d, 0.0d));
+      test("Arithmetic - Addition - Add purely real numbers", near(z_8.real, 3.0d) + " " + near(z_8.imaginary, 0.0d), 3.0d.str + " " + 0.0d.str);
+
+      z_9 ::= #COMPLEX(0.0d, 1.0d).plus(#COMPLEX(0.0d, 2.0d));
+      test("Arithmetic - Addition - Add purely imaginary numbers", near(z_9.real, 0.0d) + " " + near(z_9.imaginary, 3.0d), 0.0d.str + " " + 3.0d.str);
+
+      z_10 ::= #COMPLEX(1.0d, 2.0d).plus(#COMPLEX(3.0d, 4.0d));
+      test("Arithmetic - Addition - Add numbers with real and imaginary part", near(z_10.real, 4.0d) + " " + near(z_10.imaginary, 6.0d), 4.0d.str + " " + 6.0d.str);
+
+      z_11 ::= #COMPLEX(1.0d, 0.0d).minus(#COMPLEX(2.0d, 0.0d));
+      test("Arithmetic - Subtraction - Subtract purely real numbers", near(z_11.real, (-1.0d)) + " " + near(z_11.imaginary, 0.0d), (-1.0d).str + " " + 0.0d.str);
+
+      z_12 ::= #COMPLEX(0.0d, 1.0d).minus(#COMPLEX(0.0d, 2.0d));
+      test("Arithmetic - Subtraction - Subtract purely imaginary numbers", near(z_12.real, 0.0d) + " " + near(z_12.imaginary, (-1.0d)), 0.0d.str + " " + (-1.0d).str);
+
+      z_13 ::= #COMPLEX(1.0d, 2.0d).minus(#COMPLEX(3.0d, 4.0d));
+      test("Arithmetic - Subtraction - Subtract numbers with real and imaginary part", near(z_13.real, (-2.0d)) + " " + near(z_13.imaginary, (-2.0d)), (-2.0d).str + " " + (-2.0d).str);
+
+      z_14 ::= #COMPLEX(1.0d, 0.0d).times(#COMPLEX(2.0d, 0.0d));
+      test("Arithmetic - Multiplication - Multiply purely real numbers", near(z_14.real, 2.0d) + " " + near(z_14.imaginary, 0.0d), 2.0d.str + " " + 0.0d.str);
+
+      z_15 ::= #COMPLEX(0.0d, 1.0d).times(#COMPLEX(0.0d, 2.0d));
+      test("Arithmetic - Multiplication - Multiply purely imaginary numbers", near(z_15.real, (-2.0d)) + " " + near(z_15.imaginary, 0.0d), (-2.0d).str + " " + 0.0d.str);
+
+      z_16 ::= #COMPLEX(1.0d, 2.0d).times(#COMPLEX(3.0d, 4.0d));
+      test("Arithmetic - Multiplication - Multiply numbers with real and imaginary part", near(z_16.real, (-5.0d)) + " " + near(z_16.imaginary, 10.0d), (-5.0d).str + " " + 10.0d.str);
+
+      z_17 ::= #COMPLEX(1.0d, 0.0d).div(#COMPLEX(2.0d, 0.0d));
+      test("Arithmetic - Division - Divide purely real numbers", near(z_17.real, 0.5d) + " " + near(z_17.imaginary, 0.0d), 0.5d.str + " " + 0.0d.str);
+
+      z_18 ::= #COMPLEX(0.0d, 1.0d).div(#COMPLEX(0.0d, 2.0d));
+      test("Arithmetic - Division - Divide purely imaginary numbers", near(z_18.real, 0.5d) + " " + near(z_18.imaginary, 0.0d), 0.5d.str + " " + 0.0d.str);
+
+      z_19 ::= #COMPLEX(1.0d, 2.0d).div(#COMPLEX(3.0d, 4.0d));
+      test("Arithmetic - Division - Divide numbers with real and imaginary part", near(z_19.real, 0.44d) + " " + near(z_19.imaginary, 0.08d), 0.44d.str + " " + 0.08d.str);
+
+      test("Absolute value - Absolute value of a positive purely real number", near(#COMPLEX(5.0d, 0.0d).abs, 5.0d), 5.0d.str);
+
+      test("Absolute value - Absolute value of a negative purely real number", near(#COMPLEX((-5.0d), 0.0d).abs, 5.0d), 5.0d.str);
+
+      test("Absolute value - Absolute value of a purely imaginary number with positive imaginary part", near(#COMPLEX(0.0d, 5.0d).abs, 5.0d), 5.0d.str);
+
+      test("Absolute value - Absolute value of a purely imaginary number with negative imaginary part", near(#COMPLEX(0.0d, (-5.0d)).abs, 5.0d), 5.0d.str);
+
+      test("Absolute value - Absolute value of a number with real and imaginary part", near(#COMPLEX(3.0d, 4.0d).abs, 5.0d), 5.0d.str);
+
+      z_25 ::= #COMPLEX(5.0d, 0.0d).conjugate;
+      test("Complex conjugate - Conjugate a purely real number", near(z_25.real, 5.0d) + " " + near(z_25.imaginary, 0.0d), 5.0d.str + " " + 0.0d.str);
+
+      z_26 ::= #COMPLEX(0.0d, 5.0d).conjugate;
+      test("Complex conjugate - Conjugate a purely imaginary number", near(z_26.real, 0.0d) + " " + near(z_26.imaginary, (-5.0d)), 0.0d.str + " " + (-5.0d).str);
+
+      z_27 ::= #COMPLEX(1.0d, 1.0d).conjugate;
+      test("Complex conjugate - Conjugate a number with real and imaginary part", near(z_27.real, 1.0d) + " " + near(z_27.imaginary, (-1.0d)), 1.0d.str + " " + (-1.0d).str);
+
+      z_28 ::= #COMPLEX(0.0d, 3.141592653589793d).exp;
+      test("Complex exponential function - Euler's identity/formula", near(z_28.real, (-1.0d)) + " " + near(z_28.imaginary, 0.0d), (-1.0d).str + " " + 0.0d.str);
+
+      z_29 ::= #COMPLEX(0.0d, 0.0d).exp;
+      test("Complex exponential function - Exponential of 0", near(z_29.real, 1.0d) + " " + near(z_29.imaginary, 0.0d), 1.0d.str + " " + 0.0d.str);
+
+      z_30 ::= #COMPLEX(1.0d, 0.0d).exp;
+      test("Complex exponential function - Exponential of a purely real number", near(z_30.real, 2.718281828459045d) + " " + near(z_30.imaginary, 0.0d), 2.718281828459045d.str + " " + 0.0d.str);
+
+      z_31 ::= #COMPLEX(0.6931471805599453d, 3.141592653589793d).exp;
+      test("Complex exponential function - Exponential of a number with real and imaginary part", near(z_31.real, (-2.0d)) + " " + near(z_31.imaginary, 0.0d), (-2.0d).str + " " + 0.0d.str);
+
+      z_32 ::= #COMPLEX(0.34657359027997264d, 0.7853981633974483d).exp;
+      test("Complex exponential function - Exponential resulting in a number with real and imaginary part", near(z_32.real, 1.0d) + " " + near(z_32.imaginary, 1.0d), 1.0d.str + " " + 1.0d.str);
+
+      z_33 ::= #COMPLEX(1.0d, 2.0d).plus(#COMPLEX(5.0d, 0.0d));
+      test("Operations between real numbers and complex numbers - Add real number to complex number", near(z_33.real, 6.0d) + " " + near(z_33.imaginary, 2.0d), 6.0d.str + " " + 2.0d.str);
+
+      z_34 ::= #COMPLEX(5.0d, 0.0d).plus(#COMPLEX(1.0d, 2.0d));
+      test("Operations between real numbers and complex numbers - Add complex number to real number", near(z_34.real, 6.0d) + " " + near(z_34.imaginary, 2.0d), 6.0d.str + " " + 2.0d.str);
+
+      z_35 ::= #COMPLEX(5.0d, 7.0d).minus(#COMPLEX(4.0d, 0.0d));
+      test("Operations between real numbers and complex numbers - Subtract real number from complex number", near(z_35.real, 1.0d) + " " + near(z_35.imaginary, 7.0d), 1.0d.str + " " + 7.0d.str);
+
+      z_36 ::= #COMPLEX(4.0d, 0.0d).minus(#COMPLEX(5.0d, 7.0d));
+      test("Operations between real numbers and complex numbers - Subtract complex number from real number", near(z_36.real, (-1.0d)) + " " + near(z_36.imaginary, (-7.0d)), (-1.0d).str + " " + (-7.0d).str);
+
+      z_37 ::= #COMPLEX(2.0d, 5.0d).times(#COMPLEX(5.0d, 0.0d));
+      test("Operations between real numbers and complex numbers - Multiply complex number by real number", near(z_37.real, 10.0d) + " " + near(z_37.imaginary, 25.0d), 10.0d.str + " " + 25.0d.str);
+
+      z_38 ::= #COMPLEX(5.0d, 0.0d).times(#COMPLEX(2.0d, 5.0d));
+      test("Operations between real numbers and complex numbers - Multiply real number by complex number", near(z_38.real, 10.0d) + " " + near(z_38.imaginary, 25.0d), 10.0d.str + " " + 25.0d.str);
+
+      z_39 ::= #COMPLEX(10.0d, 100.0d).div(#COMPLEX(10.0d, 0.0d));
+      test("Operations between real numbers and complex numbers - Divide complex number by real number", near(z_39.real, 1.0d) + " " + near(z_39.imaginary, 10.0d), 1.0d.str + " " + 10.0d.str);
+
+      z_40 ::= #COMPLEX(5.0d, 0.0d).div(#COMPLEX(1.0d, 1.0d));
+      test("Operations between real numbers and complex numbers - Divide real number by complex number", near(z_40.real, 2.5d) + " " + near(z_40.imaginary, (-2.5d)), 2.5d.str + " " + (-2.5d).str);
+
+      finish;
+   end;
+end; -- class COMPLEX_NUMBERS_TEST

@@ -1,0 +1,39 @@
+class RESISTOR_COLOR_TRIO_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("RESISTOR_COLOR_TRIO");
+
+      colors_1 : ARRAY{STR} := |"orange", "orange", "black"|;
+      test("Orange and orange and black", RESISTOR_COLOR_TRIO::label(colors_1), "33 ohms");
+
+      colors_2 : ARRAY{STR} := |"blue", "grey", "brown"|;
+      test("Blue and grey and brown", RESISTOR_COLOR_TRIO::label(colors_2), "680 ohms");
+
+      colors_3 : ARRAY{STR} := |"red", "black", "red"|;
+      test("Red and black and red", RESISTOR_COLOR_TRIO::label(colors_3), "2 kiloohms");
+
+      colors_4 : ARRAY{STR} := |"green", "brown", "orange"|;
+      test("Green and brown and orange", RESISTOR_COLOR_TRIO::label(colors_4), "51 kiloohms");
+
+      colors_5 : ARRAY{STR} := |"yellow", "violet", "yellow"|;
+      test("Yellow and violet and yellow", RESISTOR_COLOR_TRIO::label(colors_5), "470 kiloohms");
+
+      colors_6 : ARRAY{STR} := |"blue", "violet", "blue"|;
+      test("Blue and violet and blue", RESISTOR_COLOR_TRIO::label(colors_6), "67 megaohms");
+
+      colors_7 : ARRAY{STR} := |"black", "black", "black"|;
+      test("Minimum possible value", RESISTOR_COLOR_TRIO::label(colors_7), "0 ohms");
+
+      colors_8 : ARRAY{STR} := |"white", "white", "white"|;
+      test("Maximum possible value", RESISTOR_COLOR_TRIO::label(colors_8), "99 gigaohms");
+
+      colors_9 : ARRAY{STR} := |"black", "grey", "black"|;
+      test("First two colors make an invalid octal number", RESISTOR_COLOR_TRIO::label(colors_9), "8 ohms");
+
+      colors_10 : ARRAY{STR} := |"blue", "green", "yellow", "orange"|;
+      test("Ignore extra colors", RESISTOR_COLOR_TRIO::label(colors_10), "650 kiloohms");
+
+      finish;
+   end;
+end; -- class RESISTOR_COLOR_TRIO_TEST

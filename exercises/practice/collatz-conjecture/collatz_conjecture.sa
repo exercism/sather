@@ -1,0 +1,10 @@
+class COLLATZ_CONJECTURE is
+
+   steps(number : INT) : INT is
+      -- Return how many steps it takes to reach 1: halve an even number,
+      -- treble an odd one and add 1.
+      -- Raise a string exception if `number' is not positive.
+      return 0;
+   end;
+
+end; -- class COLLATZ_CONJECTURE

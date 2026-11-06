@@ -1,0 +1,11 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% if case.property == "colorCode" %}
+{{ m.test(case, "RESISTOR_COLOR::color_code(" ~ case.input.color | sa ~ ")", case.expected | sa) }}
+{% else %}
+{{ m.test_str(case, "RESISTOR_COLOR::colors", case.expected | sa, "ARRAY{STR}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

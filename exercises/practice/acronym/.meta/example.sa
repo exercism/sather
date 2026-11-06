@@ -1,0 +1,21 @@
+class ACRONYM is
+
+   abbreviate(phrase : STR) : STR is
+      if void(phrase) then return "" end;
+      r : FSTR := #FSTR(8);
+      in_word ::= false;
+      loop
+         c ::= phrase.elt!;
+         if c.is_alpha or c = '\'' then
+            if ~in_word and c /= '\'' then
+               r := r + c.upper;
+               in_word := true;
+            end;
+         else
+            in_word := false;
+         end;
+      end;
+      return r.str;
+   end;
+
+end; -- class ACRONYM

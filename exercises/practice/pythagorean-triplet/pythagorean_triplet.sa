@@ -1,0 +1,9 @@
+class PYTHAGOREAN_TRIPLET is
+
+   triplets_with_sum(n : INT) : ARRAY{ARRAY{INT}} is
+      -- Every Pythagorean triplet a < b < c with a + b + c = n, as an
+      -- array of three-element arrays, ordered by their smallest member.
+      return #ARRAY{ARRAY{INT}}(0);
+   end;
+
+end; -- class PYTHAGOREAN_TRIPLET

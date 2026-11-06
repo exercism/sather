@@ -1,0 +1,61 @@
+class FLOWER_FIELD_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("FLOWER_FIELD");
+
+      garden_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      expected_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("no rows", FLOWER_FIELD::annotate(garden_1).str, expected_1.str);
+
+      garden_2 : ARRAY{STR} := |""|;
+      expected_2 : ARRAY{STR} := |""|;
+      test("no columns", FLOWER_FIELD::annotate(garden_2).str, expected_2.str);
+
+      garden_3 : ARRAY{STR} := |"   ", "   ", "   "|;
+      expected_3 : ARRAY{STR} := |"   ", "   ", "   "|;
+      test("no flowers", FLOWER_FIELD::annotate(garden_3).str, expected_3.str);
+
+      garden_4 : ARRAY{STR} := |"***", "***", "***"|;
+      expected_4 : ARRAY{STR} := |"***", "***", "***"|;
+      test("garden full of flowers", FLOWER_FIELD::annotate(garden_4).str, expected_4.str);
+
+      garden_5 : ARRAY{STR} := |"   ", " * ", "   "|;
+      expected_5 : ARRAY{STR} := |"111", "1*1", "111"|;
+      test("flower surrounded by spaces", FLOWER_FIELD::annotate(garden_5).str, expected_5.str);
+
+      garden_6 : ARRAY{STR} := |"***", "* *", "***"|;
+      expected_6 : ARRAY{STR} := |"***", "*8*", "***"|;
+      test("space surrounded by flowers", FLOWER_FIELD::annotate(garden_6).str, expected_6.str);
+
+      garden_7 : ARRAY{STR} := |" * * "|;
+      expected_7 : ARRAY{STR} := |"1*2*1"|;
+      test("horizontal line", FLOWER_FIELD::annotate(garden_7).str, expected_7.str);
+
+      garden_8 : ARRAY{STR} := |"*   *"|;
+      expected_8 : ARRAY{STR} := |"*1 1*"|;
+      test("horizontal line, flowers at edges", FLOWER_FIELD::annotate(garden_8).str, expected_8.str);
+
+      garden_9 : ARRAY{STR} := |" ", "*", " ", "*", " "|;
+      expected_9 : ARRAY{STR} := |"1", "*", "2", "*", "1"|;
+      test("vertical line", FLOWER_FIELD::annotate(garden_9).str, expected_9.str);
+
+      garden_10 : ARRAY{STR} := |"*", " ", " ", " ", "*"|;
+      expected_10 : ARRAY{STR} := |"*", "1", " ", "1", "*"|;
+      test("vertical line, flowers at edges", FLOWER_FIELD::annotate(garden_10).str, expected_10.str);
+
+      garden_11 : ARRAY{STR} := |"  *  ", "  *  ", "*****", "  *  ", "  *  "|;
+      expected_11 : ARRAY{STR} := |" 2*2 ", "25*52", "*****", "25*52", " 2*2 "|;
+      test("cross", FLOWER_FIELD::annotate(garden_11).str, expected_11.str);
+
+      garden_12 : ARRAY{STR} := |" *  * ", "  *   ", "    * ", "   * *", " *  * ", "      "|;
+      expected_12 : ARRAY{STR} := |"1*22*1", "12*322", " 123*2", "112*4*", "1*22*2", "111111"|;
+      test("large garden", FLOWER_FIELD::annotate(garden_12).str, expected_12.str);
+
+      garden_13 : ARRAY{STR} := |" ** "|;
+      expected_13 : ARRAY{STR} := |"1**1"|;
+      test("multiple adjacent flowers", FLOWER_FIELD::annotate(garden_13).str, expected_13.str);
+
+      finish;
+   end;
+end; -- class FLOWER_FIELD_TEST

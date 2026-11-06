@@ -1,0 +1,9 @@
+class HAMMING is
+
+   distance(strand1, strand2 : STR) : INT is
+      -- Return the number of positions at which the strands differ.
+      -- Raise a string exception if the strands are of different length.
+      return 0;
+   end;
+
+end; -- class HAMMING

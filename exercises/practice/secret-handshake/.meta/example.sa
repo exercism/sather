@@ -1,0 +1,23 @@
+class SECRET_HANDSHAKE is
+
+   commands(number : INT) : ARRAY{STR} is
+      actions : ARRAY{STR} := |"wink", "double blink", "close your eyes", "jump"|;
+      found : FLIST{STR} := #FLIST{STR};
+      loop
+         i ::= 0.upto!(3);
+         if number.bit(i) then found := found.push(actions[i]) end;
+      end;
+
+      n ::= found.size;
+      res : ARRAY{STR} := #ARRAY{STR}(n);
+      reversed ::= number.bit(4);
+      loop
+         j ::= 0.upto!(n - 1);
+         if reversed then res[j] := found[n - 1 - j];
+         else            res[j] := found[j];
+         end;
+      end;
+      return res;
+   end;
+
+end; -- class SECRET_HANDSHAKE

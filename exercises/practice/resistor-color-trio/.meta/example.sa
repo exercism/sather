@@ -1,0 +1,27 @@
+class RESISTOR_COLOR_TRIO is
+
+   private code(color : STR) : INT is
+      all : ARRAY{STR} := |"black", "brown", "red", "orange", "yellow",
+                           "green", "blue", "violet", "grey", "white"|;
+      loop
+         i ::= 0.upto!(all.size - 1);
+         if all[i] = color then return i end;
+      end;
+      raise "unknown colour";
+   end;
+
+   label(colors : ARRAY{STR}) : STR is
+      -- Count zeros rather than multiplying: white-white-white is
+      -- 99 000 000 000 ohms, beyond INT.
+      main_value ::= 10 * code(colors[0]) + code(colors[1]);
+      zeros ::= code(colors[2]);
+      if main_value /= 0 then
+         loop while!(main_value.mod(10) = 0); main_value := main_value / 10; zeros := zeros + 1 end;
+      end;
+      prefixes : ARRAY{STR} := |"", "kilo", "mega", "giga"|;
+      p ::= (zeros / 3).min(prefixes.size - 1);
+      loop (zeros - 3 * p).times!; main_value := main_value * 10 end;
+      return main_value.str + " " + prefixes[p] + "ohms";
+   end;
+
+end; -- class RESISTOR_COLOR_TRIO

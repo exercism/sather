@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "protein_translation.sa"
+    ],
+    "test": [
+      "protein_translation_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Translate RNA sequences into proteins.",
+  "source": "Tyler Long"
+}

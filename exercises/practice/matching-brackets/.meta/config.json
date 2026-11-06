@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "matching_brackets.sa"
+    ],
+    "test": [
+      "matching_brackets_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Make sure the brackets and braces all match.",
+  "source": "Ginna Baker"
+}

@@ -1,0 +1,9 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      flags_{{ case.index }} : ARRAY{STR} := {{ case.input.flags | sa("STR") }};
+      files_{{ case.index }} : ARRAY{STR} := {{ case.input.files | sa("STR") }};
+{{ m.test_str(case, "GREP::search(" ~ case.input.pattern | sa ~ ", flags_" ~ case.index ~ ", files_" ~ case.index ~ ")", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endfor %}
+{{ m.end() }}

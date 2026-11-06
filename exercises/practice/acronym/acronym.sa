@@ -1,0 +1,8 @@
+class ACRONYM is
+
+   abbreviate(phrase : STR) : STR is
+      -- Return the upper-case initials of each word in `phrase'.
+      return "";
+   end;
+
+end; -- class ACRONYM

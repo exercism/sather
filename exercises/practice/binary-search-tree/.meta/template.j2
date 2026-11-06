@@ -1,0 +1,22 @@
+{% import "macros.j2" as m with context %}
+{# A canonical tree as tree_str renders one: "(data left right)", "." for none. #}
+{% macro tree(node) %}{% if node is none %}.{% else %}({{ node.data }} {{ tree(node.left) }} {{ tree(node.right) }}){% endif %}{% endmacro %}
+{% call m.begin() %}
+   private tree_str(n : BINARY_SEARCH_TREE) : STR is
+      -- "(data left right)", with "." for an absent subtree.
+      if void(n) then return "." end;
+      return "(" + n.data + " " + tree_str(n.left) + " " + tree_str(n.right) + ")";
+   end;
+{% endcall %}
+{% for case in cases %}
+
+{% set t = "tree_" ~ case.index %}
+      items_{{ case.index }} : ARRAY{STR} := {{ case.input.treeData | sa("STR") }};
+      {{ t }} ::= #BINARY_SEARCH_TREE(items_{{ case.index }});
+{% if case.property == "data" %}
+{{ m.test(case, "tree_str(" ~ t ~ ")", tree(case.expected) | sa_str) }}
+{% else %}
+{{ m.test_str(case, t ~ ".sorted_data", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

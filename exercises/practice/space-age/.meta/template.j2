@@ -1,0 +1,13 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set call = "SPACE_AGE::age(" ~ case.input.planet | sa ~ ", " ~ case.input.seconds | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{# Expected ages are given to two decimal places, so round to match. #}
+{{ m.test(case, "((" ~ call ~ " * 100.0d + 0.5d).floor / 100.0d)", case.expected | sa_fltd) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

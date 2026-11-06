@@ -1,0 +1,61 @@
+class BOB_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("BOB");
+
+      test("asking a question", BOB::response("Does this cryogenic chamber make me look fat?"), "Sure.");
+
+      test("shouting", BOB::response("WATCH OUT!"), "Whoa, chill out!");
+
+      test("forceful question", BOB::response("WHAT'S GOING ON?"), "Calm down, I know what I'm doing!");
+
+      test("silence", BOB::response(""), "Fine. Be that way!");
+
+      test("stating something", BOB::response("Tom-ay-to, tom-aaaah-to."), "Whatever.");
+
+      test("asking a numeric question", BOB::response("You are, what, like 15?"), "Sure.");
+
+      test("asking gibberish", BOB::response("fffbbcbeab?"), "Sure.");
+
+      test("question with no letters", BOB::response("4?"), "Sure.");
+
+      test("non-letters with question", BOB::response(":) ?"), "Sure.");
+
+      test("prattling on", BOB::response("Wait! Hang on. Are you going to be OK?"), "Sure.");
+
+      test("ending with whitespace", BOB::response("Okay if like my  spacebar  quite a bit?   "), "Sure.");
+
+      test("multiple line question", BOB::response("\nDoes this cryogenic chamber make\n me look fat?"), "Sure.");
+
+      test("shouting gibberish", BOB::response("FCECDFCAAB"), "Whoa, chill out!");
+
+      test("shouting a statement containing a question mark", BOB::response("DO LIONS EAT PEOPLE? AHHHHH."), "Whoa, chill out!");
+
+      test("shouting numbers", BOB::response("1, 2, 3 GO!"), "Whoa, chill out!");
+
+      test("shouting with special characters", BOB::response("ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"), "Whoa, chill out!");
+
+      test("shouting with no exclamation mark", BOB::response("I HATE THE DENTIST"), "Whoa, chill out!");
+
+      test("prolonged silence", BOB::response("          "), "Fine. Be that way!");
+
+      test("alternate silence", BOB::response("\t\t\t\t\t\t\t\t\t\t"), "Fine. Be that way!");
+
+      test("other whitespace", BOB::response("\n\r \t"), "Fine. Be that way!");
+
+      test("talking forcefully", BOB::response("Hi there!"), "Whatever.");
+
+      test("using acronyms in regular speech", BOB::response("It's OK if you don't want to go work for NASA."), "Whatever.");
+
+      test("no letters", BOB::response("1, 2, 3"), "Whatever.");
+
+      test("statement containing question mark", BOB::response("Ending with ? means a question."), "Whatever.");
+
+      test("starting with whitespace", BOB::response("         hmmmmmmm..."), "Whatever.");
+
+      test("non-question ending with whitespace", BOB::response("This is a statement ending with whitespace      "), "Whatever.");
+
+      finish;
+   end;
+end; -- class BOB_TEST

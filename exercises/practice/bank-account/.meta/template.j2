@@ -1,0 +1,34 @@
+{% import "macros.j2" as m with context %}
+{% macro step(account, op, n) -%}
+{% if op.operation == "open" %}{{ account }}.open_account;
+{%- elif op.operation == "close" %}{{ account }}.close_account;
+{%- elif op.operation == "deposit" %}{{ account }}.deposit({{ op.amount | sa }});
+{%- elif op.operation == "withdraw" %}{{ account }}.withdraw({{ op.amount | sa }});
+{%- else %}{{ account }}_seen_{{ n }} ::= {{ account }}.balance;
+{%- endif %}
+{%- endmacro %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set account = "account_" ~ case.index %}
+      {{ account }} ::= #BANK_ACCOUNT;
+{% if case is error %}
+{# Every operation runs inside the protect; the last one should raise. #}
+{% set name = case.full_description | sa_str %}
+      protect
+{% for op in case.input.operations %}
+         {{ step(account, op, loop.index) }}
+{% endfor %}
+         test({{ name }}, "no exception raised", {{ case.error | sa_str }});
+      when $STR then
+         test({{ name }}, exception.str, {{ case.error | sa_str }});
+      end;
+{% else %}
+{# A successful case ends by reading the balance. #}
+{% for op in case.input.operations[:-1] %}
+      {{ step(account, op, loop.index) }}
+{% endfor %}
+{{ m.test(case, account ~ ".balance", case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

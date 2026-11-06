@@ -1,0 +1,14 @@
+class RUN_LENGTH_ENCODING is
+
+   encode(text : STR) : STR is
+      -- Replace each run of repeated characters with its count and the
+      -- character. A run of one keeps no count.
+      return "";
+   end;
+
+   decode(text : STR) : STR is
+      -- Undo encode.
+      return "";
+   end;
+
+end; -- class RUN_LENGTH_ENCODING

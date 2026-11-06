@@ -1,0 +1,160 @@
+class CIRCULAR_BUFFER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CIRCULAR_BUFFER");
+
+      buffer_1 ::= #CIRCULAR_BUFFER(1);
+      protect
+         ignored ::= buffer_1.read;
+         test("reading empty buffer should fail [1. read]", "no exception raised", "buffer is empty");
+      when $STR then
+         test("reading empty buffer should fail [1. read]", exception.str, "buffer is empty");
+      end;
+
+      test("reading empty buffer should fail", true, true);
+
+      buffer_2 ::= #CIRCULAR_BUFFER(1);
+      buffer_2.write(1);
+      test("can read an item just written [2. read]", buffer_2.read, 1);
+
+      test("can read an item just written", true, true);
+
+      buffer_3 ::= #CIRCULAR_BUFFER(1);
+      buffer_3.write(1);
+      test("each item may only be read once [2. read]", buffer_3.read, 1);
+
+      protect
+         ignored ::= buffer_3.read;
+         test("each item may only be read once [3. read]", "no exception raised", "buffer is empty");
+      when $STR then
+         test("each item may only be read once [3. read]", exception.str, "buffer is empty");
+      end;
+
+      test("each item may only be read once", true, true);
+
+      buffer_4 ::= #CIRCULAR_BUFFER(2);
+      buffer_4.write(1);
+      buffer_4.write(2);
+      test("items are read in the order they are written [3. read]", buffer_4.read, 1);
+
+      test("items are read in the order they are written [4. read]", buffer_4.read, 2);
+
+      test("items are read in the order they are written", true, true);
+
+      buffer_5 ::= #CIRCULAR_BUFFER(1);
+      buffer_5.write(1);
+      protect
+         buffer_5.write(2);
+         test("full buffer can't be written to [2. write]", "no exception raised", "buffer is full");
+      when $STR then
+         test("full buffer can't be written to [2. write]", exception.str, "buffer is full");
+      end;
+
+      test("full buffer can't be written to", true, true);
+
+      buffer_6 ::= #CIRCULAR_BUFFER(1);
+      buffer_6.write(1);
+      test("a read frees up capacity for another write [2. read]", buffer_6.read, 1);
+
+      buffer_6.write(2);
+      test("a read frees up capacity for another write [4. read]", buffer_6.read, 2);
+
+      test("a read frees up capacity for another write", true, true);
+
+      buffer_7 ::= #CIRCULAR_BUFFER(3);
+      buffer_7.write(1);
+      buffer_7.write(2);
+      test("read position is maintained even across multiple writes [3. read]", buffer_7.read, 1);
+
+      buffer_7.write(3);
+      test("read position is maintained even across multiple writes [5. read]", buffer_7.read, 2);
+
+      test("read position is maintained even across multiple writes [6. read]", buffer_7.read, 3);
+
+      test("read position is maintained even across multiple writes", true, true);
+
+      buffer_8 ::= #CIRCULAR_BUFFER(1);
+      buffer_8.write(1);
+      buffer_8.clear;
+      protect
+         ignored ::= buffer_8.read;
+         test("items cleared out of buffer can't be read [3. read]", "no exception raised", "buffer is empty");
+      when $STR then
+         test("items cleared out of buffer can't be read [3. read]", exception.str, "buffer is empty");
+      end;
+
+      test("items cleared out of buffer can't be read", true, true);
+
+      buffer_9 ::= #CIRCULAR_BUFFER(1);
+      buffer_9.write(1);
+      buffer_9.clear;
+      buffer_9.write(2);
+      test("clear frees up capacity for another write [4. read]", buffer_9.read, 2);
+
+      test("clear frees up capacity for another write", true, true);
+
+      buffer_10 ::= #CIRCULAR_BUFFER(1);
+      buffer_10.clear;
+      buffer_10.write(1);
+      test("clear does nothing on empty buffer [3. read]", buffer_10.read, 1);
+
+      test("clear does nothing on empty buffer", true, true);
+
+      buffer_11 ::= #CIRCULAR_BUFFER(2);
+      buffer_11.write(1);
+      buffer_11.overwrite(2);
+      test("overwrite acts like write on non-full buffer [3. read]", buffer_11.read, 1);
+
+      test("overwrite acts like write on non-full buffer [4. read]", buffer_11.read, 2);
+
+      test("overwrite acts like write on non-full buffer", true, true);
+
+      buffer_12 ::= #CIRCULAR_BUFFER(2);
+      buffer_12.write(1);
+      buffer_12.write(2);
+      buffer_12.overwrite(3);
+      test("overwrite replaces the oldest item on full buffer [4. read]", buffer_12.read, 2);
+
+      test("overwrite replaces the oldest item on full buffer [5. read]", buffer_12.read, 3);
+
+      test("overwrite replaces the oldest item on full buffer", true, true);
+
+      buffer_13 ::= #CIRCULAR_BUFFER(3);
+      buffer_13.write(1);
+      buffer_13.write(2);
+      buffer_13.write(3);
+      test("overwrite replaces the oldest item remaining in buffer following a read [4. read]", buffer_13.read, 1);
+
+      buffer_13.write(4);
+      buffer_13.overwrite(5);
+      test("overwrite replaces the oldest item remaining in buffer following a read [7. read]", buffer_13.read, 3);
+
+      test("overwrite replaces the oldest item remaining in buffer following a read [8. read]", buffer_13.read, 4);
+
+      test("overwrite replaces the oldest item remaining in buffer following a read [9. read]", buffer_13.read, 5);
+
+      test("overwrite replaces the oldest item remaining in buffer following a read", true, true);
+
+      buffer_14 ::= #CIRCULAR_BUFFER(2);
+      buffer_14.clear;
+      buffer_14.write(1);
+      buffer_14.write(2);
+      buffer_14.overwrite(3);
+      buffer_14.overwrite(4);
+      test("initial clear does not affect wrapping around [6. read]", buffer_14.read, 3);
+
+      test("initial clear does not affect wrapping around [7. read]", buffer_14.read, 4);
+
+      protect
+         ignored ::= buffer_14.read;
+         test("initial clear does not affect wrapping around [8. read]", "no exception raised", "buffer is empty");
+      when $STR then
+         test("initial clear does not affect wrapping around [8. read]", exception.str, "buffer is empty");
+      end;
+
+      test("initial clear does not affect wrapping around", true, true);
+
+      finish;
+   end;
+end; -- class CIRCULAR_BUFFER_TEST

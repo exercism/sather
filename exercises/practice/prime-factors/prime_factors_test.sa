@@ -1,0 +1,42 @@
+class PRIME_FACTORS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PRIME_FACTORS");
+
+      expected_1 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("no factors", PRIME_FACTORS::factors(1).str, expected_1.str);
+
+      expected_2 : ARRAY{INT} := |2|;
+      test("prime number", PRIME_FACTORS::factors(2).str, expected_2.str);
+
+      expected_3 : ARRAY{INT} := |3|;
+      test("another prime number", PRIME_FACTORS::factors(3).str, expected_3.str);
+
+      expected_4 : ARRAY{INT} := |3, 3|;
+      test("square of a prime", PRIME_FACTORS::factors(9).str, expected_4.str);
+
+      expected_5 : ARRAY{INT} := |2, 2|;
+      test("product of first prime", PRIME_FACTORS::factors(4).str, expected_5.str);
+
+      expected_6 : ARRAY{INT} := |2, 2, 2|;
+      test("cube of a prime", PRIME_FACTORS::factors(8).str, expected_6.str);
+
+      expected_7 : ARRAY{INT} := |3, 3, 3|;
+      test("product of second prime", PRIME_FACTORS::factors(27).str, expected_7.str);
+
+      expected_8 : ARRAY{INT} := |5, 5, 5, 5|;
+      test("product of third prime", PRIME_FACTORS::factors(625).str, expected_8.str);
+
+      expected_9 : ARRAY{INT} := |2, 3|;
+      test("product of first and second prime", PRIME_FACTORS::factors(6).str, expected_9.str);
+
+      expected_10 : ARRAY{INT} := |2, 2, 3|;
+      test("product of primes and non-primes", PRIME_FACTORS::factors(12).str, expected_10.str);
+
+      expected_11 : ARRAY{INT} := |5, 17, 23, 461|;
+      test("product of primes", PRIME_FACTORS::factors(901255).str, expected_11.str);
+
+      finish;
+   end;
+end; -- class PRIME_FACTORS_TEST

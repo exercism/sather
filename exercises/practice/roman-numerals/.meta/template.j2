@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "ROMAN_NUMERALS::roman(" ~ case.input.number | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

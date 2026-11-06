@@ -1,0 +1,13 @@
+class MEETUP is
+
+   day(year, month : INT, week, dayofweek : STR) : STR is
+      -- The date of the meetup, as "YYYY-MM-DD".
+      --
+      -- `week' is "first", "second", "third", "fourth", "last" or
+      -- "teenth"; the teenth is the one falling between the 13th and the
+      -- 19th, of which there is always exactly one.
+      -- `dayofweek' is "Monday" through "Sunday".
+      return "";
+   end;
+
+end; -- class MEETUP

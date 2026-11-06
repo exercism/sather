@@ -1,0 +1,20 @@
+class ROMAN_NUMERALS is
+
+   roman(number : INT) : STR is
+      values  : ARRAY{INT} := |1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1|;
+      symbols : ARRAY{STR} := |"M", "CM", "D", "CD", "C", "XC", "L", "XL",
+                               "X", "IX", "V", "IV", "I"|;
+      n ::= number;
+      r : FSTR := #FSTR(16);
+      loop
+         i ::= 0.upto!(values.size - 1);
+         loop
+            until!(n < values[i]);
+            r := r + symbols[i];
+            n := n - values[i];
+         end;
+      end;
+      return r.str;
+   end;
+
+end; -- class ROMAN_NUMERALS

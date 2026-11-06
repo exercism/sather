@@ -1,0 +1,18 @@
+[
+  {
+    "description": "count of primes up to 10000",
+    "property": "countPrimes",
+    "input": {
+      "limit": 10000
+    },
+    "expected": 1229
+  },
+  {
+    "description": "count of primes up to 1000000",
+    "property": "countPrimes",
+    "input": {
+      "limit": 1000000
+    },
+    "expected": 78498
+  }
+]

@@ -1,0 +1,32 @@
+class SPACE_AGE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SPACE_AGE");
+
+      test("age on Earth", ((SPACE_AGE::age("Earth", 1000000000) * 100.0d + 0.5d).floor / 100.0d), 31.69d);
+
+      test("age on Mercury", ((SPACE_AGE::age("Mercury", 2134835688) * 100.0d + 0.5d).floor / 100.0d), 280.88d);
+
+      test("age on Venus", ((SPACE_AGE::age("Venus", 189839836) * 100.0d + 0.5d).floor / 100.0d), 9.78d);
+
+      test("age on Mars", ((SPACE_AGE::age("Mars", 2129871239) * 100.0d + 0.5d).floor / 100.0d), 35.88d);
+
+      test("age on Jupiter", ((SPACE_AGE::age("Jupiter", 901876382) * 100.0d + 0.5d).floor / 100.0d), 2.41d);
+
+      test("age on Saturn", ((SPACE_AGE::age("Saturn", 2000000000) * 100.0d + 0.5d).floor / 100.0d), 2.15d);
+
+      test("age on Uranus", ((SPACE_AGE::age("Uranus", 1210123456) * 100.0d + 0.5d).floor / 100.0d), 0.46d);
+
+      test("age on Neptune", ((SPACE_AGE::age("Neptune", 1821023456) * 100.0d + 0.5d).floor / 100.0d), 0.35d);
+
+      protect
+         ignored ::= SPACE_AGE::age("Sun", 680804807);
+         test("invalid planet causes error", "no exception raised", "not a planet");
+      when $STR then
+         test("invalid planet causes error", exception.str, "not a planet");
+      end;
+
+      finish;
+   end;
+end; -- class SPACE_AGE_TEST

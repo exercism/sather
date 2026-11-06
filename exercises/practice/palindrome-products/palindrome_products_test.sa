@@ -1,0 +1,99 @@
+class PALINDROME_PRODUCTS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PALINDROME_PRODUCTS");
+
+      found_1 ::= PALINDROME_PRODUCTS::smallest(1, 9);
+      test("find the smallest palindrome from single digit factors - found", found_1.found, true);
+
+      test("find the smallest palindrome from single digit factors - value", found_1.number, 1);
+
+      expected_1 : ARRAY{ARRAY{INT}} := | |1, 1| |;
+      test("find the smallest palindrome from single digit factors - factors", found_1.factors.str, expected_1.str);
+
+      found_2 ::= PALINDROME_PRODUCTS::largest(1, 9);
+      test("find the largest palindrome from single digit factors - found", found_2.found, true);
+
+      test("find the largest palindrome from single digit factors - value", found_2.number, 9);
+
+      expected_2 : ARRAY{ARRAY{INT}} := | |1, 9|, |3, 3| |;
+      test("find the largest palindrome from single digit factors - factors", found_2.factors.str, expected_2.str);
+
+      found_3 ::= PALINDROME_PRODUCTS::smallest(10, 99);
+      test("find the smallest palindrome from double digit factors - found", found_3.found, true);
+
+      test("find the smallest palindrome from double digit factors - value", found_3.number, 121);
+
+      expected_3 : ARRAY{ARRAY{INT}} := | |11, 11| |;
+      test("find the smallest palindrome from double digit factors - factors", found_3.factors.str, expected_3.str);
+
+      found_4 ::= PALINDROME_PRODUCTS::largest(10, 99);
+      test("find the largest palindrome from double digit factors - found", found_4.found, true);
+
+      test("find the largest palindrome from double digit factors - value", found_4.number, 9009);
+
+      expected_4 : ARRAY{ARRAY{INT}} := | |91, 99| |;
+      test("find the largest palindrome from double digit factors - factors", found_4.factors.str, expected_4.str);
+
+      found_5 ::= PALINDROME_PRODUCTS::smallest(100, 999);
+      test("find the smallest palindrome from triple digit factors - found", found_5.found, true);
+
+      test("find the smallest palindrome from triple digit factors - value", found_5.number, 10201);
+
+      expected_5 : ARRAY{ARRAY{INT}} := | |101, 101| |;
+      test("find the smallest palindrome from triple digit factors - factors", found_5.factors.str, expected_5.str);
+
+      found_6 ::= PALINDROME_PRODUCTS::largest(100, 999);
+      test("find the largest palindrome from triple digit factors - found", found_6.found, true);
+
+      test("find the largest palindrome from triple digit factors - value", found_6.number, 906609);
+
+      expected_6 : ARRAY{ARRAY{INT}} := | |913, 993| |;
+      test("find the largest palindrome from triple digit factors - factors", found_6.factors.str, expected_6.str);
+
+      found_7 ::= PALINDROME_PRODUCTS::smallest(1000, 9999);
+      test("find the smallest palindrome from four digit factors - found", found_7.found, true);
+
+      test("find the smallest palindrome from four digit factors - value", found_7.number, 1002001);
+
+      expected_7 : ARRAY{ARRAY{INT}} := | |1001, 1001| |;
+      test("find the smallest palindrome from four digit factors - factors", found_7.factors.str, expected_7.str);
+
+      found_8 ::= PALINDROME_PRODUCTS::largest(1000, 9999);
+      test("find the largest palindrome from four digit factors - found", found_8.found, true);
+
+      test("find the largest palindrome from four digit factors - value", found_8.number, 99000099);
+
+      expected_8 : ARRAY{ARRAY{INT}} := | |9901, 9999| |;
+      test("find the largest palindrome from four digit factors - factors", found_8.factors.str, expected_8.str);
+
+      test("empty result for smallest if no palindrome in the range", PALINDROME_PRODUCTS::smallest(1002, 1003).found, false);
+
+      test("empty result for largest if no palindrome in the range", PALINDROME_PRODUCTS::largest(15, 15).found, false);
+
+      protect
+         ignored ::= PALINDROME_PRODUCTS::smallest(10000, 1);
+         test("error result for smallest if min is more than max", "no exception raised", "min must be <= max");
+      when $STR then
+         test("error result for smallest if min is more than max", exception.str, "min must be <= max");
+      end;
+
+      protect
+         ignored ::= PALINDROME_PRODUCTS::largest(2, 1);
+         test("error result for largest if min is more than max", "no exception raised", "min must be <= max");
+      when $STR then
+         test("error result for largest if min is more than max", exception.str, "min must be <= max");
+      end;
+
+      found_13 ::= PALINDROME_PRODUCTS::smallest(3215, 4000);
+      test("smallest product does not use the smallest factor - found", found_13.found, true);
+
+      test("smallest product does not use the smallest factor - value", found_13.number, 10988901);
+
+      expected_13 : ARRAY{ARRAY{INT}} := | |3297, 3333| |;
+      test("smallest product does not use the smallest factor - factors", found_13.factors.str, expected_13.str);
+
+      finish;
+   end;
+end; -- class PALINDROME_PRODUCTS_TEST

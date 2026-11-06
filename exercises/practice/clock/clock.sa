@@ -1,0 +1,31 @@
+class CLOCK is
+
+   readonly attr hour, minute : INT;
+
+   create(h, m : INT) : SAME is
+      -- A clock with no date, so it wraps round at midnight in both
+      -- directions: 25:00 is 01:00 and -1:00 is 23:00.
+      return new;
+   end;
+
+   plus(minutes : INT) : SAME is
+      -- A new clock that many minutes later.
+      return self;
+   end;
+
+   minus(minutes : INT) : SAME is
+      -- A new clock that many minutes earlier.
+      return self;
+   end;
+
+   is_eq(other : SAME) : BOOL is
+      -- Two clocks are equal when they show the same time.
+      return false;
+   end;
+
+   str : STR is
+      -- "HH:MM", both always two digits.
+      return "";
+   end;
+
+end; -- class CLOCK

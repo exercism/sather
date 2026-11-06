@@ -1,0 +1,95 @@
+class ALPHAMETICS is
+
+   -- Each letter is worth the sum of the place values it occupies, counted
+   -- positive on the left of '==' and negative on the right. A solution is
+   -- then any assignment of distinct digits making the total zero.
+   -- Coefficients are FLTD, which is exact for integers this size: a puzzle
+   -- with many long addends overflows a 32-bit INT.
+
+   private shared letters : ARRAY{CHAR};
+   private shared coeff : ARRAY{FLTD};
+   private shared leading : ARRAY{BOOL};
+   private shared used : ARRAY{BOOL};
+   private shared digit : ARRAY{INT};
+   private shared n_letters : INT;
+
+   private index_of(c : CHAR) : INT is
+      loop
+         i ::= 0.upto!(n_letters - 1);
+         if letters[i] = c then return i end;
+      end;
+      return -1;
+   end;
+
+   private scan(puzzle : STR) is
+      -- Collect the letters, their coefficients, and which may not be zero.
+      letters := #ARRAY{CHAR}(26);
+      coeff := #ARRAY{FLTD}(26);
+      leading := #ARRAY{BOOL}(26);
+      n_letters := 0;
+
+      sign ::= 1.0d;
+      i ::= 0;
+      loop
+         until!(i >= puzzle.size);
+         if puzzle[i] = '=' then
+            sign := -1.0d;
+            i := i + 2;
+         elsif puzzle[i].is_alpha then
+            start ::= i;
+            loop
+               until!(i >= puzzle.size or ~puzzle[i].is_alpha);
+               i := i + 1;
+            end;
+            width ::= i - start;
+            loop
+               k ::= 0.upto!(width - 1);
+               c ::= puzzle[start + k];
+               idx ::= index_of(c);
+               if idx < 0 then
+                  idx := n_letters;
+                  letters[idx] := c;
+                  n_letters := n_letters + 1;
+               end;
+               place ::= 1.0d;
+               loop
+                  p ::= 1.upto!(width - 1 - k);
+                  place := place * 10.0d;
+               end;
+               coeff[idx] := coeff[idx] + sign * place;
+               if k = 0 and width > 1 then leading[idx] := true end;
+            end;
+         else
+            i := i + 1;
+         end;
+      end;
+   end;
+
+   private search(pos : INT, total : FLTD) : BOOL is
+      if pos = n_letters then return total = 0.0d end;
+      loop
+         d ::= 0.upto!(9);
+         if ~used[d] and ~(d = 0 and leading[pos]) then
+            used[d] := true;
+            digit[pos] := d;
+            if search(pos + 1, total + coeff[pos] * d.fltd) then return true end;
+            used[d] := false;
+         end;
+      end;
+      return false;
+   end;
+
+   solve(puzzle : STR) : FMAP{STR,INT} is
+      scan(puzzle);
+      used := #ARRAY{BOOL}(10);
+      digit := #ARRAY{INT}(26);
+      answer : FMAP{STR,INT} := #FMAP{STR,INT};
+      if ~search(0, 0.0d) then return answer end;
+      loop
+         i ::= 0.upto!(n_letters - 1);
+         answer := answer.insert(letters[i].str, digit[i]);
+      end;
+      return answer;
+   end;
+
+end; -- class ALPHAMETICS

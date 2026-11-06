@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      garden_{{ case.index }} : ARRAY{STR} := {{ case.input.garden | sa("STR") }};
+{{ m.test_str(case, "FLOWER_FIELD::annotate(garden_" ~ case.index ~ ")", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endfor %}
+{{ m.end() }}

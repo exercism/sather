@@ -1,0 +1,8 @@
+class SUM_OF_MULTIPLES is
+
+   sum(factors : ARRAY{INT}, limit : INT) : INT is
+      -- Sum every number below `limit' that is a multiple of any factor.
+      return 0;
+   end;
+
+end; -- class SUM_OF_MULTIPLES

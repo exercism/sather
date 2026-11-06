@@ -1,0 +1,47 @@
+class FLOWER_FIELD is
+
+   annotate(garden : ARRAY{STR}) : ARRAY{STR} is
+      if void(garden) or garden.size = 0 then
+         return #ARRAY{STR}(0);
+      end;
+      rows ::= garden.size;
+      answer : ARRAY{STR} := #ARRAY{STR}(rows);
+      loop
+         r ::= 0.upto!(rows - 1);
+         row ::= garden[r];
+         line ::= #FSTR;
+         loop
+            c ::= 0.upto!(row.size - 1);
+            if row[c] = '*' then
+               line := line + '*';
+            else
+               flowers ::= 0;
+               loop
+                  dr ::= (-1).upto!(1);
+                  loop
+                     dc ::= (-1).upto!(1);
+                     nr ::= r + dr;
+                     nc ::= c + dc;
+                     if nr >= 0 and nr < rows then
+                        near ::= garden[nr];
+                        if nc >= 0 and nc < near.size and near[nc] = '*' then
+                           flowers := flowers + 1;
+                        end;
+                     end;
+                  end;
+               end;
+               -- The square itself is never a flower here, so it cannot
+               -- have been counted above.
+               if flowers = 0 then
+                  line := line + ' ';
+               else
+                  line := line + flowers;
+               end;
+            end;
+         end;
+         answer[r] := line.str;
+      end;
+      return answer;
+   end;
+
+end; -- class FLOWER_FIELD

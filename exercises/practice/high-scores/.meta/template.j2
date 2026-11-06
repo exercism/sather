@@ -1,0 +1,24 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set hs = "hs_" ~ case.index %}
+      scores_{{ case.index }} : ARRAY{INT} := {{ case.input.scores | sa("INT") }};
+      {{ hs }} ::= #HIGH_SCORES(scores_{{ case.index }});
+{# The *After* properties check that reading one value leaves the others alone. #}
+{% if case.property.endswith("AfterBest") %}
+      ignored_{{ case.index }} ::= {{ hs }}.personal_best;
+{% elif case.property.endswith("AfterTopThree") %}
+      ignored_{{ case.index }} ::= {{ hs }}.personal_top_three;
+{% endif %}
+{% if case.property.startswith("latest") %}
+{{ m.test(case, hs ~ ".latest", case.expected | sa) }}
+{% elif case.property == "personalBest" %}
+{{ m.test(case, hs ~ ".personal_best", case.expected | sa) }}
+{% elif case.property == "personalTopThree" %}
+{{ m.test_str(case, hs ~ ".personal_top_three", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% else %}
+{{ m.test_str(case, hs ~ ".scores", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "MEETUP::day(" ~ case.input.year | sa ~ ", " ~ case.input.month | sa ~ ", " ~ case.input.week | sa ~ ", " ~ case.input.dayofweek | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

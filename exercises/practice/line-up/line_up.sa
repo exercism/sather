@@ -1,0 +1,9 @@
+class LINE_UP is
+
+   format(name : STR, number : INT) : STR is
+      -- "<name>, you are the <number><suffix> customer we serve today.
+      -- Thank you!", where the suffix is st, nd, rd or th.
+      return "";
+   end;
+
+end; -- class LINE_UP

@@ -1,0 +1,9 @@
+class ANAGRAM is
+
+   find(subject : STR, candidates : ARRAY{STR}) : ARRAY{STR} is
+      -- Those candidates that are anagrams of `subject'. Case does not
+      -- matter, and a word is not its own anagram.
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class ANAGRAM

@@ -1,0 +1,22 @@
+class KNAPSACK is
+
+   maximum_value(weights, values : ARRAY{INT}, maximum_weight : INT) : INT is
+      best : ARRAY{INT} := #ARRAY{INT}(maximum_weight + 1);
+      loop
+         i ::= 0.upto!(weights.size - 1);
+         w ::= weights[i];
+         v ::= values[i];
+         -- Descending, so each item is used at most once.
+         cap ::= maximum_weight;
+         loop
+            until!(cap < w);
+            if best[cap - w] + v > best[cap] then
+               best[cap] := best[cap - w] + v;
+            end;
+            cap := cap - 1;
+         end;
+      end;
+      return best[maximum_weight];
+   end;
+
+end; -- class KNAPSACK

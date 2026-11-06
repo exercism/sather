@@ -1,0 +1,9 @@
+class DOMINOES is
+
+   can_chain(stones : ARRAY{ARRAY{INT}}) : BOOL is
+      -- True if every stone can be arranged in one closed chain, touching
+      -- halves matching and the two ends of the chain matching too.
+      return false;
+   end;
+
+end; -- class DOMINOES

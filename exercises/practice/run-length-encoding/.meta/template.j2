@@ -1,0 +1,12 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set arg = case.input.string | sa %}
+{% if case.property == "consistency" %}
+{{ m.test(case, "RUN_LENGTH_ENCODING::decode(RUN_LENGTH_ENCODING::encode(" ~ arg ~ "))", case.expected | sa) }}
+{% else %}
+{{ m.test(case, "RUN_LENGTH_ENCODING::" ~ case.property ~ "(" ~ arg ~ ")", case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

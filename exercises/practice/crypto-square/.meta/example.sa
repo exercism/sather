@@ -1,0 +1,33 @@
+class CRYPTO_SQUARE is
+
+   ciphertext(plaintext : STR) : STR is
+      if void(plaintext) then return "" end;
+      norm : FSTR := #FSTR(plaintext.size);
+      loop
+         c ::= plaintext.elt!;
+         if c.is_alpha or c.is_digit then norm := norm + c.lower end;
+      end;
+      text ::= norm.str;
+      if text.size = 0 then return "" end;
+
+      cols ::= 1;
+      loop
+         until!(cols * cols >= text.size);
+         cols := cols + 1;
+      end;
+      rows ::= (text.size + cols - 1) / cols;
+
+      r : FSTR := #FSTR(rows * cols + cols);
+      loop
+         c ::= 0.upto!(cols - 1);
+         if c > 0 then r := r + ' ' end;
+         loop
+            row ::= 0.upto!(rows - 1);
+            i ::= row * cols + c;
+            if i < text.size then r := r + text[i] else r := r + ' ' end;
+         end;
+      end;
+      return r.str;
+   end;
+
+end; -- class CRYPTO_SQUARE

@@ -1,0 +1,107 @@
+class PROTEIN_TRANSLATION_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("PROTEIN_TRANSLATION");
+
+      expected_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Empty RNA sequence results in no proteins", PROTEIN_TRANSLATION::proteins("").str, expected_1.str);
+
+      expected_2 : ARRAY{STR} := |"Methionine"|;
+      test("Methionine RNA sequence", PROTEIN_TRANSLATION::proteins("AUG").str, expected_2.str);
+
+      expected_3 : ARRAY{STR} := |"Phenylalanine"|;
+      test("Phenylalanine RNA sequence 1", PROTEIN_TRANSLATION::proteins("UUU").str, expected_3.str);
+
+      expected_4 : ARRAY{STR} := |"Phenylalanine"|;
+      test("Phenylalanine RNA sequence 2", PROTEIN_TRANSLATION::proteins("UUC").str, expected_4.str);
+
+      expected_5 : ARRAY{STR} := |"Leucine"|;
+      test("Leucine RNA sequence 1", PROTEIN_TRANSLATION::proteins("UUA").str, expected_5.str);
+
+      expected_6 : ARRAY{STR} := |"Leucine"|;
+      test("Leucine RNA sequence 2", PROTEIN_TRANSLATION::proteins("UUG").str, expected_6.str);
+
+      expected_7 : ARRAY{STR} := |"Serine"|;
+      test("Serine RNA sequence 1", PROTEIN_TRANSLATION::proteins("UCU").str, expected_7.str);
+
+      expected_8 : ARRAY{STR} := |"Serine"|;
+      test("Serine RNA sequence 2", PROTEIN_TRANSLATION::proteins("UCC").str, expected_8.str);
+
+      expected_9 : ARRAY{STR} := |"Serine"|;
+      test("Serine RNA sequence 3", PROTEIN_TRANSLATION::proteins("UCA").str, expected_9.str);
+
+      expected_10 : ARRAY{STR} := |"Serine"|;
+      test("Serine RNA sequence 4", PROTEIN_TRANSLATION::proteins("UCG").str, expected_10.str);
+
+      expected_11 : ARRAY{STR} := |"Tyrosine"|;
+      test("Tyrosine RNA sequence 1", PROTEIN_TRANSLATION::proteins("UAU").str, expected_11.str);
+
+      expected_12 : ARRAY{STR} := |"Tyrosine"|;
+      test("Tyrosine RNA sequence 2", PROTEIN_TRANSLATION::proteins("UAC").str, expected_12.str);
+
+      expected_13 : ARRAY{STR} := |"Cysteine"|;
+      test("Cysteine RNA sequence 1", PROTEIN_TRANSLATION::proteins("UGU").str, expected_13.str);
+
+      expected_14 : ARRAY{STR} := |"Cysteine"|;
+      test("Cysteine RNA sequence 2", PROTEIN_TRANSLATION::proteins("UGC").str, expected_14.str);
+
+      expected_15 : ARRAY{STR} := |"Tryptophan"|;
+      test("Tryptophan RNA sequence", PROTEIN_TRANSLATION::proteins("UGG").str, expected_15.str);
+
+      expected_16 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("STOP codon RNA sequence 1", PROTEIN_TRANSLATION::proteins("UAA").str, expected_16.str);
+
+      expected_17 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("STOP codon RNA sequence 2", PROTEIN_TRANSLATION::proteins("UAG").str, expected_17.str);
+
+      expected_18 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("STOP codon RNA sequence 3", PROTEIN_TRANSLATION::proteins("UGA").str, expected_18.str);
+
+      expected_19 : ARRAY{STR} := |"Phenylalanine", "Phenylalanine"|;
+      test("Sequence of two protein codons translates into proteins", PROTEIN_TRANSLATION::proteins("UUUUUU").str, expected_19.str);
+
+      expected_20 : ARRAY{STR} := |"Leucine", "Leucine"|;
+      test("Sequence of two different protein codons translates into proteins", PROTEIN_TRANSLATION::proteins("UUAUUG").str, expected_20.str);
+
+      expected_21 : ARRAY{STR} := |"Methionine", "Phenylalanine", "Tryptophan"|;
+      test("Translate RNA strand into correct protein list", PROTEIN_TRANSLATION::proteins("AUGUUUUGG").str, expected_21.str);
+
+      expected_22 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Translation stops if STOP codon at beginning of sequence", PROTEIN_TRANSLATION::proteins("UAGUGG").str, expected_22.str);
+
+      expected_23 : ARRAY{STR} := |"Tryptophan"|;
+      test("Translation stops if STOP codon at end of two-codon sequence", PROTEIN_TRANSLATION::proteins("UGGUAG").str, expected_23.str);
+
+      expected_24 : ARRAY{STR} := |"Methionine", "Phenylalanine"|;
+      test("Translation stops if STOP codon at end of three-codon sequence", PROTEIN_TRANSLATION::proteins("AUGUUUUAA").str, expected_24.str);
+
+      expected_25 : ARRAY{STR} := |"Tryptophan"|;
+      test("Translation stops if STOP codon in middle of three-codon sequence", PROTEIN_TRANSLATION::proteins("UGGUAGUGG").str, expected_25.str);
+
+      expected_26 : ARRAY{STR} := |"Tryptophan", "Cysteine", "Tyrosine"|;
+      test("Translation stops if STOP codon in middle of six-codon sequence", PROTEIN_TRANSLATION::proteins("UGGUGUUAUUAAUGGUUU").str, expected_26.str);
+
+      expected_27 : ARRAY{STR} := |"Methionine", "Methionine"|;
+      test("Sequence of two non-STOP codons does not translate to a STOP codon", PROTEIN_TRANSLATION::proteins("AUGAUG").str, expected_27.str);
+
+      protect
+         ignored ::= PROTEIN_TRANSLATION::proteins("XYZ");
+         test("Unknown amino acids, not part of a codon, can't translate", "no exception raised", "Invalid codon");
+      when $STR then
+         test("Unknown amino acids, not part of a codon, can't translate", exception.str, "Invalid codon");
+      end;
+
+      protect
+         ignored ::= PROTEIN_TRANSLATION::proteins("AUGU");
+         test("Incomplete RNA sequence can't translate", "no exception raised", "Invalid codon");
+      when $STR then
+         test("Incomplete RNA sequence can't translate", exception.str, "Invalid codon");
+      end;
+
+      expected_30 : ARRAY{STR} := |"Phenylalanine", "Phenylalanine"|;
+      test("Incomplete RNA sequence can translate if valid until a STOP codon", PROTEIN_TRANSLATION::proteins("UUCUUCUAAUGGU").str, expected_30.str);
+
+      finish;
+   end;
+end; -- class PROTEIN_TRANSLATION_TEST

@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      factors_{{ case.index }} : ARRAY{INT} := {{ case.input.factors | sa("INT") }};
+{{ m.test(case, "SUM_OF_MULTIPLES::sum(factors_" ~ case.index ~ ", " ~ case.input.limit | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

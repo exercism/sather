@@ -1,0 +1,51 @@
+class STOPWATCH is
+
+   create : SAME is
+      -- A new stopwatch, ready and showing no time.
+      return new;
+   end;
+
+   state : STR is
+      -- "ready", "running" or "stopped".
+      return "ready";
+   end;
+
+   advance(by : STR) is
+      -- Move the clock on by "HH:MM:SS". Time only counts towards the
+      -- stopwatch while it is running.
+   end;
+
+   start is
+      -- Raise "cannot start an already running stopwatch".
+   end;
+
+   stop is
+      -- Raise "cannot stop a stopwatch that is not running".
+   end;
+
+   lap is
+      -- Finish the current lap and begin a new one.
+      -- Raise "cannot lap a stopwatch that is not running".
+   end;
+
+   reset is
+      -- Back to a new stopwatch.
+      -- Raise "cannot reset a stopwatch that is not stopped".
+   end;
+
+   current_lap : STR is
+      -- The time on the current lap, as "HH:MM:SS".
+      return "00:00:00";
+   end;
+
+   total : STR is
+      -- The total time, as "HH:MM:SS".
+      return "00:00:00";
+   end;
+
+   previous_laps : ARRAY{STR} is
+      -- The laps already finished, oldest first.
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class STOPWATCH

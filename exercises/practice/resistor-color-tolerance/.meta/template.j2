@@ -1,0 +1,12 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+{% set label = case.expected.value ~ " " ~ case.expected.unit %}
+{% if case.expected.tolerance is defined %}
+{% set label = label ~ " " ~ case.expected.tolerance %}
+{% endif %}
+
+      colors_{{ case.index }} : ARRAY{STR} := {{ case.input.colors | sa("STR") }};
+{{ m.test(case, "RESISTOR_COLOR_TOLERANCE::label(colors_" ~ case.index ~ ")", label | sa) }}
+{% endfor %}
+{{ m.end() }}

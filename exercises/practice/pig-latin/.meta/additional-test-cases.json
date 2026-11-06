@@ -1,0 +1,16 @@
+[
+  {
+    "description": "phrase covering all four rules",
+    "comments": [
+      "shy: rule 4, a solution moving only the first consonant before 'y' gives 'hysay'",
+      "yttrium: rule 1, a word beginning with 'yt' is treated as starting with a vowel",
+      "qubits: rule 3, a solution treating the 'u' of 'qu' as a vowel gives 'ubitsqay'",
+      "glow: rule 2, a solution moving only the first consonant gives 'lowgay'"
+    ],
+    "property": "translate",
+    "input": {
+      "phrase": "shy yttrium qubits glow"
+    },
+    "expected": "yshay yttriumay bitsquay owglay"
+  }
+]

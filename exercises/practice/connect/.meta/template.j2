@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      board_{{ case.index }} : ARRAY{STR} := {{ case.input.board | sa("STR") }};
+{{ m.test(case, "CONNECT::winner(board_" ~ case.index ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

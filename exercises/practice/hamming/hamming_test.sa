@@ -1,0 +1,51 @@
+class HAMMING_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("HAMMING");
+
+      test("empty strands", HAMMING::distance("", ""), 0);
+
+      test("single letter identical strands", HAMMING::distance("A", "A"), 0);
+
+      test("single letter different strands", HAMMING::distance("G", "T"), 1);
+
+      test("long identical strands", HAMMING::distance("GGACTGAAATCTG", "GGACTGAAATCTG"), 0);
+
+      test("long different strands", HAMMING::distance("GGACGGATTCTG", "AGGACGGATTCT"), 9);
+
+      protect
+         ignored ::= HAMMING::distance("AATG", "AAA");
+         test("disallow first strand longer", "no exception raised", "strands must be of equal length");
+      when $STR then
+         test("disallow first strand longer", exception.str, "strands must be of equal length");
+      end;
+
+      protect
+         ignored ::= HAMMING::distance("ATA", "AGTG");
+         test("disallow second strand longer", "no exception raised", "strands must be of equal length");
+      when $STR then
+         test("disallow second strand longer", exception.str, "strands must be of equal length");
+      end;
+
+      protect
+         ignored ::= HAMMING::distance("", "G");
+         test("disallow empty first strand", "no exception raised", "strands must be of equal length");
+      when $STR then
+         test("disallow empty first strand", exception.str, "strands must be of equal length");
+      end;
+
+      protect
+         ignored ::= HAMMING::distance("G", "");
+         test("disallow empty second strand", "no exception raised", "strands must be of equal length");
+      when $STR then
+         test("disallow empty second strand", exception.str, "strands must be of equal length");
+      end;
+
+      test("short identical strands", HAMMING::distance("GGACTGA", "GGACTGA"), 0);
+
+      test("short different strands", HAMMING::distance("ACCAGGG", "ACTATGG"), 2);
+
+      finish;
+   end;
+end; -- class HAMMING_TEST

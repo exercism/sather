@@ -1,0 +1,32 @@
+class LARGEST_SERIES_PRODUCT is
+
+   largest_product(digits : STR, span : INT) : INT is
+      text ::= digits;
+      if void(text) then text := ""; end;
+      if span < 0 then raise "span must not be negative"; end;
+      if span > text.size then
+         raise "span must not exceed string length";
+      end;
+      loop
+         if ~text.elt!.is_digit then
+            raise "digits input must only contain digits";
+         end;
+      end;
+      -- The empty product is one, so a span of nought answers one and a
+      -- run of zeroes answers nought without either being special-cased.
+      best ::= 0;
+      start ::= 0;
+      loop
+         until!(start + span > text.size);
+         product ::= 1;
+         loop
+            i ::= start.upto!(start + span - 1);
+            product := product * (text[i].int - '0'.int);
+         end;
+         best := best.max(product);
+         start := start + 1;
+      end;
+      return best;
+   end;
+
+end; -- class LARGEST_SERIES_PRODUCT

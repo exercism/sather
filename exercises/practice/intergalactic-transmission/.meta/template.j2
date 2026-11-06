@@ -1,0 +1,15 @@
+{% import "macros.j2" as m with context %}
+{# Canonical messages are lists of hex strings such as "0x12". #}
+{% macro bytes(values) %}{{ values | map("int", base=16) | list | sa("INT") }}{% endmacro %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      message_{{ case.index }} : ARRAY{INT} := {{ bytes(case.input.message) }};
+{% set call = "INTERGALACTIC_TRANSMISSION::" ~ case.property | snake ~ "(message_" ~ case.index ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test_str(case, call, bytes(case.expected), "ARRAY{INT}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

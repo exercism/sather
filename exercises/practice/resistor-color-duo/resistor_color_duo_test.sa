@@ -1,0 +1,30 @@
+class RESISTOR_COLOR_DUO_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("RESISTOR_COLOR_DUO");
+
+      colors_1 : ARRAY{STR} := |"brown", "black"|;
+      test("Brown and black", RESISTOR_COLOR_DUO::decoded_value(colors_1), 10);
+
+      colors_2 : ARRAY{STR} := |"blue", "grey"|;
+      test("Blue and grey", RESISTOR_COLOR_DUO::decoded_value(colors_2), 68);
+
+      colors_3 : ARRAY{STR} := |"yellow", "violet"|;
+      test("Yellow and violet", RESISTOR_COLOR_DUO::decoded_value(colors_3), 47);
+
+      colors_4 : ARRAY{STR} := |"white", "red"|;
+      test("White and red", RESISTOR_COLOR_DUO::decoded_value(colors_4), 92);
+
+      colors_5 : ARRAY{STR} := |"orange", "orange"|;
+      test("Orange and orange", RESISTOR_COLOR_DUO::decoded_value(colors_5), 33);
+
+      colors_6 : ARRAY{STR} := |"green", "brown", "orange"|;
+      test("Ignore additional colors", RESISTOR_COLOR_DUO::decoded_value(colors_6), 51);
+
+      colors_7 : ARRAY{STR} := |"black", "brown"|;
+      test("Black and brown, one-digit", RESISTOR_COLOR_DUO::decoded_value(colors_7), 1);
+
+      finish;
+   end;
+end; -- class RESISTOR_COLOR_DUO_TEST

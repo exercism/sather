@@ -1,0 +1,16 @@
+class DIFFERENCE_OF_SQUARES is
+
+   square_of_sum(number : INT) : INT is
+      sum ::= number * (number + 1) / 2;
+      return sum * sum;
+   end;
+
+   sum_of_squares(number : INT) : INT is
+      return number * (number + 1) * (2 * number + 1) / 6;
+   end;
+
+   difference_of_squares(number : INT) : INT is
+      return square_of_sum(number) - sum_of_squares(number);
+   end;
+
+end; -- class DIFFERENCE_OF_SQUARES

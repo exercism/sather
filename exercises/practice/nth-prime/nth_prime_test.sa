@@ -1,0 +1,34 @@
+class NTH_PRIME_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("NTH_PRIME");
+
+      test("first prime", NTH_PRIME::prime(1), 2);
+
+      test("second prime", NTH_PRIME::prime(2), 3);
+
+      test("third prime", NTH_PRIME::prime(3), 5);
+
+      test("fourth prime", NTH_PRIME::prime(4), 7);
+
+      test("fifth prime", NTH_PRIME::prime(5), 11);
+
+      test("sixth prime", NTH_PRIME::prime(6), 13);
+
+      test("seventh prime", NTH_PRIME::prime(7), 17);
+
+      test("big prime", NTH_PRIME::prime(10001), 104743);
+
+      test("very big prime", NTH_PRIME::prime(65537), 821647);
+
+      protect
+         ignored ::= NTH_PRIME::prime(0);
+         test("there is no zeroth prime", "no exception raised", "there is no zeroth prime");
+      when $STR then
+         test("there is no zeroth prime", exception.str, "there is no zeroth prime");
+      end;
+
+      finish;
+   end;
+end; -- class NTH_PRIME_TEST

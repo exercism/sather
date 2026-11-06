@@ -1,0 +1,25 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set buffer = "buffer_" ~ case.index %}
+      {{ buffer }} ::= #CIRCULAR_BUFFER({{ case.input.capacity | sa }});
+{% for op in case.input.operations %}
+{% set name = case.full_description ~ " [" ~ loop.index ~ ". " ~ op.operation ~ "]" %}
+{% if op.operation == "clear" %}
+      {{ buffer }}.clear;
+{% elif op.operation == "overwrite" %}
+      {{ buffer }}.overwrite({{ op.item | sa }});
+{% elif op.operation == "write" and op.should_succeed %}
+      {{ buffer }}.write({{ op.item | sa }});
+{% elif op.operation == "write" %}
+{{ m.test_error(case, buffer ~ ".write(" ~ op.item | sa ~ ")", returns=false, name=name, error="buffer is full") }}
+{% elif op.should_succeed %}
+{{ m.test(case, buffer ~ ".read", op.expected | sa, name=name) }}
+{% else %}
+{{ m.test_error(case, buffer ~ ".read", name=name, error="buffer is empty") }}
+{% endif %}
+{% endfor %}
+{{ m.test(case, "true", "true") }}
+{% endfor %}
+{{ m.end() }}

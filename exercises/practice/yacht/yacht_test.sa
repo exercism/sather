@@ -1,0 +1,96 @@
+class YACHT_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("YACHT");
+
+      dice_1 : ARRAY{INT} := |5, 5, 5, 5, 5|;
+      test("Yacht", YACHT::score(dice_1, "yacht"), 50);
+
+      dice_2 : ARRAY{INT} := |1, 3, 3, 2, 5|;
+      test("Not Yacht", YACHT::score(dice_2, "yacht"), 0);
+
+      dice_3 : ARRAY{INT} := |1, 1, 1, 3, 5|;
+      test("Ones", YACHT::score(dice_3, "ones"), 3);
+
+      dice_4 : ARRAY{INT} := |3, 1, 1, 5, 1|;
+      test("Ones, out of order", YACHT::score(dice_4, "ones"), 3);
+
+      dice_5 : ARRAY{INT} := |4, 3, 6, 5, 5|;
+      test("No ones", YACHT::score(dice_5, "ones"), 0);
+
+      dice_6 : ARRAY{INT} := |2, 3, 4, 5, 6|;
+      test("Twos", YACHT::score(dice_6, "twos"), 2);
+
+      dice_7 : ARRAY{INT} := |1, 4, 1, 4, 1|;
+      test("Fours", YACHT::score(dice_7, "fours"), 8);
+
+      dice_8 : ARRAY{INT} := |3, 3, 3, 3, 3|;
+      test("Yacht counted as threes", YACHT::score(dice_8, "threes"), 15);
+
+      dice_9 : ARRAY{INT} := |3, 3, 3, 3, 3|;
+      test("Yacht of 3s counted as fives", YACHT::score(dice_9, "fives"), 0);
+
+      dice_10 : ARRAY{INT} := |1, 5, 3, 5, 3|;
+      test("Fives", YACHT::score(dice_10, "fives"), 10);
+
+      dice_11 : ARRAY{INT} := |2, 3, 4, 5, 6|;
+      test("Sixes", YACHT::score(dice_11, "sixes"), 6);
+
+      dice_12 : ARRAY{INT} := |2, 2, 4, 4, 4|;
+      test("Full house two small, three big", YACHT::score(dice_12, "full house"), 16);
+
+      dice_13 : ARRAY{INT} := |5, 3, 3, 5, 3|;
+      test("Full house three small, two big", YACHT::score(dice_13, "full house"), 19);
+
+      dice_14 : ARRAY{INT} := |2, 2, 4, 4, 5|;
+      test("Two pair is not a full house", YACHT::score(dice_14, "full house"), 0);
+
+      dice_15 : ARRAY{INT} := |1, 4, 4, 4, 4|;
+      test("Four of a kind is not a full house", YACHT::score(dice_15, "full house"), 0);
+
+      dice_16 : ARRAY{INT} := |2, 2, 2, 2, 2|;
+      test("Yacht is not a full house", YACHT::score(dice_16, "full house"), 0);
+
+      dice_17 : ARRAY{INT} := |6, 6, 4, 6, 6|;
+      test("Four of a Kind", YACHT::score(dice_17, "four of a kind"), 24);
+
+      dice_18 : ARRAY{INT} := |3, 3, 3, 3, 3|;
+      test("Yacht can be scored as Four of a Kind", YACHT::score(dice_18, "four of a kind"), 12);
+
+      dice_19 : ARRAY{INT} := |3, 3, 3, 5, 5|;
+      test("Full house is not Four of a Kind", YACHT::score(dice_19, "four of a kind"), 0);
+
+      dice_20 : ARRAY{INT} := |3, 5, 4, 1, 2|;
+      test("Little Straight", YACHT::score(dice_20, "little straight"), 30);
+
+      dice_21 : ARRAY{INT} := |1, 2, 3, 4, 5|;
+      test("Little Straight as Big Straight", YACHT::score(dice_21, "big straight"), 0);
+
+      dice_22 : ARRAY{INT} := |1, 1, 2, 3, 4|;
+      test("Four in order but not a little straight", YACHT::score(dice_22, "little straight"), 0);
+
+      dice_23 : ARRAY{INT} := |1, 2, 3, 4, 6|;
+      test("No pairs but not a little straight", YACHT::score(dice_23, "little straight"), 0);
+
+      dice_24 : ARRAY{INT} := |1, 1, 3, 4, 5|;
+      test("Minimum is 1, maximum is 5, but not a little straight", YACHT::score(dice_24, "little straight"), 0);
+
+      dice_25 : ARRAY{INT} := |4, 6, 2, 5, 3|;
+      test("Big Straight", YACHT::score(dice_25, "big straight"), 30);
+
+      dice_26 : ARRAY{INT} := |6, 5, 4, 3, 2|;
+      test("Big Straight as little straight", YACHT::score(dice_26, "little straight"), 0);
+
+      dice_27 : ARRAY{INT} := |6, 5, 4, 3, 1|;
+      test("No pairs but not a big straight", YACHT::score(dice_27, "big straight"), 0);
+
+      dice_28 : ARRAY{INT} := |3, 3, 5, 6, 6|;
+      test("Choice", YACHT::score(dice_28, "choice"), 23);
+
+      dice_29 : ARRAY{INT} := |2, 2, 2, 2, 2|;
+      test("Yacht as choice", YACHT::score(dice_29, "choice"), 10);
+
+      finish;
+   end;
+end; -- class YACHT_TEST

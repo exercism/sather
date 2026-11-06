@@ -1,0 +1,14 @@
+class ATBASH_CIPHER is
+
+   encode(phrase : STR) : STR is
+      -- Replace each letter with its mirror, drop everything that is not a
+      -- letter or digit, and group the output in fives.
+      return "";
+   end;
+
+   decode(phrase : STR) : STR is
+      -- Undo encode, without the grouping.
+      return "";
+   end;
+
+end; -- class ATBASH_CIPHER

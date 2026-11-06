@@ -1,0 +1,27 @@
+class DIFFERENCE_OF_SQUARES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("DIFFERENCE_OF_SQUARES");
+
+      test("Square the sum of the numbers up to the given number - square of sum 1", DIFFERENCE_OF_SQUARES::square_of_sum(1), 1);
+
+      test("Square the sum of the numbers up to the given number - square of sum 5", DIFFERENCE_OF_SQUARES::square_of_sum(5), 225);
+
+      test("Square the sum of the numbers up to the given number - square of sum 100", DIFFERENCE_OF_SQUARES::square_of_sum(100), 25502500);
+
+      test("Sum the squares of the numbers up to the given number - sum of squares 1", DIFFERENCE_OF_SQUARES::sum_of_squares(1), 1);
+
+      test("Sum the squares of the numbers up to the given number - sum of squares 5", DIFFERENCE_OF_SQUARES::sum_of_squares(5), 55);
+
+      test("Sum the squares of the numbers up to the given number - sum of squares 100", DIFFERENCE_OF_SQUARES::sum_of_squares(100), 338350);
+
+      test("Subtract sum of squares from square of sums - difference of squares 1", DIFFERENCE_OF_SQUARES::difference_of_squares(1), 0);
+
+      test("Subtract sum of squares from square of sums - difference of squares 5", DIFFERENCE_OF_SQUARES::difference_of_squares(5), 170);
+
+      test("Subtract sum of squares from square of sums - difference of squares 100", DIFFERENCE_OF_SQUARES::difference_of_squares(100), 25164150);
+
+      finish;
+   end;
+end; -- class DIFFERENCE_OF_SQUARES_TEST

@@ -1,0 +1,29 @@
+class ACRONYM_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ACRONYM");
+
+      test("basic", ACRONYM::abbreviate("Portable Network Graphics"), "PNG");
+
+      test("lowercase words", ACRONYM::abbreviate("Ruby on Rails"), "ROR");
+
+      test("punctuation", ACRONYM::abbreviate("First In, First Out"), "FIFO");
+
+      test("all caps word", ACRONYM::abbreviate("GNU Image Manipulation Program"), "GIMP");
+
+      test("punctuation without whitespace", ACRONYM::abbreviate("Complementary metal-oxide semiconductor"), "CMOS");
+
+      test("very long abbreviation", ACRONYM::abbreviate("Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me"), "ROTFLSHTMDCOALM");
+
+      test("consecutive delimiters", ACRONYM::abbreviate("Something - I made up from thin air"), "SIMUFTA");
+
+      test("apostrophes", ACRONYM::abbreviate("Halley's Comet"), "HC");
+
+      test("underscore emphasis", ACRONYM::abbreviate("The Road _Not_ Taken"), "TRNT");
+
+      test("all lowercase", ACRONYM::abbreviate("point of view"), "POV");
+
+      finish;
+   end;
+end; -- class ACRONYM_TEST

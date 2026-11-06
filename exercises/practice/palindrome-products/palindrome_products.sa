@@ -1,0 +1,45 @@
+class PALINDROME is
+
+   -- The answer to one search: whether anything was found, the palindrome
+   -- itself, and every pair of factors that makes it, each pair in
+   -- ascending order and the pairs ordered by their first member.
+   --
+   -- It is called `number' rather than `value' because `value' is a word
+   -- Sather has taken.
+
+   readonly attr found : BOOL;
+   readonly attr number : INT;
+   readonly attr factors : ARRAY{ARRAY{INT}};
+
+   create(palindrome : INT, pairs : ARRAY{ARRAY{INT}}) : SAME is
+      r ::= new;
+      r.found := true;
+      r.number := palindrome;
+      r.factors := pairs;
+      return r;
+   end;
+
+   none : SAME is
+      r ::= new;
+      r.factors := #ARRAY{ARRAY{INT}}(0);
+      return r;
+   end;
+
+end; -- class PALINDROME
+
+class PALINDROME_PRODUCTS is
+
+   smallest(min, max : INT) : PALINDROME is
+      -- The smallest palindrome that is a product of two numbers between
+      -- min and max, and every factor pair making it.
+      -- Raise "min must be <= max" when min is greater than max.
+      return PALINDROME::none;
+   end;
+
+   largest(min, max : INT) : PALINDROME is
+      -- The largest such palindrome.
+      -- Raise "min must be <= max" when min is greater than max.
+      return PALINDROME::none;
+   end;
+
+end; -- class PALINDROME_PRODUCTS

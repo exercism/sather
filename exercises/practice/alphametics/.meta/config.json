@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "alphametics.sa"
+    ],
+    "test": [
+      "alphametics_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Given an alphametics puzzle, find the correct solution."
+}

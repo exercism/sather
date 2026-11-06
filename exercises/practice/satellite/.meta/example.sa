@@ -1,0 +1,60 @@
+class TREE_NODE is
+
+   attr v : STR;
+   attr l, r : TREE_NODE;
+
+   create(val : STR) : SAME is
+      -- ('value' is a Sather keyword, so the argument is named `val'.)
+      res : SAME := new;
+      res.v := val;
+      return res;
+   end;
+
+end; -- class TREE_NODE
+
+class SATELLITE is
+
+   private index_in(items : ARRAY{STR}, from, upto : INT, wanted : STR) : INT is
+      loop
+         i ::= from.upto!(upto);
+         if items[i] = wanted then return i end;
+      end;
+      return -1;
+   end;
+
+   private build(preorder : ARRAY{STR}, pre_from : INT,
+                 inorder : ARRAY{STR}, in_from, count : INT) : TREE_NODE is
+      if count = 0 then return void end;
+      root ::= #TREE_NODE(preorder[pre_from]);
+      split ::= index_in(inorder, in_from, in_from + count - 1, root.v);
+      left_count ::= split - in_from;
+      root.l := build(preorder, pre_from + 1, inorder, in_from, left_count);
+      root.r := build(preorder, pre_from + 1 + left_count,
+                      inorder, split + 1, count - left_count - 1);
+      return root;
+   end;
+
+   tree_from_traversals(preorder, inorder : ARRAY{STR}) : TREE_NODE is
+      if preorder.size /= inorder.size then
+         raise "traversals must have the same length";
+      end;
+
+      seen : FSET{STR} := #FSET{STR};
+      loop
+         seen := seen.insert(preorder.elt!);
+      end;
+      if seen.size /= preorder.size then
+         raise "traversals must contain unique items";
+      end;
+
+      loop
+         item ::= inorder.elt!;
+         if ~seen.has(item) then
+            raise "traversals must have the same elements";
+         end;
+      end;
+
+      return build(preorder, 0, inorder, 0, preorder.size);
+   end;
+
+end; -- class SATELLITE

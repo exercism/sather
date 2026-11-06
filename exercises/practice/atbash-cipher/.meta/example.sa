@@ -1,0 +1,31 @@
+class ATBASH_CIPHER is
+
+   private transcode(phrase : STR) : STR is
+      r : FSTR := #FSTR(32);
+      loop
+         c ::= phrase.elt!;
+         if c.is_digit then
+            r := r + c;
+         elsif c.is_alpha then
+            r := r + ('z'.int - c.lower.int + 'a'.int).char;
+         end;
+      end;
+      return r.str;
+   end;
+
+   encode(phrase : STR) : STR is
+      plain ::= transcode(phrase);
+      r : FSTR := #FSTR(plain.size + plain.size / 5 + 1);
+      loop
+         i ::= 0.upto!(plain.size - 1);
+         if i > 0 and i % 5 = 0 then r := r + ' ' end;
+         r := r + plain[i];
+      end;
+      return r.str;
+   end;
+
+   decode(phrase : STR) : STR is
+      return transcode(phrase);
+   end;
+
+end; -- class ATBASH_CIPHER

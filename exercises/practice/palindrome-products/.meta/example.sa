@@ -1,0 +1,99 @@
+class PALINDROME is
+
+   readonly attr found : BOOL;
+   readonly attr number : INT;
+   readonly attr factors : ARRAY{ARRAY{INT}};
+
+   create(palindrome : INT, pairs : ARRAY{ARRAY{INT}}) : SAME is
+      r ::= new;
+      r.found := true;
+      r.number := palindrome;
+      r.factors := pairs;
+      return r;
+   end;
+
+   none : SAME is
+      r ::= new;
+      r.factors := #ARRAY{ARRAY{INT}}(0);
+      return r;
+   end;
+
+end; -- class PALINDROME
+
+class PALINDROME_PRODUCTS is
+
+   private is_palindrome(n : INT) : BOOL is
+      text ::= n.str;
+      loop
+         i ::= 0.upto!(text.size / 2 - 1);
+         if text[i] /= text[text.size - 1 - i] then return false; end;
+      end;
+      return true;
+   end;
+
+   private search(min, max : INT, want_largest : BOOL) : PALINDROME is
+      if min > max then raise "min must be <= max"; end;
+      best ::= 0;
+      any ::= false;
+      -- Pairs (a, b) are taken with a <= b. Each row of products is walked
+      -- from the end that is better, and a row stops as soon as its
+      -- products can no longer improve on the best palindrome so far.
+      if want_largest then
+         a ::= max;
+         loop
+            until!(a < min or (any and a * max < best));
+            b ::= max;
+            loop
+               until!(b < a);
+               product ::= a * b;
+               until!(any and product <= best);
+               if is_palindrome(product) then best := product; any := true; end;
+               b := b - 1;
+            end;
+            a := a - 1;
+         end;
+      else
+         a ::= min;
+         loop
+            until!(a > max or (any and a * a > best));
+            b ::= a;
+            loop
+               until!(b > max);
+               product ::= a * b;
+               until!(any and product >= best);
+               if is_palindrome(product) then best := product; any := true; end;
+               b := b + 1;
+            end;
+            a := a + 1;
+         end;
+      end;
+      if ~any then return PALINDROME::none; end;
+      -- Every factor pair of the answer, found by division.
+      pairs ::= #LIST{ARRAY{INT}};
+      loop
+         f ::= min.upto!(max);
+         if f /= 0 and best % f = 0 then
+            g ::= best / f;
+            if f <= g and g <= max then
+               pair : ARRAY{INT} := |f, g|;
+               pairs.append(pair);
+            end;
+         end;
+      end;
+      answer : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(pairs.size);
+      loop
+         i ::= 0.upto!(pairs.size - 1);
+         answer[i] := pairs[i];
+      end;
+      return #PALINDROME(best, answer);
+   end;
+
+   smallest(min, max : INT) : PALINDROME is
+      return search(min, max, false);
+   end;
+
+   largest(min, max : INT) : PALINDROME is
+      return search(min, max, true);
+   end;
+
+end; -- class PALINDROME_PRODUCTS

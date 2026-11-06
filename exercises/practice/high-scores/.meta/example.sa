@@ -1,0 +1,55 @@
+class HIGH_SCORES is
+
+   private attr all_scores : ARRAY{INT};
+
+   create(scores : ARRAY{INT}) : SAME is
+      res : SAME := new;
+      res.all_scores := scores;
+      return res;
+   end;
+
+   scores : ARRAY{INT} is
+      return all_scores;
+   end;
+
+   latest : INT is
+      return all_scores[all_scores.size - 1];
+   end;
+
+   personal_best : INT is
+      best ::= all_scores[0];
+      loop
+         s ::= all_scores.elt!;
+         if s > best then best := s end;
+      end;
+      return best;
+   end;
+
+   personal_top_three : ARRAY{INT} is
+      -- Copy, so that sorting does not disturb `scores'.
+      sorted : ARRAY{INT} := #ARRAY{INT}(all_scores.size);
+      loop
+         i ::= 0.upto!(all_scores.size - 1);
+         sorted[i] := all_scores[i];
+      end;
+      loop
+         i ::= 0.upto!(sorted.size - 1);
+         loop
+            j ::= (i + 1).upto!(sorted.size - 1);
+            if sorted[j] > sorted[i] then
+               t ::= sorted[i]; sorted[i] := sorted[j]; sorted[j] := t;
+            end;
+         end;
+      end;
+
+      n ::= sorted.size;
+      if n > 3 then n := 3 end;
+      res : ARRAY{INT} := #ARRAY{INT}(n);
+      loop
+         k ::= 0.upto!(n - 1);
+         res[k] := sorted[k];
+      end;
+      return res;
+   end;
+
+end; -- class HIGH_SCORES

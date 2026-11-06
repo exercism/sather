@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      basket_{{ case.index }} : ARRAY{INT} := {{ case.input.basket | sa("INT") }};
+{{ m.test(case, "BOOK_STORE::total(basket_" ~ case.index ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

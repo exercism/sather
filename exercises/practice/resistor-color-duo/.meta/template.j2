@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      colors_{{ case.index }} : ARRAY{STR} := {{ case.input.colors | sa("STR") }};
+{{ m.test(case, "RESISTOR_COLOR_DUO::decoded_value(colors_" ~ case.index ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

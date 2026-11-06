@@ -1,0 +1,57 @@
+class RESISTOR_COLOR_TOLERANCE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("RESISTOR_COLOR_TOLERANCE");
+
+      colors_1 : ARRAY{STR} := |"orange", "orange", "black", "red"|;
+      test("Orange, orange, black and red", RESISTOR_COLOR_TOLERANCE::label(colors_1), "33 ohms ±2%");
+
+      colors_2 : ARRAY{STR} := |"blue", "grey", "brown", "violet"|;
+      test("Blue, gray, brown and violet", RESISTOR_COLOR_TOLERANCE::label(colors_2), "680 ohms ±0.1%");
+
+      colors_3 : ARRAY{STR} := |"red", "black", "red", "green"|;
+      test("Red, black, red and green", RESISTOR_COLOR_TOLERANCE::label(colors_3), "2 kiloohms ±0.5%");
+
+      colors_4 : ARRAY{STR} := |"green", "brown", "orange", "grey"|;
+      test("Green, brownm orange and grey", RESISTOR_COLOR_TOLERANCE::label(colors_4), "51 kiloohms ±0.05%");
+
+      colors_5 : ARRAY{STR} := |"black"|;
+      test("Only one band", RESISTOR_COLOR_TOLERANCE::label(colors_5), "0 ohms");
+
+      colors_6 : ARRAY{STR} := |"orange", "orange", "yellow", "black", "brown"|;
+      test("Orange, orange, yellow, black and brown", RESISTOR_COLOR_TOLERANCE::label(colors_6), "334 ohms ±1%");
+
+      colors_7 : ARRAY{STR} := |"red", "green", "yellow", "yellow", "brown"|;
+      test("Red, green, yellow, yellow and brown", RESISTOR_COLOR_TOLERANCE::label(colors_7), "2.54 megaohms ±1%");
+
+      colors_8 : ARRAY{STR} := |"blue", "grey", "white", "brown", "brown"|;
+      test("Blue, gray, white, brown and brown", RESISTOR_COLOR_TOLERANCE::label(colors_8), "6.89 kiloohms ±1%");
+
+      colors_9 : ARRAY{STR} := |"violet", "orange", "red", "grey"|;
+      test("Violet, orange, red and gray", RESISTOR_COLOR_TOLERANCE::label(colors_9), "7.3 kiloohms ±0.05%");
+
+      colors_10 : ARRAY{STR} := |"brown", "red", "orange", "green", "blue"|;
+      test("Brown, red, orange, green and blue", RESISTOR_COLOR_TOLERANCE::label(colors_10), "12.3 megaohms ±0.25%");
+
+      colors_11 : ARRAY{STR} := |"brown", "black", "brown", "yellow", "violet"|;
+      test("Brown, black, brown, yellow and violet", RESISTOR_COLOR_TOLERANCE::label(colors_11), "1.01 megaohms ±0.1%");
+
+      colors_12 : ARRAY{STR} := |"brown", "black", "red", "red"|;
+      test("Brown, black, red and red", RESISTOR_COLOR_TOLERANCE::label(colors_12), "1 kiloohms ±2%");
+
+      colors_13 : ARRAY{STR} := |"orange", "orange", "red", "brown"|;
+      test("Orange, orange, red and brown", RESISTOR_COLOR_TOLERANCE::label(colors_13), "3.3 kiloohms ±1%");
+
+      colors_14 : ARRAY{STR} := |"orange", "orange", "green", "red"|;
+      test("Orange, orange, green and red", RESISTOR_COLOR_TOLERANCE::label(colors_14), "3.3 megaohms ±2%");
+
+      colors_15 : ARRAY{STR} := |"white", "white", "violet", "green"|;
+      test("White, white, violet and green", RESISTOR_COLOR_TOLERANCE::label(colors_15), "990 megaohms ±0.5%");
+
+      colors_16 : ARRAY{STR} := |"white", "white", "grey", "blue"|;
+      test("White, white, grey and blue", RESISTOR_COLOR_TOLERANCE::label(colors_16), "9.9 gigaohms ±0.25%");
+
+      finish;
+   end;
+end; -- class RESISTOR_COLOR_TOLERANCE_TEST

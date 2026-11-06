@@ -1,0 +1,40 @@
+{% import "macros.j2" as m with context %}
+{# The functions the canonical cases give as lambdas, by name in the class. #}
+{% set folds = {"(acc, el) -> el + acc": "sum", "(acc, el) -> el * acc": "product", "(acc, el) -> el / acc": "quotient"} %}
+{% call m.begin() %}
+   -- The functions the canonical cases describe as lambdas. A bound
+   -- routine has to be bound to a real routine, so they live here.
+   private sum(acc, el : FLTD) : FLTD is return el + acc; end;
+   private product(acc, el : FLTD) : FLTD is return el * acc; end;
+   private quotient(acc, el : FLTD) : FLTD is return el / acc; end;
+   private odd(x : INT) : BOOL is return x % 2 = 1; end;
+   private add_one(x : INT) : INT is return x + 1; end;
+{% endcall %}
+{% for case in cases %}
+
+{% set i = case.input %}
+{% set l = "l_" ~ case.index %}
+{% if case.property == "append" %}
+      a_{{ case.index }} : ARRAY{INT} := {{ i.list1 | sa("INT") }};
+      b_{{ case.index }} : ARRAY{INT} := {{ i.list2 | sa("INT") }};
+{{ m.test_str(case, "LIST_OPS::append(a_" ~ case.index ~ ", b_" ~ case.index ~ ")", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% elif case.property == "concat" %}
+      lists_{{ case.index }} : ARRAY{ARRAY{INT}} := {{ i.lists | sa("ARRAY{INT}") }};
+{{ m.test_str(case, "LIST_OPS::concat(lists_" ~ case.index ~ ")", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% elif case.property in ["foldl", "foldr"] %}
+      {{ l }} : ARRAY{FLTD} := {{ i.list | sa("FLTD") }};
+{{ m.test(case, "LIST_OPS::" ~ case.property ~ "(" ~ l ~ ", " ~ i.initial | sa_fltd ~ ", bind(" ~ folds[i.function] ~ "(_, _))).str", (case.expected | sa_fltd) ~ ".str") }}
+{% else %}
+      {{ l }} : ARRAY{INT} := {{ i.list | sa("INT") }};
+{% if case.property == "length" %}
+{{ m.test(case, "LIST_OPS::length(" ~ l ~ ")", case.expected | sa) }}
+{% elif case.property == "filter" %}
+{{ m.test_str(case, "LIST_OPS::filter(" ~ l ~ ", bind(odd(_)))", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% elif case.property == "map" %}
+{{ m.test_str(case, "LIST_OPS::map(" ~ l ~ ", bind(add_one(_)))", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% else %}
+{{ m.test_str(case, "LIST_OPS::reverse(" ~ l ~ ")", case.expected | sa("INT"), "ARRAY{INT}") }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

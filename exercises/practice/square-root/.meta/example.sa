@@ -1,0 +1,12 @@
+class SQUARE_ROOT is
+
+   square_root(radicand : INT) : INT is
+      n ::= 0;
+      loop
+         until!(n * n >= radicand);
+         n := n + 1;
+      end;
+      return n;
+   end;
+
+end; -- class SQUARE_ROOT

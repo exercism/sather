@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "nucleotide_count.sa"
+    ],
+    "test": [
+      "nucleotide_count_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Given a DNA string, compute how many times each nucleotide occurs in the string.",
+  "source": "The Counting DNA Nucleotides problem at Rosalind",
+  "source_url": "https://rosalind.info/problems/dna/"
+}

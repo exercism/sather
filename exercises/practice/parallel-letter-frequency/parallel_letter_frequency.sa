@@ -1,0 +1,10 @@
+class PARALLEL_LETTER_FREQUENCY is
+
+   frequency(texts : ARRAY{STR}) : FMAP{STR,INT} is
+      -- How often each letter occurs across all the texts. Case does not
+      -- matter; anything that is not a letter is ignored. Keys are
+      -- single-character strings.
+      return #FMAP{STR,INT};
+   end;
+
+end; -- class PARALLEL_LETTER_FREQUENCY

@@ -1,0 +1,61 @@
+class KILLER_SUDOKU_HELPER_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("KILLER_SUDOKU_HELPER");
+
+      exclude_1 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_1 : ARRAY{ARRAY{INT}} := | |1| |;
+      test("Trivial 1-digit cages - 1", KILLER_SUDOKU_HELPER::combinations(1, 1, exclude_1).str, expected_1.str);
+
+      exclude_2 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_2 : ARRAY{ARRAY{INT}} := | |2| |;
+      test("Trivial 1-digit cages - 2", KILLER_SUDOKU_HELPER::combinations(2, 1, exclude_2).str, expected_2.str);
+
+      exclude_3 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_3 : ARRAY{ARRAY{INT}} := | |3| |;
+      test("Trivial 1-digit cages - 3", KILLER_SUDOKU_HELPER::combinations(3, 1, exclude_3).str, expected_3.str);
+
+      exclude_4 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_4 : ARRAY{ARRAY{INT}} := | |4| |;
+      test("Trivial 1-digit cages - 4", KILLER_SUDOKU_HELPER::combinations(4, 1, exclude_4).str, expected_4.str);
+
+      exclude_5 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_5 : ARRAY{ARRAY{INT}} := | |5| |;
+      test("Trivial 1-digit cages - 5", KILLER_SUDOKU_HELPER::combinations(5, 1, exclude_5).str, expected_5.str);
+
+      exclude_6 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_6 : ARRAY{ARRAY{INT}} := | |6| |;
+      test("Trivial 1-digit cages - 6", KILLER_SUDOKU_HELPER::combinations(6, 1, exclude_6).str, expected_6.str);
+
+      exclude_7 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_7 : ARRAY{ARRAY{INT}} := | |7| |;
+      test("Trivial 1-digit cages - 7", KILLER_SUDOKU_HELPER::combinations(7, 1, exclude_7).str, expected_7.str);
+
+      exclude_8 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_8 : ARRAY{ARRAY{INT}} := | |8| |;
+      test("Trivial 1-digit cages - 8", KILLER_SUDOKU_HELPER::combinations(8, 1, exclude_8).str, expected_8.str);
+
+      exclude_9 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_9 : ARRAY{ARRAY{INT}} := | |9| |;
+      test("Trivial 1-digit cages - 9", KILLER_SUDOKU_HELPER::combinations(9, 1, exclude_9).str, expected_9.str);
+
+      exclude_10 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_10 : ARRAY{ARRAY{INT}} := | |1, 2, 3, 4, 5, 6, 7, 8, 9| |;
+      test("Cage with sum 45 contains all digits 1:9", KILLER_SUDOKU_HELPER::combinations(45, 9, exclude_10).str, expected_10.str);
+
+      exclude_11 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_11 : ARRAY{ARRAY{INT}} := | |1, 2, 4| |;
+      test("Cage with only 1 possible combination", KILLER_SUDOKU_HELPER::combinations(7, 3, exclude_11).str, expected_11.str);
+
+      exclude_12 : ARRAY{INT} := #ARRAY{INT}(0);
+      expected_12 : ARRAY{ARRAY{INT}} := | |1, 9|, |2, 8|, |3, 7|, |4, 6| |;
+      test("Cage with several combinations", KILLER_SUDOKU_HELPER::combinations(10, 2, exclude_12).str, expected_12.str);
+
+      exclude_13 : ARRAY{INT} := |1, 4|;
+      expected_13 : ARRAY{ARRAY{INT}} := | |2, 8|, |3, 7| |;
+      test("Cage with several combinations that is restricted", KILLER_SUDOKU_HELPER::combinations(10, 2, exclude_13).str, expected_13.str);
+
+      finish;
+   end;
+end; -- class KILLER_SUDOKU_HELPER_TEST

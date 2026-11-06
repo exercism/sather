@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "rectangles.sa"
+    ],
+    "test": [
+      "rectangles_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Count the rectangles in an ASCII diagram."
+}

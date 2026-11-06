@@ -1,0 +1,119 @@
+class ALLERGIES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ALLERGIES");
+
+      test("testing for eggs allergy - not allergic to anything", ALLERGIES::allergic_to("eggs", 0), false);
+
+      test("testing for eggs allergy - allergic only to eggs", ALLERGIES::allergic_to("eggs", 1), true);
+
+      test("testing for eggs allergy - allergic to eggs and something else", ALLERGIES::allergic_to("eggs", 3), true);
+
+      test("testing for eggs allergy - allergic to something, but not eggs", ALLERGIES::allergic_to("eggs", 2), false);
+
+      test("testing for eggs allergy - allergic to everything", ALLERGIES::allergic_to("eggs", 255), true);
+
+      test("testing for peanuts allergy - not allergic to anything", ALLERGIES::allergic_to("peanuts", 0), false);
+
+      test("testing for peanuts allergy - allergic only to peanuts", ALLERGIES::allergic_to("peanuts", 2), true);
+
+      test("testing for peanuts allergy - allergic to peanuts and something else", ALLERGIES::allergic_to("peanuts", 7), true);
+
+      test("testing for peanuts allergy - allergic to something, but not peanuts", ALLERGIES::allergic_to("peanuts", 5), false);
+
+      test("testing for peanuts allergy - allergic to everything", ALLERGIES::allergic_to("peanuts", 255), true);
+
+      test("testing for shellfish allergy - not allergic to anything", ALLERGIES::allergic_to("shellfish", 0), false);
+
+      test("testing for shellfish allergy - allergic only to shellfish", ALLERGIES::allergic_to("shellfish", 4), true);
+
+      test("testing for shellfish allergy - allergic to shellfish and something else", ALLERGIES::allergic_to("shellfish", 14), true);
+
+      test("testing for shellfish allergy - allergic to something, but not shellfish", ALLERGIES::allergic_to("shellfish", 10), false);
+
+      test("testing for shellfish allergy - allergic to everything", ALLERGIES::allergic_to("shellfish", 255), true);
+
+      test("testing for strawberries allergy - not allergic to anything", ALLERGIES::allergic_to("strawberries", 0), false);
+
+      test("testing for strawberries allergy - allergic only to strawberries", ALLERGIES::allergic_to("strawberries", 8), true);
+
+      test("testing for strawberries allergy - allergic to strawberries and something else", ALLERGIES::allergic_to("strawberries", 28), true);
+
+      test("testing for strawberries allergy - allergic to something, but not strawberries", ALLERGIES::allergic_to("strawberries", 20), false);
+
+      test("testing for strawberries allergy - allergic to everything", ALLERGIES::allergic_to("strawberries", 255), true);
+
+      test("testing for tomatoes allergy - not allergic to anything", ALLERGIES::allergic_to("tomatoes", 0), false);
+
+      test("testing for tomatoes allergy - allergic only to tomatoes", ALLERGIES::allergic_to("tomatoes", 16), true);
+
+      test("testing for tomatoes allergy - allergic to tomatoes and something else", ALLERGIES::allergic_to("tomatoes", 56), true);
+
+      test("testing for tomatoes allergy - allergic to something, but not tomatoes", ALLERGIES::allergic_to("tomatoes", 40), false);
+
+      test("testing for tomatoes allergy - allergic to everything", ALLERGIES::allergic_to("tomatoes", 255), true);
+
+      test("testing for chocolate allergy - not allergic to anything", ALLERGIES::allergic_to("chocolate", 0), false);
+
+      test("testing for chocolate allergy - allergic only to chocolate", ALLERGIES::allergic_to("chocolate", 32), true);
+
+      test("testing for chocolate allergy - allergic to chocolate and something else", ALLERGIES::allergic_to("chocolate", 112), true);
+
+      test("testing for chocolate allergy - allergic to something, but not chocolate", ALLERGIES::allergic_to("chocolate", 80), false);
+
+      test("testing for chocolate allergy - allergic to everything", ALLERGIES::allergic_to("chocolate", 255), true);
+
+      test("testing for pollen allergy - not allergic to anything", ALLERGIES::allergic_to("pollen", 0), false);
+
+      test("testing for pollen allergy - allergic only to pollen", ALLERGIES::allergic_to("pollen", 64), true);
+
+      test("testing for pollen allergy - allergic to pollen and something else", ALLERGIES::allergic_to("pollen", 224), true);
+
+      test("testing for pollen allergy - allergic to something, but not pollen", ALLERGIES::allergic_to("pollen", 160), false);
+
+      test("testing for pollen allergy - allergic to everything", ALLERGIES::allergic_to("pollen", 255), true);
+
+      test("testing for cats allergy - not allergic to anything", ALLERGIES::allergic_to("cats", 0), false);
+
+      test("testing for cats allergy - allergic only to cats", ALLERGIES::allergic_to("cats", 128), true);
+
+      test("testing for cats allergy - allergic to cats and something else", ALLERGIES::allergic_to("cats", 192), true);
+
+      test("testing for cats allergy - allergic to something, but not cats", ALLERGIES::allergic_to("cats", 64), false);
+
+      test("testing for cats allergy - allergic to everything", ALLERGIES::allergic_to("cats", 255), true);
+
+      expected_41 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("list when: - no allergies", ALLERGIES::list(0).str, expected_41.str);
+
+      expected_42 : ARRAY{STR} := |"eggs"|;
+      test("list when: - just eggs", ALLERGIES::list(1).str, expected_42.str);
+
+      expected_43 : ARRAY{STR} := |"peanuts"|;
+      test("list when: - just peanuts", ALLERGIES::list(2).str, expected_43.str);
+
+      expected_44 : ARRAY{STR} := |"strawberries"|;
+      test("list when: - just strawberries", ALLERGIES::list(8).str, expected_44.str);
+
+      expected_45 : ARRAY{STR} := |"eggs", "peanuts"|;
+      test("list when: - eggs and peanuts", ALLERGIES::list(3).str, expected_45.str);
+
+      expected_46 : ARRAY{STR} := |"eggs", "shellfish"|;
+      test("list when: - more than eggs but not peanuts", ALLERGIES::list(5).str, expected_46.str);
+
+      expected_47 : ARRAY{STR} := |"strawberries", "tomatoes", "chocolate", "pollen", "cats"|;
+      test("list when: - lots of stuff", ALLERGIES::list(248).str, expected_47.str);
+
+      expected_48 : ARRAY{STR} := |"eggs", "peanuts", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"|;
+      test("list when: - everything", ALLERGIES::list(255).str, expected_48.str);
+
+      expected_49 : ARRAY{STR} := |"eggs", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"|;
+      test("list when: - no allergen score parts", ALLERGIES::list(509).str, expected_49.str);
+
+      expected_50 : ARRAY{STR} := |"eggs"|;
+      test("list when: - no allergen score parts without highest valid score", ALLERGIES::list(257).str, expected_50.str);
+
+      finish;
+   end;
+end; -- class ALLERGIES_TEST

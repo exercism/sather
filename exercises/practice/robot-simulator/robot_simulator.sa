@@ -1,0 +1,22 @@
+class ROBOT is
+
+   readonly attr x, y : INT;
+   readonly attr direction : STR;
+
+   create(start_x, start_y : INT, facing : STR) : SAME is
+      -- A robot at a position, facing "north", "east", "south" or "west".
+      robot ::= new;
+      robot.x := start_x;
+      robot.y := start_y;
+      robot.direction := facing;
+      return robot;
+   end;
+
+   move(instructions : STR) is
+      -- Follow the instructions, changing this robot as it goes.
+      -- 'L' turns left, 'R' turns right, 'A' advances one square in the
+      -- direction the robot faces. North is the direction of increasing y,
+      -- east of increasing x.
+   end;
+
+end; -- class ROBOT

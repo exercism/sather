@@ -1,0 +1,48 @@
+class DOMINOES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("DOMINOES");
+
+      stones_1 : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(0);
+      test("empty input = empty output", DOMINOES::can_chain(stones_1), true);
+
+      stones_2 : ARRAY{ARRAY{INT}} := | |1, 1| |;
+      test("singleton input = singleton output", DOMINOES::can_chain(stones_2), true);
+
+      stones_3 : ARRAY{ARRAY{INT}} := | |1, 2| |;
+      test("singleton that can't be chained", DOMINOES::can_chain(stones_3), false);
+
+      stones_4 : ARRAY{ARRAY{INT}} := | |1, 2|, |3, 1|, |2, 3| |;
+      test("three elements", DOMINOES::can_chain(stones_4), true);
+
+      stones_5 : ARRAY{ARRAY{INT}} := | |1, 2|, |1, 3|, |2, 3| |;
+      test("can reverse dominoes", DOMINOES::can_chain(stones_5), true);
+
+      stones_6 : ARRAY{ARRAY{INT}} := | |1, 2|, |4, 1|, |2, 3| |;
+      test("can't be chained", DOMINOES::can_chain(stones_6), false);
+
+      stones_7 : ARRAY{ARRAY{INT}} := | |1, 1|, |2, 2| |;
+      test("disconnected - simple", DOMINOES::can_chain(stones_7), false);
+
+      stones_8 : ARRAY{ARRAY{INT}} := | |1, 2|, |2, 1|, |3, 4|, |4, 3| |;
+      test("disconnected - double loop", DOMINOES::can_chain(stones_8), false);
+
+      stones_9 : ARRAY{ARRAY{INT}} := | |1, 2|, |2, 3|, |3, 1|, |4, 4| |;
+      test("disconnected - single isolated", DOMINOES::can_chain(stones_9), false);
+
+      stones_10 : ARRAY{ARRAY{INT}} := | |1, 2|, |2, 3|, |3, 1|, |2, 4|, |2, 4| |;
+      test("need backtrack", DOMINOES::can_chain(stones_10), true);
+
+      stones_11 : ARRAY{ARRAY{INT}} := | |1, 2|, |2, 3|, |3, 1|, |1, 1|, |2, 2|, |3, 3| |;
+      test("separate loops", DOMINOES::can_chain(stones_11), true);
+
+      stones_12 : ARRAY{ARRAY{INT}} := | |1, 2|, |5, 3|, |3, 1|, |1, 2|, |2, 4|, |1, 6|, |2, 3|, |3, 4|, |5, 6| |;
+      test("nine elements", DOMINOES::can_chain(stones_12), true);
+
+      stones_13 : ARRAY{ARRAY{INT}} := | |1, 2|, |2, 3|, |3, 1|, |4, 5|, |5, 6|, |6, 4| |;
+      test("separate three-domino loops", DOMINOES::can_chain(stones_13), false);
+
+      finish;
+   end;
+end; -- class DOMINOES_TEST

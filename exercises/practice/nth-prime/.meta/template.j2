@@ -1,0 +1,13 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{# Smallest prime first, so the track's extra cases fall into place among
+   the canonical ones; the error case comes last. #}
+{% for case in cases | rejectattr("is_error") | sort(attribute="input.number") %}
+
+{{ m.test(case, "NTH_PRIME::prime(" ~ case.input.number | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{% for case in cases | selectattr("is_error") %}
+
+{{ m.test_error(case, "NTH_PRIME::prime(" ~ case.input.number | sa ~ ")") }}
+{% endfor %}
+{{ m.end() }}

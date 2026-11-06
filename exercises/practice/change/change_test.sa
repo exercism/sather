@@ -1,0 +1,81 @@
+class CHANGE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CHANGE");
+
+      coins_1 : ARRAY{INT} := |1, 5, 10, 25|;
+      expected_1 : ARRAY{INT} := |1|;
+      test("change for 1 cent", CHANGE::change(coins_1, 1).str, expected_1.str);
+
+      coins_2 : ARRAY{INT} := |1, 5, 10, 25, 100|;
+      expected_2 : ARRAY{INT} := |25|;
+      test("single coin change", CHANGE::change(coins_2, 25).str, expected_2.str);
+
+      coins_3 : ARRAY{INT} := |1, 5, 10, 25, 100|;
+      expected_3 : ARRAY{INT} := |5, 10|;
+      test("multiple coin change", CHANGE::change(coins_3, 15).str, expected_3.str);
+
+      coins_4 : ARRAY{INT} := |1, 4, 15, 20, 50|;
+      expected_4 : ARRAY{INT} := |4, 4, 15|;
+      test("change with Lilliputian Coins", CHANGE::change(coins_4, 23).str, expected_4.str);
+
+      coins_5 : ARRAY{INT} := |1, 5, 10, 21, 25|;
+      expected_5 : ARRAY{INT} := |21, 21, 21|;
+      test("change with Lower Elbonia Coins", CHANGE::change(coins_5, 63).str, expected_5.str);
+
+      coins_6 : ARRAY{INT} := |1, 2, 5, 10, 20, 50, 100|;
+      expected_6 : ARRAY{INT} := |2, 2, 5, 20, 20, 50, 100, 100, 100, 100, 100, 100, 100, 100, 100|;
+      test("large target values", CHANGE::change(coins_6, 999).str, expected_6.str);
+
+      coins_7 : ARRAY{INT} := |2, 5, 10, 20, 50|;
+      expected_7 : ARRAY{INT} := |2, 2, 2, 5, 10|;
+      test("possible change without unit coins available", CHANGE::change(coins_7, 21).str, expected_7.str);
+
+      coins_8 : ARRAY{INT} := |4, 5|;
+      expected_8 : ARRAY{INT} := |4, 4, 4, 5, 5, 5|;
+      test("another possible change without unit coins available", CHANGE::change(coins_8, 27).str, expected_8.str);
+
+      coins_9 : ARRAY{INT} := |1, 10, 11|;
+      expected_9 : ARRAY{INT} := |10, 10|;
+      test("a greedy approach is not optimal", CHANGE::change(coins_9, 20).str, expected_9.str);
+
+      coins_10 : ARRAY{INT} := |1, 5, 10, 21, 25|;
+      expected_10 : ARRAY{INT} := #ARRAY{INT}(0);
+      test("no coins make 0 change", CHANGE::change(coins_10, 0).str, expected_10.str);
+
+      coins_11 : ARRAY{INT} := |5, 10|;
+      protect
+         ignored ::= CHANGE::change(coins_11, 3);
+         test("error testing for change smaller than the smallest of coins", "no exception raised", "can't make target with given coins");
+      when $STR then
+         test("error testing for change smaller than the smallest of coins", exception.str, "can't make target with given coins");
+      end;
+
+      coins_12 : ARRAY{INT} := |5, 10|;
+      protect
+         ignored ::= CHANGE::change(coins_12, 94);
+         test("error if no combination can add up to target", "no exception raised", "can't make target with given coins");
+      when $STR then
+         test("error if no combination can add up to target", exception.str, "can't make target with given coins");
+      end;
+
+      coins_13 : ARRAY{INT} := |1, 2, 5|;
+      protect
+         ignored ::= CHANGE::change(coins_13, (-5));
+         test("cannot find negative change values", "no exception raised", "target can't be negative");
+      when $STR then
+         test("cannot find negative change values", exception.str, "target can't be negative");
+      end;
+
+      coins_14 : ARRAY{INT} := |6, 9, 20|;
+      protect
+         ignored ::= CHANGE::change(coins_14, 43);
+         test("no combination of 6, 9, and 20 can make 43", "no exception raised", "can't make target with given coins");
+      when $STR then
+         test("no combination of 6, 9, and 20 can make 43", exception.str, "can't make target with given coins");
+      end;
+
+      finish;
+   end;
+end; -- class CHANGE_TEST

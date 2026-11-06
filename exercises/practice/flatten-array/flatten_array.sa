@@ -1,0 +1,45 @@
+class NESTED is
+
+   -- One item of a nested list. Sather arrays hold a single type, so a
+   -- list that mixes numbers, nothing, and further lists needs a type of
+   -- its own. This is it, and it is given to you.
+
+   const number_kind : INT := 0;      -- holds a number
+   const nothing_kind : INT := 1;     -- holds nothing at all
+   const list_kind : INT := 2;        -- holds more items
+
+   readonly attr kind : INT;
+   readonly attr number : INT;
+   readonly attr items : ARRAY{NESTED};
+
+   create(n : INT) : SAME is
+      r ::= new;
+      r.kind := number_kind;
+      r.number := n;
+      return r;
+   end;
+
+   create(list : ARRAY{NESTED}) : SAME is
+      r ::= new;
+      r.kind := list_kind;
+      r.items := list;
+      return r;
+   end;
+
+   nothing : SAME is
+      r ::= new;
+      r.kind := nothing_kind;
+      return r;
+   end;
+
+end; -- class NESTED
+
+class FLATTEN_ARRAY is
+
+   flatten(nested : NESTED) : ARRAY{INT} is
+      -- Every number in the nested list, in order, however deeply buried.
+      -- Items holding nothing are left out.
+      return #ARRAY{INT}(0);
+   end;
+
+end; -- class FLATTEN_ARRAY

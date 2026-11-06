@@ -1,0 +1,9 @@
+class DARTS is
+
+   score(x, y : FLTD) : INT is
+      -- 10 points inside radius 1, 5 inside radius 5, 1 inside radius 10,
+      -- 0 outside.
+      return 0;
+   end;
+
+end; -- class DARTS

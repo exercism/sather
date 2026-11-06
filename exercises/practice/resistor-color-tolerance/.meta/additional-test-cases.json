@@ -1,0 +1,53 @@
+[
+  {
+    "description": "Orange, orange, red and brown",
+    "comments": [
+      "Adapted from the factor and zig resistor-color-trio supplements, with a tolerance band added"
+    ],
+    "property": "labelDecoder",
+    "input": {
+      "colors": ["orange", "orange", "red", "brown"]
+    },
+    "expected": {
+      "value": 3.3,
+      "unit": "kiloohms",
+      "tolerance": "±1%"
+    }
+  },
+  {
+    "description": "Orange, orange, green and red",
+    "property": "labelDecoder",
+    "input": {
+      "colors": ["orange", "orange", "green", "red"]
+    },
+    "expected": {
+      "value": 3.3,
+      "unit": "megaohms",
+      "tolerance": "±2%"
+    }
+  },
+  {
+    "description": "White, white, violet and green",
+    "property": "labelDecoder",
+    "input": {
+      "colors": ["white", "white", "violet", "green"]
+    },
+    "expected": {
+      "value": 990,
+      "unit": "megaohms",
+      "tolerance": "±0.5%"
+    }
+  },
+  {
+    "description": "White, white, grey and blue",
+    "property": "labelDecoder",
+    "input": {
+      "colors": ["white", "white", "grey", "blue"]
+    },
+    "expected": {
+      "value": 9.9,
+      "unit": "gigaohms",
+      "tolerance": "±0.25%"
+    }
+  }
+]

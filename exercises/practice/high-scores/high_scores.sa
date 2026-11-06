@@ -1,0 +1,32 @@
+class HIGH_SCORES is
+
+   private attr all_scores : ARRAY{INT};
+
+   create(scores : ARRAY{INT}) : SAME is
+      -- Build a HIGH_SCORES from a list of scores.
+      res : SAME := new;
+      res.all_scores := scores;
+      return res;
+   end;
+
+   scores : ARRAY{INT} is
+      -- Every score, in the order they were given.
+      return #ARRAY{INT}(0);
+   end;
+
+   latest : INT is
+      -- The most recent score.
+      return 0;
+   end;
+
+   personal_best : INT is
+      -- The highest score.
+      return 0;
+   end;
+
+   personal_top_three : ARRAY{INT} is
+      -- The three highest scores, best first. Fewer if there are fewer.
+      return #ARRAY{INT}(0);
+   end;
+
+end; -- class HIGH_SCORES

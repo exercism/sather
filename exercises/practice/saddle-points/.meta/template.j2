@@ -1,0 +1,13 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{# Saddle points are expected as [row, column] pairs, ordered by row, then column. #}
+{% set points = case.expected | sort(attribute="row,column") %}
+{% set expected %}
+{% if points %}| {% for p in points %}|{{ p.row }}, {{ p.column }}|{{ ", " if not loop.last }}{% endfor %} |{% else %}#ARRAY{ARRAY{INT}}(0){% endif %}
+{% endset %}
+      matrix_{{ case.index }} : ARRAY{ARRAY{INT}} := {{ case.input.matrix | sa("ARRAY{INT}") }};
+{{ m.test_str(case, "SADDLE_POINTS::saddle_points(matrix_" ~ case.index ~ ")", expected | trim, "ARRAY{ARRAY{INT}}") }}
+{% endfor %}
+{{ m.end() }}

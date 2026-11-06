@@ -1,0 +1,10 @@
+class LUHN is
+
+   is_valid(text : STR) : BOOL is
+      -- True if `text' passes the Luhn checksum. Spaces are ignored;
+      -- anything else makes it invalid.
+      -- ('value' is a Sather keyword, so the argument is named `text'.)
+      return false;
+   end;
+
+end; -- class LUHN

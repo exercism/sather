@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "ROTATIONAL_CIPHER::rotate(" ~ case.input.text | sa ~ ", " ~ case.input.shiftKey | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

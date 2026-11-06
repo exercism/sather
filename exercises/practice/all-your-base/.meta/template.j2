@@ -1,0 +1,13 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      digits_{{ case.index }} : ARRAY{INT} := {{ case.input.digits | sa("INT") }};
+{% set call = "ALL_YOUR_BASE::rebase(digits_" ~ case.index ~ ", " ~ case.input.inputBase | sa ~ ", " ~ case.input.outputBase | sa ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test_str(case, call, case.expected | sa("INT"), "ARRAY{INT}") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

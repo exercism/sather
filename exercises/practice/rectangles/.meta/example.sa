@@ -1,0 +1,75 @@
+class RECTANGLES is
+
+   private at(grid : ARRAY{STR}, r, c : INT) : CHAR is
+      -- Rows may be ragged, so anything off the end is a space.
+      if r < 0 or r >= grid.size then return ' '; end;
+      row ::= grid[r];
+      if void(row) or c < 0 or c >= row.size then return ' '; end;
+      return row[c];
+   end;
+
+   private is_corner(grid : ARRAY{STR}, r, c : INT) : BOOL is
+      return at(grid, r, c) = '+';
+   end;
+
+   private top_and_bottom(grid : ARRAY{STR}, top, bottom, left, right : INT)
+         : BOOL is
+      loop
+         c ::= (left + 1).upto!(right - 1);
+         if at(grid, top, c) /= '-' and at(grid, top, c) /= '+' then
+            return false;
+         end;
+         if at(grid, bottom, c) /= '-' and at(grid, bottom, c) /= '+' then
+            return false;
+         end;
+      end;
+      return true;
+   end;
+
+   private sides(grid : ARRAY{STR}, top, bottom, left, right : INT) : BOOL is
+      loop
+         r ::= (top + 1).upto!(bottom - 1);
+         if at(grid, r, left) /= '|' and at(grid, r, left) /= '+' then
+            return false;
+         end;
+         if at(grid, r, right) /= '|' and at(grid, r, right) /= '+' then
+            return false;
+         end;
+      end;
+      return true;
+   end;
+
+   count(grid : ARRAY{STR}) : INT is
+      if void(grid) or grid.size = 0 then return 0; end;
+      width ::= 0;
+      loop
+         row ::= grid.elt!;
+         if ~void(row) then width := width.max(row.size); end;
+      end;
+      found ::= 0;
+      -- Every rectangle is settled by its top-left and bottom-right
+      -- corners, so try each such pair.
+      loop
+         top ::= 0.upto!(grid.size - 1);
+         loop
+            bottom ::= (top + 1).upto!(grid.size - 1);
+            loop
+               left ::= 0.upto!(width - 1);
+               loop
+                  right ::= (left + 1).upto!(width - 1);
+                  if is_corner(grid, top, left)
+                     and is_corner(grid, top, right)
+                     and is_corner(grid, bottom, left)
+                     and is_corner(grid, bottom, right)
+                     and top_and_bottom(grid, top, bottom, left, right)
+                     and sides(grid, top, bottom, left, right) then
+                     found := found + 1;
+                  end;
+               end;
+            end;
+         end;
+      end;
+      return found;
+   end;
+
+end; -- class RECTANGLES

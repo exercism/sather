@@ -1,0 +1,86 @@
+class TWO_BUCKET_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("TWO_BUCKET");
+
+      result_1 ::= TWO_BUCKET::measure(3, 5, 1, "one");
+      test("Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one - moves", result_1.moves, 4);
+
+      test("Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one - goal bucket", result_1.goal_bucket, "one");
+
+      test("Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one - other bucket", result_1.other_bucket, 5);
+
+      result_2 ::= TWO_BUCKET::measure(3, 5, 1, "two");
+      test("Measure using bucket one of size 3 and bucket two of size 5 - start with bucket two - moves", result_2.moves, 8);
+
+      test("Measure using bucket one of size 3 and bucket two of size 5 - start with bucket two - goal bucket", result_2.goal_bucket, "two");
+
+      test("Measure using bucket one of size 3 and bucket two of size 5 - start with bucket two - other bucket", result_2.other_bucket, 3);
+
+      result_3 ::= TWO_BUCKET::measure(7, 11, 2, "one");
+      test("Measure using bucket one of size 7 and bucket two of size 11 - start with bucket one - moves", result_3.moves, 14);
+
+      test("Measure using bucket one of size 7 and bucket two of size 11 - start with bucket one - goal bucket", result_3.goal_bucket, "one");
+
+      test("Measure using bucket one of size 7 and bucket two of size 11 - start with bucket one - other bucket", result_3.other_bucket, 11);
+
+      result_4 ::= TWO_BUCKET::measure(7, 11, 2, "two");
+      test("Measure using bucket one of size 7 and bucket two of size 11 - start with bucket two - moves", result_4.moves, 18);
+
+      test("Measure using bucket one of size 7 and bucket two of size 11 - start with bucket two - goal bucket", result_4.goal_bucket, "two");
+
+      test("Measure using bucket one of size 7 and bucket two of size 11 - start with bucket two - other bucket", result_4.other_bucket, 7);
+
+      result_5 ::= TWO_BUCKET::measure(1, 3, 3, "two");
+      test("Measure one step using bucket one of size 1 and bucket two of size 3 - start with bucket two - moves", result_5.moves, 1);
+
+      test("Measure one step using bucket one of size 1 and bucket two of size 3 - start with bucket two - goal bucket", result_5.goal_bucket, "two");
+
+      test("Measure one step using bucket one of size 1 and bucket two of size 3 - start with bucket two - other bucket", result_5.other_bucket, 0);
+
+      result_6 ::= TWO_BUCKET::measure(2, 3, 3, "one");
+      test("Measure using bucket one of size 2 and bucket two of size 3 - start with bucket one and end with bucket two - moves", result_6.moves, 2);
+
+      test("Measure using bucket one of size 2 and bucket two of size 3 - start with bucket one and end with bucket two - goal bucket", result_6.goal_bucket, "two");
+
+      test("Measure using bucket one of size 2 and bucket two of size 3 - start with bucket one and end with bucket two - other bucket", result_6.other_bucket, 2);
+
+      result_7 ::= TWO_BUCKET::measure(5, 1, 2, "one");
+      test("Measure using bucket one much bigger than bucket two - moves", result_7.moves, 6);
+
+      test("Measure using bucket one much bigger than bucket two - goal bucket", result_7.goal_bucket, "one");
+
+      test("Measure using bucket one much bigger than bucket two - other bucket", result_7.other_bucket, 1);
+
+      result_8 ::= TWO_BUCKET::measure(3, 15, 9, "one");
+      test("Measure using bucket one much smaller than bucket two - moves", result_8.moves, 6);
+
+      test("Measure using bucket one much smaller than bucket two - goal bucket", result_8.goal_bucket, "two");
+
+      test("Measure using bucket one much smaller than bucket two - other bucket", result_8.other_bucket, 0);
+
+      protect
+         ignored ::= TWO_BUCKET::measure(6, 15, 5, "one");
+         test("Not possible to reach the goal", "no exception raised", "impossible");
+      when $STR then
+         test("Not possible to reach the goal", exception.str, "impossible");
+      end;
+
+      result_10 ::= TWO_BUCKET::measure(6, 15, 9, "one");
+      test("With the same buckets but a different goal, then it is possible - moves", result_10.moves, 10);
+
+      test("With the same buckets but a different goal, then it is possible - goal bucket", result_10.goal_bucket, "two");
+
+      test("With the same buckets but a different goal, then it is possible - other bucket", result_10.other_bucket, 0);
+
+      protect
+         ignored ::= TWO_BUCKET::measure(5, 7, 8, "one");
+         test("Goal larger than both buckets is impossible", "no exception raised", "impossible");
+      when $STR then
+         test("Goal larger than both buckets is impossible", exception.str, "impossible");
+      end;
+
+      finish;
+   end;
+end; -- class TWO_BUCKET_TEST

@@ -1,0 +1,9 @@
+class CONNECT is
+
+   winner(board : ARRAY{STR}) : STR is
+      -- "O" if O has joined top to bottom, "X" if X has joined left to
+      -- right, "" if neither. Rows are indented by one space each.
+      return "";
+   end;
+
+end; -- class CONNECT
