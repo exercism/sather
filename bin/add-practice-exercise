@@ -66,19 +66,58 @@ fi
 
 ./bin/fetch-configlet
 ./bin/configlet create --practice-exercise "${slug}" --author "${author}" --difficulty "${difficulty}"
+./bin/reorder-exercises
 
 exercise_dir="exercises/practice/${slug}"
-files=$(jq -r --arg dir "${exercise_dir}" '.files | to_entries | map({key: .key, value: (.value | map("'"'"'" + $dir + "/" + . + "'"'"'") | join(" and "))}) | from_entries' "${exercise_dir}/.meta/config.json")
+snake_slug="${slug//-/_}"
+class_name="${snake_slug^^}"
+
+# Every exercise ships the test harness.
+cp exercises/practice/hello-world/exercism_test.sa "${exercise_dir}/"
+
+cat > "${exercise_dir}/${snake_slug}.sa" << STUB
+class ${class_name} is
+
+   -- TODO: declare the routines under test, with stub bodies.
+
+end; -- class ${class_name}
+STUB
+cp "${exercise_dir}/${snake_slug}.sa" "${exercise_dir}/.meta/example.sa"
+
+if [[ -f "${XDG_CACHE_HOME:-${HOME}/.cache}/exercism/configlet/problem-specifications/exercises/${slug}/canonical-data.json" ]] ||
+   [[ -n "${PROBLEM_SPECIFICATIONS:-}" && -f "${PROBLEM_SPECIFICATIONS}/exercises/${slug}/canonical-data.json" ]]; then
+    cat > "${exercise_dir}/.meta/template.j2" << 'TEMPLATE'
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{# TODO: build the call for each case.property from case.input #}
+{% set call = "TODO" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test(case, call, case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}
+TEMPLATE
+    test_step="- Write the test template in '${exercise_dir}/.meta/template.j2' (see generator/README.md),
+  then generate the tests with 'bin/generate-tests ${slug}'
+  - Mark any test cases you don't implement with \"include = false\" in '${exercise_dir}/.meta/tests.toml'
+  - Track-specific cases go in '${exercise_dir}/.meta/additional-test-cases.json'"
+else
+    test_step="- There is no canonical data for ${slug}, so write the tests in '${exercise_dir}/${snake_slug}_test.sa' by hand
+  (or put them in '${exercise_dir}/.meta/additional-test-cases.json' and write a template)"
+fi
 
 cat << NEXT_STEPS
 
 Your next steps are:
-- Create the test suite in $(jq -r '.test' <<< "${files}")
-  - The tests should be based on the canonical data at 'https://github.com/exercism/problem-specifications/blob/main/exercises/${slug}/canonical-data.json'
-  - Any test cases you don't implement, mark them in 'exercises/practice/${slug}/.meta/tests.toml' with "include = false"
-- Create the example solution in $(jq -r '.example' <<< "${files}")
-- Verify the example solution passes the tests by running 'bin/verify-exercises ${slug}'
-- Create the stub solution in $(jq -r '.solution' <<< "${files}")
-- Update the 'difficulty' value for the exercise's entry in the 'config.json' file in the repo's root
+${test_step}
+- Declare the routines under test in '${exercise_dir}/${snake_slug}.sa'
+- Write the example solution in '${exercise_dir}/.meta/example.sa'
+- Verify the example solution passes the tests by running 'bin/verify-exercises-in-docker ${slug}'
+- Update the 'difficulty' value for the exercise's entry in the 'config.json' file in the repo's root,
+  then run 'bin/reorder-exercises'
 - Validate CI using 'bin/configlet lint' and 'bin/configlet fmt'
 NEXT_STEPS

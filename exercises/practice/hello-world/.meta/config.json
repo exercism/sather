@@ -11,9 +11,6 @@
     ],
     "example": [
       ".meta/example.sa"
-    ],
-    "editor": [
-      "exercism_test.sa"
     ]
   },
   "blurb": "The classical introductory exercise. Just say \"Hello, World!\".",

@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "LEAP::leap_year(" ~ case.input.year | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

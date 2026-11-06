@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test(case, "TWO_FER::two_fer(" ~ case.input.name | sa ~ ")", case.expected | sa) }}
+{% endfor %}
+{{ m.end() }}

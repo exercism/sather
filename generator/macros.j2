@@ -1,0 +1,111 @@
+{#
+  Shared macros for exercise templates. Import them at the top of a
+  .meta/template.j2 with:
+
+      {% import "macros.j2" as m with context %}
+
+  Statement macros (test, test_str, test_error) emit complete lines, already
+  indented for the body of `main`, so call them at the start of a line. They
+  add no blank lines: leave one at the top of the loop body to separate
+  tests, and any setup a test needs can go between it and the test.
+#}
+
+{#
+  The opening of the test class, up to and including `class_name(...)`.
+  Anything the class needs besides `main` -- a helper routine, say -- goes in
+  `caller()`:  {% call m.begin() %} ...helpers... {% endcall %}
+#}
+{% macro begin() -%}
+class {{ test_class }} is
+   include EXERCISM_TEST;
+{% if caller is defined %}
+
+{{ caller() }}
+{% endif %}
+
+   main is
+      class_name("{{ class_name }}");
+
+{% endmacro %}
+
+{% macro end() %}
+
+      finish;
+   end;
+end; -- class {{ test_class }}
+{%- endmacro %}
+
+{#
+  test(case, actual, expected): compare two $STR values, e.g. INT, BOOL or STR.
+
+  Each statement macro takes an optional name=..., to use in place of the
+  case's full description when one case makes several tests.
+#}
+{% macro test(case, actual, expected, name=none) %}
+      test({{ (name or case.full_description) | sa_str }}, {{ actual }}, {{ expected }});
+{% endmacro %}
+
+{#
+  test_str(case, actual, expected, type): compare the .str forms of values
+  that are not themselves $STR, such as arrays. The expected literal is bound
+  to a local of the given type first, because Sather types an array literal
+  from its context.
+#}
+{% macro test_str(case, actual, expected, type, name=none) %}
+      expected_{{ case.index }} : {{ type }} := {{ expected }};
+      test({{ (name or case.full_description) | sa_str }}, {{ actual }}.str, expected_{{ case.index }}.str);
+{% endmacro %}
+
+{#
+  test_error(case, call, returns=true): expect `call` to raise a STR equal
+  to the case's error message. Pass returns=false when `call` is a routine
+  call without a return value, and error=... to expect a message other than
+  the case's own.
+#}
+{% macro test_error(case, call, returns=true, name=none, error=none) %}
+{% set label = (name or case.full_description) | sa_str %}
+{% set message = (error or case.error) | sa_str %}
+      protect
+         {{ "ignored ::= " if returns else "" }}{{ call }};
+         test({{ label }}, "no exception raised", {{ message }});
+      when $STR then
+         test({{ label }}, exception.str, {{ message }});
+      end;
+{% endmacro %}
+
+{#
+  map_str(): a helper routine for the class, to be placed with
+  {% call m.begin() %}{{ m.map_str() }}{% endcall %}. It renders an
+  FMAP{STR,INT} as "key=value" pairs in ascending key order, joined by
+  commas, so a result can be compared with `expected | map_str | sa_str`.
+#}
+{% macro map_str() %}
+   private map_str(m : FMAP{STR,INT}) : STR is
+      -- Keys ascending, "key=value" joined by commas. FMAP iterates in
+      -- hash order, which is not comparable.
+      if void(m) or m.size = 0 then return "" end;
+      keys : ARRAY{STR} := #ARRAY{STR}(m.size);
+      i ::= 0;
+      loop
+         p ::= m.pair!;
+         keys[i] := p.t1;
+         i := i + 1;
+      end;
+      loop
+         a ::= 0.upto!(keys.size - 1);
+         loop
+            b ::= (a + 1).upto!(keys.size - 1);
+            if keys[b] < keys[a] then
+               t ::= keys[a]; keys[a] := keys[b]; keys[b] := t;
+            end;
+         end;
+      end;
+      r : FSTR := #FSTR(32);
+      loop
+         k ::= 0.upto!(keys.size - 1);
+         if k > 0 then r := r + "," end;
+         r := r + keys[k] + "=" + m.get(keys[k]).str;
+      end;
+      return r.str;
+   end;
+{% endmacro %}
