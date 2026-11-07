@@ -8,7 +8,8 @@ Write a `LOST_BOX{T}` class. The stub gives you the class header.
 ## 1. Take something in
 
 `create` takes the thing and the name of whoever handed it in, and gives a
-box. A box starts unclaimed.
+box. A box starts unclaimed. Promise both in a postcondition: the box is not
+claimed, and was handed in by whoever was named.
 
 ```sather
 box ::= #LOST_BOX{STR}("blue jumper", "Mia");
@@ -22,7 +23,8 @@ box.claimed
 
 ## 2. Claim it
 
-`claim` marks the box as claimed. It answers nothing.
+`claim` marks the box as claimed. It answers nothing, and promises that
+the box is claimed afterwards.
 
 ```sather
 box.claim;
@@ -32,7 +34,8 @@ box.claimed
 
 ## 3. Is it still waiting?
 
-`waiting` answers whether the box has not been claimed.
+`waiting` answers whether the box has not been claimed. Say that in a
+postcondition too.
 
 ```sather
 box.waiting

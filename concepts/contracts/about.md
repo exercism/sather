@@ -17,6 +17,23 @@
 Both take a `BOOL`, and both may use the routine's arguments and the
 object's attributes. `post` may also use `result`, the value being returned.
 
+## initial
+
+A routine that changes something, rather than answering something, has no
+`result` to make promises about. Its promise is about the change, and for
+that `post` can look back: `initial(...)` is the value an expression had
+when the routine was called.
+
+```sather
+   add(notes : LIST{STR}, clue : STR)
+      post notes.size = initial(notes.size) + 1
+   is
+      notes.append(clue);
+   end;
+```
+
+`initial` is allowed only in `post`.
+
 ## assert
 
 Inside a routine body, `assert` states something that must be true at that
@@ -30,15 +47,24 @@ It is checked under the same switch as the others.
 
 ## Class invariants
 
-A class may state something true of every object of it between calls:
+A class may state something true of every object of it between calls, in a
+routine named `invariant`:
 
 ```sather
    invariant : BOOL is
-      return checks >= 0 and limit > 0;
+      return void(self) or (checks >= 0 and limit > 0);
    end;
 ```
 
 Checked on entry to and exit from every public routine, when checking is on.
+
+That includes entry to `create`, when there is no object yet and `self` is
+void. Reading an attribute from a void `self` stops the program, which is
+what the `void(self) or` allows for: `or` stops at the first true part.
+
+An `immutable class` may declare an invariant, but this compiler never
+checks it. For a value, put the promise in `post` on the routines that make
+one.
 
 ## Switching it on
 

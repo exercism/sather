@@ -19,6 +19,9 @@ to 359, so anything outside comes back round: 370 is 10, and -10 is 350.
 -- => 350
 ```
 
+Promise that in the header, with a postcondition: every bearing `create`
+answers has degrees from 0 to 359.
+
 ## 2. Turn
 
 `turned` takes a number of degrees to turn by and answers the new bearing.
@@ -29,6 +32,8 @@ on is unchanged.
 #BEARING(350).turned(20).degrees
 -- => 10
 ```
+
+`turned` makes the same promise as `create`.
 
 ## 3. Compare
 

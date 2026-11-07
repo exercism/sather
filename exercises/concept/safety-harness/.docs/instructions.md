@@ -5,7 +5,7 @@ goes up until the numbers have been checked.
 
 The `SAFETY_HARNESS` class needs the following. The stub gives you the class
 and its attribute; add the rest. Every routine below carries a contract, and
-the hints say which.
+the hints say which. The last task is a contract for the whole class.
 
 ## 1. Rig a harness
 
@@ -50,4 +50,20 @@ load is within the limit.
 ```sather
 harness.is_safe(200)
 -- => false
+```
+
+## 5. Always rated
+
+A harness's rating is more than one routine's business: it must be above
+nought for as long as the harness exists. Say so once, for the whole class,
+with a routine named `invariant` that answers a `BOOL`. When contracts are
+checked, it is checked on entry to and exit from every public routine.
+
+One catch: it is checked on entry to `create` too, before there is any
+harness, when `self` is void. Reading `limit` from a void `self` stops the
+program, so the invariant must allow for that.
+
+```sather
+harness.invariant
+-- => true
 ```

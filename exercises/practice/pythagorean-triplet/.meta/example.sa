@@ -26,7 +26,11 @@ class PYTHAGOREAN_TRIPLET is
                a ::= k * (p * p - q * q);
                b ::= 2 * k * p * q;
                if a > b then t ::= a; a := b; b := t end;
-               triplet : ARRAY{INT} := |a, b, k * (p * p + q * q)|;
+               c ::= k * (p * p + q * q);
+               -- Squaring the sides to check the triplet would overflow, but
+               -- the sum is what k was chosen for.
+               assert a + b + c = n;
+               triplet : ARRAY{INT} := |a, b, c|;
                found.append(triplet);
             end;
             q := q + 1;

@@ -2,7 +2,9 @@ immutable class BEARING is
 
    readonly attr degrees : INT;
 
-   create(d : INT) : SAME is
+   create(d : INT) : SAME
+      post result.degrees >= 0 and result.degrees < 360
+   is
       -- No new: an immutable object always exists, with every attribute at
       -- its empty value.
       b : SAME;
@@ -11,7 +13,9 @@ immutable class BEARING is
       return b.degrees(d % 360);
    end;
 
-   turned(by : INT) : SAME is
+   turned(by : INT) : SAME
+      post result.degrees >= 0 and result.degrees < 360
+   is
       -- Answers a new bearing; the one this was called on is untouched.
       return #BEARING(degrees + by);
    end;

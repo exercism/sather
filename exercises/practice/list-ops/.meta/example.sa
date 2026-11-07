@@ -20,7 +20,9 @@ class LIST_OPS is
       return answer;
    end;
 
-   filter(list : ARRAY{INT}, keep : ROUT{INT}:BOOL) : ARRAY{INT} is
+   filter(list : ARRAY{INT}, keep : ROUT{INT}:BOOL) : ARRAY{INT}
+      post result.size <= list.size
+   is
       kept ::= #LIST{INT};
       loop
          entry ::= list.elt!;
@@ -43,7 +45,9 @@ class LIST_OPS is
       return counted;
    end;
 
-   map(list : ARRAY{INT}, f : ROUT{INT}:INT) : ARRAY{INT} is
+   map(list : ARRAY{INT}, f : ROUT{INT}:INT) : ARRAY{INT}
+      post result.size = list.size
+   is
       answer : ARRAY{INT} := #ARRAY{INT}(list.size);
       loop
          i ::= 0.upto!(list.size - 1);
@@ -71,7 +75,9 @@ class LIST_OPS is
       return running;
    end;
 
-   reverse(list : ARRAY{INT}) : ARRAY{INT} is
+   reverse(list : ARRAY{INT}) : ARRAY{INT}
+      post result.size = list.size
+   is
       answer : ARRAY{INT} := #ARRAY{INT}(list.size);
       loop
          i ::= 0.upto!(list.size - 1);

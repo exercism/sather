@@ -6,6 +6,8 @@ class SQUARE_ROOT is
          until!(n * n >= radicand);
          n := n + 1;
       end;
+      -- n is the first whose square reaches the radicand.
+      assert (n - 1) * (n - 1) < radicand;
       return n;
    end;
 

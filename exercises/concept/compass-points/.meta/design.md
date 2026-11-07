@@ -11,6 +11,7 @@ a reference.
 - Write a `create` without `new`, starting from `b : SAME`.
 - Use the attribute routine that answers a changed copy.
 - Write `is_eq` so that `=` works, and `str` so that printing does.
+- State with `post` what is true of every value the class makes.
 - Say when a thing should be a value and when it should be an object.
 
 ## Out of scope
@@ -27,6 +28,7 @@ a reference.
 ## Prerequisites
 
 - `classes-with-state`
+- `contracts`
 
 ## Analyzer
 

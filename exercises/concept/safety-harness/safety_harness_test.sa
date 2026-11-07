@@ -34,6 +34,12 @@ class SAFETY_HARNESS_TEST is
       test("and so does its limit", light.is_safe(60), false);
       test("the first harness is unaffected", harness.limit, 120);
 
+      -- invariant is an ordinary routine, so it can be asked directly.
+      test("a rigged harness keeps its invariant", harness.invariant, true);
+      test("and so does the second", light.invariant, true);
+      none : SAFETY_HARNESS;
+      test("the invariant allows for no harness yet", none.invariant, true);
+
       finish;
    end;
 end; -- class SAFETY_HARNESS_TEST

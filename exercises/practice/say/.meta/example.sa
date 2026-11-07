@@ -41,6 +41,7 @@ class SAY is
          group ::= (rest % thousand).int;
          rest := rest / thousand;
          if group /= 0 then
+            assert group > 0 and group < 1000;
             words ::= below_thousand(group) + scale;
             if res = "" then res := words else res := words + " " + res end;
          end;

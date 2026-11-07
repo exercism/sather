@@ -14,8 +14,10 @@
 
 - Inside a contract you may use the arguments and the object's attributes,
   so `limit` is available.
-- The tests are built without `-chk`, so a wrong contract will not fail
-  them. Write them for the reader.
+- The tests are built with `-chk`, so contracts are checked. A contract that
+  a test breaks stops the whole run with the routine's name, rather than
+  failing one test. A contract that is too weak passes, though: write them
+  for the reader as much as for the checker.
 
 ## 1. Rig a harness
 
@@ -39,3 +41,10 @@
 - No `pre` at all: the whole point is that any load may be asked about.
 - The `post` restates the question: `post result = (load <= limit)`.
   Brackets, because `=` is being used twice for different things.
+
+## 5. Always rated
+
+- `invariant : BOOL is ... end;`, an ordinary routine with that exact name.
+  No `pre` or `post`: it *is* the contract.
+- `void(self) or limit > 0`. `or` stops at the first true part, so `limit`
+  is never read from a void `self`.

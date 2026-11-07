@@ -9,6 +9,7 @@ a container that changes in place and one that answers a new version.
 
 - Make a `LIST{T}` and append to it.
 - Read and write positions, and remove one.
+- Guard a position with `pre`, and describe a change with `initial` in `post`.
 - Recognise that `append` and `remove_index` change the list and answer
   nothing.
 - Say when an `ARRAY` is right and when a `LIST` is.
@@ -38,6 +39,7 @@ the braces.
 
 - `arrays`
 - `generic-classes`
+- `contracts`
 
 ## Analyzer
 

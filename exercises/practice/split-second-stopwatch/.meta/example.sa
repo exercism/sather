@@ -16,7 +16,9 @@ class STOPWATCH is
       return watch;
    end;
 
-   state : STR is
+   state : STR
+      post result = "ready" or result = "running" or result = "stopped"
+   is
       if running then return "running"; end;
       -- A stopwatch that has been started and stopped is "stopped"; one
       -- that has never run is still "ready".
@@ -76,9 +78,17 @@ class STOPWATCH is
       finished := #LIST{STR};
    end;
 
-   current_lap : STR is return clock(lap_seconds); end;
+   current_lap : STR
+      post result.size = 8
+   is
+      return clock(lap_seconds);
+   end;
 
-   total : STR is return clock(total_seconds); end;
+   total : STR
+      post result.size = 8
+   is
+      return clock(total_seconds);
+   end;
 
    previous_laps : ARRAY{STR} is
       answer : ARRAY{STR} := #ARRAY{STR}(finished.size);

@@ -20,6 +20,14 @@
 - `%` brings a number into range, but `-10 % 360` is `350` only because
   Sather's `%` never answers negative for a positive right-hand side. So
   `d % 360` is enough on its own.
+- The postcondition goes between the return type and the `is`, and
+  `result` is the bearing being answered:
+
+  ```sather
+     create(d : INT) : SAME
+        post result.degrees >= 0 and result.degrees < 360
+     is
+  ```
 
 ## 2. Turn
 
