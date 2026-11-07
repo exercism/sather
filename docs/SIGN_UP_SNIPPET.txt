@@ -1,0 +1,16 @@
+most_common_word(text : STR) : STR is
+   counts ::= #FMAP{STR,INT};
+   best ::= "";
+   word ::= "";
+   loop
+      c ::= (text + " ").elt!.lower;
+      if c /= ' ' then
+         word := word + c;
+      elsif word /= "" then
+         counts := counts.insert(word, counts.get(word) + 1);
+         if counts.get(word) > counts.get(best) then best := word end;
+         word := "";
+      end;
+   end;
+   return "\"" + best + "\" appears " + counts.get(best).str + " times";
+end;
