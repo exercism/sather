@@ -1,6 +1,6 @@
 [
   {
-    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/statements.html",
-    "description": "loop and the other Sather statements"
+    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/loopsanditerators.html",
+    "description": "loop statements and iterators"
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/expressions.html",
-    "description": "bind and bound routine types"
+    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/closures.html",
+    "description": "Closure creation with bind, and closure calls"
   }
 ]

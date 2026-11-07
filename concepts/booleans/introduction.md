@@ -28,8 +28,7 @@ Comparing two numbers gives a `BOOL`.
    end;
 ```
 
-Note that `=` asks a question. Putting a value *into* something is `:=`,
-which you have already seen, and the two are not the same.
+`=` compares; it doesn't change anything.
 
 ## Combining
 
