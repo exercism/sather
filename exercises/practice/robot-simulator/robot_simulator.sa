@@ -3,6 +3,13 @@ class ROBOT is
    readonly attr x, y : INT;
    readonly attr direction : STR;
 
+   invariant : BOOL is
+      -- A robot always faces one of the four directions. self is void on
+      -- entry to create, before there is a robot.
+      return void(self) or direction = "north" or direction = "east"
+         or direction = "south" or direction = "west";
+   end;
+
    create(start_x, start_y : INT, facing : STR) : SAME
       pre facing = "north" or facing = "east" or facing = "south" or facing = "west"
       post result.x = start_x and result.y = start_y and result.direction = facing
@@ -15,9 +22,7 @@ class ROBOT is
       return robot;
    end;
 
-   move(instructions : STR)
-      post direction = "north" or direction = "east" or direction = "south" or direction = "west"
-   is
+   move(instructions : STR) is
       -- Follow the instructions, changing this robot as it goes.
       -- 'L' turns left, 'R' turns right, 'A' advances one square in the
       -- direction the robot faces. North is the direction of increasing y,

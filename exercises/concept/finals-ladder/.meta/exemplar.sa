@@ -24,7 +24,9 @@ class FINALS_LADDER is
       return a.difference > b.difference;
    end;
 
-   ladder(teams : ARRAY{TEAM}) : ARRAY{TEAM} is
+   ladder(teams : ARRAY{TEAM}) : ARRAY{TEAM}
+      post result.size = teams.size
+   is
       -- A copy, because insertion_sort_by orders the array itself and the
       -- caller's must be left alone.
       ranked ::= teams.copy;
@@ -55,7 +57,9 @@ class FINALS_LADDER is
       return a < b;
    end;
 
-   shortest_first(words : ARRAY{STR}) : ARRAY{STR} is
+   shortest_first(words : ARRAY{STR}) : ARRAY{STR}
+      post result.size = words.size
+   is
       -- The same sort as ladder, told a different rule.
       ordered ::= words.copy;
       ordered.insertion_sort_by(bind(shorter(_, _)));

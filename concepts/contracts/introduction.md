@@ -70,5 +70,6 @@ sacomp -chk mine.sa -main MAIN -o mine
 
 Without it, `pre` and `post` are documentation the compiler has read and
 agreed is well-formed, and nothing more. The tests for this exercise are
-built without `-chk`, so they cannot catch a broken contract for you; they
-check that the routines do the right thing when used properly.
+built with `-chk`, so a contract that a test breaks stops the run. They
+cannot show that a contract is strong enough, though: they check that the
+routines do the right thing when used properly.

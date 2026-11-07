@@ -18,7 +18,8 @@ FINALS_LADDER::higher(#TEAM("Vixens", 24, 40), #TEAM("Magpies", 20, 90))
 ## 2. The ladder
 
 `ladder` takes the teams in any order and answers them ranked. The array
-handed in must be left as it was.
+handed in must be left as it was. Promise in a postcondition that no team is
+lost: the ladder has as many teams as were handed in.
 
 ```sather
 FINALS_LADDER::ladder(teams)
@@ -48,6 +49,7 @@ FINALS_LADDER::premiers(teams)
 
 `shortest_first` takes an array of strings and answers them ordered by
 length, shortest first. Strings of the same length go in alphabetical order.
+Make the same promise as `ladder`: as many strings come out as went in.
 
 ```sather
 FINALS_LADDER::shortest_first(|"Magpies", "Vixens", "Swifts"|)

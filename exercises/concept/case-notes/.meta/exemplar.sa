@@ -4,7 +4,9 @@ class CASE_NOTES is
       return #LIST{STR};
    end;
 
-   add_clue(notes : LIST{STR}, clue : STR) is
+   add_clue(notes : LIST{STR}, clue : STR)
+      post notes.size = initial(notes.size) + 1
+   is
       -- No return type: append changes the list it is given.
       notes.append(clue);
    end;
@@ -13,7 +15,10 @@ class CASE_NOTES is
       return notes.size;
    end;
 
-   rule_out(notes : LIST{STR}, position : INT) is
+   rule_out(notes : LIST{STR}, position : INT)
+      pre position >= 0 and position < notes.size
+      post notes.size = initial(notes.size) - 1
+   is
       -- Everything after this position moves up one.
       notes.remove_index(position);
    end;

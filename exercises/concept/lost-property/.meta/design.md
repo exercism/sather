@@ -9,6 +9,7 @@ more than a bare type allows.
 ## Learning objectives
 
 - Declare a class with a type parameter.
+- State what each routine leaves true with `post`.
 - Use the parameter as a type for an attribute, an argument and a return
   value.
 - Instantiate at two different types and see that they are different types.
@@ -35,6 +36,7 @@ order of events.
 ## Prerequisites
 
 - `code-inclusion`
+- `contracts`
 
 ## Analyzer
 

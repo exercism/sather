@@ -9,6 +9,7 @@ sort. This is the exercise `understudy` exists to make possible.
 
 - Sort with the natural order using `sort`.
 - Supply an order with `insertion_sort_by` and a bound routine.
+- Promise with `post` that sorting a copy loses nothing.
 - Write a comparison that answers "does the first come first".
 - Order a multi-part rule from most to least important.
 - Sort a copy when the original must survive.
@@ -32,6 +33,7 @@ sort. This is the exercise `understudy` exists to make possible.
 
 - `arrays`
 - `bound-routines`
+- `contracts`
 
 ## Analyzer
 

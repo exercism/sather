@@ -16,7 +16,9 @@ class LIST_OPS is
       return #ARRAY{INT}(0);
    end;
 
-   filter(list : ARRAY{INT}, keep : ROUT{INT}:BOOL) : ARRAY{INT} is
+   filter(list : ARRAY{INT}, keep : ROUT{INT}:BOOL) : ARRAY{INT}
+      post result.size <= list.size
+   is
       -- Only the entries `keep' answers true for.
       return list;
    end;
@@ -26,7 +28,9 @@ class LIST_OPS is
       return 0;
    end;
 
-   map(list : ARRAY{INT}, f : ROUT{INT}:INT) : ARRAY{INT} is
+   map(list : ARRAY{INT}, f : ROUT{INT}:INT) : ARRAY{INT}
+      post result.size = list.size
+   is
       -- Each entry replaced by what `f' answers for it.
       return list;
    end;
@@ -44,7 +48,9 @@ class LIST_OPS is
       return start;
    end;
 
-   reverse(list : ARRAY{INT}) : ARRAY{INT} is
+   reverse(list : ARRAY{INT}) : ARRAY{INT}
+      post result.size = list.size
+   is
       -- The entries in the opposite order.
       return list;
    end;

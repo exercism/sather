@@ -257,7 +257,8 @@
           "immutable-classes"
         ],
         "prerequisites": [
-          "classes-with-state"
+          "classes-with-state",
+          "contracts"
         ],
         "status": "beta"
       },
@@ -293,7 +294,8 @@
           "generic-classes"
         ],
         "prerequisites": [
-          "code-inclusion"
+          "code-inclusion",
+          "contracts"
         ],
         "status": "beta"
       },
@@ -318,7 +320,8 @@
         ],
         "prerequisites": [
           "arrays",
-          "generic-classes"
+          "generic-classes",
+          "contracts"
         ],
         "status": "beta"
       },
@@ -331,7 +334,8 @@
         ],
         "prerequisites": [
           "arrays",
-          "bound-routines"
+          "bound-routines",
+          "contracts"
         ],
         "status": "beta"
       },
@@ -595,9 +599,12 @@
         "slug": "clock",
         "name": "Clock",
         "uuid": "1a0f957f-1d23-46b4-8a3e-b6dbaf434646",
-        "practices": [],
+        "practices": [
+          "contracts"
+        ],
         "prerequisites": [
-          "immutable-classes"
+          "immutable-classes",
+          "contracts"
         ],
         "difficulty": 3
       },
@@ -637,9 +644,7 @@
         "slug": "prime-factors",
         "name": "Prime Factors",
         "uuid": "07028ef6-6f26-4ab0-aff0-87ab587ed729",
-        "practices": [
-          "contracts"
-        ],
+        "practices": [],
         "prerequisites": [
           "lists",
           "contracts"
@@ -661,10 +666,13 @@
         "slug": "rotational-cipher",
         "name": "Rotational Cipher",
         "uuid": "53a53c37-ef67-4de1-9ad1-adb33419cb6e",
-        "practices": [],
+        "practices": [
+          "contracts"
+        ],
         "prerequisites": [
           "characters",
-          "string-builders"
+          "string-builders",
+          "contracts"
         ],
         "difficulty": 3
       },
@@ -929,10 +937,13 @@
         "slug": "split-second-stopwatch",
         "name": "Split-Second Stopwatch",
         "uuid": "a827c942-6701-479a-9154-5d4c7897a878",
-        "practices": [],
+        "practices": [
+          "contracts"
+        ],
         "prerequisites": [
           "classes-with-state",
-          "exceptions"
+          "exceptions",
+          "contracts"
         ],
         "difficulty": 5
       },
@@ -1075,9 +1086,7 @@
         "slug": "killer-sudoku-helper",
         "name": "Killer Sudoku Helper",
         "uuid": "53374971-2411-4d3c-8881-87c4037b2cf2",
-        "practices": [
-          "contracts"
-        ],
+        "practices": [],
         "prerequisites": [
           "lists",
           "contracts"
@@ -1101,9 +1110,12 @@
         "slug": "list-ops",
         "name": "List Ops",
         "uuid": "ea22a17a-b6c6-4a28-bd36-f8a65de34395",
-        "practices": [],
+        "practices": [
+          "contracts"
+        ],
         "prerequisites": [
-          "bound-routines"
+          "bound-routines",
+          "contracts"
         ],
         "difficulty": 6
       },
@@ -1279,9 +1291,7 @@
         "slug": "pythagorean-triplet",
         "name": "Pythagorean Triplet",
         "uuid": "af468282-9b91-458e-98f9-9ff0a309423b",
-        "practices": [
-          "contracts"
-        ],
+        "practices": [],
         "prerequisites": [
           "lists",
           "contracts"

@@ -5,6 +5,8 @@ class BINARY_SEARCH is
       high ::= haystack.size - 1;
       loop
          until!(low > high);
+         -- The range still searched never strays outside the array.
+         assert low >= 0 and high < haystack.size;
          mid ::= low + (high - low) / 2;
          if haystack[mid] = needle then return mid
          elsif haystack[mid] < needle then low := mid + 1

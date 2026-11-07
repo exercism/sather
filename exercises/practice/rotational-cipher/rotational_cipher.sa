@@ -1,9 +1,12 @@
 class ROTATIONAL_CIPHER is
 
-   rotate(text : STR, shift_key : INT) : STR is
+   rotate(text : STR, shift_key : INT) : STR
+      pre shift_key >= 0 and shift_key <= 26
+      post result.size = text.size
+   is
       -- Rotate each letter by `shift_key' places, keeping case and
       -- leaving everything else alone.
-      return "";
+      return text;
    end;
 
 end; -- class ROTATIONAL_CIPHER

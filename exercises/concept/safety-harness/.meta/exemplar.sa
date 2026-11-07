@@ -2,6 +2,13 @@ class SAFETY_HARNESS is
 
    readonly attr limit : INT;
 
+   invariant : BOOL is
+      -- Checked on entry to and exit from every public routine. On entry
+      -- to create there is no harness yet and self is void, which reading
+      -- limit would not survive.
+      return void(self) or limit > 0;
+   end;
+
    create(kg : INT) : SAME
       -- A harness rated for nothing is not a harness.
       pre kg > 0

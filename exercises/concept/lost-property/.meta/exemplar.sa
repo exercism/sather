@@ -6,7 +6,9 @@ class LOST_BOX{T < $STR} is
    readonly attr handed_in_by : STR;
    readonly attr claimed : BOOL;
 
-   create(thing : T, who : STR) : SAME is
+   create(thing : T, who : STR) : SAME
+      post ~result.claimed and result.handed_in_by = who
+   is
       box ::= new;
       box.item := thing;
       box.handed_in_by := who;
@@ -14,11 +16,15 @@ class LOST_BOX{T < $STR} is
       return box;
    end;
 
-   claim is
+   claim
+      post claimed
+   is
       claimed := true;
    end;
 
-   waiting : BOOL is
+   waiting : BOOL
+      post result = ~claimed
+   is
       return ~claimed;
    end;
 

@@ -3,6 +3,12 @@ class BANK_ACCOUNT is
    private attr is_open : BOOL;
    private attr held : INT;
 
+   invariant : BOOL is
+      -- The balance never goes below zero. self is void on entry to
+      -- create, before there is an account.
+      return void(self) or held >= 0;
+   end;
+
    create : SAME is
       res : SAME := new;
       return res;

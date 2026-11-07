@@ -16,6 +16,8 @@
   return type either: `add_clue(notes : LIST{STR}, clue : STR) is`.
 - Do not assign the result of `append` anywhere. Unlike `FMAP::insert`,
   there is no result.
+- The postcondition goes between the arguments and the `is`. With no return
+  type there is no `result`; the promise is about `notes` instead.
 
 ## 3. How many clues?
 
@@ -24,6 +26,8 @@
 ## 4. Rule one out
 
 - `remove_index` takes the position. No return type again.
+- A routine can have both: `pre` first, then `post`, then `is`.
+- Positions count from 0, so the last clue is at `notes.size - 1`.
 
 ## 5. Read the case back
 

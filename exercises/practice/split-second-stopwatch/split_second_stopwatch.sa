@@ -5,7 +5,9 @@ class STOPWATCH is
       return new;
    end;
 
-   state : STR is
+   state : STR
+      post result = "ready" or result = "running" or result = "stopped"
+   is
       -- "ready", "running" or "stopped".
       return "ready";
    end;
@@ -33,12 +35,16 @@ class STOPWATCH is
       -- Raise "cannot reset a stopwatch that is not stopped".
    end;
 
-   current_lap : STR is
+   current_lap : STR
+      post result.size = 8
+   is
       -- The time on the current lap, as "HH:MM:SS".
       return "00:00:00";
    end;
 
-   total : STR is
+   total : STR
+      post result.size = 8
+   is
       -- The total time, as "HH:MM:SS".
       return "00:00:00";
    end;

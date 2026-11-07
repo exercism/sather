@@ -26,6 +26,14 @@ notes.size
 -- => 1
 ```
 
+Promise in the header that the notebook ends up one clue longer than it
+was. In a postcondition, `initial(...)` is the value something had when the
+routine was called:
+
+```sather
+      post notes.size = initial(notes.size) + 1
+```
+
 ## 3. How many clues?
 
 ```sather
@@ -41,6 +49,10 @@ up. This also answers nothing.
 ```sather
 CASE_NOTES::rule_out(notes, 0);
 ```
+
+Asking to rule out a clue that is not there is a mistake by the caller, so
+say so with a precondition: the position must be in the notebook. Then
+promise, as in task 2, that the notebook ends up one clue shorter.
 
 ## 5. Read the case back
 
