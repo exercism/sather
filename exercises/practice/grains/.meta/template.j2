@@ -1,0 +1,16 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% if case.property == "total" %}
+{% set call = "GRAINS::total" %}
+{% else %}
+{% set call = "GRAINS::square(" ~ case.input.square | sa ~ ")" %}
+{% endif %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test(case, call, case.expected | sa_inti) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

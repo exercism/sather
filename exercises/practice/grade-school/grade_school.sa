@@ -1,0 +1,25 @@
+class GRADE_SCHOOL is
+
+   create : SAME is
+      -- A school with nobody enrolled.
+      return new;
+   end;
+
+   add(name : STR, grade : INT) : BOOL is
+      -- Enrol `name' in `grade', answering true.
+      -- Answer false, and change nothing, if `name' is already enrolled
+      -- in any grade.
+      return false;
+   end;
+
+   roster : ARRAY{STR} is
+      -- Every student, ordered by grade and then by name.
+      return #ARRAY{STR}(0);
+   end;
+
+   grade(desired : INT) : ARRAY{STR} is
+      -- The students in `desired', ordered by name.
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class GRADE_SCHOOL

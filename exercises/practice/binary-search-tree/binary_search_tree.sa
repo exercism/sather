@@ -1,18 +1,20 @@
-class BINARY_SEARCH_TREE is
+class BINARY_SEARCH_TREE{T < $IS_LT{T}} is
+   -- A tree of any type T whose values can be compared with `<'.
+   -- The tests use BINARY_SEARCH_TREE{STR} and BINARY_SEARCH_TREE{INT}.
 
-   private attr node_data : STR;
-   private attr node_left, node_right : BINARY_SEARCH_TREE;
+   private attr node_data : T;
+   private attr node_left, node_right : SAME;
 
-   create(items : ARRAY{STR}) : SAME is
+   create(items : ARRAY{T}) : SAME is
       -- Insert each item in turn. Anything less than or equal to a node
       -- goes to its left, anything greater to its right.
       res : SAME := new;
       return res;
    end;
 
-   data : STR is
+   data : T is
       -- The value at this node.
-      return "";
+      return node_data;
    end;
 
    left : SAME is
@@ -25,9 +27,13 @@ class BINARY_SEARCH_TREE is
       return void;
    end;
 
-   sorted_data : ARRAY{STR} is
-      -- Every value in the tree, in ascending order.
-      return #ARRAY{STR}(0);
+   elt! : T is
+      -- Yields the values in order, smallest first.
    end;
 
-end; -- class BINARY_SEARCH_TREE
+   sorted_data : ARRAY{T} is
+      -- Every value in the tree, in ascending order.
+      return #ARRAY{T}(0);
+   end;
+
+end; -- class BINARY_SEARCH_TREE{T}

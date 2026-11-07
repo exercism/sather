@@ -10,6 +10,11 @@ class TREE_NODE is
       return res;
    end;
 
+   postorder! : STR is
+      -- Yields the values in post-order: the left subtree in post-order,
+      -- then the right subtree in post-order, then this node's value.
+   end;
+
 end; -- class TREE_NODE
 
 class SATELLITE is

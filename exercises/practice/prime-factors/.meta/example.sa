@@ -1,6 +1,8 @@
 class PRIME_FACTORS is
 
-   factors(number : INT) : ARRAY{INT} is
+   factors(number : INT) : ARRAY{INT}
+      pre number >= 1
+   is
       found : FLIST{INT} := #FLIST{INT};
       n ::= number;
       d ::= 2;

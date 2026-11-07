@@ -1,0 +1,8 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      rows_{{ case.index }} : ARRAY{STR} := {{ case.input.rows | sa("STR") }};
+{{ m.test_str(case, "TOURNAMENT::tally(rows_" ~ case.index ~ ")", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endfor %}
+{{ m.end() }}

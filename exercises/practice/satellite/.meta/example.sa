@@ -10,6 +10,18 @@ class TREE_NODE is
       return res;
    end;
 
+   postorder! : STR is
+      -- Each subtree is itself walked by postorder!, so the iterator
+      -- calls itself, and passes on whatever the inner call yields.
+      if ~void(l) then
+         loop yield l.postorder! end;
+      end;
+      if ~void(r) then
+         loop yield r.postorder! end;
+      end;
+      yield v;
+   end;
+
 end; -- class TREE_NODE
 
 class SATELLITE is

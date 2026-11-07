@@ -1,0 +1,23 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set school = "school_" ~ case.index %}
+      {{ school }} ::= #GRADE_SCHOOL;
+{% if case.property == "add" %}
+{# Each add answers whether the student was enrolled. #}
+{% for student in case.input.students %}
+{{ m.test(case, school ~ ".add(" ~ student[0] | sa ~ ", " ~ student[1] | sa ~ ")", case.expected[loop.index0] | sa, name=case.full_description ~ " [" ~ loop.index ~ ". add]") }}
+{% endfor %}
+{% else %}
+{% for student in case.input.students %}
+      added_{{ case.index }}_{{ loop.index }} ::= {{ school }}.add({{ student[0] | sa }}, {{ student[1] | sa }});
+{% endfor %}
+{% if case.property == "roster" %}
+{{ m.test_str(case, school ~ ".roster", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% else %}
+{{ m.test_str(case, school ~ ".grade(" ~ case.input.desiredGrade | sa ~ ")", case.expected | sa("STR"), "ARRAY{STR}") }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

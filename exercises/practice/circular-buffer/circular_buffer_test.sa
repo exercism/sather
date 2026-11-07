@@ -4,7 +4,7 @@ class CIRCULAR_BUFFER_TEST is
    main is
       class_name("CIRCULAR_BUFFER");
 
-      buffer_1 ::= #CIRCULAR_BUFFER(1);
+      buffer_1 ::= #CIRCULAR_BUFFER{INT}(1);
       protect
          ignored ::= buffer_1.read;
          test("reading empty buffer should fail [1. read]", "no exception raised", "buffer is empty");
@@ -14,13 +14,13 @@ class CIRCULAR_BUFFER_TEST is
 
       test("reading empty buffer should fail", true, true);
 
-      buffer_2 ::= #CIRCULAR_BUFFER(1);
+      buffer_2 ::= #CIRCULAR_BUFFER{INT}(1);
       buffer_2.write(1);
       test("can read an item just written [2. read]", buffer_2.read, 1);
 
       test("can read an item just written", true, true);
 
-      buffer_3 ::= #CIRCULAR_BUFFER(1);
+      buffer_3 ::= #CIRCULAR_BUFFER{INT}(1);
       buffer_3.write(1);
       test("each item may only be read once [2. read]", buffer_3.read, 1);
 
@@ -33,7 +33,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("each item may only be read once", true, true);
 
-      buffer_4 ::= #CIRCULAR_BUFFER(2);
+      buffer_4 ::= #CIRCULAR_BUFFER{INT}(2);
       buffer_4.write(1);
       buffer_4.write(2);
       test("items are read in the order they are written [3. read]", buffer_4.read, 1);
@@ -42,7 +42,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("items are read in the order they are written", true, true);
 
-      buffer_5 ::= #CIRCULAR_BUFFER(1);
+      buffer_5 ::= #CIRCULAR_BUFFER{INT}(1);
       buffer_5.write(1);
       protect
          buffer_5.write(2);
@@ -53,7 +53,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("full buffer can't be written to", true, true);
 
-      buffer_6 ::= #CIRCULAR_BUFFER(1);
+      buffer_6 ::= #CIRCULAR_BUFFER{INT}(1);
       buffer_6.write(1);
       test("a read frees up capacity for another write [2. read]", buffer_6.read, 1);
 
@@ -62,7 +62,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("a read frees up capacity for another write", true, true);
 
-      buffer_7 ::= #CIRCULAR_BUFFER(3);
+      buffer_7 ::= #CIRCULAR_BUFFER{INT}(3);
       buffer_7.write(1);
       buffer_7.write(2);
       test("read position is maintained even across multiple writes [3. read]", buffer_7.read, 1);
@@ -74,7 +74,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("read position is maintained even across multiple writes", true, true);
 
-      buffer_8 ::= #CIRCULAR_BUFFER(1);
+      buffer_8 ::= #CIRCULAR_BUFFER{INT}(1);
       buffer_8.write(1);
       buffer_8.clear;
       protect
@@ -86,7 +86,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("items cleared out of buffer can't be read", true, true);
 
-      buffer_9 ::= #CIRCULAR_BUFFER(1);
+      buffer_9 ::= #CIRCULAR_BUFFER{INT}(1);
       buffer_9.write(1);
       buffer_9.clear;
       buffer_9.write(2);
@@ -94,14 +94,14 @@ class CIRCULAR_BUFFER_TEST is
 
       test("clear frees up capacity for another write", true, true);
 
-      buffer_10 ::= #CIRCULAR_BUFFER(1);
+      buffer_10 ::= #CIRCULAR_BUFFER{INT}(1);
       buffer_10.clear;
       buffer_10.write(1);
       test("clear does nothing on empty buffer [3. read]", buffer_10.read, 1);
 
       test("clear does nothing on empty buffer", true, true);
 
-      buffer_11 ::= #CIRCULAR_BUFFER(2);
+      buffer_11 ::= #CIRCULAR_BUFFER{INT}(2);
       buffer_11.write(1);
       buffer_11.overwrite(2);
       test("overwrite acts like write on non-full buffer [3. read]", buffer_11.read, 1);
@@ -110,7 +110,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("overwrite acts like write on non-full buffer", true, true);
 
-      buffer_12 ::= #CIRCULAR_BUFFER(2);
+      buffer_12 ::= #CIRCULAR_BUFFER{INT}(2);
       buffer_12.write(1);
       buffer_12.write(2);
       buffer_12.overwrite(3);
@@ -120,7 +120,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("overwrite replaces the oldest item on full buffer", true, true);
 
-      buffer_13 ::= #CIRCULAR_BUFFER(3);
+      buffer_13 ::= #CIRCULAR_BUFFER{INT}(3);
       buffer_13.write(1);
       buffer_13.write(2);
       buffer_13.write(3);
@@ -136,7 +136,7 @@ class CIRCULAR_BUFFER_TEST is
 
       test("overwrite replaces the oldest item remaining in buffer following a read", true, true);
 
-      buffer_14 ::= #CIRCULAR_BUFFER(2);
+      buffer_14 ::= #CIRCULAR_BUFFER{INT}(2);
       buffer_14.clear;
       buffer_14.write(1);
       buffer_14.write(2);
@@ -154,6 +154,23 @@ class CIRCULAR_BUFFER_TEST is
       end;
 
       test("initial clear does not affect wrapping around", true, true);
+
+      buffer_15 ::= #CIRCULAR_BUFFER{STR}(2);
+      buffer_15.write("A");
+      buffer_15.write("B");
+      buffer_15.overwrite("C");
+      test("can hold strings [4. read]", buffer_15.read, "B");
+
+      test("can hold strings [5. read]", buffer_15.read, "C");
+
+      protect
+         ignored ::= buffer_15.read;
+         test("can hold strings [6. read]", "no exception raised", "buffer is empty");
+      when $STR then
+         test("can hold strings [6. read]", exception.str, "buffer is empty");
+      end;
+
+      test("can hold strings", true, true);
 
       finish;
    end;

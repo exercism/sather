@@ -1,21 +1,14 @@
 class ARMSTRONG_NUMBERS is
 
-   is_armstrong_number(number : INT) : BOOL is
-      digits ::= number.str.size;
-      total ::= 0;
-      n ::= number;
+   -- The largest Armstrong number has 39 digits, far past an INT, so the
+   -- sum is kept in INTI. Each digit is small, and is read from the text.
+
+   is_armstrong_number(number : INTI) : BOOL is
+      text ::= number.str;
+      total ::= #INTI(0);
       loop
-         until!(n = 0);
-         d ::= n % 10;
-         p ::= 1;
-         k ::= 0;
-         loop
-            until!(k >= digits);
-            p := p * d;
-            k := k + 1;
-         end;
-         total := total + p;
-         n := n / 10;
+         d ::= #INTI(text.elt!.digit_value);
+         total := total + d.pow(text.size);
       end;
       return total = number;
    end;

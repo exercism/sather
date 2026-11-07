@@ -19,7 +19,10 @@ class RAIL_FENCE_CIPHER is
       return rail_of;
    end;
 
-   encode(msg : STR, rails : INT) : STR is
+   encode(msg : STR, rails : INT) : STR
+      pre rails >= 1
+      post result.size = msg.size
+   is
       if void(msg) or msg.size = 0 then return ""; end;
       rail_of ::= pattern(msg.size, rails);
       out_text ::= #FSTR;
@@ -33,7 +36,10 @@ class RAIL_FENCE_CIPHER is
       return out_text.str;
    end;
 
-   decode(msg : STR, rails : INT) : STR is
+   decode(msg : STR, rails : INT) : STR
+      pre rails >= 1
+      post result.size = msg.size
+   is
       if void(msg) or msg.size = 0 then return ""; end;
       rail_of ::= pattern(msg.size, rails);
       -- Walk the rails in the same order encode wrote them, handing out

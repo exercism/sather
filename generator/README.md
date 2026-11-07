@@ -85,7 +85,7 @@ Each case has the canonical fields (`description`, `property`, `input`, `expecte
 | `sa_str`         | a STR literal, escaping `\`, `"`, newline, tab and carriage return; null as `void`           |
 | `sa_char`        | a CHAR literal from a one-character string                                                   |
 | `sa_int`         | an INT literal; negatives parenthesised; values outside 32 bits are an error                 |
-| `sa_inti`        | an INTI expression, `#INTI("…")`, for integers too large for INT                             |
+| `sa_inti`        | an INTI expression: `#INTI(153)`, or `#INTI("…")` for integers too large for INT             |
 | `sa_flt`         | a FLT literal                                                                                |
 | `sa_fltd`        | a FLTD literal                                                                               |
 | `sa_bool`        | `true` or `false`                                                                            |

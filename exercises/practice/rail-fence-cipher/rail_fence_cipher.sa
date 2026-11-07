@@ -1,14 +1,20 @@
 class RAIL_FENCE_CIPHER is
 
-   encode(msg : STR, rails : INT) : STR is
+   encode(msg : STR, rails : INT) : STR
+      pre rails >= 1
+      post result.size = msg.size
+   is
       -- Write the message down and up across `rails' rails, then read it
       -- off a rail at a time.
-      return "";
+      return msg;
    end;
 
-   decode(msg : STR, rails : INT) : STR is
+   decode(msg : STR, rails : INT) : STR
+      pre rails >= 1
+      post result.size = msg.size
+   is
       -- Undo encode.
-      return "";
+      return msg;
    end;
 
 end; -- class RAIL_FENCE_CIPHER

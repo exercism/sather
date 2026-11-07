@@ -3,7 +3,10 @@
 {% for case in cases %}
 
 {% set buffer = "buffer_" ~ case.index %}
-      {{ buffer }} ::= #CIRCULAR_BUFFER({{ case.input.capacity | sa }});
+{# The canonical items are numbers; a track-specific case may use strings. #}
+{% set items = case.input.operations | selectattr("item", "defined") | list %}
+{% set type = "STR" if items and items[0].item is string else "INT" %}
+      {{ buffer }} ::= #CIRCULAR_BUFFER{ {{- type -}} }({{ case.input.capacity | sa }});
 {% for op in case.input.operations %}
 {% set name = case.full_description ~ " [" ~ loop.index ~ ". " ~ op.operation ~ "]" %}
 {% if op.operation == "clear" %}

@@ -4,47 +4,47 @@ class FLATTEN_ARRAY_TEST is
    main is
       class_name("FLATTEN_ARRAY");
 
-      input_1 ::= #NESTED(#ARRAY{NESTED}(0));
+      input_1 : $NESTED := #NESTED_ITEMS(#ARRAY{$NESTED}(0));
       expected_1 : ARRAY{INT} := #ARRAY{INT}(0);
       test("empty", FLATTEN_ARRAY::flatten(input_1).str, expected_1.str);
 
-      input_2 ::= #NESTED(|#NESTED(0), #NESTED(1), #NESTED(2)|);
+      input_2 : $NESTED := #NESTED_ITEMS(|#NESTED_NUMBER(0), #NESTED_NUMBER(1), #NESTED_NUMBER(2)|);
       expected_2 : ARRAY{INT} := |0, 1, 2|;
       test("no nesting", FLATTEN_ARRAY::flatten(input_2).str, expected_2.str);
 
-      input_3 ::= #NESTED(|#NESTED(|#NESTED(#ARRAY{NESTED}(0))|)|);
+      input_3 : $NESTED := #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_ITEMS(#ARRAY{$NESTED}(0))|)|);
       expected_3 : ARRAY{INT} := #ARRAY{INT}(0);
       test("flattens a nested array", FLATTEN_ARRAY::flatten(input_3).str, expected_3.str);
 
-      input_4 ::= #NESTED(|#NESTED(1), #NESTED(|#NESTED(2), #NESTED(3), #NESTED(4), #NESTED(5), #NESTED(6), #NESTED(7)|), #NESTED(8)|);
+      input_4 : $NESTED := #NESTED_ITEMS(|#NESTED_NUMBER(1), #NESTED_ITEMS(|#NESTED_NUMBER(2), #NESTED_NUMBER(3), #NESTED_NUMBER(4), #NESTED_NUMBER(5), #NESTED_NUMBER(6), #NESTED_NUMBER(7)|), #NESTED_NUMBER(8)|);
       expected_4 : ARRAY{INT} := |1, 2, 3, 4, 5, 6, 7, 8|;
       test("flattens array with just integers present", FLATTEN_ARRAY::flatten(input_4).str, expected_4.str);
 
-      input_5 ::= #NESTED(|#NESTED(0), #NESTED(2), #NESTED(|#NESTED(|#NESTED(2), #NESTED(3)|), #NESTED(8), #NESTED(100), #NESTED(4), #NESTED(|#NESTED(|#NESTED(|#NESTED(50)|)|)|)|), #NESTED((-2))|);
+      input_5 : $NESTED := #NESTED_ITEMS(|#NESTED_NUMBER(0), #NESTED_NUMBER(2), #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NUMBER(2), #NESTED_NUMBER(3)|), #NESTED_NUMBER(8), #NESTED_NUMBER(100), #NESTED_NUMBER(4), #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NUMBER(50)|)|)|)|), #NESTED_NUMBER((-2))|);
       expected_5 : ARRAY{INT} := |0, 2, 2, 3, 8, 100, 4, 50, (-2)|;
       test("5 level nesting", FLATTEN_ARRAY::flatten(input_5).str, expected_5.str);
 
-      input_6 ::= #NESTED(|#NESTED(1), #NESTED(|#NESTED(2), #NESTED(|#NESTED(|#NESTED(3)|)|), #NESTED(|#NESTED(4), #NESTED(|#NESTED(|#NESTED(5)|)|)|), #NESTED(6), #NESTED(7)|), #NESTED(8)|);
+      input_6 : $NESTED := #NESTED_ITEMS(|#NESTED_NUMBER(1), #NESTED_ITEMS(|#NESTED_NUMBER(2), #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NUMBER(3)|)|), #NESTED_ITEMS(|#NESTED_NUMBER(4), #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NUMBER(5)|)|)|), #NESTED_NUMBER(6), #NESTED_NUMBER(7)|), #NESTED_NUMBER(8)|);
       expected_6 : ARRAY{INT} := |1, 2, 3, 4, 5, 6, 7, 8|;
       test("6 level nesting", FLATTEN_ARRAY::flatten(input_6).str, expected_6.str);
 
-      input_7 ::= #NESTED(|#NESTED(1), #NESTED(2), NESTED::nothing|);
+      input_7 : $NESTED := #NESTED_ITEMS(|#NESTED_NUMBER(1), #NESTED_NUMBER(2), #NESTED_NOTHING|);
       expected_7 : ARRAY{INT} := |1, 2|;
       test("null values are omitted from the final result", FLATTEN_ARRAY::flatten(input_7).str, expected_7.str);
 
-      input_8 ::= #NESTED(|NESTED::nothing, NESTED::nothing, #NESTED(3)|);
+      input_8 : $NESTED := #NESTED_ITEMS(|#NESTED_NOTHING, #NESTED_NOTHING, #NESTED_NUMBER(3)|);
       expected_8 : ARRAY{INT} := |3|;
       test("consecutive null values at the front of the array are omitted from the final result", FLATTEN_ARRAY::flatten(input_8).str, expected_8.str);
 
-      input_9 ::= #NESTED(|#NESTED(1), NESTED::nothing, NESTED::nothing, #NESTED(4)|);
+      input_9 : $NESTED := #NESTED_ITEMS(|#NESTED_NUMBER(1), #NESTED_NOTHING, #NESTED_NOTHING, #NESTED_NUMBER(4)|);
       expected_9 : ARRAY{INT} := |1, 4|;
       test("consecutive null values in the middle of the array are omitted from the final result", FLATTEN_ARRAY::flatten(input_9).str, expected_9.str);
 
-      input_10 ::= #NESTED(|#NESTED(0), #NESTED(2), #NESTED(|#NESTED(|#NESTED(2), #NESTED(3)|), #NESTED(8), #NESTED(|#NESTED(|#NESTED(100)|)|), NESTED::nothing, #NESTED(|#NESTED(|NESTED::nothing|)|)|), #NESTED((-2))|);
+      input_10 : $NESTED := #NESTED_ITEMS(|#NESTED_NUMBER(0), #NESTED_NUMBER(2), #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NUMBER(2), #NESTED_NUMBER(3)|), #NESTED_NUMBER(8), #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NUMBER(100)|)|), #NESTED_NOTHING, #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NOTHING|)|)|), #NESTED_NUMBER((-2))|);
       expected_10 : ARRAY{INT} := |0, 2, 2, 3, 8, 100, (-2)|;
       test("6 level nested array with null values", FLATTEN_ARRAY::flatten(input_10).str, expected_10.str);
 
-      input_11 ::= #NESTED(|NESTED::nothing, #NESTED(|#NESTED(|#NESTED(|NESTED::nothing|)|)|), NESTED::nothing, NESTED::nothing, #NESTED(|#NESTED(|NESTED::nothing, NESTED::nothing|), NESTED::nothing|), NESTED::nothing|);
+      input_11 : $NESTED := #NESTED_ITEMS(|#NESTED_NOTHING, #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NOTHING|)|)|), #NESTED_NOTHING, #NESTED_NOTHING, #NESTED_ITEMS(|#NESTED_ITEMS(|#NESTED_NOTHING, #NESTED_NOTHING|), #NESTED_NOTHING|), #NESTED_NOTHING|);
       expected_11 : ARRAY{INT} := #ARRAY{INT}(0);
       test("all values in nested array are null", FLATTEN_ARRAY::flatten(input_11).str, expected_11.str);
 

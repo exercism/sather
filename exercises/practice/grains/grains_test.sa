@@ -1,0 +1,46 @@
+class GRAINS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("GRAINS");
+
+      test("returns the number of grains on the square - grains on square 1", GRAINS::square(1), #INTI(1));
+
+      test("returns the number of grains on the square - grains on square 2", GRAINS::square(2), #INTI(2));
+
+      test("returns the number of grains on the square - grains on square 3", GRAINS::square(3), #INTI(4));
+
+      test("returns the number of grains on the square - grains on square 4", GRAINS::square(4), #INTI(8));
+
+      test("returns the number of grains on the square - grains on square 16", GRAINS::square(16), #INTI(32768));
+
+      test("returns the number of grains on the square - grains on square 32", GRAINS::square(32), #INTI("2147483648"));
+
+      test("returns the number of grains on the square - grains on square 64", GRAINS::square(64), #INTI("9223372036854775808"));
+
+      protect
+         ignored ::= GRAINS::square(0);
+         test("returns the number of grains on the square - square 0 is invalid", "no exception raised", "square must be between 1 and 64");
+      when $STR then
+         test("returns the number of grains on the square - square 0 is invalid", exception.str, "square must be between 1 and 64");
+      end;
+
+      protect
+         ignored ::= GRAINS::square((-1));
+         test("returns the number of grains on the square - negative square is invalid", "no exception raised", "square must be between 1 and 64");
+      when $STR then
+         test("returns the number of grains on the square - negative square is invalid", exception.str, "square must be between 1 and 64");
+      end;
+
+      protect
+         ignored ::= GRAINS::square(65);
+         test("returns the number of grains on the square - square greater than 64 is invalid", "no exception raised", "square must be between 1 and 64");
+      when $STR then
+         test("returns the number of grains on the square - square greater than 64 is invalid", exception.str, "square must be between 1 and 64");
+      end;
+
+      test("returns the total number of grains on the board", GRAINS::total, #INTI("18446744073709551615"));
+
+      finish;
+   end;
+end; -- class GRAINS_TEST

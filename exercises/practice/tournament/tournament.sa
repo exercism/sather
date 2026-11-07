@@ -1,0 +1,11 @@
+class TOURNAMENT is
+
+   tally(rows : ARRAY{STR}) : ARRAY{STR} is
+      -- The league table for the matches in `rows', each of the form
+      -- "Home Team;Away Team;win", with "win", "draw" or "loss" giving
+      -- the result for the first team. The first line is the header.
+      -- Teams are ordered by points, most first, and then by name.
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class TOURNAMENT

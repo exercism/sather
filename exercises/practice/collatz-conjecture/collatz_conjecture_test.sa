@@ -26,6 +26,8 @@ class COLLATZ_CONJECTURE_TEST is
          test("negative value is an error", exception.str, "Only positive integers are allowed");
       end;
 
+      test("large number of steps, passing values too large for an INT", COLLATZ_CONJECTURE::steps(2037066081), 817);
+
       finish;
    end;
 end; -- class COLLATZ_CONJECTURE_TEST

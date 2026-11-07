@@ -1,0 +1,9 @@
+class SAY is
+
+   say(number : INTI) : STR is
+      -- `number' in English words, such as "one hundred twenty-three".
+      -- Raise "input out of range" unless 0 <= number <= 999,999,999,999.
+      return "";
+   end;
+
+end; -- class SAY

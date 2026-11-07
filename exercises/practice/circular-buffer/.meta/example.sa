@@ -1,22 +1,22 @@
-class CIRCULAR_BUFFER is
+class CIRCULAR_BUFFER{T} is
 
    -- The items sit in a fixed array used as a ring: `oldest' is where the
    -- next read comes from, and `count' says how many are in it. Nothing
    -- moves when an item is read, which is the point of the structure.
 
-   private attr items : ARRAY{INT};
+   private attr items : ARRAY{T};
    private attr oldest : INT;
    private attr count : INT;
 
    create(capacity : INT) : SAME is
       buffer ::= new;
-      buffer.items := #ARRAY{INT}(capacity.max(1));
+      buffer.items := #ARRAY{T}(capacity.max(1));
       return buffer;
    end;
 
    private capacity : INT is return items.size; end;
 
-   read : INT is
+   read : T is
       if count = 0 then raise "buffer is empty"; end;
       item ::= items[oldest];
       oldest := (oldest + 1) % capacity;
@@ -24,13 +24,13 @@ class CIRCULAR_BUFFER is
       return item;
    end;
 
-   write(item : INT) is
+   write(item : T) is
       if count = capacity then raise "buffer is full"; end;
       items[(oldest + count) % capacity] := item;
       count := count + 1;
    end;
 
-   overwrite(item : INT) is
+   overwrite(item : T) is
       if count = capacity then
          -- Full: drop the oldest to make room, which is one read.
          ignored ::= read;
@@ -43,4 +43,4 @@ class CIRCULAR_BUFFER is
       count := 0;
    end;
 
-end; -- class CIRCULAR_BUFFER
+end; -- class CIRCULAR_BUFFER{T}

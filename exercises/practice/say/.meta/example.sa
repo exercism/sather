@@ -1,0 +1,51 @@
+class SAY is
+
+   -- The numbers go up to 999,999,999,999, past an INT, so they arrive as
+   -- INTI. Each group of three digits is small, and is said as an INT.
+
+   private const small : ARRAY{STR} := |"zero", "one", "two", "three", "four",
+      "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+      "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+      "nineteen"|;
+
+   private const tens : ARRAY{STR} := |"", "", "twenty", "thirty", "forty",
+      "fifty", "sixty", "seventy", "eighty", "ninety"|;
+
+   private const scales : ARRAY{STR} := |"", " thousand", " million", " billion"|;
+
+   private below_thousand(n : INT) : STR is
+      -- 1 to 999.
+      res ::= "";
+      if n >= 100 then
+         res := small[n / 100] + " hundred";
+         if n % 100 = 0 then return res end;
+         res := res + " ";
+      end;
+      r ::= n % 100;
+      if r < 20 then return res + small[r] end;
+      res := res + tens[r / 10];
+      if r % 10 /= 0 then res := res + "-" + small[r % 10] end;
+      return res;
+   end;
+
+   say(number : INTI) : STR is
+      if number < #INTI(0) or number > #INTI("999999999999") then
+         raise "input out of range";
+      end;
+      if number = #INTI(0) then return small[0] end;
+      thousand ::= #INTI(1000);
+      rest ::= number;
+      res ::= "";
+      loop
+         scale ::= scales.elt!;
+         group ::= (rest % thousand).int;
+         rest := rest / thousand;
+         if group /= 0 then
+            words ::= below_thousand(group) + scale;
+            if res = "" then res := words else res := words + " " + res end;
+         end;
+      end;
+      return res;
+   end;
+
+end; -- class SAY

@@ -1,6 +1,20 @@
 {% import "macros.j2" as m with context %}
 {# A canonical tree as tree_str renders one: "(value left right)", "." for none. #}
 {% macro tree(node) %}{% if not node %}.{% else %}({{ node.v }} {{ tree(node.l) }} {{ tree(node.r) }}){% endif %}{% endmacro %}
+{# Statements that build a canonical tree from TREE_NODEs, the root named `name'. #}
+{% macro build(node, name) %}
+{% if node.l %}{{ build(node.l, name ~ "_l") }}{% endif %}
+{% if node.r %}{{ build(node.r, name ~ "_r") }}{% endif %}
+      {{ name }} ::= #TREE_NODE({{ node.v | sa }});
+{% if node.l %}
+      {{ name }}.l := {{ name }}_l;
+{% endif %}
+{% if node.r %}
+      {{ name }}.r := {{ name }}_r;
+{% endif %}
+{% endmacro %}
+{# A canonical tree's values in post-order, as STR literals separated by commas. #}
+{% macro post(node) %}{{ [post(node.l) if node.l else "", post(node.r) if node.r else "", node.v | sa] | select | join(", ") }}{% endmacro %}
 {% call m.begin() %}
    private tree_str(n : TREE_NODE) : STR is
       -- "(value left right)", with "." for an absent subtree.
@@ -17,6 +31,14 @@
 {{ m.test_error(case, call) }}
 {% else %}
 {{ m.test(case, "tree_str(" ~ call ~ ")", tree(case.expected) | sa_str) }}
+{% if case.expected %}
+{# postorder! is tested on a tree built here, so that it stands apart from tree_from_traversals. #}
+{{ build(case.expected, "node_" ~ case.index) }}
+      post_{{ case.index }} ::= #FLIST{STR};
+      loop post_{{ case.index }} := post_{{ case.index }}.push(node_{{ case.index }}.postorder!) end;
+      expected_post_{{ case.index }} : ARRAY{STR} := |{{ post(case.expected) }}|;
+      test({{ (case.full_description ~ " [postorder!]") | sa_str }}, post_{{ case.index }}.array.str, expected_post_{{ case.index }}.str);
+{% endif %}
 {% endif %}
 {% endfor %}
 {{ m.end() }}

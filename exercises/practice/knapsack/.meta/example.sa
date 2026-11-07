@@ -1,6 +1,9 @@
 class KNAPSACK is
 
-   maximum_value(weights, values : ARRAY{INT}, maximum_weight : INT) : INT is
+   maximum_value(weights, values : ARRAY{INT}, maximum_weight : INT) : INT
+      pre weights.size = values.size and maximum_weight >= 0
+      post result >= 0
+   is
       best : ARRAY{INT} := #ARRAY{INT}(maximum_weight + 1);
       loop
          i ::= 0.upto!(weights.size - 1);
