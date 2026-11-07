@@ -1,7 +1,9 @@
 class KILLER_SUDOKU_HELPER is
 
    combinations(cage_sum, cage_size : INT, exclude : ARRAY{INT})
-         : ARRAY{ARRAY{INT}} is
+         : ARRAY{ARRAY{INT}}
+      pre cage_size >= 1 and cage_size <= 9
+   is
       -- Every set of `cage_size' distinct digits 1..9 adding up to
       -- `cage_sum' and using none of `exclude'. Each combination in
       -- ascending order, and the combinations themselves in ascending

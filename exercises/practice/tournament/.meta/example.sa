@@ -1,0 +1,96 @@
+class TEAM_RECORD is
+
+   readonly attr name : STR;
+   readonly attr won, drawn, lost : INT;
+
+   create(team : STR) : SAME is
+      r ::= new;
+      r.name := team;
+      return r;
+   end;
+
+   win is won := won + 1 end;
+   draw is drawn := drawn + 1 end;
+   lose is lost := lost + 1 end;
+
+   played : INT is return won + drawn + lost end;
+   points : INT is return 3 * won + drawn end;
+
+end; -- class TEAM_RECORD
+
+class TOURNAMENT is
+
+   private const header : STR :=
+      "Team                           | MP |  W |  D |  L |  P";
+
+   private fields(row : STR) : ARRAY{STR} is
+      -- The pieces of `row' between semicolons.
+      found ::= #FLIST{STR};
+      piece ::= #FSTR;
+      loop
+         c ::= row.elt!;
+         if c = ';' then
+            found := found.push(piece.str);
+            piece := #FSTR;
+         else
+            piece := piece + c;
+         end;
+      end;
+      found := found.push(piece.str);
+      res ::= #ARRAY{STR}(found.size);
+      loop res.set!(found.elt!) end;
+      return res;
+   end;
+
+   private right(n : INT, width : INT) : STR is
+      s ::= n.str;
+      loop while!(s.size < width); s := " " + s end;
+      return s;
+   end;
+
+   private left(s : STR, width : INT) : STR is
+      res ::= s;
+      loop while!(res.size < width); res := res + " " end;
+      return res;
+   end;
+
+   private higher(a, b : TEAM_RECORD) : BOOL is
+      -- More points first; level on points, alphabetical.
+      if a.points /= b.points then return a.points > b.points end;
+      return a.name < b.name;
+   end;
+
+   tally(rows : ARRAY{STR}) : ARRAY{STR} is
+      teams ::= #FMAP{STR,TEAM_RECORD};
+      loop
+         parts ::= fields(rows.elt!);
+         loop
+            team ::= parts.elt!(0, 2);
+            if ~teams.has_ind(team) then
+               teams := teams.insert(team, #TEAM_RECORD(team));
+            end;
+         end;
+         home ::= teams.get(parts[0]);
+         away ::= teams.get(parts[1]);
+         case parts[2]
+         when "win" then home.win; away.lose;
+         when "loss" then home.lose; away.win;
+         when "draw" then home.draw; away.draw;
+         end;
+      end;
+      ranked ::= #ARRAY{TEAM_RECORD}(teams.size);
+      loop ranked.set!(teams.elt!) end;
+      ranked.insertion_sort_by(bind(higher(_, _)));
+      res ::= #ARRAY{STR}(ranked.size + 1);
+      res[0] := header;
+      loop
+         i ::= ranked.ind!;
+         t ::= ranked[i];
+         res[i + 1] := left(t.name, 30) + " | " + right(t.played, 2)
+            + " | " + right(t.won, 2) + " | " + right(t.drawn, 2)
+            + " | " + right(t.lost, 2) + " | " + right(t.points, 2);
+      end;
+      return res;
+   end;
+
+end; -- class TOURNAMENT

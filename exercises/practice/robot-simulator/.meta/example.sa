@@ -3,7 +3,10 @@ class ROBOT is
    readonly attr x, y : INT;
    readonly attr direction : STR;
 
-   create(start_x, start_y : INT, facing : STR) : SAME is
+   create(start_x, start_y : INT, facing : STR) : SAME
+      pre facing = "north" or facing = "east" or facing = "south" or facing = "west"
+      post result.x = start_x and result.y = start_y and result.direction = facing
+   is
       robot ::= new;
       robot.x := start_x;
       robot.y := start_y;
@@ -42,7 +45,9 @@ class ROBOT is
       end;
    end;
 
-   move(instructions : STR) is
+   move(instructions : STR)
+      post direction = "north" or direction = "east" or direction = "south" or direction = "west"
+   is
       if void(instructions) then return; end;
       loop
          case instructions.elt!

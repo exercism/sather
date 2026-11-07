@@ -1,0 +1,15 @@
+class GRAINS is
+
+   square(number : INT) : INTI is
+      -- The grains on square `number', counting from 1: one on the first,
+      -- and twice as many on each square as on the one before.
+      -- Raise "square must be between 1 and 64" for any other square.
+      return #INTI(0);
+   end;
+
+   total : INTI is
+      -- The grains on all 64 squares together.
+      return #INTI(0);
+   end;
+
+end; -- class GRAINS

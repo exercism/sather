@@ -174,8 +174,13 @@ def sa_int(value):
 
 
 def sa_inti(value):
-    """An INTI (arbitrary precision) expression."""
-    return f'#INTI("{int(value)}")'
+    """An INTI (arbitrary precision) expression: #INTI(153) for a value that
+    fits in an INT, and #INTI("…") from its digits for one that doesn't."""
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise GeneratorError(f"sa_inti needs an integer, got {value!r}")
+    if INT_MIN <= value <= INT_MAX:
+        return f"#INTI({value})"
+    return f'#INTI("{value}")'
 
 
 def _float_text(value):

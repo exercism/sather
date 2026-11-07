@@ -18,7 +18,10 @@ class YACHT is
       return tally(dice)[face] * face;
    end;
 
-   score(dice : ARRAY{INT}, category : STR) : INT is
+   score(dice : ARRAY{INT}, category : STR) : INT
+      pre dice.size = 5
+      post result >= 0 and result <= 50
+   is
       counts ::= tally(dice);
       case category
       when "ones" then return number_score(dice, 1);

@@ -1,0 +1,57 @@
+class SAY_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SAY");
+
+      test("zero", SAY::say(#INTI(0)), "zero");
+
+      test("one", SAY::say(#INTI(1)), "one");
+
+      test("fourteen", SAY::say(#INTI(14)), "fourteen");
+
+      test("twenty", SAY::say(#INTI(20)), "twenty");
+
+      test("twenty-two", SAY::say(#INTI(22)), "twenty-two");
+
+      test("thirty", SAY::say(#INTI(30)), "thirty");
+
+      test("ninety-nine", SAY::say(#INTI(99)), "ninety-nine");
+
+      test("one hundred", SAY::say(#INTI(100)), "one hundred");
+
+      test("one hundred twenty-three", SAY::say(#INTI(123)), "one hundred twenty-three");
+
+      test("two hundred", SAY::say(#INTI(200)), "two hundred");
+
+      test("nine hundred ninety-nine", SAY::say(#INTI(999)), "nine hundred ninety-nine");
+
+      test("one thousand", SAY::say(#INTI(1000)), "one thousand");
+
+      test("one thousand two hundred thirty-four", SAY::say(#INTI(1234)), "one thousand two hundred thirty-four");
+
+      test("one million", SAY::say(#INTI(1000000)), "one million");
+
+      test("one million two thousand three hundred forty-five", SAY::say(#INTI(1002345)), "one million two thousand three hundred forty-five");
+
+      test("one billion", SAY::say(#INTI(1000000000)), "one billion");
+
+      test("a big number", SAY::say(#INTI("987654321123")), "nine hundred eighty-seven billion six hundred fifty-four million three hundred twenty-one thousand one hundred twenty-three");
+
+      protect
+         ignored ::= SAY::say(#INTI(-1));
+         test("numbers below zero are out of range", "no exception raised", "input out of range");
+      when $STR then
+         test("numbers below zero are out of range", exception.str, "input out of range");
+      end;
+
+      protect
+         ignored ::= SAY::say(#INTI("1000000000000"));
+         test("numbers above 999,999,999,999 are out of range", "no exception raised", "input out of range");
+      when $STR then
+         test("numbers above 999,999,999,999 are out of range", exception.str, "input out of range");
+      end;
+
+      finish;
+   end;
+end; -- class SAY_TEST

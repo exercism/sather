@@ -1,58 +1,71 @@
-class NESTED is
+abstract class $NESTED is
 
-   const number_kind : INT := 0;
-   const nothing_kind : INT := 1;
-   const list_kind : INT := 2;
+   -- One item of a nested list: a number, nothing at all, or more items.
+   -- Sather arrays hold a single type, so a list mixing all three holds
+   -- $NESTED, and each kind of item is a class conforming to it.
 
-   readonly attr kind : INT;
+   gather(into : LIST{INT});
+      -- Append this item's numbers to `into', in order.
+
+end; -- abstract class $NESTED
+
+class NESTED_NUMBER < $NESTED is
+
    readonly attr number : INT;
-   readonly attr items : ARRAY{NESTED};
 
    create(n : INT) : SAME is
       r ::= new;
-      r.kind := number_kind;
       r.number := n;
       return r;
    end;
 
-   create(list : ARRAY{NESTED}) : SAME is
+   gather(into : LIST{INT}) is
+      -- A number contributes itself.
+      into.append(number);
+   end;
+
+end; -- class NESTED_NUMBER
+
+class NESTED_NOTHING < $NESTED is
+
+   create : SAME is
+      return new;
+   end;
+
+   gather(into : LIST{INT}) is
+      -- Nothing contributes no number.
+   end;
+
+end; -- class NESTED_NOTHING
+
+class NESTED_ITEMS < $NESTED is
+
+   readonly attr items : ARRAY{$NESTED};
+
+   create(list : ARRAY{$NESTED}) : SAME is
       r ::= new;
-      r.kind := list_kind;
       r.items := list;
       return r;
    end;
 
-   nothing : SAME is
-      r ::= new;
-      r.kind := nothing_kind;
-      return r;
+   gather(into : LIST{INT}) is
+      -- A list contributes the numbers of each of its items, in order.
+      -- The nesting has no bound, so this recurses: each item gathers its
+      -- own numbers, whichever kind of item it is.
+      loop items.elt!.gather(into) end;
    end;
 
-end; -- class NESTED
+end; -- class NESTED_ITEMS
 
 class FLATTEN_ARRAY is
 
-   private gather(node : NESTED, into : LIST{INT}) is
-      -- The nesting has no bound, so this recurses rather than looping over
-      -- a fixed number of levels.
-      case node.kind
-      when NESTED::number_kind then
-         into.append(node.number);
-      when NESTED::list_kind then
-         loop gather(node.items.elt!, into); end;
-      else
-         -- Nothing at all: contributes no number.
-      end;
-   end;
-
-   flatten(nested : NESTED) : ARRAY{INT} is
+   flatten(nested : $NESTED) : ARRAY{INT} is
+      -- Every number in the nested list, in order, however deeply buried.
+      -- Items holding nothing are left out.
       found ::= #LIST{INT};
-      gather(nested, found);
+      nested.gather(found);
       answer : ARRAY{INT} := #ARRAY{INT}(found.size);
-      loop
-         i ::= 0.upto!(found.size - 1);
-         answer[i] := found[i];
-      end;
+      loop answer.set!(found.elt!) end;
       return answer;
    end;
 

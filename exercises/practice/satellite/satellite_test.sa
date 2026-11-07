@@ -18,9 +18,31 @@ class SATELLITE_TEST is
       ino_2 : ARRAY{STR} := |"a"|;
       test("Tree with one item", tree_str(SATELLITE::tree_from_traversals(pre_2, ino_2)), "(a . .)");
 
+      node_2 ::= #TREE_NODE("a");
+
+      post_2 ::= #FLIST{STR};
+      loop post_2 := post_2.push(node_2.postorder!) end;
+      expected_post_2 : ARRAY{STR} := |"a"|;
+      test("Tree with one item [postorder!]", post_2.array.str, expected_post_2.str);
+
       pre_3 : ARRAY{STR} := |"a", "i", "x", "f", "r"|;
       ino_3 : ARRAY{STR} := |"i", "a", "f", "x", "r"|;
       test("Tree with many items", tree_str(SATELLITE::tree_from_traversals(pre_3, ino_3)), "(a (i . .) (x (f . .) (r . .)))");
+
+      node_3_l ::= #TREE_NODE("i");
+      node_3_r_l ::= #TREE_NODE("f");
+      node_3_r_r ::= #TREE_NODE("r");
+      node_3_r ::= #TREE_NODE("x");
+      node_3_r.l := node_3_r_l;
+      node_3_r.r := node_3_r_r;
+      node_3 ::= #TREE_NODE("a");
+      node_3.l := node_3_l;
+      node_3.r := node_3_r;
+
+      post_3 ::= #FLIST{STR};
+      loop post_3 := post_3.push(node_3.postorder!) end;
+      expected_post_3 : ARRAY{STR} := |"i", "f", "r", "x", "a"|;
+      test("Tree with many items [postorder!]", post_3.array.str, expected_post_3.str);
 
       pre_4 : ARRAY{STR} := |"a", "b"|;
       ino_4 : ARRAY{STR} := |"b", "a", "r"|;
@@ -53,21 +75,88 @@ class SATELLITE_TEST is
       ino_7 : ARRAY{STR} := |"d", "c", "b", "a"|;
       test("A degenerate binary tree", tree_str(SATELLITE::tree_from_traversals(pre_7, ino_7)), "(a (b (c (d . .) .) .) .)");
 
+      node_7_l_l_l ::= #TREE_NODE("d");
+      node_7_l_l ::= #TREE_NODE("c");
+      node_7_l_l.l := node_7_l_l_l;
+      node_7_l ::= #TREE_NODE("b");
+      node_7_l.l := node_7_l_l;
+      node_7 ::= #TREE_NODE("a");
+      node_7.l := node_7_l;
+
+      post_7 ::= #FLIST{STR};
+      loop post_7 := post_7.push(node_7.postorder!) end;
+      expected_post_7 : ARRAY{STR} := |"d", "c", "b", "a"|;
+      test("A degenerate binary tree [postorder!]", post_7.array.str, expected_post_7.str);
+
       pre_8 : ARRAY{STR} := |"a", "b", "c", "d"|;
       ino_8 : ARRAY{STR} := |"a", "b", "c", "d"|;
       test("Another degenerate binary tree", tree_str(SATELLITE::tree_from_traversals(pre_8, ino_8)), "(a . (b . (c . (d . .))))");
+
+      node_8_r_r_r ::= #TREE_NODE("d");
+      node_8_r_r ::= #TREE_NODE("c");
+      node_8_r_r.r := node_8_r_r_r;
+      node_8_r ::= #TREE_NODE("b");
+      node_8_r.r := node_8_r_r;
+      node_8 ::= #TREE_NODE("a");
+      node_8.r := node_8_r;
+
+      post_8 ::= #FLIST{STR};
+      loop post_8 := post_8.push(node_8.postorder!) end;
+      expected_post_8 : ARRAY{STR} := |"d", "c", "b", "a"|;
+      test("Another degenerate binary tree [postorder!]", post_8.array.str, expected_post_8.str);
 
       pre_9 : ARRAY{STR} := |"a", "b", "d", "g", "h", "c", "e", "f", "i"|;
       ino_9 : ARRAY{STR} := |"g", "d", "h", "b", "a", "e", "c", "i", "f"|;
       test("Tree with many more items", tree_str(SATELLITE::tree_from_traversals(pre_9, ino_9)), "(a (b (d (g . .) (h . .)) .) (c (e . .) (f (i . .) .)))");
 
+      node_9_l_l_l ::= #TREE_NODE("g");
+      node_9_l_l_r ::= #TREE_NODE("h");
+      node_9_l_l ::= #TREE_NODE("d");
+      node_9_l_l.l := node_9_l_l_l;
+      node_9_l_l.r := node_9_l_l_r;
+      node_9_l ::= #TREE_NODE("b");
+      node_9_l.l := node_9_l_l;
+      node_9_r_l ::= #TREE_NODE("e");
+      node_9_r_r_l ::= #TREE_NODE("i");
+      node_9_r_r ::= #TREE_NODE("f");
+      node_9_r_r.l := node_9_r_r_l;
+      node_9_r ::= #TREE_NODE("c");
+      node_9_r.l := node_9_r_l;
+      node_9_r.r := node_9_r_r;
+      node_9 ::= #TREE_NODE("a");
+      node_9.l := node_9_l;
+      node_9.r := node_9_r;
+
+      post_9 ::= #FLIST{STR};
+      loop post_9 := post_9.push(node_9.postorder!) end;
+      expected_post_9 : ARRAY{STR} := |"g", "h", "d", "b", "e", "i", "f", "c", "a"|;
+      test("Tree with many more items [postorder!]", post_9.array.str, expected_post_9.str);
+
       pre_10 : ARRAY{STR} := |"b", "a"|;
       ino_10 : ARRAY{STR} := |"a", "b"|;
       test("Left leaning tree of two", tree_str(SATELLITE::tree_from_traversals(pre_10, ino_10)), "(b (a . .) .)");
 
+      node_10_l ::= #TREE_NODE("a");
+      node_10 ::= #TREE_NODE("b");
+      node_10.l := node_10_l;
+
+      post_10 ::= #FLIST{STR};
+      loop post_10 := post_10.push(node_10.postorder!) end;
+      expected_post_10 : ARRAY{STR} := |"a", "b"|;
+      test("Left leaning tree of two [postorder!]", post_10.array.str, expected_post_10.str);
+
       pre_11 : ARRAY{STR} := |"a", "b"|;
       ino_11 : ARRAY{STR} := |"a", "b"|;
       test("Right leaning tree of two", tree_str(SATELLITE::tree_from_traversals(pre_11, ino_11)), "(a . (b . .))");
+
+      node_11_r ::= #TREE_NODE("b");
+      node_11 ::= #TREE_NODE("a");
+      node_11.r := node_11_r;
+
+      post_11 ::= #FLIST{STR};
+      loop post_11 := post_11.push(node_11.postorder!) end;
+      expected_post_11 : ARRAY{STR} := |"b", "a"|;
+      test("Right leaning tree of two [postorder!]", post_11.array.str, expected_post_11.str);
 
       finish;
    end;

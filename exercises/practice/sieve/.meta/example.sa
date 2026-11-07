@@ -1,6 +1,9 @@
 class SIEVE is
 
-   primes(limit : INT) : ARRAY{INT} is
+   primes(limit : INT) : ARRAY{INT}
+      pre limit >= 1
+      post result.size < limit
+   is
       if limit < 2 then return #ARRAY{INT}(0) end;
       composite : ARRAY{BOOL} := #ARRAY{BOOL}(limit + 1);
       found : FLIST{INT} := #FLIST{INT};

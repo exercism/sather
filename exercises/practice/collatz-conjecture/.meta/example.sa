@@ -1,14 +1,21 @@
 class COLLATZ_CONJECTURE is
 
+   -- The number given fits in an INT, but the numbers along the way may
+   -- not: 2037066081 climbs past 159 thousand million. So the walk is
+   -- done in INTI.
+
    steps(number : INT) : INT is
       if number < 1 then
          raise "Only positive integers are allowed";
       end;
-      n ::= number;
+      one ::= #INTI(1);
+      two ::= #INTI(2);
+      three ::= #INTI(3);
+      n ::= #INTI(number);
       count ::= 0;
       loop
-         until!(n = 1);
-         if n % 2 = 0 then n := n / 2 else n := 3 * n + 1 end;
+         until!(n = one);
+         if n.is_even then n := n / two else n := three * n + one end;
          count := count + 1;
       end;
       return count;

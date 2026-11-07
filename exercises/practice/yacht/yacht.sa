@@ -1,6 +1,9 @@
 class YACHT is
 
-   score(dice : ARRAY{INT}, category : STR) : INT is
+   score(dice : ARRAY{INT}, category : STR) : INT
+      pre dice.size = 5
+      post result >= 0 and result <= 50
+   is
       -- Score five dice in the named category. The categories are
       -- "ones" through "sixes", "full house", "four of a kind",
       -- "little straight", "big straight", "choice" and "yacht".

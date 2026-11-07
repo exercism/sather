@@ -2,21 +2,33 @@
 {# A canonical tree as tree_str renders one: "(data left right)", "." for none. #}
 {% macro tree(node) %}{% if node is none %}.{% else %}({{ node.data }} {{ tree(node.left) }} {{ tree(node.right) }}){% endif %}{% endmacro %}
 {% call m.begin() %}
-   private tree_str(n : BINARY_SEARCH_TREE) : STR is
+   private tree_str(n : BINARY_SEARCH_TREE{STR}) : STR is
       -- "(data left right)", with "." for an absent subtree.
       if void(n) then return "." end;
       return "(" + n.data + " " + tree_str(n.left) + " " + tree_str(n.right) + ")";
+   end;
+
+   private tree_str(n : BINARY_SEARCH_TREE{INT}) : STR is
+      -- The same, for a tree of numbers.
+      if void(n) then return "." end;
+      return "(" + n.data.str + " " + tree_str(n.left) + " " + tree_str(n.right) + ")";
    end;
 {% endcall %}
 {% for case in cases %}
 
 {% set t = "tree_" ~ case.index %}
-      items_{{ case.index }} : ARRAY{STR} := {{ case.input.treeData | sa("STR") }};
-      {{ t }} ::= #BINARY_SEARCH_TREE(items_{{ case.index }});
+{# The canonical items are strings; a track-specific case may use numbers. #}
+{% set type = "INT" if case.input.treeData and case.input.treeData[0] is number else "STR" %}
+      items_{{ case.index }} : ARRAY{ {{- type -}} } := {{ case.input.treeData | sa(type) }};
+      {{ t }} ::= #BINARY_SEARCH_TREE{ {{- type -}} }(items_{{ case.index }});
 {% if case.property == "data" %}
 {{ m.test(case, "tree_str(" ~ t ~ ")", tree(case.expected) | sa_str) }}
 {% else %}
-{{ m.test_str(case, t ~ ".sorted_data", case.expected | sa("STR"), "ARRAY{STR}") }}
+{{ m.test_str(case, t ~ ".sorted_data", case.expected | sa(type), "ARRAY{" ~ type ~ "}") }}
+{# The same values again, from the iterator. #}
+      in_order_{{ case.index }} ::= #FLIST{ {{- type -}} };
+      loop in_order_{{ case.index }} := in_order_{{ case.index }}.push({{ t }}.elt!) end;
+      test({{ (case.full_description ~ " [elt!]") | sa_str }}, in_order_{{ case.index }}.array.str, expected_{{ case.index }}.str);
 {% endif %}
 {% endfor %}
 {{ m.end() }}

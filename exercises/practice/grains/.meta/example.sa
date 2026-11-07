@@ -1,0 +1,17 @@
+class GRAINS is
+
+   -- Square 64 holds 2 to the power 63, and the board 2 to the power 64
+   -- less one: both far past an INT.
+
+   square(number : INT) : INTI is
+      if number < 1 or number > 64 then
+         raise "square must be between 1 and 64";
+      end;
+      return #INTI(2).pow(number - 1);
+   end;
+
+   total : INTI is
+      return #INTI(2).pow(64) - #INTI(1);
+   end;
+
+end; -- class GRAINS

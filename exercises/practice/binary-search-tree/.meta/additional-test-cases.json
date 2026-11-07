@@ -14,5 +14,37 @@
       "treeData": []
     },
     "expected": []
+  },
+  {
+    "description": "numbers are compared as numbers, not as text",
+    "property": "data",
+    "input": {
+      "treeData": [10, 9, 100, 2]
+    },
+    "expected": {
+      "data": 10,
+      "left": {
+        "data": 9,
+        "left": {
+          "data": 2,
+          "left": null,
+          "right": null
+        },
+        "right": null
+      },
+      "right": {
+        "data": 100,
+        "left": null,
+        "right": null
+      }
+    }
+  },
+  {
+    "description": "can sort numbers",
+    "property": "sortedData",
+    "input": {
+      "treeData": [10, 9, 100, 2]
+    },
+    "expected": [2, 9, 10, 100]
   }
 ]

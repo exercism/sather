@@ -1,0 +1,56 @@
+class GRADE_SCHOOL is
+
+   -- Each student's grade, by name. A map keeps no order of its own, so
+   -- both questions sort what they collect.
+
+   private attr grades : FMAP{STR,INT};
+
+   create : SAME is
+      school ::= new;
+      school.grades := #FMAP{STR,INT};
+      return school;
+   end;
+
+   add(name : STR, grade : INT) : BOOL is
+      if grades.has_ind(name) then return false end;
+      grades := grades.insert(name, grade);
+      return true;
+   end;
+
+   private earlier(a, b : STR) : BOOL is
+      -- Lower grade first; within a grade, alphabetical.
+      if grades.get(a) /= grades.get(b) then
+         return grades.get(a) < grades.get(b);
+      end;
+      return a < b;
+   end;
+
+   private names_where(keep : ROUT{STR}:BOOL) : ARRAY{STR} is
+      found ::= #FLIST{STR};
+      loop
+         name ::= grades.keys!;
+         if keep.call(name) then found := found.push(name) end;
+      end;
+      res ::= #ARRAY{STR}(found.size);
+      loop
+         res.set!(found.elt!);
+      end;
+      res.insertion_sort_by(bind(earlier(_, _)));
+      return res;
+   end;
+
+   private anyone(name : STR) : BOOL is return true end;
+
+   private in_grade(desired : INT, name : STR) : BOOL is
+      return grades.get(name) = desired;
+   end;
+
+   roster : ARRAY{STR} is
+      return names_where(bind(anyone(_)));
+   end;
+
+   grade(desired : INT) : ARRAY{STR} is
+      return names_where(bind(in_grade(desired, _)));
+   end;
+
+end; -- class GRADE_SCHOOL

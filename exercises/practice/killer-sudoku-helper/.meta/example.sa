@@ -34,7 +34,9 @@ class KILLER_SUDOKU_HELPER is
    end;
 
    combinations(cage_sum, cage_size : INT, exclude : ARRAY{INT})
-         : ARRAY{ARRAY{INT}} is
+         : ARRAY{ARRAY{INT}}
+      pre cage_size >= 1 and cage_size <= 9
+   is
       chosen : ARRAY{INT} := #ARRAY{INT}(cage_size);
       found : FLIST{ARRAY{INT}} := #FLIST{ARRAY{INT}};
       found := search(cage_sum, cage_size, 1, exclude, chosen, 0, found);

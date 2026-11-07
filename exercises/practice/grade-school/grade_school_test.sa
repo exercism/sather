@@ -1,0 +1,148 @@
+class GRADE_SCHOOL_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("GRADE_SCHOOL");
+
+      school_1 ::= #GRADE_SCHOOL;
+      expected_1 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Roster is empty when no student is added", school_1.roster.str, expected_1.str);
+
+      school_2 ::= #GRADE_SCHOOL;
+      test("Add a student [1. add]", school_2.add("Aimee", 2), true);
+
+      school_3 ::= #GRADE_SCHOOL;
+      added_3_1 ::= school_3.add("Aimee", 2);
+      expected_3 : ARRAY{STR} := |"Aimee"|;
+      test("Student is added to the roster", school_3.roster.str, expected_3.str);
+
+      school_4 ::= #GRADE_SCHOOL;
+      test("Adding multiple students in the same grade in the roster [1. add]", school_4.add("Blair", 2), true);
+
+      test("Adding multiple students in the same grade in the roster [2. add]", school_4.add("James", 2), true);
+
+      test("Adding multiple students in the same grade in the roster [3. add]", school_4.add("Paul", 2), true);
+
+      school_5 ::= #GRADE_SCHOOL;
+      added_5_1 ::= school_5.add("Blair", 2);
+      added_5_2 ::= school_5.add("James", 2);
+      added_5_3 ::= school_5.add("Paul", 2);
+      expected_5 : ARRAY{STR} := |"Blair", "James", "Paul"|;
+      test("Multiple students in the same grade are added to the roster", school_5.roster.str, expected_5.str);
+
+      school_6 ::= #GRADE_SCHOOL;
+      test("Cannot add student to same grade in the roster more than once [1. add]", school_6.add("Blair", 2), true);
+
+      test("Cannot add student to same grade in the roster more than once [2. add]", school_6.add("James", 2), true);
+
+      test("Cannot add student to same grade in the roster more than once [3. add]", school_6.add("James", 2), false);
+
+      test("Cannot add student to same grade in the roster more than once [4. add]", school_6.add("Paul", 2), true);
+
+      school_7 ::= #GRADE_SCHOOL;
+      added_7_1 ::= school_7.add("Blair", 2);
+      added_7_2 ::= school_7.add("James", 2);
+      added_7_3 ::= school_7.add("James", 2);
+      added_7_4 ::= school_7.add("Paul", 2);
+      expected_7 : ARRAY{STR} := |"Blair", "James", "Paul"|;
+      test("Student not added to same grade in the roster more than once", school_7.roster.str, expected_7.str);
+
+      school_8 ::= #GRADE_SCHOOL;
+      test("Adding students in multiple grades [1. add]", school_8.add("Chelsea", 3), true);
+
+      test("Adding students in multiple grades [2. add]", school_8.add("Logan", 7), true);
+
+      school_9 ::= #GRADE_SCHOOL;
+      added_9_1 ::= school_9.add("Chelsea", 3);
+      added_9_2 ::= school_9.add("Logan", 7);
+      expected_9 : ARRAY{STR} := |"Chelsea", "Logan"|;
+      test("Students in multiple grades are added to the roster", school_9.roster.str, expected_9.str);
+
+      school_10 ::= #GRADE_SCHOOL;
+      test("Cannot add same student to multiple grades in the roster [1. add]", school_10.add("Blair", 2), true);
+
+      test("Cannot add same student to multiple grades in the roster [2. add]", school_10.add("James", 2), true);
+
+      test("Cannot add same student to multiple grades in the roster [3. add]", school_10.add("James", 3), false);
+
+      test("Cannot add same student to multiple grades in the roster [4. add]", school_10.add("Paul", 3), true);
+
+      school_11 ::= #GRADE_SCHOOL;
+      added_11_1 ::= school_11.add("Blair", 2);
+      added_11_2 ::= school_11.add("James", 2);
+      added_11_3 ::= school_11.add("James", 3);
+      added_11_4 ::= school_11.add("Paul", 3);
+      expected_11 : ARRAY{STR} := |"Blair", "James", "Paul"|;
+      test("Student not added to multiple grades in the roster", school_11.roster.str, expected_11.str);
+
+      school_12 ::= #GRADE_SCHOOL;
+      added_12_1 ::= school_12.add("Jim", 3);
+      added_12_2 ::= school_12.add("Peter", 2);
+      added_12_3 ::= school_12.add("Anna", 1);
+      expected_12 : ARRAY{STR} := |"Anna", "Peter", "Jim"|;
+      test("Students are sorted by grades in the roster", school_12.roster.str, expected_12.str);
+
+      school_13 ::= #GRADE_SCHOOL;
+      added_13_1 ::= school_13.add("Peter", 2);
+      added_13_2 ::= school_13.add("Zoe", 2);
+      added_13_3 ::= school_13.add("Alex", 2);
+      expected_13 : ARRAY{STR} := |"Alex", "Peter", "Zoe"|;
+      test("Students are sorted by name in the roster", school_13.roster.str, expected_13.str);
+
+      school_14 ::= #GRADE_SCHOOL;
+      added_14_1 ::= school_14.add("Peter", 2);
+      added_14_2 ::= school_14.add("Anna", 1);
+      added_14_3 ::= school_14.add("Barb", 1);
+      added_14_4 ::= school_14.add("Zoe", 2);
+      added_14_5 ::= school_14.add("Alex", 2);
+      added_14_6 ::= school_14.add("Jim", 3);
+      added_14_7 ::= school_14.add("Charlie", 1);
+      expected_14 : ARRAY{STR} := |"Anna", "Barb", "Charlie", "Alex", "Peter", "Zoe", "Jim"|;
+      test("Students are sorted by grades and then by name in the roster", school_14.roster.str, expected_14.str);
+
+      school_15 ::= #GRADE_SCHOOL;
+      expected_15 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Grade is empty if no students in the roster", school_15.grade(1).str, expected_15.str);
+
+      school_16 ::= #GRADE_SCHOOL;
+      added_16_1 ::= school_16.add("Peter", 2);
+      added_16_2 ::= school_16.add("Zoe", 2);
+      added_16_3 ::= school_16.add("Alex", 2);
+      added_16_4 ::= school_16.add("Jim", 3);
+      expected_16 : ARRAY{STR} := #ARRAY{STR}(0);
+      test("Grade is empty if no students in that grade", school_16.grade(1).str, expected_16.str);
+
+      school_17 ::= #GRADE_SCHOOL;
+      added_17_1 ::= school_17.add("Blair", 2);
+      added_17_2 ::= school_17.add("James", 2);
+      added_17_3 ::= school_17.add("James", 2);
+      added_17_4 ::= school_17.add("Paul", 2);
+      expected_17 : ARRAY{STR} := |"Blair", "James", "Paul"|;
+      test("Student not added to same grade more than once", school_17.grade(2).str, expected_17.str);
+
+      school_18 ::= #GRADE_SCHOOL;
+      added_18_1 ::= school_18.add("Blair", 2);
+      added_18_2 ::= school_18.add("James", 2);
+      added_18_3 ::= school_18.add("James", 3);
+      added_18_4 ::= school_18.add("Paul", 3);
+      expected_18 : ARRAY{STR} := |"Blair", "James"|;
+      test("Student not added to multiple grades", school_18.grade(2).str, expected_18.str);
+
+      school_19 ::= #GRADE_SCHOOL;
+      added_19_1 ::= school_19.add("Blair", 2);
+      added_19_2 ::= school_19.add("James", 2);
+      added_19_3 ::= school_19.add("James", 3);
+      added_19_4 ::= school_19.add("Paul", 3);
+      expected_19 : ARRAY{STR} := |"Paul"|;
+      test("Student not added to other grade for multiple grades", school_19.grade(3).str, expected_19.str);
+
+      school_20 ::= #GRADE_SCHOOL;
+      added_20_1 ::= school_20.add("Franklin", 5);
+      added_20_2 ::= school_20.add("Bradley", 5);
+      added_20_3 ::= school_20.add("Jeff", 1);
+      expected_20 : ARRAY{STR} := |"Bradley", "Franklin"|;
+      test("Students are sorted by name in a grade", school_20.grade(5).str, expected_20.str);
+
+      finish;
+   end;
+end; -- class GRADE_SCHOOL_TEST

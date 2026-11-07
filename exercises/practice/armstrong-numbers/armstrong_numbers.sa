@@ -1,6 +1,6 @@
 class ARMSTRONG_NUMBERS is
 
-   is_armstrong_number(number : INT) : BOOL is
+   is_armstrong_number(number : INTI) : BOOL is
       -- True if `number' is the sum of its own digits, each raised to the
       -- power of the number of digits.
       return false;

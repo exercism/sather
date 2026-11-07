@@ -6,7 +6,9 @@ class PYTHAGOREAN_TRIPLET is
       return a;
    end;
 
-   triplets_with_sum(n : INT) : ARRAY{ARRAY{INT}} is
+   triplets_with_sum(n : INT) : ARRAY{ARRAY{INT}}
+      pre n >= 3
+   is
       -- Euclid's formula: every triplet is k(p*p - q*q), 2kpq, k(p*p + q*q)
       -- for coprime p > q > 0 of opposite parity, and sums to 2kp(p + q).
       -- Every value stays near sqrt(n) or below n, so nothing overflows INT,

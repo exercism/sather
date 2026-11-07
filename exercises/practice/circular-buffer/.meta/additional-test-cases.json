@@ -1,0 +1,40 @@
+[
+  {
+    "description": "can hold strings",
+    "property": "run",
+    "input": {
+      "capacity": 2,
+      "operations": [
+        {
+          "operation": "write",
+          "item": "A",
+          "should_succeed": true
+        },
+        {
+          "operation": "write",
+          "item": "B",
+          "should_succeed": true
+        },
+        {
+          "operation": "overwrite",
+          "item": "C"
+        },
+        {
+          "operation": "read",
+          "should_succeed": true,
+          "expected": "B"
+        },
+        {
+          "operation": "read",
+          "should_succeed": true,
+          "expected": "C"
+        },
+        {
+          "operation": "read",
+          "should_succeed": false
+        }
+      ]
+    },
+    "expected": {}
+  }
+]

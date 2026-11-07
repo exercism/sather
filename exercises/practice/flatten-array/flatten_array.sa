@@ -1,42 +1,62 @@
-class NESTED is
+abstract class $NESTED is
 
-   -- One item of a nested list. Sather arrays hold a single type, so a
-   -- list that mixes numbers, nothing, and further lists needs a type of
-   -- its own. This is it, and it is given to you.
+   -- One item of a nested list: a number, nothing at all, or more items.
+   -- Sather arrays hold a single type, so a list mixing all three holds
+   -- $NESTED, and each kind of item is a class conforming to it. These
+   -- classes are given to you, apart from the bodies of gather.
 
-   const number_kind : INT := 0;      -- holds a number
-   const nothing_kind : INT := 1;     -- holds nothing at all
-   const list_kind : INT := 2;        -- holds more items
+   gather(into : LIST{INT});
+      -- Append this item's numbers to `into', in order.
 
-   readonly attr kind : INT;
+end; -- abstract class $NESTED
+
+class NESTED_NUMBER < $NESTED is
+
    readonly attr number : INT;
-   readonly attr items : ARRAY{NESTED};
 
    create(n : INT) : SAME is
       r ::= new;
-      r.kind := number_kind;
       r.number := n;
       return r;
    end;
 
-   create(list : ARRAY{NESTED}) : SAME is
+   gather(into : LIST{INT}) is
+      -- A number contributes itself.
+   end;
+
+end; -- class NESTED_NUMBER
+
+class NESTED_NOTHING < $NESTED is
+
+   create : SAME is
+      return new;
+   end;
+
+   gather(into : LIST{INT}) is
+      -- Nothing contributes no number.
+   end;
+
+end; -- class NESTED_NOTHING
+
+class NESTED_ITEMS < $NESTED is
+
+   readonly attr items : ARRAY{$NESTED};
+
+   create(list : ARRAY{$NESTED}) : SAME is
       r ::= new;
-      r.kind := list_kind;
       r.items := list;
       return r;
    end;
 
-   nothing : SAME is
-      r ::= new;
-      r.kind := nothing_kind;
-      return r;
+   gather(into : LIST{INT}) is
+      -- A list contributes the numbers of each of its items, in order.
    end;
 
-end; -- class NESTED
+end; -- class NESTED_ITEMS
 
 class FLATTEN_ARRAY is
 
-   flatten(nested : NESTED) : ARRAY{INT} is
+   flatten(nested : $NESTED) : ARRAY{INT} is
       -- Every number in the nested list, in order, however deeply buried.
       -- Items holding nothing are left out.
       return #ARRAY{INT}(0);
