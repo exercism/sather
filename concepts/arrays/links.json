@@ -1,6 +1,6 @@
 [
   {
-    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/librarybasic.html",
-    "description": "ARRAY and the other container classes"
+    "url": "https://www.gnu.org/software/sather/docs-1.2/tutorial/arrays.html",
+    "description": "Support for arrays, including ARRAY{T}"
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/classes.html",
-    "description": "Preconditions, postconditions and invariants"
+    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/safetyfeatures.html",
+    "description": "Pre- and post-conditions, assert and initial expressions"
   }
 ]

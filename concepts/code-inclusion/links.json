@@ -1,6 +1,6 @@
 [
   {
-    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/classes.html",
-    "description": "include and code reuse"
+    "url": "https://www.gnu.org/software/sather/docs-1.2/specification/codeinclusion.html",
+    "description": "Code inclusion and include clauses"
   }
 ]
