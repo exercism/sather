@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "WARM_UP_LAPS::distance_run": 1,
+    "WARM_UP_LAPS::laps_to_reach": 2,
+    "WARM_UP_LAPS::first_long_lap": 3
+  }
+}

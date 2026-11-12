@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "REHEARSAL_SCRIPT::repeat_cue": 1,
+    "REHEARSAL_SCRIPT::initials": 2,
+    "REHEARSAL_SCRIPT::numbered_lines": 3,
+    "REHEARSAL_SCRIPT::shout": 4
+  }
+}

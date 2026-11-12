@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "SCOREBOARD::create": 1,
+    "SCOREBOARD::home_goal": 2,
+    "SCOREBOARD::away_goal": 2,
+    "SCOREBOARD::summary": 3,
+    "SCOREBOARD::leader": 4,
+    "SCOREBOARD::margin": 5
+  }
+}

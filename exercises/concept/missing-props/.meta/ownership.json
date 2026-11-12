@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "MISSING_PROPS::count_of": 1,
+    "MISSING_PROPS::take_one": 2,
+    "MISSING_PROPS::report": 3
+  }
+}

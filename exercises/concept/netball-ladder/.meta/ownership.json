@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "NETBALL_LADDER::ladder_points": 1,
+    "NETBALL_LADDER::goal_difference": 2,
+    "NETBALL_LADDER::whole_quarters": 3,
+    "NETBALL_LADDER::minutes_into_quarter": 4
+  }
+}

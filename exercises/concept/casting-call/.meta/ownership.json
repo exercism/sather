@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "CASTING_CALL::audition_outcome": 1,
+    "CASTING_CALL::age_group": 2,
+    "CASTING_CALL::callback_time": 3,
+    "CASTING_CALL::casting_note": 4
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "CASE_NOTES::new_case": 1,
+    "CASE_NOTES::add_clue": 2,
+    "CASE_NOTES::clue_count": 3,
+    "CASE_NOTES::rule_out": 4,
+    "CASE_NOTES::summary": 5
+  }
+}

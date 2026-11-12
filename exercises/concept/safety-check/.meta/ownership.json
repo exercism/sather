@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "SAFETY_CHECK::mat_ready": 1,
+    "SAFETY_CHECK::something_below": 2,
+    "SAFETY_CHECK::needs_briefing": 3,
+    "SAFETY_CHECK::old_enough": 4,
+    "SAFETY_CHECK::cleared": 5
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "FORMATION_COUNT::line_ups": 1,
+    "FORMATION_COUNT::line_ups_text": 2,
+    "FORMATION_COUNT::share": 3,
+    "FORMATION_COUNT::combined": 4,
+    "FORMATION_COUNT::covers_whole_show": 5
+  }
+}

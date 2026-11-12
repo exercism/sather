@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "DANCE_FORMATION::dancer_count": 1,
+    "DANCE_FORMATION::leader": 2,
+    "DANCE_FORMATION::back_marker": 3,
+    "DANCE_FORMATION::opening_row": 4,
+    "DANCE_FORMATION::total_steps": 5
+  }
+}

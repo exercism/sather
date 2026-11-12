@@ -1,0 +1,335 @@
+#!/usr/bin/env python3
+"""Check that concept exercises are "Accretive".
+
+An exercise is Accretive if a student who correctly implements the first K
+tasks, leaving the rest exactly as the stub ships them (each body a
+`raise "unimplemented";`), sees every test for tasks 1..K pass.
+
+Sather compiles the whole program before anything runs, and the first
+uncaught `raise` ends the run. That gives these ways to fail:
+
+  Mode A (compile-time): the test file needs a class, routine, attribute or
+    iterator that the stub does not declare, so nothing compiles and NO task
+    passes. Allowed only when task 1 creates the missing definition
+    ("requires-task1-to-compile" in .meta/ownership.json). Detected by
+    compiling the shipped stub against the tests.
+
+  Mode B (runtime): a test for task K calls a routine that the instructions
+    assign to a later task, so it raises even when tasks 1..K are done.
+
+  Ordering: because a raise ends the run, every test for tasks 1..K must come
+    before the first test of any later task, or it never runs.
+
+  Mode B and Ordering are detected together: for each prefix K the exemplar is
+  rebuilt with every unit owned by a task > K replaced by the stub's version
+  of that unit, and every test for tasks 1..K must be reported as passing.
+
+  Structural: the test file has no `-- Task N` markers, so no prefix of tasks
+    can be checked.
+
+Per-exercise data lives in .meta/ownership.json:
+
+  "tasks": unit -> task number it is implemented in, per the instructions.
+    A unit is "CLASS::feature" (a routine, iterator such as "markers!", or
+    "invariant") or a whole "CLASS". Units not listed always come from the
+    exemplar.
+  "requires-task1-to-compile": true when the stub alone does not compile but
+    task 1 creates what is missing.
+
+Tests are mapped to tasks by `-- Task N` comment lines in <slug>_test.sa:
+each test("name", ...) belongs to the nearest marker above it.
+
+Usage:
+  bin/check-accretive [-i IMAGE] [slug...]   # default: all concept exercises
+
+The test runner image is used as it is, never pulled (default
+exercism/sather-test-runner:latest). This script writes only to a fresh
+mktemp dir; it never touches the checkout.
+"""
+import argparse, json, os, re, shutil, subprocess, sys, tempfile
+
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONCEPT = os.path.join(REPO, "exercises/concept")
+DEFAULT_IMAGE = "exercism/sather-test-runner:latest"
+
+CLASS_RE = re.compile(r'^(?:(?:partial|abstract|immutable|external)\s+)*class\s+(\$?[A-Z][A-Z0-9_]*)')
+MARKER_RE = re.compile(r'^\s*--\s*Task\s+(\d+)\b')
+TEST_RE = re.compile(r'\btest\(\s*"((?:[^"\\]|\\.)*)"', re.S)
+HEADING_RE = re.compile(r'^##\s+(\d+)\.', re.M)
+
+
+class ParseError(Exception):
+    pass
+
+
+def feature_name(line):
+    """The name a 3-space-indented line defines, or None if it defines none."""
+    s = line.strip()
+    if s.startswith("--") or s in ("is", "end;") or s.startswith(("pre ", "post ")):
+        return None
+    toks = s.split()
+    while toks and toks[0] in ("private", "readonly", "shared", "const", "attr"):
+        toks = toks[1:]
+    if not toks or toks[0] == "include":
+        return None
+    m = re.match(r'[a-zA-Z_][a-zA-Z0-9_]*!?', toks[0])
+    return m.group(0) if m else None
+
+
+def units(text):
+    """Map unit key -> (start line, end line) (0-based, inclusive).
+
+    Keys are "CLASS" for each top-level class and "CLASS::feature" for each
+    feature directly inside one. A feature starts on a line indented exactly
+    three spaces; it is one line if that line ends with ';', and otherwise
+    runs to the next line that is exactly '   end;'.
+    """
+    lines = text.splitlines()
+    out = {}
+    i, n = 0, len(lines)
+    while i < n:
+        m = CLASS_RE.match(lines[i])
+        if not m:
+            i += 1
+            continue
+        cls, start = m.group(1), i
+        i += 1
+        while i < n and not lines[i].startswith("end;"):
+            ln = lines[i]
+            if re.match(r'^   \S', ln):
+                name = feature_name(ln)
+                if name:
+                    fstart = i
+                    code = re.sub(r'\s+--.*$', '', ln).rstrip()
+                    if not code.endswith(";"):
+                        i += 1
+                        while i < n and lines[i].rstrip() != "   end;":
+                            if lines[i].startswith("end;"):
+                                raise ParseError(f"{cls}::{name} has no '   end;'")
+                            i += 1
+                    key = f"{cls}::{name}"
+                    if key in out:
+                        raise ParseError(f"{key} is defined twice")
+                    out[key] = (fstart, i)
+            i += 1
+        if i >= n:
+            raise ParseError(f"class {cls} has no closing 'end;'")
+        out[cls] = (start, i)
+        i += 1
+    return out
+
+
+def splice(exemplar, stub, keys):
+    """The exemplar with each unit in `keys` replaced by the stub's version."""
+    ex_lines, st_lines = exemplar.splitlines(), stub.splitlines()
+    ex_units, st_units = units(exemplar), units(stub)
+    edits = []
+    for key in keys:
+        if key not in ex_units:
+            raise ParseError(f"the exemplar has no {key}")
+        if key not in st_units:
+            raise ParseError(f"the stub has no {key}")
+        a, b = ex_units[key]
+        c, d = st_units[key]
+        edits.append((a, b, st_lines[c:d + 1]))
+    edits.sort(reverse=True)
+    for (a, _, _), (_, b, _) in zip(edits, edits[1:]):
+        if b >= a:
+            raise ParseError("ownership lists a class and one of its own features")
+    for a, b, repl in edits:
+        ex_lines[a:b + 1] = repl
+    return "\n".join(ex_lines) + "\n"
+
+
+def task_map(test_text):
+    """(ordered list of (test name, task or None), marker numbers in order)."""
+    line_task, markers, task = {}, [], None
+    for idx, ln in enumerate(test_text.splitlines()):
+        m = MARKER_RE.match(ln)
+        if m:
+            task = int(m.group(1))
+            markers.append(task)
+        line_task[idx] = task
+    tests = []
+    for m in TEST_RE.finditer(test_text):
+        line = test_text.count("\n", 0, m.start())
+        tests.append((m.group(1), line_task[line]))
+    return tests, markers
+
+
+def task_sections(instructions):
+    """Task number -> the text of its '## N.' section."""
+    out, task = {}, None
+    for ln in instructions.splitlines():
+        m = HEADING_RE.match(ln)
+        if m:
+            task = int(m.group(1))
+        if task is not None:
+            out[task] = out.get(task, "") + ln + "\n"
+    return out
+
+
+def load(slug):
+    src = os.path.join(CONCEPT, slug)
+    cfg = json.load(open(os.path.join(src, ".meta/config.json")))
+    own_path = os.path.join(src, ".meta/ownership.json")
+    own = json.load(open(own_path)) if os.path.exists(own_path) else {}
+    return src, cfg, own
+
+
+def stage(work, name, src, cfg, solutions):
+    """Copy the exercise into work/name with the given solution file texts."""
+    d = os.path.join(work, name)
+    shutil.copytree(src, d, ignore=shutil.ignore_patterns(".meta", ".docs"))
+    for rel, text in solutions.items():
+        with open(os.path.join(d, rel), "w") as f:
+            f.write(text)
+    os.makedirs(os.path.join(d, ".out"))
+    return d
+
+
+def run_variants(image, slug, work, names):
+    """Run the test runner on each staged variant in one container."""
+    script = "".join(
+        f'/opt/test-runner/bin/run.sh {slug} /work/{n} /work/{n}/.out >/dev/null 2>&1\n'
+        for n in names)
+    subprocess.run(
+        ["docker", "run", "--rm", "--network", "none",
+         "--user", f"{os.getuid()}:{os.getgid()}",
+         "--mount", f"type=bind,src={work},dst=/work",
+         "--tmpfs", "/tmp:exec", "--entrypoint", "bash", image, "-c", script],
+        check=True, capture_output=True, text=True, timeout=1800)
+    results = {}
+    for n in names:
+        p = os.path.join(work, n, ".out/results.json")
+        results[n] = json.load(open(p)) if os.path.exists(p) else {"status": "error", "message": "no results.json"}
+    return results
+
+
+def compiled(result):
+    return bool(result.get("tests")) or "Uncaught" in result.get("message", "")
+
+
+def check(image, slug):
+    """Return (verdict, notes)."""
+    src, cfg, own = load(slug)
+    sols = cfg["files"]["solution"]
+    exes = cfg["files"].get("exemplar") or cfg["files"]["example"]
+    test_text = open(os.path.join(src, cfg["files"]["test"][0])).read()
+    tests, markers = task_map(test_text)
+    notes, verdict = [], "ACCRETIVE"
+
+    headings = [int(h) for h in HEADING_RE.findall(open(os.path.join(src, ".docs/instructions.md")).read())]
+    n_tasks = max(headings) if headings else 1
+
+    if not markers:
+        verdict = "STRUCTURAL"
+        notes.append("tests are not grouped by '-- Task N' markers, so no prefix of tasks can be checked")
+    else:
+        if markers != sorted(markers):
+            notes.append(f"task markers are out of order: {markers}")
+            verdict = "ORDERING"
+        if sorted(set(markers)) != list(range(1, n_tasks + 1)):
+            verdict = "STRUCTURAL"
+            notes.append(f"markers name tasks {sorted(set(markers))} but the instructions have tasks 1..{n_tasks}")
+        unmarked = [t for t, k in tests if k is None]
+        if unmarked:
+            verdict = "STRUCTURAL"
+            notes.append(f"tests before the first marker: {unmarked}")
+        # A name may repeat (the two branches of a protect), but only
+        # within one task, or the name cannot say which task it belongs to.
+        tasks_of = {}
+        for t, k in tests:
+            tasks_of.setdefault(t, set()).add(k)
+        clash = sorted(t for t, ks in tasks_of.items() if len(ks) > 1)
+        if clash:
+            verdict = "STRUCTURAL"
+            notes.append(f"test names used in more than one task: {clash}")
+
+    wmap = own.get("tasks", {})
+    if markers and not wmap and n_tasks > 1:
+        notes.append("no .meta/ownership.json tasks, so the prefix runs were skipped")
+    sections = task_sections(open(os.path.join(src, ".docs/instructions.md")).read())
+    for unit, t in sorted(wmap.items(), key=lambda kv: kv[1]):
+        name = unit.split("::")[-1]
+        if not re.search(r'(?<![\w!])' + re.escape(name) + r'(?![\w!])', sections.get(t, "")):
+            notes.append(f"warning: `{name}` ({unit}) is not mentioned in the instructions for task {t}")
+
+    stubs = {s: open(os.path.join(src, s)).read() for s in sols}
+    exemplars = {s: open(os.path.join(src, e)).read() for s, e in zip(sols, exes)}
+
+    work = tempfile.mkdtemp(prefix=f"acc-{slug}-")
+    try:
+        variants = {"k0": stubs}
+        prefix_errors = {}
+        if markers and wmap:
+            for K in range(1, n_tasks):
+                later = [u for u, t in wmap.items() if t > K]
+                try:
+                    sol = {}
+                    for s in sols:
+                        mine = [u for u in later if (u.split("::")[0] in
+                                {k for k in units(exemplars[s]) if "::" not in k})]
+                        sol[s] = splice(exemplars[s], stubs[s], mine)
+                    variants[f"k{K}"] = sol
+                except ParseError as e:
+                    prefix_errors[K] = str(e)
+        for name, sol in variants.items():
+            stage(work, name, src, cfg, sol)
+        results = run_variants(image, slug, work, list(variants))
+
+        if not compiled(results["k0"]):
+            if own.get("requires-task1-to-compile"):
+                notes.append("stub omits a definition that task 1 creates; accretive by the implement-first-K rule")
+            else:
+                verdict = "MODE-A"
+                notes.append("stub does not compile against the tests (a class/routine/attribute "
+                             "the tests need is missing from the stub)")
+
+        bad = False
+        for K in range(1, n_tasks):
+            if K in prefix_errors:
+                notes.append(f"prefix K={K}: could not build: {prefix_errors[K]}")
+                bad = True
+                continue
+            r = results.get(f"k{K}")
+            if r is None:
+                continue
+            got = {t["name"]: t["status"] for t in r.get("tests", [])}
+            failing = sorted({k for t, k in tests if k is not None and k <= K and got.get(t) != "pass"})
+            if failing:
+                bad = True
+                first = r.get("message", "").strip().splitlines()
+                hint = f" ({first[-1]})" if first and not compiled(r) else ""
+                notes.append(f"prefix K={K}: task(s) {failing} do not all pass{hint}")
+        if bad:
+            verdict = {"MODE-A": "MODE-A+B", "ACCRETIVE": "MODE-B"}.get(verdict, verdict)
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+    return verdict, notes
+
+
+def main():
+    ap = argparse.ArgumentParser(description="Check that concept exercises are accretive.")
+    ap.add_argument("-i", "--image", default=DEFAULT_IMAGE)
+    ap.add_argument("slugs", nargs="*")
+    args = ap.parse_args()
+    slugs = [s for s in (args.slugs or sorted(os.listdir(CONCEPT)))
+             if os.path.isdir(os.path.join(CONCEPT, s))]
+    failures = 0
+    for slug in slugs:
+        try:
+            verdict, notes = check(args.image, slug)
+        except ParseError as e:
+            verdict, notes = "ERROR", [str(e)]
+        if verdict != "ACCRETIVE":
+            failures += 1
+        print(f"{slug:28s} {verdict}", flush=True)
+        for nt in notes:
+            print(f"    - {nt}", flush=True)
+    print(f"\n{failures} non-accretive of {len(slugs)} checked")
+    sys.exit(1 if failures else 0)
+
+
+if __name__ == "__main__":
+    main()

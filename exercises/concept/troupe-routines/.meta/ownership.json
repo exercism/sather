@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "JAZZ_ROUTINE": 1,
+    "TAP_ROUTINE": 2,
+    "FINALE": 3
+  }
+}

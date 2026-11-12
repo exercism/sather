@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "PROGRAMME_NOTES::full_title": 1,
+    "PROGRAMME_NOTES::title_length": 2,
+    "PROGRAMME_NOTES::opening_letters": 3,
+    "PROGRAMME_NOTES::closing_letters": 4,
+    "PROGRAMME_NOTES::short_title": 5
+  }
+}

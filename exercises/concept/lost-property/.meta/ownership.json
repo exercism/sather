@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "LOST_BOX::create": 1,
+    "LOST_BOX::claim": 2,
+    "LOST_BOX::waiting": 3,
+    "LOST_BOX::replace": 4,
+    "LOST_BOX::describe": 5
+  }
+}
