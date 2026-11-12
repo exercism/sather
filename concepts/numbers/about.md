@@ -4,7 +4,7 @@
 counts from -2147483648 to 2147483647.
 
 ```sather
-   goals : INT is
+   patients : INT is
       return 42;
    end;
 ```
@@ -14,8 +14,8 @@ counts from -2147483648 to 2147483647.
 A routine takes arguments in brackets, each with a type:
 
 ```sather
-   total(first : INT, second : INT) : INT is
-      return first + second;
+   dose(kilos : INT, per_kilo : INT) : INT is
+      return kilos * per_kilo;
    end;
 ```
 
@@ -23,7 +23,7 @@ Arguments that share a type can share the declaration, which is the usual
 style:
 
 ```sather
-   total(first, second : INT) : INT is
+   dose(kilos, per_kilo : INT) : INT is
 ```
 
 ## Arithmetic

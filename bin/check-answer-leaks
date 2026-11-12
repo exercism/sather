@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""Check that concept exercise docs do not hand students the answers.
+
+A concept exercise's introduction (identical to the concept's introduction),
+the concept's about.md and the exercise's hints should teach the concept on
+other material: a student should still have to think to solve each task. This
+script compares those docs with the exemplar and reports
+
+  - an exemplar routine at least half of whose non-trivial lines appear in a
+    ```sather block of a doc (identifiers, constants and all);
+  - string literals of three or more characters from the exemplar that appear
+    anywhere in a doc;
+  - the exemplar's class and routine names used in a ```sather block of the
+    introduction or about.md;
+  - an exercise introduction that differs from its concept's introduction.
+
+It is a heuristic: logic copied under new names gets past it, so it does not
+replace reading the docs. Lines that are the concept itself (a single library
+call such as `.upper`) can be allowed per exercise in ALLOW below.
+
+Usage:
+  bin/check-answer-leaks [slug...]      # default: all concept exercises
+"""
+import json, os, re, sys
+
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONCEPT = os.path.join(REPO, "exercises/concept")
+
+# Reuse the exemplar parser from bin/check-accretive.
+_ns = {"__file__": os.path.join(REPO, "bin/check-accretive"), "__name__": "check_accretive"}
+exec(compile(open(_ns["__file__"]).read(), _ns["__file__"], "exec"), _ns)
+units = _ns["units"]
+
+TRIVIAL = {"", "end;", "end", "else", "loop", "is", "then", "return;"}
+
+# Names every Sather class may use, which say nothing about the answer.
+GENERIC = {"create", "str", "is_eq", "invariant", "main"}
+
+# slug -> findings to accept, as exact strings: a normalised code line, a
+# string literal, or a name. Keep this short; each entry is a judgement that
+# showing the thing is the concept itself.
+ALLOW = {
+}
+
+
+def norm(line):
+    return re.sub(r"\s+", " ", re.sub(r"--.*", "", line)).strip()
+
+
+def code_blocks(md):
+    return re.findall(r"```sather\n(.*?)```", md, re.S)
+
+
+def code_lines(md):
+    return {norm(l) for b in code_blocks(md) for l in b.splitlines()} - TRIVIAL
+
+
+def literals(text):
+    return set(re.findall(r'"((?:[^"\\\n]|\\.){3,})"', text))
+
+
+def concept_of(slug):
+    cfg = json.load(open(os.path.join(REPO, "config.json")))
+    for ex in cfg["exercises"]["concept"]:
+        if ex["slug"] == slug:
+            return ex["concepts"][0]
+    return None
+
+
+def check(slug):
+    d = os.path.join(CONCEPT, slug)
+    concept = concept_of(slug)
+    allow = ALLOW.get(slug, set())
+    exemplar = open(os.path.join(d, ".meta/exemplar.sa")).read()
+    ex_lines = exemplar.splitlines()
+    intro_path = os.path.join(d, ".docs/introduction.md")
+    docs = {
+        "introduction": open(intro_path).read(),
+        "about": open(os.path.join(REPO, "concepts", concept, "about.md")).read(),
+        "hints": open(os.path.join(d, ".docs/hints.md")).read(),
+    }
+    notes = []
+
+    concept_intro = os.path.join(REPO, "concepts", concept, "introduction.md")
+    if open(concept_intro).read() != docs["introduction"]:
+        notes.append(f"introduction differs from concepts/{concept}/introduction.md")
+
+    stub_names = set()
+    for key in units(exemplar):
+        if "::" in key:
+            stub_names.add(key.split("::")[1])
+        else:
+            stub_names.add(key)
+    ex_literals = literals(exemplar) - allow
+
+    for doc, text in docs.items():
+        cl = code_lines(text) - allow
+        for key, (a, b) in units(exemplar).items():
+            if "::" not in key:
+                continue
+            body = [norm(l) for l in ex_lines[a:b + 1]]
+            body = [l for l in body if l not in TRIVIAL]
+            hits = [l for l in body if l in cl]
+            if len(hits) >= 2 and len(hits) * 2 >= len(body):
+                notes.append(f"{doc}: {len(hits)}/{len(body)} lines of {key}: {hits[0]!r}")
+        found = sorted(s for s in ex_literals if f'"{s}"' in text)
+        if found:
+            notes.append(f"{doc}: exemplar strings {found}")
+        if doc != "hints":
+            code = "\n".join(code_blocks(text))
+            names = sorted(n for n in stub_names - allow - GENERIC
+                           if re.search(r"(?<![\w$])" + re.escape(n) + r"(?![\w!])", code))
+            if names:
+                notes.append(f"{doc}: exemplar names in code {names}")
+    return notes
+
+
+def main():
+    slugs = sys.argv[1:] or sorted(s for s in os.listdir(CONCEPT)
+                                   if os.path.isdir(os.path.join(CONCEPT, s)))
+    bad = 0
+    for slug in slugs:
+        notes = check(slug)
+        print(f"{slug:28s} {'LEAKS' if notes else 'ok'}")
+        for n in notes:
+            print(f"    - {n}")
+        bad += bool(notes)
+    print(f"\n{bad} of {len(slugs)} with findings")
+    sys.exit(1 if bad else 0)
+
+
+if __name__ == "__main__":
+    main()

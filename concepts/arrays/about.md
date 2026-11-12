@@ -3,8 +3,8 @@
 `ARRAY{T}` is a fixed row of values of type `T`.
 
 ```sather
-   row : ARRAY{STR} := |"Mia", "Ana", "Ben"|;
-   sizes : ARRAY{INT} := |3, 1, 2|;
+   shelf : ARRAY{STR} := |"Emma", "Dracula", "Kim"|;
+   pages : ARRAY{INT} := |474, 418, 368|;
 ```
 
 ## The braces
@@ -17,9 +17,9 @@ class yourself comes later.
 ## Positions
 
 ```sather
-row[0]                 -- the first
-row[row.size - 1]      -- the last
-row.size               -- how many
+shelf[0]                 -- the first
+shelf[shelf.size - 1]    -- the last
+shelf.size               -- how many
 ```
 
 Positions run from `0` to `.size - 1`. An array knows its size and never
@@ -30,8 +30,8 @@ changes it: there is no appending to an `ARRAY`.
 `#ARRAY{INT}(n)` makes an array of `n` values, each nought:
 
 ```sather
-   counts ::= #ARRAY{INT}(5);      -- five noughts
-   counts[0] := 7;
+   loans ::= #ARRAY{INT}(5);      -- five noughts
+   loans[0] := 7;
 ```
 
 Assigning into a position uses the same square brackets on the left of
@@ -51,5 +51,5 @@ write whatever happens to be next in memory. Two habits avoid it: use
 out:
 
 ```sather
-   #OUT + row.str;      -- {Mia,Ana,Ben}
+   #OUT + shelf.str;      -- {Emma,Dracula,Kim}
 ```

@@ -14,7 +14,7 @@
    #INTI("123456789012345678901234567890")
    a + b, a - b, a * b, a / b
    a < b, a = b
-   #INTI(25).factorial
+   #INTI(30).factorial
    #INTI(48).gcd(#INTI(18))       -- 6
    #INTI(2).pow(100)
    big.str
@@ -58,8 +58,8 @@ Reach for `INTI` when a count can exceed two thousand million: factorials,
 powers, combinations, running totals over a long time.
 
 Reach for `RAT` when fractions must be exact and the denominators are
-small-ish: shares, probabilities, musical note values, anything that would
-otherwise accumulate rounding error.
+small-ish: shares, probabilities, chess scores counted in half points,
+anything that would otherwise accumulate rounding error.
 
 Reach for neither by default. `INT` and `FLTD` are far faster, and most
 arithmetic does not need more.

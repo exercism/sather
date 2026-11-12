@@ -1,8 +1,8 @@
 # Contracts
 
 A routine's arguments and return type say what *kind* of thing goes in and
-comes out. They cannot say that a weight must be positive, or that a harness
-never reports more spare capacity than it has.
+comes out. They cannot say that a number of withdrawals must not be
+negative, or that a bank account never reports more dollars than it holds.
 
 A **contract** says those things, in the routine's own header, where anybody
 reading it will see them.
@@ -13,14 +13,15 @@ reading it will see them.
 the return type and the `is`.
 
 ```sather
-   spare_capacity(load : INT) : INT
-      pre load >= 0
+   fee(withdrawals : INT) : INT
+      pre withdrawals >= 0
    is
-      return limit - load;
+      return withdrawals * 50;
    end;
 ```
 
-That is a demand on the **caller**: do not call this with a negative load.
+That is a demand on the **caller**: do not call this with a negative number
+of withdrawals. `create` may have a `pre` like any other routine.
 
 ## post
 
@@ -28,11 +29,11 @@ That is a demand on the **caller**: do not call this with a negative load.
 `result` is the value being returned.
 
 ```sather
-   percent_used(load : INT) : INT
-      pre load >= 0
-      post result >= 0
+   whole_dollars : INT
+      pre balance >= 0
+      post result * 100 <= balance
    is
-      return load * 100 / limit;
+      return balance / 100;
    end;
 ```
 
@@ -42,8 +43,32 @@ this, and I will give you that.
 Several conditions join with `and`, as any booleans do:
 
 ```sather
-      pre load >= 0 and load <= limit
+      pre rate >= 0 and rate <= 20
 ```
+
+A `post` on a routine that answers a `BOOL` can compare `result` with a
+question. The question goes in brackets, because `=` is doing two different
+jobs on the one line:
+
+```sather
+      post result = (balance < 0)
+```
+
+## Class invariants
+
+A class may state something true of every object of it between calls, in a
+routine named `invariant` that answers a `BOOL`:
+
+```sather
+   invariant : BOOL is
+      return void(self) or (overdraft >= 0 and balance + overdraft >= 0);
+   end;
+```
+
+It is checked on entry to and exit from every public routine. That includes
+entry to `create`, when there is no object yet and `self` is void. Reading
+an attribute from a void `self` stops the program. `or` stops at the first
+true part, so asking `void(self)` first keeps the rest from being read.
 
 ## Contracts are not exceptions
 

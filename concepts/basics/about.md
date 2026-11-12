@@ -15,8 +15,8 @@ end; -- class GREETER
 ## Classes
 
 A class is named in capitals, with underscores between words:
-`GREETER`, `STAGE_DIRECTIONS`. The name of the file usually matches, in lower
-case: `stage_directions.sa`.
+`GREETER`, `LIGHTHOUSE_LOG`. The name of the file usually matches, in lower
+case: `lighthouse_log.sa`.
 
 Every routine lives inside a class. There is no code outside one.
 

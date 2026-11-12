@@ -3,8 +3,8 @@
 `STR` holds text. A string is written between double quotes.
 
 ```sather
-   composer : STR is
-      return "Sibelius";
+   street : STR is
+      return "Collins";
    end;
 ```
 
@@ -14,20 +14,20 @@ string rather than altering the one it was asked about.
 ## Joining
 
 ```sather
-"Jean" + " " + "Sibelius"      -- "Jean Sibelius"
+"Collins" + " " + "Street"     -- "Collins Street"
 ```
 
 `+` will also join a number onto a string, which is how a number gets into
 a sentence:
 
 ```sather
-"Opus " + 27           -- "Opus 27"
+"Route " + 27          -- "Route 27"
 ```
 
 ## Length
 
 ```sather
-"Sibelius".size        -- 8
+"Collins".size         -- 7
 "".size                -- 0
 ```
 
@@ -37,8 +37,8 @@ a sentence:
 
 | Call | Answer |
 | --- | --- |
-| `"Sibelius".head(3)` | `"Sib"` |
-| `"Sibelius".tail(4)` | `"lius"` |
+| `"Collins".head(4)` | `"Coll"` |
+| `"Collins".tail(3)` | `"ins"` |
 
 Asking for more than there is gives back what there is, rather than
 failing.
@@ -49,16 +49,16 @@ failing.
 differ.
 
 ```sather
-"forte" = "forte"      -- true
-"forte" = "Forte"      -- false
+"lane" = "lane"        -- true
+"lane" = "Lane"        -- false
 ```
 
 Case matters. `.upper` and `.lower` give a copy in one case, which is the
 usual way to compare without caring:
 
 ```sather
-"Forte".lower                    -- "forte"
-"Forte".lower = "forte".lower    -- true
+"Lane".lower                      -- "lane"
+"Lane".lower = "lane".lower      -- true
 ```
 
 ## A word about size

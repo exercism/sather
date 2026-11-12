@@ -4,11 +4,11 @@ A **conditional** picks between two courses of action depending on whether
 something is true.
 
 ```sather
-   verdict(score : INT) : STR is
-      if score >= 5 then
-         return "Recalled";
+   kettle(celsius : INT) : STR is
+      if celsius >= 100 then
+         return "Boiling";
       else
-         return "Thank you";
+         return "Not yet";
       end;
    end;
 ```
@@ -23,20 +23,21 @@ after `else` run when it is false. `end;` closes the whole thing.
 false.
 
 ```sather
-   verdict(score : INT) : STR is
-      if score >= 8 then
-         return "Cast";
-      elsif score >= 5 then
-         return "Recalled";
+   postage(grams : INT) : INT is
+      if grams <= 100 then
+         return 120;
+      elsif grams <= 500 then
+         return 300;
       else
-         return "Thank you";
+         return 750;
       end;
    end;
 ```
 
-The order matters. A score of `9` is caught by the first question and never
-reaches the second, even though `9 >= 5` is also true. Writing the tests in
-the wrong order is the usual way to get this wrong.
+The order matters. A 50 gram letter is caught by the first question and never
+reaches the second, even though `50 <= 500` is also true. Swap the two
+questions and every parcel up to 500 grams is charged 300, letters included.
+Asking the questions in the wrong order is the usual way to get this wrong.
 
 It is spelled `elsif` — not `elseif`, and not `else if`.
 

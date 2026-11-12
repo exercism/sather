@@ -1,14 +1,14 @@
 # Abstract Classes
 
 ```sather
-abstract class $ACT is
-   name : STR;
-   minutes : INT;
+abstract class $CYCLE is
+   model : STR;
+   wheels : INT;
 end;
 
-class JUGGLING < $ACT is
-   name : STR is return "Juggling"; end;
-   minutes : INT is return 5; end;
+class TRICYCLE < $CYCLE is
+   model : STR is return "Tricycle"; end;
+   wheels : INT is return 3; end;
    create : SAME is return new; end;
 end;
 ```
@@ -28,7 +28,7 @@ something, never what it holds.
 ## Conformance
 
 ```sather
-class TRAPEZE < $ACT is
+class ROAD_BIKE < $CYCLE is
 ```
 
 The class must define every routine listed, with matching argument types and
@@ -37,14 +37,14 @@ return type. It is checked when compiled.
 A class may conform to several:
 
 ```sather
-class TRAPEZE < $ACT, $RISKY is
+class ROAD_BIKE < $CYCLE, $FOR_HIRE is
 ```
 
 and abstract classes may extend one another:
 
 ```sather
-abstract class $TIMED_ACT < $ACT is
-   overrun : INT;
+abstract class $GEARED_CYCLE < $CYCLE is
+   gears : INT;
 end;
 ```
 
@@ -62,14 +62,14 @@ variable of a concrete type is settled when compiled.
 Sometimes the kind really does matter. `typecase` asks:
 
 ```sather
-   typecase act
-   when TRAPEZE then #OUT + "rig the net";
-   else            #OUT + "nothing to rig";
+   typecase cycle
+   when ROAD_BIKE then #OUT + "oil the gears";
+   else              #OUT + "no gears to oil";
    end;
 ```
 
 Inside an arm, the variable has the narrower type. Reach for it rarely: a
-`typecase` over every kind of act is usually a routine that belonged in the
+`typecase` over every kind of cycle is usually a routine that belonged in the
 abstract class in the first place.
 
 ## $OB

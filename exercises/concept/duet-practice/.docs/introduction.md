@@ -5,9 +5,9 @@ once per turn, and they move forward together.
 
 ```sather
    loop
-      first ::= violin_one.elt!;
-      second ::= violin_two.elt!;
-      #OUT + first + " against " + second + "\n";
+      fruit ::= fruits.elt!;
+      price ::= prices.elt!;
+      #OUT + fruit + ": " + price + "p\n";
    end;
 ```
 
@@ -20,9 +20,9 @@ second with second.
 
 Not when the last one does. Not when all of them have. The first.
 
-So if `violin_one` holds four bars and `violin_two` holds two, the loop
-above runs **twice**. The third and fourth bars of the first part are never
-looked at, because by then the second part has nothing left to offer.
+So if `fruits` holds four fruits and `prices` holds two prices, the loop
+above runs **twice**. The third and fourth fruits are never looked at,
+because by then there is no price left to put beside them.
 
 That is usually exactly what is wanted — pairing things up only makes sense
 while there are pairs — but it has to be known rather than discovered.
@@ -41,17 +41,17 @@ the values without ever deciding how far to count:
 
 ```sather
    loop
-      number ::= 1.up!;
-      bar ::= part.elt!;
-      #OUT + "Bar " + number + ": " + bar + "\n";
+      stall ::= 1.up!;
+      fruit ::= fruits.elt!;
+      #OUT + "Stall " + stall + " sells " + fruit + "\n";
    end;
 ```
 
-`part.elt!` ends the loop; `1.up!` supplies the numbering. Neither has to
-know how long the part is.
+`fruits.elt!` ends the loop; `1.up!` supplies the numbering. Neither has to
+know how many fruits there are.
 
 ## Order does not matter
 
 The iterators are all asked once per turn, so it makes no difference which
 is written first. What matters is that each is asked exactly once — writing
-`part.elt!` twice in one turn takes two values instead of one.
+`fruits.elt!` twice in one turn takes two values instead of one.

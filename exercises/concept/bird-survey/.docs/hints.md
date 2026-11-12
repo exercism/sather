@@ -9,34 +9,35 @@
 
 ## 1. The total
 
-- `counts.elt!` gives one count each time round.
+- `elt!` on the array gives one count each time round.
 - Start the total at `0`, which also gives the right answer for a survey
   with no days.
 
 ## 2. The best day
 
 - Keep the best seen so far in a variable, starting at `0`.
-- Each time round, compare and replace if this day beats it. `.max` does the
-  comparison in one step: `best := best.max(counts.elt!)`.
+- Each time round, compare and replace if this day beats it. `a.max(b)`
+  answers the larger of two numbers, which does the comparison in one step.
 
 ## 3. The busy days
 
-- Count rather than add: `if counts.elt! > n then found := found + 1; end;`
-- Ask the iterator once, inside the `if` condition. Writing `counts.elt!`
-  twice in one body walks the array twice over.
+- Count rather than add: an `if` inside the loop decides whether this day
+  adds one to the count.
+- Ask the iterator once, inside the `if` condition. Writing the same `elt!`
+  call twice in one body walks the array twice over.
 
 ## 4. Hides to check
 
-- Nothing is being walked here, so `elt!` is no use. `1.upto!(days)` counts
-  for you.
-- `1.upto!(0)` gives nothing at all, which is the right answer for nought
-  days.
+- Nothing is being walked here, so `elt!` is no use. `upto!` counts for
+  you.
+- Counting up to nought from one gives nothing at all, which is the right
+  answer for nought days.
 
 ## 5. The first busy day
 
-- The answer is a position, not a value, so walk the positions:
-  `i ::= 0.upto!(counts.size - 1)`.
-- Start the answer at `-1`. If nothing is found, that is already what should
-  be returned.
+- The answer is a position, not a value, so walk the positions with
+  `upto!`, as the introduction does.
+- Start the answer at the value for "not found". If nothing is found, that
+  is already what should be returned.
 - Once a day is found, `break!` out — otherwise a later busy day would
   overwrite the first one.

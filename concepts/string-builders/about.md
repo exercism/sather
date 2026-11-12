@@ -6,16 +6,16 @@
 ```sather
    b ::= #FSTR;              -- empty
    b ::= #FSTR(256);         -- empty, with room for 256 characters
-   b ::= #FSTR("Act I: ");   -- starting from a string
-   b := b + "Enter";
+   b ::= #FSTR("Log: ");     -- starting from a string
+   b := b + "fog";
    s ::= b.str;              -- a STR again
 ```
 
 ## Always assign the result back
 
 ```sather
-   b := b + "Enter";         -- yes
-   b + "Enter";              -- no: the answer is thrown away
+   b := b + "fog";           -- yes
+   b + "fog";                -- no: the answer is thrown away
 ```
 
 `FSTR` grows by **amortised doubling**: when it runs out of room it takes a
@@ -32,7 +32,7 @@ its square: the copies get rarer as fast as they get more expensive.
 Joining a fixed, small number of pieces with `+` is clear and fine:
 
 ```sather
-   return piece + " by " + composer;
+   return "Turn left into " + street + ".";
 ```
 
 The problem is only a loop, where the number of joins is not known when the

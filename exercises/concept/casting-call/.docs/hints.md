@@ -4,8 +4,8 @@
 
 - Each of these picks one of three answers, so each is an `if` with one
   `elsif` and one `else`.
-- Ask the most demanding question first. If `score >= 5` is asked before
-  `score >= 8`, the second can never be reached.
+- Ask the most demanding question first. A question that more values pass
+  hides any narrower question below it, which can then never be reached.
 
 ## 1. The verdict
 
@@ -20,13 +20,12 @@
 
 ## 3. When to come back
 
-- `=` compares two strings: `if group = "Juniors" then`.
+- `=` compares two strings the same way it compares two numbers.
 - Spell the group names exactly as task 2 returns them, capital letter and
   all.
 
 ## 4. What to write on the sheet
 
-- The first case needs two things at once, so join them with `and`:
-  `if score >= 8 and sings then`.
+- The first case needs two things at once, so join them with `and`.
 - The second case is reached only when the first has already failed, so it
   does not need to ask about singing again.

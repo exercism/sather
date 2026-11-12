@@ -4,19 +4,19 @@
 
 - The stub already declares the four attributes and every routine. Replace
   each `raise "unimplemented";` with the real body.
-- Inside the class an attribute is used by name, with no object in front:
-  `home_score`, not `board.home_score`.
+- Inside the class an attribute is used by name, with no object in front,
+  as `insert` uses `credit` in the introduction.
 
 ## 1. Set up the board
 
-- `create` returns `SAME`, and starts with `board ::= new;`.
+- `create` returns `SAME`, and starts by making the object with `new`.
 - Set the two team names from the arguments and return the object.
 - The scores need no setting. An `INT` attribute starts at nought already.
 
 ## 2. Score a goal
 
 - These answer nothing, so they are declared with no `:` and no type at all:
-  `home_goal is`.
+  just the name, then `is`.
 - The body is one line: add one to the score and put it back.
 
 ## 3. Read the board

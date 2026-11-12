@@ -19,7 +19,7 @@
 
 ## 3. Is it still waiting?
 
-- `~claimed`. No `if` needed.
+- `~` turns true into false and false into true. No `if` needed.
 
 ## 4. Swap the contents
 
@@ -32,4 +32,5 @@
 - Change the class header to `class LOST_BOX{T < $STR}`.
 - Without that, `item.str` does not compile, because nothing is known about
   a bare `T` beyond being able to move it about.
-- The item comes first in the line, so start the join with `item.str`.
+- The item comes first in the line, then the words from the instructions,
+  then the name.

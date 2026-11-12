@@ -5,7 +5,7 @@
 - Every task here is one loop with no counter and no `until!`. The
   iterators end it.
 - Ask each iterator exactly once per turn and put the value in a variable.
-  Writing `first.elt!` twice takes two bars instead of one.
+  Writing the same `elt!` call twice takes two bars instead of one.
 
 ## 1. How many bars do they play together?
 
@@ -26,6 +26,7 @@
 ## 4. Weight the bars
 
 - There is only one array here, but two iterators.
-- `1.up!` counts 1, 2, 3 … and never stops. Paired with `part.elt!`, the
-  array decides when the loop ends and `up!` supplies the numbers.
+- `up!` counts on from where it starts and never stops. Paired with `elt!`
+  on the array, the array decides when the loop ends and `up!` supplies the
+  numbers.
 - Multiply the two together and add to a running total.

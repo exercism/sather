@@ -1,9 +1,12 @@
 # Custom Iterators
 
 ```sather
-   markers!(once spacing : INT, once count : INT) : INT is
+   proving!(once dough : INT, once hours : INT) : INT is
+      size ::= dough;
       loop
-         yield spacing * 1.upto!(count);
+         ignored ::= 1.upto!(hours);
+         size := size * 2;
+         yield size;
       end;
    end;
 ```
@@ -47,7 +50,7 @@ An iterator with a return type must `yield` a value every time it yields;
 ## once
 
 ```sather
-   markers!(once count : INT) : INT is
+   proving!(once dough : INT, once hours : INT) : INT is
 ```
 
 A `once` argument is evaluated when the loop is entered and kept. A plain
@@ -56,7 +59,7 @@ passed in contains another iterator call:
 
 ```sather
    loop
-      #OUT + TRAIL::markers!(sizes.elt!);     -- a new count every turn
+      #OUT + BAKERY::fits!(trays, ovens.elt!);   -- a new room every turn
    end;
 ```
 

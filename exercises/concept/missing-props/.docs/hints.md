@@ -3,8 +3,8 @@
 ## 1. How many have we got?
 
 - Ask `has_ind` first, and `raise` when the answer is false.
-- The message is built with `+`, as any string is:
-  `raise "Unknown prop: " + prop;`
+- The message is built with `+`, as any string is: the words from the
+  instructions, then the prop's name.
 - Nothing after a `raise` runs, so there is no `else` to write. The `return`
   below it is only reached when the prop is there.
 
@@ -13,7 +13,7 @@
 - Call `count_of` for the number. If the prop is unknown, that call raises
   and `take_one` raises too — you do not have to write anything for it, and
   should not.
-- Then check for nought and raise `"Out of " + prop`.
+- Then check for nought and raise the second message, built the same way.
 - Otherwise return one less.
 
 ## 3. Report back

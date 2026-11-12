@@ -4,14 +4,14 @@
 replaced with a larger one when it fills up.
 
 ```sather
-   notes ::= #LIST{STR};
-   notes.append("muddy boots");
-   notes[0]                     -- "muddy boots"
-   notes[0] := "clean boots";
-   notes.size
-   notes.is_empty
-   notes.has("clean boots")
-   notes.remove_index(0);
+   pantry ::= #LIST{STR};
+   pantry.append("rice");
+   pantry[0]                    -- "rice"
+   pantry[0] := "brown rice";
+   pantry.size
+   pantry.is_empty
+   pantry.has("brown rice")
+   pantry.remove_index(0);
 ```
 
 ## Array or list?
@@ -24,8 +24,8 @@ replaced with a larger one when it fills up.
 | indexing | `a[i]` | `l[i]` |
 | overhead | none | a size, and spare room |
 
-Use an `ARRAY` when the size is known and settled — a row of dancers, a
-week of counts. Use a `LIST` when things arrive or leave.
+Use an `ARRAY` when the size is known and settled — the days of a
+week, the squares of a board. Use a `LIST` when things arrive or leave.
 
 ## In place, not functional
 
@@ -39,7 +39,7 @@ functional, and everything else changes in place.
 To hand out a list nothing can spoil, give away a copy:
 
 ```sather
-   return notes.copy;
+   return pantry.copy;
 ```
 
 ## The cost of appending

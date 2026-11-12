@@ -5,7 +5,7 @@
 - Each routine takes whole numbers in and gives a whole number back, so both
   the arguments and the answer are `INT`.
 - Two arguments of the same type can share a declaration:
-  `ladder_points(wins, draws : INT) : INT`.
+  `dose(kilos, per_kilo : INT) : INT`.
 
 ## 1. Ladder points
 

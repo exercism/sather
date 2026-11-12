@@ -16,8 +16,8 @@
 
 ## 2. What kind of ticket?
 
-- `'c'` and `'s'` give the same answer, so they share one arm:
-  `when 'c', 's' then`.
+- Two of the letters give the same answer, so they share one arm, listed
+  with a comma between them.
 - Single quotes: the argument is a `CHAR`, not a `STR`.
 
 ## 3. What kind of day?

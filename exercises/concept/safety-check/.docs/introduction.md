@@ -23,8 +23,8 @@ Comparing two numbers gives a `BOOL`.
 | `>=` | bigger, or the same? |
 
 ```sather
-   old_enough(age : INT) : BOOL is
-      return age >= 13;
+   overdue(days_out : INT) : BOOL is
+      return days_out > 21;
    end;
 ```
 
@@ -37,13 +37,13 @@ Three operators build bigger questions out of smaller ones.
 `and` is true when **both** sides are true.
 
 ```sather
-harness_on and rope_checked
+has_card and paid_up
 ```
 
 `or` is true when **either** side is true, or both.
 
 ```sather
-mat_below or net_below
+on_shelf or on_order
 ```
 
 `~` flips an answer over: it turns true into false and false into true.
