@@ -1,7 +1,7 @@
 # Instructions
 
 You are calling the cues for your school's production. The stage manager
-wants the standard lines written down so that anyone can run the desk.
+wants the standard lines written down, so that anyone can run the desk.
 
 You have four tasks, all in the `STAGE_DIRECTIONS` class.
 
@@ -34,8 +34,9 @@ STAGE_DIRECTIONS::closing_line
 
 ## 4. Call the final cue
 
-The final cue is the same line as the one that closes the show. Rather than
-writing the text out a second time, call the routine you already wrote.
+The final cue is the same line as the one that closes the show. Rather
+than writing the text out a second time, call the routine you already
+wrote.
 
 ```sather
 STAGE_DIRECTIONS::final_cue

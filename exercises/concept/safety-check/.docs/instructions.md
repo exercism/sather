@@ -1,7 +1,8 @@
 # Instructions
 
 Nobody gets on the trapeze at the circus until the safety checks pass.
-You are writing the checks down so the same rules apply to everybody.
+You are writing the checks down, so that the same rules apply to
+everybody.
 
 All five tasks go in the `SAFETY_CHECK` class.
 
@@ -44,13 +45,13 @@ SAFETY_CHECK::old_enough(13)
 
 ## 5. Put it all together
 
-A performer is cleared for the trapeze when they are old enough, they have
-been briefed, and the mat is ready.
+A performer is cleared for the trapeze when they are old enough, they
+have been briefed, and the mat is ready.
 
 ```sather
 SAFETY_CHECK::cleared(14, true, true, true)
 -- => true
 ```
 
-The four arguments are the age, whether they have been briefed, whether the
-mat is down, and whether the mat is clean.
+The four arguments are the age, whether they have been briefed, whether
+the mat is down, and whether the mat is clean.

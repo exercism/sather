@@ -43,3 +43,25 @@ arguments.
 
 `head` counts from the front, `tail` counts from the back. Both leave the
 original string alone and hand back a new one.
+
+## No string at all
+
+A `STR` can also be **void**, which means there is no string there at all.
+`void` is how you write that.
+
+```sather
+   suburb : STR is
+      return void;      -- this address has no suburb
+   end;
+```
+
+`void(x)` asks whether `x` is void, and answers `true` or `false`.
+
+```sather
+void(suburb)         -- true
+void("")             -- false
+void("Collins")      -- false
+```
+
+An empty string `""` is still a string, just one with no characters in it.
+Void is no string at all.

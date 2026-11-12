@@ -1,9 +1,9 @@
 # Instructions
 
-A cipher wheel is two discs, one inside the other, that turns the alphabet
-round: set it to 3 and every letter becomes the one three places along, with
-`z` coming back round to `a`. Detectives have used them for centuries. You
-are building one.
+A cipher wheel is two discs, one inside the other, that turn the alphabet
+round: set it to 3 and every letter becomes the one three places along,
+with `z` coming back round to `a`. Detectives have used them for
+centuries. You are building one.
 
 All five tasks go in the `CIPHER_WHEEL` class.
 
@@ -18,8 +18,8 @@ CIPHER_WHEEL::is_letter('7')
 
 ## 2. Shout it
 
-Return the capital of a character. Anything that is not a letter comes back
-unchanged.
+Return the capital of a character. Anything that is not a letter comes
+back unchanged.
 
 ```sather
 CIPHER_WHEEL::shout('m')

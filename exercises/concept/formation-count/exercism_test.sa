@@ -39,8 +39,15 @@ partial class EXERCISM_TEST is
 
    test(doc, does, should : $STR) is
       -- Assert that `does' and `should' have the same string form.
+      -- A void `does' -- an unset attribute or an unwritten routine --
+      -- is a clean failure rather than a crash.
       n ::= doc.str;
-      d ::= does.str;
+      d : STR;
+      if void(does) then
+         d := "<void>";
+      else
+         d := does.str;
+      end;
       s ::= should.str;
       lib_test(n, d, s);
       ex_count := ex_count + 1;
