@@ -61,6 +61,28 @@ usual way to compare without caring:
 "Lane".lower = "lane".lower      -- true
 ```
 
+## Void
+
+A `STR` variable that has been given nothing is **void**, and `void` can be
+passed or returned to mean "no string here". `void(s)` asks whether `s` is
+void.
+
+```sather
+   suburb : STR is
+      return void;
+   end;
+```
+
+```sather
+void(suburb)           -- true
+void("")               -- false
+```
+
+The string routines treat a void `STR` as if it were `""`. Its `.size` is
+0, it joins onto other strings as nothing, and `"" = s` is `true`. That is
+forgiving, but it also means a void string can travel a long way unnoticed.
+`void(s)` is the question that tells "no string" from "an empty one".
+
 ## A word about size
 
 A `STR` is a row of bytes, and `.size` counts bytes. For English text that

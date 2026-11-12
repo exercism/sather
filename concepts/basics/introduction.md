@@ -1,7 +1,8 @@
 # Basics
 
 A Sather program is made of **classes**. A class is a named box that holds
-routines. A **routine** is a named piece of work that produces an answer.
+routines, and a **routine** is a named piece of work that produces an
+answer.
 
 ```sather
 class GREETER is
@@ -17,9 +18,9 @@ Reading that from the top:
 
 - `class GREETER is` opens the box and names it. Class names are written in
   capitals.
-- `hello : STR is` starts a routine called `hello` that produces a `STR` — a
-  piece of text, called a *string*. The `: STR` is a promise about what kind
-  of answer comes back.
+- `hello : STR is` starts a routine called `hello` that produces a `STR` —
+  a piece of text, called a *string*. The `: STR` is a promise about what
+  kind of answer comes back.
 - `return "Hello!";` hands back the answer. Text is written between double
   quotes.
 - `end;` closes the routine, and the second `end;` closes the class.
@@ -38,7 +39,7 @@ the routine name:
 GREETER::hello        -- this is "Hello!"
 ```
 
-Inside the same class you can leave the class name off:
+Inside the same class, the class name can be left off:
 
 ```sather
 class GREETER is
