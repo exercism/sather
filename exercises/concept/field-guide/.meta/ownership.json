@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "FIELD_GUIDE::is_listed": 1,
+    "FIELD_GUIDE::habitat_of": 2,
+    "FIELD_GUIDE::add_entry": 3,
+    "FIELD_GUIDE::entry_count": 4,
+    "FIELD_GUIDE::all_habitats": 5
+  }
+}

@@ -1,5 +1,26 @@
 class FIELD_GUIDE is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   is_listed(guide : FMAP{STR,STR}, animal : STR) : BOOL is
+      raise "unimplemented";
+   end;
+
+   habitat_of(guide : FMAP{STR,STR}, animal : STR) : STR is
+      raise "unimplemented";
+   end;
+
+   add_entry(guide : FMAP{STR,STR}, animal, habitat : STR)
+         : FMAP{STR,STR} is
+      raise "unimplemented";
+   end;
+
+   entry_count(guide : FMAP{STR,STR}) : INT is
+      raise "unimplemented";
+   end;
+
+   all_habitats(guide : FMAP{STR,STR}) : FSET{STR} is
+      raise "unimplemented";
+   end;
 
 end; -- class FIELD_GUIDE

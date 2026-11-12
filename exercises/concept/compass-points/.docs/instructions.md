@@ -4,8 +4,8 @@ You are tramping in New Zealand and taking bearings off a compass. A bearing
 is a whole number of degrees, and it is a value: turning by 20 degrees does
 not change the bearing you took, it gives you a different one.
 
-Write an `immutable class BEARING`. The stub gives you the class header and
-its attribute.
+The stub gives you `immutable class BEARING`, its attribute, and a
+placeholder for each routine that you replace with the real body.
 
 ## 1. Take a bearing
 

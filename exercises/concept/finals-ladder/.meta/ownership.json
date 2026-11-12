@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "FINALS_LADDER::higher": 1,
+    "FINALS_LADDER::ladder": 2,
+    "FINALS_LADDER::names": 3,
+    "FINALS_LADDER::premiers": 4,
+    "FINALS_LADDER::shorter": 5,
+    "FINALS_LADDER::shortest_first": 5
+  }
+}

@@ -4,6 +4,7 @@ class CASTING_CALL_TEST is
    main is
       class_name("CASTING_CALL");
 
+      -- Task 1
       test("a clear yes", CASTING_CALL::audition_outcome(9), "Cast");
       test("just enough to be cast",
            CASTING_CALL::audition_outcome(8), "Cast");
@@ -15,6 +16,7 @@ class CASTING_CALL_TEST is
            CASTING_CALL::audition_outcome(4), "Thank you");
       test("nothing at all", CASTING_CALL::audition_outcome(0), "Thank you");
 
+      -- Task 2
       test("a young performer", CASTING_CALL::age_group(11), "Juniors");
       test("the last of the juniors", CASTING_CALL::age_group(12), "Juniors");
       test("the first of the middles", CASTING_CALL::age_group(13), "Middles");
@@ -22,6 +24,7 @@ class CASTING_CALL_TEST is
       test("the first of the seniors", CASTING_CALL::age_group(16), "Seniors");
       test("an older performer", CASTING_CALL::age_group(18), "Seniors");
 
+      -- Task 3
       test("juniors come back first",
            CASTING_CALL::callback_time("Juniors"), "4pm");
       test("middles come back next",
@@ -29,6 +32,7 @@ class CASTING_CALL_TEST is
       test("seniors come back last",
            CASTING_CALL::callback_time("Seniors"), "6pm");
 
+      -- Task 4
       test("high score and sings",
            CASTING_CALL::casting_note(9, true), "Lead");
       test("just high enough and sings",

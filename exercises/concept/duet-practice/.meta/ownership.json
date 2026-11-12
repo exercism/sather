@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "DUET_PRACTICE::bars_together": 1,
+    "DUET_PRACTICE::in_unison": 2,
+    "DUET_PRACTICE::louder_bars": 3,
+    "DUET_PRACTICE::weighted_total": 4
+  }
+}

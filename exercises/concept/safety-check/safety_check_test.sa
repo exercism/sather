@@ -4,6 +4,7 @@ class SAFETY_CHECK_TEST is
    main is
       class_name("SAFETY_CHECK");
 
+      -- Task 1
       test("down and clean", SAFETY_CHECK::mat_ready(true, true), true);
       test("down but not clean",
            SAFETY_CHECK::mat_ready(true, false), false);
@@ -11,19 +12,23 @@ class SAFETY_CHECK_TEST is
            SAFETY_CHECK::mat_ready(false, true), false);
       test("neither", SAFETY_CHECK::mat_ready(false, false), false);
 
+      -- Task 2
       test("mat only", SAFETY_CHECK::something_below(true, false), true);
       test("net only", SAFETY_CHECK::something_below(false, true), true);
       test("both", SAFETY_CHECK::something_below(true, true), true);
       test("nothing at all",
            SAFETY_CHECK::something_below(false, false), false);
 
+      -- Task 3
       test("not yet briefed", SAFETY_CHECK::needs_briefing(false), true);
       test("already briefed", SAFETY_CHECK::needs_briefing(true), false);
 
+      -- Task 4
       test("too young", SAFETY_CHECK::old_enough(12), false);
       test("just old enough", SAFETY_CHECK::old_enough(13), true);
       test("well old enough", SAFETY_CHECK::old_enough(16), true);
 
+      -- Task 5
       test("everything in order",
            SAFETY_CHECK::cleared(14, true, true, true), true);
       test("too young for it",

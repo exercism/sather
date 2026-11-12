@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "BEARING::create": 1,
+    "BEARING::turned": 2,
+    "BEARING::is_eq": 3,
+    "BEARING::point": 4,
+    "BEARING::str": 5
+  }
+}

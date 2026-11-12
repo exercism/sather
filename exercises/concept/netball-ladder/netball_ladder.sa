@@ -1,5 +1,21 @@
 class NETBALL_LADDER is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   ladder_points(wins, draws : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   goal_difference(scored, conceded : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   whole_quarters(minutes : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   minutes_into_quarter(minutes : INT) : INT is
+      raise "unimplemented";
+   end;
 
 end; -- class NETBALL_LADDER

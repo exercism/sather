@@ -3,8 +3,9 @@
 Every harness at the circus is rated for a load in kilograms, and nobody
 goes up until the numbers have been checked.
 
-The `SAFETY_HARNESS` class needs the following. The stub gives you the class
-and its attribute; add the rest. Every routine below carries a contract, and
+The `SAFETY_HARNESS` class needs the following. The stub gives you the class,
+its attribute, and a placeholder for each routine; replace each with the real
+body. Every routine below carries a contract, and
 the hints say which. The last task is a contract for the whole class.
 
 ## 1. Rig a harness
@@ -58,6 +59,9 @@ A harness's rating is more than one routine's business: it must be above
 nought for as long as the harness exists. Say so once, for the whole class,
 with a routine named `invariant` that answers a `BOOL`. When contracts are
 checked, it is checked on entry to and exit from every public routine.
+
+The stub's `invariant` answers `true` for now. It is checked around every
+routine, so a placeholder that raised would stop the other tasks too.
 
 One catch: it is checked on entry to `create` too, before there is any
 harness, when `self` is void. Reading `limit` from a void `self` stops the

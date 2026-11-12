@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "TUNING_THE_STRINGS::octave_up": 1,
+    "TUNING_THE_STRINGS::octave_down": 2,
+    "TUNING_THE_STRINGS::midpoint": 3,
+    "TUNING_THE_STRINGS::beats_per_second": 4,
+    "TUNING_THE_STRINGS::minutes_each": 5
+  }
+}

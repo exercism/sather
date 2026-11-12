@@ -3,7 +3,8 @@
 The school lost property office keeps everything in boxes, and what goes in
 a box could be anything: a jumper, a number of things, a name.
 
-Write a `LOST_BOX{T}` class. The stub gives you the class header.
+The stub gives you the `LOST_BOX{T}` class, its attributes, and a
+placeholder for each routine that you replace with the real body.
 
 ## 1. Take something in
 

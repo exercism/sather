@@ -3,7 +3,30 @@ class SCOREBOARD is
    attr home_team, away_team : STR;
    attr home_score, away_score : INT;
 
-   -- Write create, home_goal, away_goal, summary, leader and margin
-   -- between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   create(home, away : STR) : SAME is
+      raise "unimplemented";
+   end;
+
+   home_goal is
+      raise "unimplemented";
+   end;
+
+   away_goal is
+      raise "unimplemented";
+   end;
+
+   summary : STR is
+      raise "unimplemented";
+   end;
+
+   leader : STR is
+      raise "unimplemented";
+   end;
+
+   margin : INT is
+      raise "unimplemented";
+   end;
 
 end; -- class SCOREBOARD

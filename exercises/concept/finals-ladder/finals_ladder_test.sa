@@ -9,6 +9,7 @@ class FINALS_LADDER_TEST is
       swifts ::= #TEAM("Swifts", 20, 10);
       firebirds ::= #TEAM("Firebirds", 8, (-60));
 
+      -- Task 1
       test("more points comes first",
            FINALS_LADDER::higher(vixens, magpies), true);
       test("fewer points does not",
@@ -20,28 +21,37 @@ class FINALS_LADDER_TEST is
       test("a team does not come before itself",
            FINALS_LADDER::higher(vixens, vixens), false);
 
+      -- Task 2
       teams : ARRAY{TEAM} := |swifts, firebirds, vixens, magpies|;
 
       ranked ::= FINALS_LADDER::ladder(teams);
       test("the ladder is in order",
-           FINALS_LADDER::names(ranked),
+           ranked[0].name + ", " + ranked[1].name + ", "
+           + ranked[2].name + ", " + ranked[3].name,
            "Vixens, Magpies, Swifts, Firebirds");
       test("the ladder is the same length", ranked.size, 4);
       test("the array handed in is untouched",
-           FINALS_LADDER::names(teams),
+           teams[0].name + ", " + teams[1].name + ", "
+           + teams[2].name + ", " + teams[3].name,
            "Swifts, Firebirds, Vixens, Magpies");
 
+      -- Task 3
+      test("naming the ladder",
+           FINALS_LADDER::names(ranked),
+           "Vixens, Magpies, Swifts, Firebirds");
       test("naming an empty ladder",
            FINALS_LADDER::names(#ARRAY{TEAM}(0)), "");
       test("naming one team",
            FINALS_LADDER::names(|vixens|), "Vixens");
 
+      -- Task 4
       test("the premiers", FINALS_LADDER::premiers(teams), "Vixens");
       test("premiers of one team",
            FINALS_LADDER::premiers(|firebirds|), "Firebirds");
       test("nobody wins nothing",
            FINALS_LADDER::premiers(#ARRAY{TEAM}(0)), "");
 
+      -- Task 5
       -- The same sort, a different rule.
       by_length ::= FINALS_LADDER::shortest_first(
          |"Magpies", "Vixens", "Swifts", "Firebirds"|);

@@ -4,6 +4,7 @@ class TROUPE_ROUTINES_TEST is
    main is
       class_name("TROUPE_ROUTINES");
 
+      -- Task 1
       test("the warm up counts", WARM_UP::counts, 8);
       test("the warm up describes itself", WARM_UP::describe, "8 counts");
 
@@ -11,10 +12,12 @@ class TROUPE_ROUTINES_TEST is
       test("jazz takes the description",
            JAZZ_ROUTINE::describe, "8 counts");
 
+      -- Task 2
       test("tap takes the counts", TAP_ROUTINE::counts, 8);
       test("tap describes itself its own way",
            TAP_ROUTINE::describe, "Tap: 8 counts");
 
+      -- Task 3
       test("the finale keeps the warm up counts under its own name",
            FINALE::warm_up_counts, 8);
       test("the finale doubles them", FINALE::counts, 16);

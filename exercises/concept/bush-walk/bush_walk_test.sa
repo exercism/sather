@@ -7,6 +7,7 @@ class BUSH_WALK_TEST is
       -- An iterator can only be called inside a loop, so each check
       -- collects what it gives into a string first.
 
+      -- Task 1
       markers ::= #FSTR;
       loop markers := markers + BUSH_WALK::markers!(100, 3) + " "; end;
       test("three markers a hundred apart",
@@ -24,6 +25,16 @@ class BUSH_WALK_TEST is
       loop one := one + BUSH_WALK::markers!(50, 1) + " "; end;
       test("a single marker", one.str, "50 ");
 
+      -- Two calls to the same iterator in one loop are two separate walks.
+      paired ::= #FSTR;
+      loop
+         paired := paired + BUSH_WALK::markers!(10, 4)
+                          + "/" + BUSH_WALK::markers!(10, 4) + " ";
+      end;
+      test("each call site keeps its own place",
+           paired.str, "10/10 20/20 30/30 40/40 ");
+
+      -- Task 2
       stopped ::= #FSTR;
       loop
          stopped := stopped
@@ -47,6 +58,7 @@ class BUSH_WALK_TEST is
       end;
       test("stops before giving anything", straight.str, "");
 
+      -- Task 3
       birds ::= #FSTR;
       loop
          birds := birds
@@ -66,6 +78,7 @@ class BUSH_WALK_TEST is
       end;
       test("nothing but birds", all_birds.str, "Emu Galah ");
 
+      -- Task 4
       numbered ::= #FSTR;
       loop
          numbered := numbered + BUSH_WALK::numbered!(|"gum", "Emu"|) + " ";
@@ -78,15 +91,6 @@ class BUSH_WALK_TEST is
             + BUSH_WALK::numbered!(|"gum"|) + " ";
       end;
       test("numbering a single sighting", numbered_one.str, "1. gum ");
-
-      -- Two calls to the same iterator in one loop are two separate walks.
-      paired ::= #FSTR;
-      loop
-         paired := paired + BUSH_WALK::markers!(10, 4)
-                          + "/" + BUSH_WALK::markers!(10, 4) + " ";
-      end;
-      test("each call site keeps its own place",
-           paired.str, "10/10 20/20 30/30 40/40 ");
 
       finish;
    end;

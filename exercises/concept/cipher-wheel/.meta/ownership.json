@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "CIPHER_WHEEL::is_letter": 1,
+    "CIPHER_WHEEL::shout": 2,
+    "CIPHER_WHEEL::code": 3,
+    "CIPHER_WHEEL::first_character": 4,
+    "CIPHER_WHEEL::turn": 5
+  }
+}

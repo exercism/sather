@@ -4,15 +4,19 @@ class STAGE_DIRECTIONS_TEST is
    main is
       class_name("STAGE_DIRECTIONS");
 
+      -- Task 1
       test("opening line", STAGE_DIRECTIONS::opening_line,
            "The curtain rises.");
 
+      -- Task 2
       test("interval line", STAGE_DIRECTIONS::interval_line,
            "Interval. Fifteen minutes.");
 
+      -- Task 3
       test("closing line", STAGE_DIRECTIONS::closing_line,
            "The curtain falls.");
 
+      -- Task 4
       test("final cue", STAGE_DIRECTIONS::final_cue,
            "The curtain falls.");
 

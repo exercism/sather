@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "STAGE_DIRECTIONS::opening_line": 1,
+    "STAGE_DIRECTIONS::interval_line": 2,
+    "STAGE_DIRECTIONS::closing_line": 3,
+    "STAGE_DIRECTIONS::final_cue": 4
+  }
+}

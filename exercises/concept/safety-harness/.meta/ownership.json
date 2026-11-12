@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "SAFETY_HARNESS::create": 1,
+    "SAFETY_HARNESS::spare_capacity": 2,
+    "SAFETY_HARNESS::percent_used": 3,
+    "SAFETY_HARNESS::is_safe": 4,
+    "SAFETY_HARNESS::invariant": 5
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "JUGGLING": 1,
+    "TUMBLING": 1,
+    "TRAPEZE": 1,
+    "CIRCUS_ACTS::total_minutes": 2,
+    "CIRCUS_ACTS::billing": 2,
+    "CIRCUS_ACTS::longest": 2
+  },
+  "requires-task1-to-compile": true
+}

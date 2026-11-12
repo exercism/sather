@@ -1,5 +1,21 @@
 class DUET_PRACTICE is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   bars_together(first, second : ARRAY{INT}) : INT is
+      raise "unimplemented";
+   end;
+
+   in_unison(first, second : ARRAY{INT}) : INT is
+      raise "unimplemented";
+   end;
+
+   louder_bars(first, second : ARRAY{INT}) : INT is
+      raise "unimplemented";
+   end;
+
+   weighted_total(part : ARRAY{INT}) : INT is
+      raise "unimplemented";
+   end;
 
 end; -- class DUET_PRACTICE

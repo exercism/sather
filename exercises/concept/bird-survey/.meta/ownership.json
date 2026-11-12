@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "BIRD_SURVEY::total_seen": 1,
+    "BIRD_SURVEY::busiest_day": 2,
+    "BIRD_SURVEY::days_over": 3,
+    "BIRD_SURVEY::hides_to_check": 4,
+    "BIRD_SURVEY::first_busy_day": 5
+  }
+}

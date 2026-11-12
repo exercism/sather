@@ -1,5 +1,21 @@
 class STAGE_DIRECTIONS is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   opening_line : STR is
+      raise "unimplemented";
+   end;
+
+   interval_line : STR is
+      raise "unimplemented";
+   end;
+
+   closing_line : STR is
+      raise "unimplemented";
+   end;
+
+   final_cue : STR is
+      raise "unimplemented";
+   end;
 
 end; -- class STAGE_DIRECTIONS

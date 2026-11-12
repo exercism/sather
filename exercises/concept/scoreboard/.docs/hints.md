@@ -2,8 +2,8 @@
 
 ## General
 
-- The stub already declares the four attributes. Write the routines below
-  them, inside the class.
+- The stub already declares the four attributes and every routine. Replace
+  each `raise "unimplemented";` with the real body.
 - Inside the class an attribute is used by name, with no object in front:
   `home_score`, not `board.home_score`.
 

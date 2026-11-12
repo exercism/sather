@@ -1,8 +1,31 @@
 class LOST_BOX{T} is
 
-   -- Write create, claim, claimed, waiting, replace and describe between
-   -- here and the end of the class.
-   --
-   -- Task 5 needs the class header above changed. The instructions say how.
+   attr item : T;
+   readonly attr handed_in_by : STR;
+   readonly attr claimed : BOOL;
+
+   -- Task 5 also needs the class header above changed. The
+   -- instructions say how.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   create(thing : T, who : STR) : SAME is
+      raise "unimplemented";
+   end;
+
+   claim is
+      raise "unimplemented";
+   end;
+
+   waiting : BOOL is
+      raise "unimplemented";
+   end;
+
+   replace(thing : T) : T is
+      raise "unimplemented";
+   end;
+
+   describe : STR is
+      raise "unimplemented";
+   end;
 
 end; -- class LOST_BOX{T}

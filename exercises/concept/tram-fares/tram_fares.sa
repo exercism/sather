@@ -1,5 +1,21 @@
 class TRAM_FARES is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   zone_fare(zone : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   ticket_kind(code : CHAR) : STR is
+      raise "unimplemented";
+   end;
+
+   day_type(day : STR) : STR is
+      raise "unimplemented";
+   end;
+
+   daily_cap(day : STR) : INT is
+      raise "unimplemented";
+   end;
 
 end; -- class TRAM_FARES

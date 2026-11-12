@@ -4,4 +4,22 @@ abstract class $ACT is
    minutes : INT;
 end; -- abstract class $ACT
 
--- Write JUGGLING, TUMBLING, TRAPEZE and CIRCUS_ACTS below.
+-- Write JUGGLING, TUMBLING and TRAPEZE here.
+
+class CIRCUS_ACTS is
+
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   total_minutes(acts : ARRAY{$ACT}) : INT is
+      raise "unimplemented";
+   end;
+
+   billing(acts : ARRAY{$ACT}) : STR is
+      raise "unimplemented";
+   end;
+
+   longest(acts : ARRAY{$ACT}) : STR is
+      raise "unimplemented";
+   end;
+
+end; -- class CIRCUS_ACTS

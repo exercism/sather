@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "TRAM_FARES::zone_fare": 1,
+    "TRAM_FARES::ticket_kind": 2,
+    "TRAM_FARES::day_type": 3,
+    "TRAM_FARES::daily_cap": 4
+  }
+}

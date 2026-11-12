@@ -1,5 +1,25 @@
 class BIRD_SURVEY is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   total_seen(counts : ARRAY{INT}) : INT is
+      raise "unimplemented";
+   end;
+
+   busiest_day(counts : ARRAY{INT}) : INT is
+      raise "unimplemented";
+   end;
+
+   days_over(counts : ARRAY{INT}, than : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   hides_to_check(days : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   first_busy_day(counts : ARRAY{INT}, than : INT) : INT is
+      raise "unimplemented";
+   end;
 
 end; -- class BIRD_SURVEY

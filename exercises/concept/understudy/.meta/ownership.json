@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "UNDERSTUDY::shout": 1,
+    "UNDERSTUDY::whisper": 1,
+    "UNDERSTUDY::rehearse": 2,
+    "UNDERSTUDY::run_scene": 3,
+    "UNDERSTUDY::understudy_for": 4,
+    "UNDERSTUDY::repeat": 5,
+    "UNDERSTUDY::doubler": 5
+  }
+}

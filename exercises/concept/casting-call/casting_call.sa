@@ -1,5 +1,21 @@
 class CASTING_CALL is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   audition_outcome(score : INT) : STR is
+      raise "unimplemented";
+   end;
+
+   age_group(age : INT) : STR is
+      raise "unimplemented";
+   end;
+
+   callback_time(group : STR) : STR is
+      raise "unimplemented";
+   end;
+
+   casting_note(score : INT, sings : BOOL) : STR is
+      raise "unimplemented";
+   end;
 
 end; -- class CASTING_CALL

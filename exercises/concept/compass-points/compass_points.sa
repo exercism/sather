@@ -2,7 +2,26 @@ immutable class BEARING is
 
    readonly attr degrees : INT;
 
-   -- Write create, turned, is_eq, point and str between here and the end
-   -- of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   create(d : INT) : SAME is
+      raise "unimplemented";
+   end;
+
+   turned(by : INT) : SAME is
+      raise "unimplemented";
+   end;
+
+   is_eq(other : SAME) : BOOL is
+      raise "unimplemented";
+   end;
+
+   point : STR is
+      raise "unimplemented";
+   end;
+
+   str : STR is
+      raise "unimplemented";
+   end;
 
 end; -- class BEARING

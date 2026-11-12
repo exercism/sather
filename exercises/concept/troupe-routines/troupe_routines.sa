@@ -6,4 +6,44 @@ class WARM_UP is
 
 end; -- class WARM_UP
 
--- Write JAZZ_ROUTINE, TAP_ROUTINE and FINALE below.
+class JAZZ_ROUTINE is
+
+   -- Replace the placeholder routines in these three classes.
+
+   counts : INT is
+      raise "unimplemented";
+   end;
+
+   describe : STR is
+      raise "unimplemented";
+   end;
+
+end; -- class JAZZ_ROUTINE
+
+class TAP_ROUTINE is
+
+   counts : INT is
+      raise "unimplemented";
+   end;
+
+   describe : STR is
+      raise "unimplemented";
+   end;
+
+end; -- class TAP_ROUTINE
+
+class FINALE is
+
+   warm_up_counts : INT is
+      raise "unimplemented";
+   end;
+
+   counts : INT is
+      raise "unimplemented";
+   end;
+
+   describe : STR is
+      raise "unimplemented";
+   end;
+
+end; -- class FINALE

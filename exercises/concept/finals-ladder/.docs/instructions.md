@@ -2,7 +2,8 @@
 
 The netball season is over and the ladder decides who plays finals.
 
-The stub gives you a `TEAM` class. Write `FINALS_LADDER` below it.
+The stub gives you a `TEAM` class, and a `FINALS_LADDER` class with a
+placeholder for each routine that you replace with the real body.
 
 ## 1. Who is above whom?
 
@@ -54,6 +55,14 @@ Make the same promise as `ladder`: as many strings come out as went in.
 ```sather
 FINALS_LADDER::shortest_first(|"Magpies", "Vixens", "Swifts"|)
 -- => "Swifts", "Vixens", "Magpies"
+```
+
+Write the rule as `shorter`, which answers whether the first string belongs
+before the second, as `higher` does for teams.
+
+```sather
+FINALS_LADDER::shorter("aaa", "zzz")
+-- => true
 ```
 
 The tie-break is not decoration. The sort is not stable, so without it two
