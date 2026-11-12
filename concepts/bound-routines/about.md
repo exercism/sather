@@ -1,8 +1,8 @@
 # Bound Routines
 
 ```sather
-   part : ROUT{STR}:STR := bind(shout(_));
-   part.call("who's there");
+   label : ROUT{STR}:STR := bind(jar_label(_));
+   label.call("Clover");
 ```
 
 ## bind
@@ -12,9 +12,9 @@ a `_` is evaluated **now** and kept; every `_` becomes an argument of the
 bound routine, in the order written.
 
 ```sather
-   bind(repeat(2, _))         -- ROUT{STR}:STR
-   bind(repeat(_, "Ha"))      -- ROUT{INT}:STR
-   bind(repeat(_, _))         -- ROUT{INT,STR}:STR
+   bind(price_tag(_, 250))        -- ROUT{STR}:STR
+   bind(price_tag("Manuka", _))   -- ROUT{INT}:STR
+   bind(price_tag(_, _))          -- ROUT{STR,INT}:STR
 ```
 
 ## The types
@@ -38,19 +38,20 @@ is called the same way, as a statement.
 A `bind` may be declared into a variable, or passed as an argument:
 
 ```sather
-   part ::= bind(shout(_));                -- yes
-   part : ROUT{STR}:STR := bind(shout(_)); -- yes
-   rehearse("line", bind(shout(_)));       -- yes
+   label ::= bind(jar_label(_));                 -- yes
+   label : ROUT{STR}:STR := bind(jar_label(_));  -- yes
+   label_pair("Rata", "Kamahi", bind(jar_label(_)));  -- yes
 ```
 
 but it may not go straight into a `return`:
 
 ```sather
-   return bind(shout(_));                  -- does not parse
+   return bind(jar_label(_));                    -- does not parse
 ```
 
 Put it in a variable and return that. The error message points at the
-`bind` and mentions underscores, which is not obvious from the line itself.
+`bind` and says an `end` was expected, which is not obvious from the line
+itself.
 
 ## Where they are used
 

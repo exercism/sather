@@ -11,18 +11,20 @@
 
 ## 1. The markers
 
-- A `loop` inside the iterator, driven by `1.upto!(count)`, yielding
-  `spacing` times the number.
-- Nothing special is needed for a count of nought: `1.upto!(0)` gives
-  nothing, so the inner loop ends at once and the iterator is over.
+- A `loop` inside the iterator, driven by `upto!`, yielding one distance
+  each time round. Each distance is worked out from the spacing and how many
+  markers along it is.
+- Nothing special is needed for a count of nought: counting up to nought
+  from one gives nothing, so the inner loop ends at once and the iterator is
+  over.
 
 ## 2. Until the track ends
 
-- Walk the array with `elt!`, and `quit` when the value is `"end"`.
-- The order matters: `quit` before the `yield`, or `"end"` gets handed over
-  before you stop.
-- Nothing is needed for an array with no `"end"` in it. The `elt!` runs out
-  and the iterator is over.
+- Walk the array with `elt!`, and `quit` when the value is the end marker.
+- The order matters: `quit` before the `yield`, or the marker gets handed
+  over before you stop.
+- Nothing is needed for an array with no end marker in it. The `elt!` runs
+  out and the iterator is over.
 
 ## 3. Only the birds
 
@@ -37,6 +39,6 @@
 - Two iterators inside your own iterator: `1.up!` for the number and `elt!`
   for the sighting. This is the pairing from `duet-practice`, now inside
   something you wrote.
-- Build the string with `+`. The number comes first, so start with
-  `number.str`, since a string may have a number added to it but not the
-  other way round.
+- Build the string with `+`. The number comes first, so start with its
+  `.str`, since a string may have a number added to it but not the other
+  way round.

@@ -5,13 +5,14 @@
 - A routine that answers with text is declared `: STR`. One that answers
   with a whole number is declared `: INT`.
 - Two arguments of the same type can share a declaration:
-  `full_title(piece, composer : STR) : STR`.
+  `corner(first, second : STR) : STR`.
 
 ## 1. Name the piece and who wrote it
 
-- Three pieces of text joined with `+`: the piece, then `" by "`, then the
-  composer.
-- The spaces are inside the quotes. `+` adds nothing of its own.
+- Three pieces of text joined with `+`: the piece, then the word from the
+  instructions, then the composer.
+- The spaces either side of that word go inside its quotes. `+` adds nothing
+  of its own.
 
 ## 2. Measure a line
 
@@ -19,7 +20,7 @@
 
 ## 3. The first few letters
 
-- `.head` takes the number in brackets: `title.head(count)`.
+- `.head` takes the number of characters in brackets.
 
 ## 4. The last few letters
 
@@ -27,6 +28,6 @@
 
 ## 5. Shorten a long title
 
-- Six letters from the front, then `"..."` joined on with `+`.
+- Six letters from the front, then the three full stops joined on with `+`.
 - The number of letters is always six, so it can be written straight into
   the call rather than passed in.

@@ -12,12 +12,12 @@
 
 | Operator | Asks | Example |
 | --- | --- | --- |
-| `=` | same? | `age = 13` |
-| `/=` | different? | `age /= 13` |
-| `<` | less than | `age < 13` |
-| `<=` | less than or equal | `age <= 13` |
-| `>` | greater than | `age > 13` |
-| `>=` | greater than or equal | `age >= 13` |
+| `=` | same? | `days_out = 21` |
+| `/=` | different? | `days_out /= 21` |
+| `<` | less than | `days_out < 21` |
+| `<=` | less than or equal | `days_out <= 21` |
+| `>` | greater than | `days_out > 21` |
+| `>=` | greater than or equal | `days_out >= 21` |
 
 These work on numbers, and `=` and `/=` work on strings too.
 
@@ -41,12 +41,12 @@ not pick an answer with a conditional:
 
 ```sather
    -- say this
-   old_enough(age : INT) : BOOL is
-      return age >= 13;
+   overdue(days_out : INT) : BOOL is
+      return days_out > 21;
    end;
 ```
 
-Writing `if age >= 13 then return true else return false end` takes three
+Writing `if days_out > 21 then return true else return false end` takes three
 lines to say what the comparison already said, and every experienced reader
 will notice.
 

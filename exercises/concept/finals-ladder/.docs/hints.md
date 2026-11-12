@@ -11,8 +11,8 @@
 
 ## 2. The ladder
 
-- `insertion_sort_by` takes a bound routine:
-  `bind(higher(_, _))`, with two holes because `higher` takes two teams.
+- `insertion_sort_by` takes a bound routine: `bind` around a call to
+  `higher` with a `_` hole for each of the two teams.
 - It sorts in place and answers nothing, so sort a `.copy` and return that.
   Sorting the array handed in would change the caller's.
 

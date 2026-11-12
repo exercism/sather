@@ -1,12 +1,13 @@
 # Generic Classes
 
 ```sather
-class LOST_BOX{T} is
-   attr item : T;
-   create(thing : T) : SAME is
-      box ::= new;
-      box.item := thing;
-      return box;
+class PAIR{T} is
+   attr left, right : T;
+   create(a, b : T) : SAME is
+      pair ::= new;
+      pair.left := a;
+      pair.right := b;
+      return pair;
    end;
 end;
 ```
@@ -16,7 +17,7 @@ end;
 `T` stands for a type supplied at the point of use. Sather builds a distinct
 class for each combination actually used, when the program is compiled. So:
 
-- `LOST_BOX{STR}` and `LOST_BOX{INT}` are unrelated types;
+- `PAIR{STR}` and `PAIR{INT}` are unrelated types;
 - there is no run-time check, no boxing and no conversion;
 - an error in the class shows up for each type it is used with.
 
@@ -30,15 +31,15 @@ nothing else is known about it. To call routines on it, say what it must
 conform to:
 
 ```sather
-class LOST_BOX{T < $STR} is
-   describe : STR is return "a box holding " + item.str; end;
+class PAIR{T < $STR} is
+   label : STR is return "Pair: " + left.str + " & " + right.str; end;
 end;
 ```
 
-`T < $STR` demands that `T` conforms to `$STR`, and in return lets `item.str`
+`T < $STR` demands that `T` conforms to `$STR`, and in return lets `left.str`
 be called. Anything a bare `T` cannot do, a constraint is how to allow it.
 
-Without the constraint, `item.str` will not compile — and the message will
+Without the constraint, `left.str` will not compile — and the message will
 name the line inside the generic class, not the line that used it.
 
 ## Generic routines?

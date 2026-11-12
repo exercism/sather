@@ -10,14 +10,14 @@
 
 ```sather
    m ::= #FMAP{STR,INT};
-   m := m.insert("emu", 2);
-   m.get("emu")          -- 2
-   m.has_ind("emu")      -- true
+   m := m.insert("hammer", 12);
+   m.get("hammer")       -- 12
+   m.has_ind("hammer")   -- true
    m.size                -- 1
-   m := m.delete("emu");
+   m := m.delete("hammer");
 ```
 
-`m["emu"]` is **not** how to read a map — `FMAP` has no such routine, and
+`m["hammer"]` is **not** how to read a map — `FMAP` has no such routine, and
 that line will not compile. It is `get`.
 
 ### Missing keys
@@ -31,10 +31,10 @@ the habit worth forming.
 
 ```sather
    s ::= #FSET{STR};
-   s := s.insert("emu");
-   s.has("emu")          -- true
+   s := s.insert("paint");
+   s.has("paint")        -- true
    s.size                -- 1
-   s := s.delete("emu");
+   s := s.delete("paint");
 ```
 
 Sets combine:
@@ -88,6 +88,6 @@ never write anything that depends on which comes first.
 
 ```sather
    loop
-      #OUT + guide.ind! + "\n";
+      #OUT + stock.ind! + "\n";
    end;
 ```

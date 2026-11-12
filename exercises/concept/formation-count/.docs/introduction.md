@@ -34,13 +34,13 @@ write as an `INT` in the first place:
 Then `+`, `-`, `*`, `/` and comparison all work as usual, and `.str` gives
 every digit.
 
-Counting the ways a troupe can line up is the standard reason to want this.
-Twelve dancers have 479001600 ways, which an `INT` holds; thirteen have
-6227020800, which it does not.
+Counting arrangements is the standard reason to want this. Twelve players
+in a chess tournament can finish in 479001600 different orders, which an
+`INT` holds; thirteen can finish in 6227020800, which it does not.
 
 ```sather
-   #INTI(20).factorial
-   -- 2432902008176640000
+   #INTI(16).factorial
+   -- 20922789888000
 ```
 
 ## RAT: exact fractions
@@ -48,9 +48,9 @@ Twelve dancers have 479001600 ways, which an `INT` holds; thirteen have
 `RAT` holds one whole number over another, and keeps them that way.
 
 ```sather
-   #RAT(1, 3)          -- 1/3, exactly
-   #RAT(1, 2) + #RAT(1, 3)
-   -- 5/6
+   #RAT(3, 4)          -- 3/4, exactly
+   #RAT(1, 4) + #RAT(2, 3)
+   -- 11/12
 ```
 
 No rounding happens, because nothing is ever converted to a decimal.

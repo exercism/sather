@@ -3,14 +3,15 @@
 An `ARRAY` is fixed. It is made at one size and stays that size: there is no
 appending to one, and no removing from one.
 
-A detective's notebook is not like that. Clues turn up one at a time, and
-get struck out when they are ruled out. For that you want a **list**.
+A kitchen shopping list is not like that. Things are added as the cook
+notices they are running low, and crossed off once they are bought. For
+that you want a **list**.
 
 ```sather
-   notes ::= #LIST{STR};
-   notes.append("muddy boots");
-   notes.append("broken window");
-   notes.size                   -- 2
+   shopping ::= #LIST{STR};
+   shopping.append("flour");
+   shopping.append("eggs");
+   shopping.size                -- 2
 ```
 
 `LIST{T}` holds values of type `T` in order, like an array, and grows and
@@ -21,8 +22,8 @@ shrinks as you ask it to.
 `append` changes the list it is called on and answers nothing:
 
 ```sather
-   notes.append("muddy boots");        -- yes
-   notes := notes.append("muddy boots");   -- no: append answers nothing
+   shopping.append("flour");               -- yes
+   shopping := shopping.append("flour");   -- no: append answers nothing
 ```
 
 This is different from `FMAP` and `FSET`, where every change had to be
@@ -34,10 +35,10 @@ to a routine and the routine can change yours.
 Square brackets, counting from nought, exactly as for an array:
 
 ```sather
-   notes[0]                     -- "muddy boots"
-   notes[1] := "smashed window";
-   notes.size                   -- how many
-   notes.is_empty               -- true when there are none
+   shopping[0]                  -- "flour"
+   shopping[1] := "duck eggs";
+   shopping.size                -- how many
+   shopping.is_empty            -- true when there are none
 ```
 
 ## Removing
@@ -45,10 +46,10 @@ Square brackets, counting from nought, exactly as for an array:
 `remove_index` takes a position out, and everything after it moves up one:
 
 ```sather
-   notes.remove_index(0);       -- the first clue is struck out
+   shopping.remove_index(0);    -- the flour is crossed off
 ```
 
-So positions are not permanent. A clue's position changes when an earlier
+So positions are not permanent. An item's position changes when an earlier
 one is removed, which is worth remembering before storing one.
 
 ## Walking it
@@ -57,7 +58,7 @@ one is removed, which is worth remembering before storing one.
 
 ```sather
    loop
-      #OUT + notes.elt! + "\n";
+      #OUT + shopping.elt! + "\n";
    end;
 ```
 

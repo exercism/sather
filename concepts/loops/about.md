@@ -39,7 +39,7 @@ All three may appear anywhere in the body, and a loop may use more than one.
 
 ```sather
    loop
-      until!(n > last);      -- may run no times at all
+      until!(left <= 0);     -- may run no times at all
       ...
    end;
 

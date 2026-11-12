@@ -1,8 +1,9 @@
 # Exceptions
 
-Some routines cannot answer. Asked for a prop that is not on the table,
-`count_of` has no number to give — and nought would be a lie, because nought
-means "we have none of those", not "there is no such thing".
+Some routines cannot answer. Asked how long a drink takes to make, when the
+café has never heard of that drink, a routine has no number to give — and
+nought would be a lie, because nought means "ready at once", not "there is
+no such drink".
 
 An **exception** is how a routine says it cannot answer.
 
@@ -11,11 +12,10 @@ An **exception** is how a routine says it cannot answer.
 `raise` abandons the routine and hands a value to whoever called it.
 
 ```sather
-   count_of(props : FMAP{STR,INT}, prop : STR) : INT is
-      if ~props.has_ind(prop) then
-         raise "Unknown prop: " + prop;
-      end;
-      return props.get(prop);
+   brew_minutes(drink : STR) : INT is
+      if drink = "espresso" then return 1; end;
+      if drink = "pot of tea" then return 4; end;
+      raise "Not on the menu: " + drink;
    end;
 ```
 
@@ -30,10 +30,10 @@ The value raised is usually a string saying what went wrong.
 
 ```sather
    protect
-      taken ::= count_of(props, prop);
-      #OUT + "There are " + taken;
+      wait ::= brew_minutes(order);
+      #OUT + "Ready in " + wait + " minutes";
    when $STR then
-      #OUT + "Cannot: " + exception.str;
+      #OUT + "Sorry: " + exception.str;
    end;
 ```
 
@@ -44,6 +44,9 @@ and the matching `when` runs instead.
 `when $STR then` catches a raised string. `exception` is the value that was
 raised, available inside the arm.
 
+Both parts are ordinary code. Either may `return` from the routine, just as
+the code outside a `protect` can.
+
 ## Passing through
 
 A routine that does not catch an exception does not have to do anything
@@ -51,10 +54,10 @@ about it. It travels outward, through every caller, until something catches
 it:
 
 ```sather
-   take_one(props : FMAP{STR,INT}, prop : STR) : INT is
-      -- If this raises, take_one raises too. Nothing here says so.
-      have ::= count_of(props, prop);
-      ...
+   table_minutes(first, second : STR) : INT is
+      -- If either call raises, table_minutes raises too. Nothing here says
+      -- so.
+      return brew_minutes(first).max(brew_minutes(second));
    end;
 ```
 

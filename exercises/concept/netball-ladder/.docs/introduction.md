@@ -5,7 +5,7 @@ answers with a whole number says so after the colon, the same way a routine
 answering with text says `STR`.
 
 ```sather
-   goals : INT is
+   patients : INT is
       return 42;
    end;
 ```
@@ -15,21 +15,21 @@ called. Each argument is named and given a type, in brackets after the
 routine name:
 
 ```sather
-   total(first : INT, second : INT) : INT is
-      return first + second;
+   dose(kilos : INT, per_kilo : INT) : INT is
+      return kilos * per_kilo;
    end;
 ```
 
 When two arguments have the same type you may name them together:
 
 ```sather
-   total(first, second : INT) : INT is
+   dose(kilos, per_kilo : INT) : INT is
 ```
 
 Call it by putting the values in brackets:
 
 ```sather
-SCORES::total(3, 4)     -- this is 7
+VET::dose(4, 3)     -- this is 12
 ```
 
 The five arithmetic operators are `+`, `-`, `*`, `/` and `%`.

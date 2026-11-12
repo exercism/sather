@@ -37,20 +37,22 @@ A variable made this way lives until the end of the routine.
 is true the loop stops there and then.
 
 ```sather
-   sum_to(last : INT) : INT is
-      total ::= 0;
-      n ::= 1;
+   trips(waiting, per_trip : INT) : INT is
+      count ::= 0;
+      left ::= waiting;
       loop
-         until!(n > last);
-         total := total + n;
-         n := n + 1;
+         until!(left <= 0);
+         left := left - per_trip;
+         count := count + 1;
       end;
-      return total;
+      return count;
    end;
 ```
 
-`n` counts 1, 2, 3 ... and the loop ends the first time `n` is past `last`.
-Without the `n := n + 1` the question would never change its answer and the
+A lift takes `per_trip` people at a time, and `trips` counts how many runs
+it makes to carry everyone waiting. For `trips(10, 4)`, `left` goes 10, 6,
+2, -2, and the loop ends the first time nobody is left: 3 trips. Without the
+`left := left - per_trip` the question would never change its answer and the
 loop would run forever.
 
 `until!` does not have to be the first line. Put it where the question makes
@@ -67,7 +69,7 @@ when the reason to stop turns up in the middle of the work.
 
 ```sather
    loop
-      if too_far then break!; end;
+      if doors_open then break!; end;
       ...
    end;
 ```

@@ -25,5 +25,6 @@
 
 - Do not write the text a third time.
 - Inside the same class you can use a routine by name, with no class name in
-  front and no brackets: `closing_line`.
-- `return` the result of that call.
+  front and no brackets, as `greeting_again` does in the introduction.
+- Work out which of your routines already gives this line, and hand back
+  whatever it answers.

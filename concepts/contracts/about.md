@@ -1,11 +1,11 @@
 # Contracts
 
 ```sather
-   spare_capacity(load : INT) : INT
-      pre load >= 0 and load <= limit
-      post result >= 0
+   yearly_interest(rate : INT) : INT
+      pre balance >= 0 and rate >= 0 and rate <= 20
+      post result <= balance
    is
-      return limit - load;
+      return balance * rate / 100;
    end;
 ```
 
@@ -25,10 +25,11 @@ that `post` can look back: `initial(...)` is the value an expression had
 when the routine was called.
 
 ```sather
-   add(notes : LIST{STR}, clue : STR)
-      post notes.size = initial(notes.size) + 1
+   withdraw(amount : INT)
+      pre amount > 0 and amount <= balance + overdraft
+      post balance = initial(balance) - amount
    is
-      notes.append(clue);
+      balance := balance - amount;
    end;
 ```
 
@@ -40,7 +41,7 @@ Inside a routine body, `assert` states something that must be true at that
 point:
 
 ```sather
-      assert load <= limit;
+      assert balance + overdraft >= 0;
 ```
 
 It is checked under the same switch as the others.
@@ -52,7 +53,7 @@ routine named `invariant`:
 
 ```sather
    invariant : BOOL is
-      return void(self) or (checks >= 0 and limit > 0);
+      return void(self) or (overdraft >= 0 and balance + overdraft >= 0);
    end;
 ```
 
@@ -87,15 +88,15 @@ tests actually exercise the paths.
 Say what the routine needs, not how it works:
 
 ```sather
-   pre load >= 0 and load <= limit        -- yes
-   pre load /= 47                         -- what?
+   pre amount > 0 and amount <= balance   -- yes
+   pre amount /= 47                       -- what?
 ```
 
 A `post` that restates the body teaches nobody anything:
 
 ```sather
-   post result = limit - load             -- says the body twice
-   post result >= 0                       -- says something worth knowing
+   post result = balance * rate / 100     -- says the body twice
+   post result <= balance                 -- says something worth knowing
 ```
 
 ## Inheritance

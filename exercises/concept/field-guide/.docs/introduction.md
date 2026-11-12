@@ -8,13 +8,14 @@ not a number.
 A **map** pairs each **key** with a **target**. Look something up by its key
 and the map gives you what was filed under it.
 
-`FMAP{K,T}` is a map from keys of type `K` to targets of type `T`. A guide
-pairing an animal's name with where it lives is `FMAP{STR,STR}`.
+`FMAP{K,T}` is a map from keys of type `K` to targets of type `T`. A
+hardware store's stock list, pairing a tool's name with how many are on the
+shelf, is `FMAP{STR,INT}`.
 
 ```sather
-   guide ::= #FMAP{STR,STR};
-   guide := guide.insert("emu", "grassland");
-   guide.get("emu")               -- "grassland"
+   stock ::= #FMAP{STR,INT};
+   stock := stock.insert("hammer", 12);
+   stock.get("hammer")            -- 12
 ```
 
 ## Always assign the answer back
@@ -23,8 +24,8 @@ Look again at that middle line. `insert` answers the map with the extra pair
 in it, and the answer has to be kept:
 
 ```sather
-   guide := guide.insert("emu", "grassland");     -- yes
-   guide.insert("emu", "grassland");              -- no: the answer is lost
+   stock := stock.insert("hammer", 12);     -- yes
+   stock.insert("hammer", 12);              -- no: the answer is lost
 ```
 
 This is the same rule as `FSTR`, and for the same reason. The answer is
@@ -42,19 +43,19 @@ original has to survive, see `copy` on the concept page.
 index", an index being what these maps call a key.
 
 ```sather
-   guide.has_ind("emu")           -- true
-   guide.has_ind("moa")           -- false
+   stock.has_ind("hammer")        -- true
+   stock.has_ind("ladder")        -- false
 ```
 
 Asking for a key that is not there does **not** complain. `get` hands back
 the empty value for the type — nought for an `INT`, and void for a `STR`,
-which will go wrong later and somewhere else. So look before you fetch:
+which will go wrong later and somewhere else. Nought is no better: the store
+would seem to have run out of ladders, when it has never sold them at all.
+So look before you fetch:
 
 ```sather
-   if guide.has_ind(animal) then
-      return guide.get(animal);
-   else
-      return "Unknown";
+   if stock.has_ind(tool) then
+      #OUT + stock.get(tool) + " on the shelf\n";
    end;
 ```
 
@@ -64,11 +65,11 @@ A **set** holds values with no repeats and no order. `FSET{T}` is a set of
 values of type `T`.
 
 ```sather
-   seen ::= #FSET{STR};
-   seen := seen.insert("emu");
-   seen := seen.insert("emu");    -- already there; nothing changes
-   seen.size                      -- 1
-   seen.has("emu")                -- true
+   aisles ::= #FSET{STR};
+   aisles := aisles.insert("paint");
+   aisles := aisles.insert("paint");   -- already there; nothing changes
+   aisles.size                         -- 1
+   aisles.has("paint")                 -- true
 ```
 
 Inserting something twice leaves one copy. That is what a set is for:

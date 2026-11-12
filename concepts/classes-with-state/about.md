@@ -1,21 +1,21 @@
 # Classes with State
 
 ```sather
-class SCOREBOARD is
+class VENDING_MACHINE is
 
-   attr home_team, away_team : STR;
-   attr home_score, away_score : INT;
+   attr item : STR;
+   attr price, credit : INT;
 
-   create(home, away : STR) : SAME is
-      board ::= new;
-      board.home_team := home;
-      board.away_team := away;
-      return board;
+   create(snack : STR, cents : INT) : SAME is
+      machine ::= new;
+      machine.item := snack;
+      machine.price := cents;
+      return machine;
    end;
 
-   home_goal is home_score := home_score + 1; end;
+   insert(cents : INT) is credit := credit + cents; end;
 
-end; -- class SCOREBOARD
+end; -- class VENDING_MACHINE
 ```
 
 ## attr, readonly attr, private attr
@@ -27,8 +27,8 @@ end; -- class SCOREBOARD
 | `private attr x : INT` | no | no |
 
 `readonly` is the one to reach for by default. It lets anybody see the
-score and insists that changing it goes through `home_goal`, which is where
-the rules about scoring live.
+credit and insists that changing it goes through `insert`, which is where
+the rules about money live.
 
 ## create and new
 
@@ -48,8 +48,8 @@ routine talk about the inheriting class rather than the one it came from.
 ## Routines with no return type
 
 ```sather
-   home_goal is
-      home_score := home_score + 1;
+   refund is
+      credit := 0;
    end;
 ```
 
@@ -64,8 +64,8 @@ written, because an attribute or routine named on its own already means
 `self`'s. It is needed when the object has to be passed on or returned:
 
 ```sather
-   with_goal : SAME is
-      home_score := home_score + 1;
+   with_dollar : SAME is
+      credit := credit + 100;
       return self;
    end;
 ```
@@ -75,14 +75,14 @@ taken, and none can be used as a name of your own.
 
 ## Reference, not value
 
-An object is reached through a reference. Two names for the same scoreboard
-see the same score:
+An object is reached through a reference. Two names for the same machine
+see the same credit:
 
 ```sather
-   a ::= #SCOREBOARD("Vixens", "Magpies");
+   a ::= #VENDING_MACHINE("Crisps", 250);
    b ::= a;         -- not a copy
-   b.home_goal;
-   a.home_score     -- 1
+   b.insert(100);
+   a.credit         -- 100
 ```
 
 `immutable class`, later, is how to get the other behaviour.

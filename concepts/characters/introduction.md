@@ -4,13 +4,13 @@ A **character** is a single letter, digit, space or mark. Sather's type for
 one is `CHAR`, and a character is written between single quotes.
 
 ```sather
-   initial : CHAR is
-      return 'M';
+   knit : CHAR is
+      return 'k';
    end;
 ```
 
-Single quotes for one character, double quotes for a string. `'M'` and
-`"M"` are different types and cannot be swapped.
+Single quotes for one character, double quotes for a string. `'k'` and
+`"k"` are different types and cannot be swapped.
 
 ## Characters out of a string
 
@@ -18,9 +18,11 @@ A string is a row of characters, and square brackets reach one by position,
 counting from nought — the same as an array.
 
 ```sather
-"Marlowe"[0]      -- 'M'
-"Marlowe"[3]      -- 'l'
+"K2P2"[0]         -- 'K'
+"K2P2"[1]         -- '2'
 ```
+
+That is a row of a knitting pattern: knit two, purl two.
 
 ## Asking about a character
 
@@ -34,9 +36,9 @@ counting from nought — the same as an array.
 Each answers `true` or `false`.
 
 ```sather
-'M'.is_alpha      -- true
-'7'.is_alpha      -- false
-'7'.is_digit      -- true
+'P'.is_alpha      -- true
+'2'.is_alpha      -- false
+'2'.is_digit      -- true
 ```
 
 ## Changing case
@@ -45,9 +47,9 @@ Each answers `true` or `false`.
 Anything that is not a letter is handed back unchanged.
 
 ```sather
-'m'.upper         -- 'M'
-'M'.lower         -- 'm'
-'7'.upper         -- '7'
+'p'.upper         -- 'P'
+'P'.lower         -- 'p'
+'2'.upper         -- '2'
 ```
 
 ## Characters as numbers
@@ -56,11 +58,12 @@ Every character has a number. `.int` gives it, and `.char` turns a number
 back into a character.
 
 ```sather
-'a'.int           -- 97
-'b'.int           -- 98
-98.char           -- 'b'
+'k'.int           -- 107
+'p'.int           -- 112
+112.char          -- 'p'
 ```
 
 The exact numbers rarely matter. What matters is that the letters `a` to
-`z` are in order and next to each other, so `'c'.int - 'a'.int` is 2 — how
-far `c` is along the alphabet. That is what makes a cipher wheel work.
+`z` are in order and next to each other, so `'p'.int - 'k'.int` is 5 — how
+many letters `p` comes after `k`. The digits `0` to `9` are in order too,
+so `'2'.int - '0'.int` is 2, the number a digit character stands for.

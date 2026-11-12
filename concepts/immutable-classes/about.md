@@ -1,11 +1,11 @@
 # Immutable Classes
 
 ```sather
-immutable class BEARING is
-   readonly attr degrees : INT;
-   create(d : INT) : SAME is
-      b : SAME;
-      return b.degrees(d);
+immutable class LEG is
+   readonly attr origin, destination : STR;
+   create(from, to : STR) : SAME is
+      leg : SAME;
+      return leg.origin(from).destination(to);
    end;
 end;
 ```
@@ -19,15 +19,15 @@ end;
 | `attr` writer | `x.a := v` | `x := x.a(v)` |
 | `new` | yes | no; `x : SAME` already exists |
 
-An immutable object cannot be void, so `void(b)` is always false and no
+An immutable object cannot be void, so `void(leg)` is always false and no
 routine on one can fail for want of an object. That removes a whole class of
-mistake at the cost of never being able to say "no bearing yet".
+mistake at the cost of never being able to say "no leg yet".
 
 ## Where the value lives
 
 The value is stored where the variable is — inside another object, or on the
 stack — rather than being reached through a reference. So an
-`ARRAY{BEARING}` holds the bearings themselves, not pointers to them, which
+`ARRAY{LEG}` holds the legs themselves, not pointers to them, which
 is smaller and faster to walk.
 
 The cost is copying: passing a large immutable object copies it every time.
@@ -35,11 +35,11 @@ They are best kept small.
 
 ## The attribute routines
 
-`readonly attr degrees : INT` gives two routines:
+`readonly attr origin : STR` gives two routines:
 
 ```sather
-   b.degrees          -- read: INT
-   b.degrees(90)      -- answer a new BEARING with degrees changed
+   leg.origin            -- read: STR
+   leg.origin("Leeds")   -- answer a new LEG with origin changed
 ```
 
 The second exists even under `readonly`, because it changes nothing — it
@@ -52,12 +52,15 @@ Neither is provided. Write `is_eq` for `=`, and `str` so the object can be
 printed and joined to strings:
 
 ```sather
-   is_eq(other : SAME) : BOOL is return degrees = other.degrees; end;
-   str : STR is return degrees.str + " degrees"; end;
+   is_eq(leg : SAME) : BOOL is
+      return origin = leg.origin and destination = leg.destination;
+   end;
+   str : STR is return origin + " to " + destination; end;
 ```
 
-Writing `str` makes the class conform to `$STR`, which is what lets `+` and
-`#OUT` accept it.
+Writing `str` is not enough on its own for `+` and `#OUT` to accept the
+object: they take a `$STR`, so the class must also say it is one, with
+`immutable class LEG < $STR is`.
 
 ## The built-in ones
 

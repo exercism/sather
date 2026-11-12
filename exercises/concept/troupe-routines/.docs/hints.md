@@ -8,22 +8,26 @@
 
 ## 1. The jazz routine
 
-- One line inside the class: `include WARM_UP;`
+- One `include` inside the class, with nothing renamed and nothing left
+  out.
 - Nothing else. The class body is that line and no more.
 
 ## 2. The tap routine
 
-- `include WARM_UP describe -> ;`
+- One entry in the include: `describe` renamed to nothing.
 - The `-> ;` with nothing after the arrow leaves `describe` out, which is
   what makes room for the one you write.
-- Without it, the compiler complains that `describe` is defined twice. That
-  error is the feature: Sather will not silently pick one.
+- This compiler would let your own `describe` win without it, silently.
+  The `-> ;` says out loud that the included one is being replaced, and the
+  task asks for it.
 
 ## 3. The finale
 
-- Two entries in one include, separated by a comma:
-  `include WARM_UP counts -> warm_up_counts, describe -> ;`
-- Then write `counts` returning `warm_up_counts * 2`, and `describe`.
+- Two entries in one include, separated by a comma: one renaming `counts`
+  to its new name, one leaving `describe` out.
+- Then write your own `counts`, built from the renamed one, and your own
+  `describe`.
 - `describe` should call `counts`, not work the number out again.
-- Remember that a number cannot have a string added to it, so a description
-  starting with words is fine: `"Finale: " + counts + " counts"`.
+- Remember that a number cannot have a string added to it. A description
+  that starts with a string is fine, because a string will take a number
+  added on; one that starts with a number needs `.str` first.

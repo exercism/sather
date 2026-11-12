@@ -4,7 +4,7 @@
 point and a `d`:
 
 ```sather
-   440.0d
+   24.5d
    0.5d
    -2.25d
 ```
@@ -35,8 +35,8 @@ the place people get it wrong.
    7.5d.ceiling      -- 8.0, up to a whole number
 ```
 
-Convert before dividing, never after: `n.fltd / 2.0d` keeps the half,
-`(n / 2).fltd` has already lost it.
+Convert before dividing, never after: `cubic_cm.fltd / 1000.0d` keeps the
+fraction, `(cubic_cm / 1000).fltd` has already lost it.
 
 ## Useful routines
 

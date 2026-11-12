@@ -6,9 +6,15 @@ it runs out, the loop ends at once.
 
 ```sather
    loop
-      total := total + counts.elt!;
+      crop ::= crops.elt!;
+      #OUT + "Sow " + crop + "\n";
    end;
 ```
+
+Take the value into a variable first, as here. An iterator that runs out
+ends the loop part way through its line, and anything earlier on that line
+has already happened: `#OUT + "Sow " + crops.elt!` prints a stray `Sow ` on
+the last turn.
 
 Sather has no `for` statement. This is what replaces it, and it is the
 feature the language is known for.
@@ -35,17 +41,17 @@ middle of a condition:
 
 ```sather
    loop
-      if counts.elt! > 10 then busy := busy + 1; end;
+      if crops.elt! = "rhubarb" then #OUT + "Mind the leaves\n"; end;
    end;
 ```
 
 Each *place* in the program where an iterator is written keeps its own
-position. Writing `counts.elt!` twice in one loop body makes two independent
+position. Writing `crops.elt!` twice in one loop body makes two independent
 walks of the array, which is almost never what is wanted:
 
 ```sather
    loop
-      #OUT + counts.elt! + " and " + counts.elt!;   -- two separate walks
+      #OUT + crops.elt! + " and " + crops.elt!;   -- two separate walks
    end;
 ```
 

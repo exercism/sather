@@ -4,8 +4,8 @@ A **string** is a piece of text. Sather's type for one is `STR`, and a
 string is written between double quotes.
 
 ```sather
-   composer : STR is
-      return "Sibelius";
+   street : STR is
+      return "Collins";
    end;
 ```
 
@@ -14,11 +14,11 @@ string is written between double quotes.
 `+` joins two strings end to end.
 
 ```sather
-"Jean" + " " + "Sibelius"      -- "Jean Sibelius"
+"Collins" + " " + "Street"     -- "Collins Street"
 ```
 
 Nothing is put between them, so a space has to be asked for. Leaving it out
-gives `"JeanSibelius"`.
+gives `"CollinsStreet"`.
 
 ## How long is it?
 
@@ -26,7 +26,7 @@ gives `"JeanSibelius"`.
 its type is `INT`.
 
 ```sather
-"Sibelius".size      -- 8
+"Collins".size       -- 7
 ```
 
 There are no brackets after `.size`, the same as a routine that takes no
@@ -37,8 +37,8 @@ arguments.
 `.head(n)` is the first `n` characters. `.tail(n)` is the last `n`.
 
 ```sather
-"Sibelius".head(3)   -- "Sib"
-"Sibelius".tail(4)   -- "lius"
+"Collins".head(4)    -- "Coll"
+"Collins".tail(3)    -- "ins"
 ```
 
 `head` counts from the front, `tail` counts from the back. Both leave the

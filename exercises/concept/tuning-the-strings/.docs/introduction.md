@@ -4,7 +4,7 @@
 remainder:
 
 ```sather
-7 / 2        -- 3, not 3.5
+7 / 4        -- 1, not 1.75
 ```
 
 When the fraction matters, the type is `FLTD` — a **floating-point** number,
@@ -15,39 +15,40 @@ which can hold values between the whole ones.
 A floating-point literal has a decimal point and a `d` at the end.
 
 ```sather
-   concert_a : FLTD is
-      return 440.0d;
+   water_temp : FLTD is
+      return 24.5d;
    end;
 ```
 
-The `d` is not optional. `440.0` on its own is a different type, of less
+The `d` is not optional. `24.5` on its own is a different type, of less
 precision; the `d` asks for the one this track uses everywhere.
 
-Write `2.0d`, not `2d` — there has to be a decimal point too.
+Write `3.0d`, not `3d` — there has to be a decimal point too.
 
 ## Arithmetic
 
 `+`, `-`, `*` and `/` all work, and `/` now keeps the fraction:
 
 ```sather
-7.0d / 2.0d      -- 3.5
+7.0d / 4.0d      -- 1.75
 ```
 
 Both sides have to be `FLTD`. Sather will not quietly mix the two types, so
-`7 / 2.0d` is an error rather than a surprise.
+`7 / 4.0d` is an error rather than a surprise.
 
 ## From a whole number
 
 `.fltd` turns an `INT` into an `FLTD`:
 
 ```sather
-   halve(n : INT) : FLTD is
-      return n.fltd / 2.0d;
+   litres(cubic_cm : INT) : FLTD is
+      return cubic_cm.fltd / 1000.0d;
    end;
 ```
 
-`halve(7)` is `3.5`. Note where the conversion goes: `(7 / 2).fltd` would
-be `3.0`, because the division would already have thrown the half away.
+A fish tank holding 1500 cubic centimetres holds `litres(1500)`, which is
+`1.5`. Note where the conversion goes: `(1500 / 1000).fltd` would be `1.0`,
+because the division would already have thrown the half away.
 Convert **before** dividing, not after.
 
 ## How far apart?
@@ -56,5 +57,5 @@ Convert **before** dividing, not after.
 values are without caring which is bigger:
 
 ```sather
-(440.0d - 442.0d).abs      -- 2.0
+(24.5d - 26.0d).abs      -- 1.5
 ```

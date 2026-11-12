@@ -1,10 +1,10 @@
 # Conditionals
 
 ```sather
-   if score >= 5 then
-      return "Recalled";
+   if fuel_litres > 0 then
+      return "Ready";
    else
-      return "Thank you";
+      return "Refuel";
    end;
 ```
 
@@ -29,7 +29,7 @@ false.
 Questions are asked from the top down, and the first one that answers true
 wins. Everything below it is skipped without being asked. That is why a
 chain must go from the most specific test to the least: putting
-`score >= 5` above `score >= 8` means the second is never reached.
+`grams <= 500` above `grams <= 100` means the second is never reached.
 
 `else` is optional. `elsif` may be repeated as often as needed.
 
@@ -39,7 +39,7 @@ chain must go from the most specific test to the least: putting
 
 ```sather
    -- wrong
-   grade := if score > 5 then "pass" else "fail" end;
+   size := if grams > 500 then "large" else "small" end;
 ```
 
 Either return from inside each branch, or assign to a variable inside each
@@ -51,13 +51,13 @@ A routine that answers a question should return the question:
 
 ```sather
    -- say this
-   old_enough(age : INT) : BOOL is
-      return age >= 13;
+   freezing(celsius : INT) : BOOL is
+      return celsius <= 0;
    end;
 
    -- not this
-   old_enough(age : INT) : BOOL is
-      if age >= 13 then return true; else return false; end;
+   freezing(celsius : INT) : BOOL is
+      if celsius <= 0 then return true; else return false; end;
    end;
 ```
 
@@ -69,7 +69,7 @@ An `if` may hold another `if`. Often it does not need to: two questions that
 both have to hold can be joined with `and` instead, which reads better.
 
 ```sather
-   if score >= 8 and sings then
-      return "Lead";
+   if raining and windy then
+      return "Stay in";
    end;
 ```

@@ -13,7 +13,7 @@
 ## 2. Write a clue down
 
 - `append` is the routine, and it answers nothing — so this routine has no
-  return type either: `add_clue(notes : LIST{STR}, clue : STR) is`.
+  return type either. Its header is the name and the arguments, then `is`.
 - Do not assign the result of `append` anywhere. Unlike `FMAP::insert`,
   there is no result.
 - The postcondition goes between the arguments and the `is`. With no return
@@ -27,10 +27,10 @@
 
 - `remove_index` takes the position. No return type again.
 - A routine can have both: `pre` first, then `post`, then `is`.
-- Positions count from 0, so the last clue is at `notes.size - 1`.
+- Positions count from 0, so the last clue is at one less than the size.
 
 ## 5. Read the case back
 
-- A loop over `notes.elt!` and an `FSTR`, as in `rehearsal-script`.
+- A loop with `elt!` and an `FSTR`, as in `rehearsal-script`.
 - The `"; "` goes before every clue except the first, which is what makes an
   empty notebook come out as the empty string with no special handling.

@@ -1,10 +1,10 @@
 # Code Inclusion
 
 ```sather
-   include WARM_UP;
-   include WARM_UP count -> warm_up_count;
-   include WARM_UP describe -> ;
-   include WARM_UP count -> beats, describe -> ;
+   include ROBOT_BASE;
+   include ROBOT_BASE wheels -> base_wheels;
+   include ROBOT_BASE blurb -> ;
+   include ROBOT_BASE wheels -> base_wheels, blurb -> base_blurb;
 ```
 
 An `include` copies the code of another class into this one. It is a
@@ -20,15 +20,17 @@ the two classes are not connected afterwards.
 Each entry renames one feature. `-> ;` with no new name leaves it out.
 Anything not mentioned comes in unchanged.
 
-Renaming applies to what the *outside* sees. Calls between the included
-routines still work: if `describe` calls `count` and `count` is renamed to
-`beats`, `describe` calls `beats`.
+Calls inside the included code are looked up by name in the new class,
+after the renaming. If `blurb` calls `wheels` and `wheels` is renamed to
+`base_wheels`, the copied `blurb` still calls `wheels`: whatever this
+class now has under that name. If it has nothing by that name, the compiler
+refuses.
 
 ## Including several
 
 ```sather
-   include WARM_UP;
-   include COOL_DOWN;
+   include ROBOT_BASE;
+   include BATTERY;
 ```
 
 is allowed, and is how Sather gets what other languages call multiple
@@ -39,7 +41,7 @@ of precedence you have to memorise.
 ## private include
 
 ```sather
-   private include WARM_UP;
+   private include ROBOT_BASE;
 ```
 
 brings the code in for this class's own use without exposing it. Useful when
@@ -50,22 +52,23 @@ you want the implementation and not the interface.
 The usual shape for a family of classes:
 
 ```sather
-abstract class $ACT is
+abstract class $ROBOT is
    name : STR;
-   minutes : INT;
+   wheels : INT;
 end;
 
-class ACT_BASICS is
-   minutes : INT is return 5; end;
+class ROBOT_PARTS is
+   wheels : INT is return 4; end;
 end;
 
-class JUGGLING < $ACT is
-   include ACT_BASICS;
-   name : STR is return "Juggling"; end;
+class SWEEPER < $ROBOT is
+   include ROBOT_PARTS;
+   name : STR is return "Sweeper"; end;
 end;
 ```
 
-`< $ACT` says what it can do; `include ACT_BASICS` supplies part of the how.
+`< $ROBOT` says what it can do; `include ROBOT_PARTS` supplies part of the
+how.
 Change your mind about the how and the `<` does not move.
 
 ## Why it is done this way

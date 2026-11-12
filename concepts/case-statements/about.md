@@ -1,10 +1,10 @@
 # Case Statements
 
 ```sather
-   case zone
-   when 0 then return 0;
-   when 1, 2 then return 550;
-   else return 920;
+   case hours
+   when 1 then return 300;
+   when 2, 3 then return 500;
+   else return 900;
    end;
 ```
 
@@ -24,7 +24,7 @@ there rather than leaving it out:
 
 ```sather
    else
-      raise "unknown zone: " + zone;
+      raise "unknown coin: " + cents;
    end;
 ```
 
@@ -36,10 +36,10 @@ there rather than leaving it out:
 
 ```sather
    -- ranges
-   if age < 13 then ... elsif age < 16 then ... end;
+   if minutes < 30 then ... elsif minutes < 120 then ... end;
 
    -- more than one value at a time
-   if score >= 8 and sings then ... end;
+   if paid and minutes < 120 then ... end;
 ```
 
 Trying to force a range into a `case` produces something longer and worse
@@ -51,7 +51,7 @@ than the `if` it replaced.
 
 ```sather
    -- wrong
-   fare := case zone when 1 then 550 else 920 end;
+   charge := case hours when 1 then 300 else 900 end;
 ```
 
 Return from inside each arm, or assign to a variable inside each arm.

@@ -4,25 +4,25 @@ When one value is compared against a list of possibilities, a chain of
 `elsif`s says the same thing over and over:
 
 ```sather
-   if zone = 0 then
-      return 0;
-   elsif zone = 1 then
-      return 550;
-   elsif zone = 2 then
-      return 370;
+   if hours = 1 then
+      return 300;
+   elsif hours = 2 then
+      return 500;
+   elsif hours = 3 then
+      return 650;
    else
-      return 920;
+      return 900;
    end;
 ```
 
 `case` says it once:
 
 ```sather
-   case zone
-   when 0 then return 0;
-   when 1 then return 550;
-   when 2 then return 370;
-   else return 920;
+   case hours
+   when 1 then return 300;
+   when 2 then return 500;
+   when 3 then return 650;
+   else return 900;
    end;
 ```
 
@@ -34,15 +34,26 @@ against, and the first one that matches runs.
 A `when` may list values, separated by commas:
 
 ```sather
-   case day
-   when "Sat", "Sun" then return "Weekend";
-   when "Mon", "Tue", "Wed", "Thu", "Fri" then return "Weekday";
-   else return "Unknown";
+   case cents
+   when 10, 20, 50 then return "Silver";
+   when 100, 200 then return "Gold";
+   else return "Rejected";
    end;
 ```
 
 This works on whole numbers, characters and strings — anything that can be
-compared with `=`.
+compared with `=`. A string `when` looks the same, with the strings in
+double quotes; a character goes in single quotes, as `'Y'`.
+
+```sather
+   case street
+   when "Quay", "Customs" then return "Two hours";
+   else return "All day";
+   end;
+```
+
+The value after `case` need not be a variable. Any expression will do,
+including a call to another routine.
 
 ## The else is not optional
 
@@ -54,8 +65,8 @@ nothing happens. It is also different from most languages, where an
 unmatched `case` quietly does nothing.
 
 So every `case` needs an `else`, even when you are sure the `when` parts
-already cover every value. A fourth zone gets added later, the `case` is not
-updated to match, and the program stops on the first passenger who uses it.
+already cover every value. A new coin is minted, the `case` is not updated
+to match, and the program stops on the first driver who puts one in.
 
 ## Only one when runs
 
