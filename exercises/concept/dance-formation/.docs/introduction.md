@@ -59,3 +59,38 @@ and use it to reach each value:
 
 The test uses `shelf.size` rather than `3`, so the same loop works for a
 shelf of any length, an empty one included.
+
+## Arrays of arrays
+
+The values in an array can themselves be arrays. A seating plan with a row
+of dancers on each line is an `ARRAY{ARRAY{STR}}`: an array whose values
+are each an `ARRAY{STR}`.
+
+```sather
+   seats : ARRAY{ARRAY{STR}} := | |"Lou", "Raj"|, |"Tess", "Kai", "Zoe"| |;
+```
+
+The inner literals sit inside the outer one, separated by commas. Leave a
+space between neighbouring `|` marks, as in `| |"Lou"`, so they are not
+read together.
+
+One pair of square brackets picks a row; a second picks a value in that
+row:
+
+```sather
+seats[1]          -- |"Tess", "Kai", "Zoe"|
+seats[1][2]       -- "Zoe"
+seats.size        -- 2, the number of rows
+seats[1].size     -- 3, the number in that row
+```
+
+The rows need not all be the same length.
+
+`#ARRAY{ARRAY{INT}}(3)` makes room for three rows, but each starts out
+**void** — there is no row there yet. Make each one before using it:
+
+```sather
+   grid ::= #ARRAY{ARRAY{INT}}(3);
+   grid[0] := #ARRAY{INT}(4);     -- row 0 is now four noughts
+   grid[0][1] := 7;
+```

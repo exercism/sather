@@ -24,6 +24,16 @@ a sentence:
 "Route " + 27          -- "Route 27"
 ```
 
+`.str` gives the text form of a number on its own, which is what to use
+when the number comes first or stands alone:
+
+```sather
+27.str                 -- "27"
+27.str + " trams"      -- "27 trams"
+```
+
+`27 + " trams"` does not compile: `+` on an `INT` wants another number.
+
 ## Length
 
 ```sather
