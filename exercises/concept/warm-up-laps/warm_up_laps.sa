@@ -1,5 +1,17 @@
 class WARM_UP_LAPS is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   distance_run(laps : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   laps_to_reach(metres : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   first_long_lap(metres : INT) : INT is
+      raise "unimplemented";
+   end;
 
 end; -- class WARM_UP_LAPS

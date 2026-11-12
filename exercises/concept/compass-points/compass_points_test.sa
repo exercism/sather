@@ -4,6 +4,7 @@ class COMPASS_POINTS_TEST is
    main is
       class_name("BEARING");
 
+      -- Task 1
       test("due north", #BEARING(0).degrees, 0);
       test("due east", #BEARING(90).degrees, 90);
       test("the last degree", #BEARING(359).degrees, 359);
@@ -12,6 +13,7 @@ class COMPASS_POINTS_TEST is
       test("back past north", #BEARING((-10)).degrees, 350);
       test("a long way round", #BEARING(725).degrees, 5);
 
+      -- Task 2
       test("turning within the circle",
            #BEARING(90).turned(45).degrees, 135);
       test("turning past north",
@@ -26,12 +28,14 @@ class COMPASS_POINTS_TEST is
       test("the turned bearing is new", turned.degrees, 10);
       test("the original is untouched", original.degrees, 350);
 
+      -- Task 3
       test("the same bearing", (#BEARING(10) = #BEARING(10)), true);
       test("the same after coming round",
            (#BEARING(10) = #BEARING(370)), true);
       test("different bearings",
            (#BEARING(10) = #BEARING(11)), false);
 
+      -- Task 4
       test("north", #BEARING(0).point, "N");
       test("just short of north east", #BEARING(22).point, "N");
       test("just into north east", #BEARING(23).point, "NE");
@@ -47,6 +51,7 @@ class COMPASS_POINTS_TEST is
       test("round to north again", #BEARING(350).point, "N");
       test("the last degree is north", #BEARING(359).point, "N");
 
+      -- Task 5
       test("written down", #BEARING(90).str, "90 degrees (E)");
       test("written down at north", #BEARING(0).str, "0 degrees (N)");
       test("written down south west",

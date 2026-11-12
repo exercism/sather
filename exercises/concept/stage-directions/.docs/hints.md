@@ -2,13 +2,13 @@
 
 ## General
 
-- Every routine goes inside `class STAGE_DIRECTIONS is` and its matching
-  `end;`. The stub already has both — write between them.
-- Each routine ends with its own `end;`.
+- The stub already declares every routine, each ending with its own
+  `end;`. Replace each `raise "unimplemented";` with the real body.
 
 ## 1. Announce the start
 
-- The answer is a piece of text, so the routine is declared `: STR`.
+- The answer is a piece of text, which is why the routine is declared
+  `: STR`.
 - Text goes between double quotes: `"like this"`.
 - Hand the answer back with `return`.
 

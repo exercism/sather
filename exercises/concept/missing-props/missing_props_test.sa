@@ -4,6 +4,7 @@ class MISSING_PROPS_TEST is
    main is
       class_name("MISSING_PROPS");
 
+      -- Task 1
       props ::= #FMAP{STR,INT};
       props := props.insert("crown", 2);
       props := props.insert("lantern", 0);
@@ -22,6 +23,7 @@ class MISSING_PROPS_TEST is
               exception.str, "Unknown prop: sword");
       end;
 
+      -- Task 2
       test("taking a crown", MISSING_PROPS::take_one(props, "crown"), 1);
       test("taking a letter", MISSING_PROPS::take_one(props, "letter"), 4);
 
@@ -43,6 +45,7 @@ class MISSING_PROPS_TEST is
               exception.str, "Unknown prop: sword");
       end;
 
+      -- Task 3
       test("reporting a prop that is there",
            MISSING_PROPS::report(props, "crown"), "Took crown, 1 left");
       test("reporting the last of a prop",

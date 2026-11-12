@@ -3,7 +3,8 @@
 Every routine the dance troupe performs is built on the same warm-up, and
 then goes its own way.
 
-The stub gives you `WARM_UP`. Write three more classes below it.
+The stub gives you `WARM_UP`, and three more classes with placeholder
+routines. Replace each class's placeholders with the real body.
 
 ## 1. The jazz routine
 

@@ -5,7 +5,8 @@ different insides, and whoever assembles the show needs the same two things
 from each of them.
 
 This is the first exercise where you write several classes in one file. The
-stub gives you the abstract class; write the rest below it.
+stub gives you the abstract class, and a `CIRCUS_ACTS` class with a
+placeholder for each routine. Write the three acts between them.
 
 ## 1. The three acts
 

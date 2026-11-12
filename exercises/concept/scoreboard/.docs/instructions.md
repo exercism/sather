@@ -3,8 +3,9 @@
 You are running the scoreboard at a netball match. Unlike everything so far,
 a scoreboard has to remember what has happened.
 
-The `SCOREBOARD` class needs the following. The stub gives you the class and
-its two attribute declarations; add the rest.
+The `SCOREBOARD` class needs the following. The stub gives you the class,
+its two attribute declarations, and a placeholder for each routine that you
+replace with the real body.
 
 ## 1. Set up the board
 

@@ -4,12 +4,14 @@ class REHEARSAL_SCRIPT_TEST is
    main is
       class_name("REHEARSAL_SCRIPT");
 
+      -- Task 1
       test("three times", REHEARSAL_SCRIPT::repeat_cue("Ha", 3), "HaHaHa");
       test("once", REHEARSAL_SCRIPT::repeat_cue("Ha", 1), "Ha");
       test("not at all", REHEARSAL_SCRIPT::repeat_cue("Ha", 0), "");
       test("a longer cue",
            REHEARSAL_SCRIPT::repeat_cue("Knock! ", 2), "Knock! Knock! ");
 
+      -- Task 2
       test("three in the cast",
            REHEARSAL_SCRIPT::initials(|"Mia", "Ana", "Ben"|), "MAB");
       test("one in the cast",
@@ -18,6 +20,7 @@ class REHEARSAL_SCRIPT_TEST is
            REHEARSAL_SCRIPT::initials(|"Mia", "Ana", "Ben", "Sam", "Lee"|),
            "MABSL");
 
+      -- Task 3
       test("two lines",
            REHEARSAL_SCRIPT::numbered_lines(|"Enter", "Exit"|),
            "1. Enter\n2. Exit");
@@ -29,6 +32,7 @@ class REHEARSAL_SCRIPT_TEST is
            REHEARSAL_SCRIPT::numbered_lines(|"Enter", "Speak", "Exit"|),
            "1. Enter\n2. Speak\n3. Exit");
 
+      -- Task 4
       test("a quiet line",
            REHEARSAL_SCRIPT::shout("quiet please"), "QUIET PLEASE");
       test("already loud",

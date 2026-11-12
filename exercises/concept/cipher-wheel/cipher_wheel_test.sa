@@ -4,23 +4,28 @@ class CIPHER_WHEEL_TEST is
    main is
       class_name("CIPHER_WHEEL");
 
+      -- Task 1
       test("a small letter", CIPHER_WHEEL::is_letter('m'), true);
       test("a capital", CIPHER_WHEEL::is_letter('M'), true);
       test("a digit", CIPHER_WHEEL::is_letter('7'), false);
       test("a space", CIPHER_WHEEL::is_letter(' '), false);
 
+      -- Task 2
       test("shout a small letter", CIPHER_WHEEL::shout('m'), 'M');
       test("shout a capital", CIPHER_WHEEL::shout('M'), 'M');
       test("shout a digit", CIPHER_WHEEL::shout('7'), '7');
 
+      -- Task 3
       test("the code for a", CIPHER_WHEEL::code('a'), 97);
       test("the code for b", CIPHER_WHEEL::code('b'), 98);
       test("the code for A", CIPHER_WHEEL::code('A'), 65);
       test("the code for 0", CIPHER_WHEEL::code('0'), 48);
 
+      -- Task 4
       test("first of a name", CIPHER_WHEEL::first_character("Marlowe"), 'M');
       test("first of one letter", CIPHER_WHEEL::first_character("x"), 'x');
 
+      -- Task 5
       test("three along", CIPHER_WHEEL::turn('a', 3), 'd');
       test("not moved at all", CIPHER_WHEEL::turn('a', 0), 'a');
       test("round the end", CIPHER_WHEEL::turn('z', 1), 'a');

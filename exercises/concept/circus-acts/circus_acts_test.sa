@@ -4,6 +4,7 @@ class CIRCUS_ACTS_TEST is
    main is
       class_name("CIRCUS_ACTS");
 
+      -- Task 1
       test("juggling is named", JUGGLING::create.name, "Juggling");
       test("juggling takes five", JUGGLING::create.minutes, 5);
       test("tumbling is named", TUMBLING::create.name, "Tumbling");
@@ -12,6 +13,7 @@ class CIRCUS_ACTS_TEST is
       test("a higher trapeze", #TRAPEZE(12).name, "Trapeze at 12m");
       test("trapeze takes eight", #TRAPEZE(4).minutes, 8);
 
+      -- Task 2
       -- One array holding three different classes.
       show : ARRAY{$ACT} := |#JUGGLING, #TRAPEZE(4), #TUMBLING|;
 

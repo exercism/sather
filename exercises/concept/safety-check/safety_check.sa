@@ -1,5 +1,25 @@
 class SAFETY_CHECK is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   mat_ready(mat_down, mat_clean : BOOL) : BOOL is
+      raise "unimplemented";
+   end;
+
+   something_below(mat_below, net_below : BOOL) : BOOL is
+      raise "unimplemented";
+   end;
+
+   needs_briefing(briefed : BOOL) : BOOL is
+      raise "unimplemented";
+   end;
+
+   old_enough(age : INT) : BOOL is
+      raise "unimplemented";
+   end;
+
+   cleared(age : INT, briefed, mat_down, mat_clean : BOOL) : BOOL is
+      raise "unimplemented";
+   end;
 
 end; -- class SAFETY_CHECK

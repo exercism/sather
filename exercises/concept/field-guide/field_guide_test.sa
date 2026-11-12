@@ -9,6 +9,7 @@ class FIELD_GUIDE_TEST is
       guide := guide.insert("wombat", "forest");
       guide := guide.insert("kangaroo", "grassland");
 
+      -- Task 1
       -- Everything that only reads, while the guide is known to be as built.
       test("an animal in the guide",
            FIELD_GUIDE::is_listed(guide, "emu"), true);
@@ -19,6 +20,7 @@ class FIELD_GUIDE_TEST is
       test("nothing is in an empty guide",
            FIELD_GUIDE::is_listed(#FMAP{STR,STR}, "emu"), false);
 
+      -- Task 2
       test("where the emu lives",
            FIELD_GUIDE::habitat_of(guide, "emu"), "grassland");
       test("where the wombat lives",
@@ -28,28 +30,21 @@ class FIELD_GUIDE_TEST is
       test("nothing lives in an empty guide",
            FIELD_GUIDE::habitat_of(#FMAP{STR,STR}, "emu"), "Unknown");
 
-      test("three animals", FIELD_GUIDE::entry_count(guide), 3);
-      test("an empty guide",
-           FIELD_GUIDE::entry_count(#FMAP{STR,STR}), 0);
-
-      habitats ::= FIELD_GUIDE::all_habitats(guide);
-      test("two habitats between three animals", habitats.size, 2);
-      test("grassland is one", habitats.has("grassland"), true);
-      test("forest is the other", habitats.has("forest"), true);
-      test("scrub is not", habitats.has("scrub"), false);
-      test("no habitats in an empty guide",
-           FIELD_GUIDE::all_habitats(#FMAP{STR,STR}).size, 0);
-
-      -- Adding. From here on the guide built above is used up: whatever
-      -- add_entry answers is the guide to go on with.
-      bigger ::= FIELD_GUIDE::add_entry(guide, "quokka", "scrub");
+      -- Task 3
+      -- Adding, to a guide built for the purpose: whatever add_entry
+      -- answers is the guide to go on with, and the one handed in is used
+      -- up.
+      before ::= #FMAP{STR,STR};
+      before := before.insert("emu", "grassland");
+      before := before.insert("wombat", "forest");
+      before := before.insert("kangaroo", "grassland");
+      bigger ::= FIELD_GUIDE::add_entry(before, "quokka", "scrub");
       test("the quokka is in now", bigger.has_ind("quokka"), true);
       test("and where it lives is known",
            FIELD_GUIDE::habitat_of(bigger, "quokka"), "scrub");
       test("the animals already there are still there",
            bigger.has_ind("emu"), true);
-      test("one more than before",
-           FIELD_GUIDE::entry_count(bigger), 4);
+      test("one more than before", bigger.size, 4);
 
       -- Replacing, on a guide built for the purpose.
       small ::= #FMAP{STR,STR};
@@ -57,15 +52,27 @@ class FIELD_GUIDE_TEST is
       replaced ::= FIELD_GUIDE::add_entry(small, "emu", "scrub");
       test("an animal already listed is replaced",
            FIELD_GUIDE::habitat_of(replaced, "emu"), "scrub");
-      test("replacing adds no entry",
-           FIELD_GUIDE::entry_count(replaced), 1);
+      test("replacing adds no entry", replaced.size, 1);
 
       -- Starting from nothing at all.
       started ::= FIELD_GUIDE::add_entry(#FMAP{STR,STR}, "moa", "forest");
-      test("a guide can be started from empty",
-           FIELD_GUIDE::entry_count(started), 1);
+      test("a guide can be started from empty", started.size, 1);
       test("and the animal is in it",
            FIELD_GUIDE::habitat_of(started, "moa"), "forest");
+
+      -- Task 4
+      test("three animals", FIELD_GUIDE::entry_count(guide), 3);
+      test("an empty guide",
+           FIELD_GUIDE::entry_count(#FMAP{STR,STR}), 0);
+
+      -- Task 5
+      habitats ::= FIELD_GUIDE::all_habitats(guide);
+      test("two habitats between three animals", habitats.size, 2);
+      test("grassland is one", habitats.has("grassland"), true);
+      test("forest is the other", habitats.has("forest"), true);
+      test("scrub is not", habitats.has("scrub"), false);
+      test("no habitats in an empty guide",
+           FIELD_GUIDE::all_habitats(#FMAP{STR,STR}).size, 0);
 
       finish;
    end;

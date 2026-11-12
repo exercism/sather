@@ -1,5 +1,17 @@
 class MISSING_PROPS is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   count_of(props : FMAP{STR,INT}, prop : STR) : INT is
+      raise "unimplemented";
+   end;
+
+   take_one(props : FMAP{STR,INT}, prop : STR) : INT is
+      raise "unimplemented";
+   end;
+
+   report(props : FMAP{STR,INT}, prop : STR) : STR is
+      raise "unimplemented";
+   end;
 
 end; -- class MISSING_PROPS

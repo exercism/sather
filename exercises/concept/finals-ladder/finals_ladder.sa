@@ -15,6 +15,30 @@ end; -- class TEAM
 
 class FINALS_LADDER is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   higher(a, b : TEAM) : BOOL is
+      raise "unimplemented";
+   end;
+
+   ladder(teams : ARRAY{TEAM}) : ARRAY{TEAM} is
+      raise "unimplemented";
+   end;
+
+   names(teams : ARRAY{TEAM}) : STR is
+      raise "unimplemented";
+   end;
+
+   premiers(teams : ARRAY{TEAM}) : STR is
+      raise "unimplemented";
+   end;
+
+   shorter(a, b : STR) : BOOL is
+      raise "unimplemented";
+   end;
+
+   shortest_first(words : ARRAY{STR}) : ARRAY{STR} is
+      raise "unimplemented";
+   end;
 
 end; -- class FINALS_LADDER

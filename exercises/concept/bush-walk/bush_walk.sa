@@ -1,6 +1,21 @@
 class BUSH_WALK is
 
-   -- Write your iterators between here and the end of the class.
-   -- Every one of them has a name ending in "!".
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   markers!(once spacing : INT, once count : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   until_end!(once seen : ARRAY{STR}) : STR is
+      raise "unimplemented";
+   end;
+
+   birds!(once seen : ARRAY{STR}) : STR is
+      raise "unimplemented";
+   end;
+
+   numbered!(once seen : ARRAY{STR}) : STR is
+      raise "unimplemented";
+   end;
 
 end; -- class BUSH_WALK

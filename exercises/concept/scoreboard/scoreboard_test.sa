@@ -4,46 +4,68 @@ class SCOREBOARD_TEST is
    main is
       class_name("SCOREBOARD");
 
+      -- Task 1
       board ::= #SCOREBOARD("Vixens", "Magpies");
       test("home starts at nothing", board.home_score, 0);
       test("away starts at nothing", board.away_score, 0);
       test("the teams are remembered", board.home_team, "Vixens");
       test("both teams are remembered", board.away_team, "Magpies");
-      test("nothing has happened yet",
-           board.summary, "Vixens 0 - 0 Magpies");
-      test("level at the start", board.leader, "Draw");
-      test("no margin at the start", board.margin, 0);
-
-      board.home_goal;
-      test("one goal to the home team", board.home_score, 1);
-      test("the away team is untouched", board.away_score, 0);
-      test("the board reads one nil",
-           board.summary, "Vixens 1 - 0 Magpies");
-      test("the home team leads", board.leader, "Vixens");
-      test("one goal in it", board.margin, 1);
-
-      board.away_goal;
-      board.away_goal;
-      test("two goals to the away team", board.away_score, 2);
-      test("the board reads one two",
-           board.summary, "Vixens 1 - 2 Magpies");
-      test("the away team leads", board.leader, "Magpies");
-      test("one goal in it the other way", board.margin, 1);
-
-      board.home_goal;
-      test("level again", board.leader, "Draw");
-      test("no margin again", board.margin, 0);
 
       -- A second board keeps its own score.
       other ::= #SCOREBOARD("Swifts", "Firebirds");
       test("a new board starts fresh", other.home_score, 0);
+
+      -- Task 2
+      board.home_goal;
+      test("one goal to the home team", board.home_score, 1);
+      test("the away team is untouched", board.away_score, 0);
+
+      board.away_goal;
+      board.away_goal;
+      test("two goals to the away team", board.away_score, 2);
+
+      board.home_goal;
       test("the first board is untouched", board.home_score, 2);
       other.home_goal;
       test("the new board scores", other.home_score, 1);
       test("the first board still has its own",
            board.home_score, 2);
+
+      -- Task 3
+      story ::= #SCOREBOARD("Vixens", "Magpies");
+      test("nothing has happened yet",
+           story.summary, "Vixens 0 - 0 Magpies");
+      story.home_goal;
+      test("the board reads one nil",
+           story.summary, "Vixens 1 - 0 Magpies");
+      story.away_goal;
+      story.away_goal;
+      test("the board reads one two",
+           story.summary, "Vixens 1 - 2 Magpies");
       test("and its own teams",
            other.summary, "Swifts 1 - 0 Firebirds");
+
+      -- Task 4
+      race ::= #SCOREBOARD("Vixens", "Magpies");
+      test("level at the start", race.leader, "Draw");
+      race.home_goal;
+      test("the home team leads", race.leader, "Vixens");
+      race.away_goal;
+      race.away_goal;
+      test("the away team leads", race.leader, "Magpies");
+      race.home_goal;
+      test("level again", race.leader, "Draw");
+
+      -- Task 5
+      gap ::= #SCOREBOARD("Vixens", "Magpies");
+      test("no margin at the start", gap.margin, 0);
+      gap.home_goal;
+      test("one goal in it", gap.margin, 1);
+      gap.away_goal;
+      gap.away_goal;
+      test("one goal in it the other way", gap.margin, 1);
+      gap.home_goal;
+      test("no margin again", gap.margin, 0);
 
       finish;
    end;

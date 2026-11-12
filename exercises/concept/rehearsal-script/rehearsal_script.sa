@@ -1,5 +1,21 @@
 class REHEARSAL_SCRIPT is
 
-   -- Write your routines between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   repeat_cue(cue : STR, times : INT) : STR is
+      raise "unimplemented";
+   end;
+
+   initials(names : ARRAY{STR}) : STR is
+      raise "unimplemented";
+   end;
+
+   numbered_lines(lines : ARRAY{STR}) : STR is
+      raise "unimplemented";
+   end;
+
+   shout(line : STR) : STR is
+      raise "unimplemented";
+   end;
 
 end; -- class REHEARSAL_SCRIPT

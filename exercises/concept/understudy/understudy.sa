@@ -1,6 +1,33 @@
 class UNDERSTUDY is
 
-   -- Write shout, whisper, rehearse, run_scene, understudy_for, repeat
-   -- and doubler between here and the end of the class.
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   shout(line : STR) : STR is
+      raise "unimplemented";
+   end;
+
+   whisper(line : STR) : STR is
+      raise "unimplemented";
+   end;
+
+   rehearse(line : STR, part : ROUT{STR}:STR) : STR is
+      raise "unimplemented";
+   end;
+
+   run_scene(lines : ARRAY{STR}, part : ROUT{STR}:STR) : STR is
+      raise "unimplemented";
+   end;
+
+   understudy_for(style : STR) : ROUT{STR}:STR is
+      raise "unimplemented";
+   end;
+
+   repeat(times : INT, line : STR) : STR is
+      raise "unimplemented";
+   end;
+
+   doubler : ROUT{STR}:STR is
+      raise "unimplemented";
+   end;
 
 end; -- class UNDERSTUDY
