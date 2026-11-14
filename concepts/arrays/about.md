@@ -53,3 +53,23 @@ out:
 ```sather
    #OUT + shelf.str;      -- {Emma,Dracula,Kim}
 ```
+
+## Arrays of arrays
+
+An array can hold arrays. `ARRAY{ARRAY{INT}}` is an array whose values are
+each an `ARRAY{INT}`, which gives a grid or a triangle of numbers.
+
+```sather
+   seats : ARRAY{ARRAY{STR}} := | |"Lou", "Raj"|, |"Tess", "Kai", "Zoe"| |;
+   seats[1][2]       -- "Zoe": row 1, position 2
+   seats[1].size     -- 3
+```
+
+Write a space between neighbouring `|` marks in a nested literal. Each row
+is an array of its own, so rows may differ in length.
+
+`#ARRAY{ARRAY{INT}}(n)` makes `n` places for rows, each of them **void**.
+Each row has to be made, for example with `#ARRAY{INT}(m)`, before
+anything is read from it or written into it.
+
+`.str` nests too: `seats.str` is `{{Lou,Raj},{Tess,Kai,Zoe}}`.

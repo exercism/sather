@@ -44,6 +44,23 @@ arguments.
 `head` counts from the front, `tail` counts from the back. Both leave the
 original string alone and hand back a new one.
 
+## Numbers into strings
+
+`.str` gives the text form of a number.
+
+```sather
+27.str               -- "27"
+```
+
+`+` does that for you when a number is joined onto the end of a string:
+
+```sather
+"Route " + 27        -- "Route 27"
+```
+
+The string has to come first. `27 + " trams"` does not compile, because `+`
+on an `INT` expects another number. Write `27.str + " trams"` instead.
+
 ## No string at all
 
 A `STR` can also be **void**, which means there is no string there at all.

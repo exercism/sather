@@ -11,21 +11,20 @@ both are built out of `loop` and something that ends it.
 
 ## Variables
 
-```sather
-   total ::= 0;          -- declare, with a starting value
-   total := total + 5;   -- assign
-```
-
-`::=` declares and takes the type from the value given. When a variable has
-to exist before there is a value for it, declare it with a type instead:
+A variable that counts or collects is made before the loop, so that it
+keeps its value from one time round to the next:
 
 ```sather
-   total : INT;
-   total := 0;
+   total ::= 0;
+   loop
+      ...
+      total := total + 5;
+   end;
 ```
 
-A variable declared without a value starts as zero for `INT`, `false` for
-`BOOL`, and void for a string or an object.
+A `::=` inside the loop body runs every time round, so that variable is set
+afresh each time. A variable declared in the body without a value, as in
+`count : INT;`, is not: it carries on from the time before.
 
 ## Ending a loop
 

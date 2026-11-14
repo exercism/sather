@@ -12,24 +12,19 @@ On its own that never stops, so something inside has to end it.
 
 ## Somewhere to keep count
 
-A loop nearly always needs a value that changes as it goes. That is a
-**variable**, and `::=` makes one:
+A loop nearly always needs a variable that changes as it goes. Make it
+before the loop starts, so that it keeps its value from one time round to
+the next:
 
 ```sather
    total ::= 0;
 ```
 
-The variable is called `total`, it starts at `0`, and Sather works out from
-the `0` that it holds an `INT`. After that, `:=` puts a new value in:
+Inside the loop, `:=` puts the new value back each time:
 
 ```sather
    total := total + 5;
 ```
-
-Read that right to left: take what `total` is now, add 5, and put the answer
-back into `total`.
-
-A variable made this way lives until the end of the routine.
 
 ## until!
 
