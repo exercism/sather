@@ -13,5 +13,6 @@
       ".meta/exemplar.sa"
     ]
   },
+  "icon": "wizards-and-warriors",
   "blurb": "Learn how Sather reuses code by choreographing a dance troupe."
 }

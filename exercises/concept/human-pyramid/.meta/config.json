@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "human_pyramid.sa"
+    ],
+    "test": [
+      "human_pyramid_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ]
+  },
+  "icon": "basics",
+  "blurb": "Learn recursion by building human pyramids at the circus."
+}

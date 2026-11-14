@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "HUMAN_PYRAMID::acrobats": 1,
+    "HUMAN_PYRAMID::ladder_ways": 2,
+    "HUMAN_PYRAMID::can_balance": 3
+  }
+}
