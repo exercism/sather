@@ -1,0 +1,22 @@
+class HUMAN_PYRAMID is
+
+   acrobats(rows : INT) : INT is
+      if rows = 0 then return 0 end;
+      return rows + acrobats(rows - 1);
+   end;
+
+   ladder_ways(rungs : INT) : INT is
+      if rungs <= 1 then return 1 end;
+      -- The last step was either one rung or two.
+      return ladder_ways(rungs - 1) + ladder_ways(rungs - 2);
+   end;
+
+   can_balance(weights : ARRAY{INT}, from, target : INT) : BOOL is
+      if target = 0 then return true end;
+      if from = weights.size then return false end;
+      -- Either this acrobat is on the scale, or they are not.
+      return can_balance(weights, from + 1, target - weights[from])
+          or can_balance(weights, from + 1, target);
+   end;
+
+end; -- class HUMAN_PYRAMID

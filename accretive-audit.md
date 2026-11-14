@@ -63,7 +63,8 @@ and the end of the class."), so **all 26 concept exercises were Mode A**. Seven
 of them also had Mode B or Ordering problems, which surfaced while grouping
 their tests by task. (`finals-ladder` and `case-notes` were also confirmed by
 running the checker against their old tests.) All have been fixed, and
-**every concept exercise is now accretive (26/26)**.
+**every concept exercise is now accretive (26/26)**. `human-pyramid`,
+added afterwards, was written accretive and passes the checker (27/27).
 
 | Original verdict | Count | Exercises |
 |---|---|---|

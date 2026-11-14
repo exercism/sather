@@ -202,6 +202,18 @@
         "status": "beta"
       },
       {
+        "slug": "human-pyramid",
+        "name": "Human Pyramid",
+        "uuid": "2f46e7a2-f93d-4b7b-8814-c1d2897041cc",
+        "concepts": [
+          "recursion"
+        ],
+        "prerequisites": [
+          "arrays"
+        ],
+        "status": "beta"
+      },
+      {
         "slug": "field-guide",
         "name": "Field Guide",
         "uuid": "9cfda443-a98c-4926-961a-d59cf319e721",
@@ -1003,7 +1015,8 @@
         "prerequisites": [
           "classes-with-state",
           "generic-classes",
-          "custom-iterators"
+          "custom-iterators",
+          "recursion"
         ],
         "difficulty": 6
       },
@@ -1014,7 +1027,8 @@
         "practices": [],
         "prerequisites": [
           "arrays",
-          "exceptions"
+          "exceptions",
+          "recursion"
         ],
         "difficulty": 6
       },
@@ -1096,7 +1110,8 @@
         "practices": [],
         "prerequisites": [
           "lists",
-          "contracts"
+          "contracts",
+          "recursion"
         ],
         "difficulty": 6
       },
@@ -1228,7 +1243,8 @@
           "arrays",
           "lists",
           "classes-with-state",
-          "case-statements"
+          "case-statements",
+          "recursion"
         ],
         "difficulty": 7
       },
@@ -1253,7 +1269,8 @@
         "prerequisites": [
           "maps-and-sets",
           "exceptions",
-          "custom-iterators"
+          "custom-iterators",
+          "recursion"
         ],
         "difficulty": 7
       },
@@ -1264,7 +1281,8 @@
         "practices": [],
         "prerequisites": [
           "maps-and-sets",
-          "characters"
+          "characters",
+          "recursion"
         ],
         "difficulty": 8
       },
@@ -1319,7 +1337,8 @@
           "arrays",
           "lists",
           "classes-with-state",
-          "case-statements"
+          "case-statements",
+          "recursion"
         ],
         "difficulty": 8
       }
@@ -1395,6 +1414,11 @@
       "uuid": "4ef2257d-82da-46b7-afb9-6a428c3833d2",
       "slug": "classes-with-state",
       "name": "Classes with State"
+    },
+    {
+      "uuid": "9916c889-6e85-4f04-bf7d-4a2228acf59b",
+      "slug": "recursion",
+      "name": "Recursion"
     },
     {
       "uuid": "438913e8-0871-4bf4-a479-e179707a1056",

@@ -1,0 +1,17 @@
+class HUMAN_PYRAMID is
+
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   acrobats(rows : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   ladder_ways(rungs : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   can_balance(weights : ARRAY{INT}, from, target : INT) : BOOL is
+      raise "unimplemented";
+   end;
+
+end; -- class HUMAN_PYRAMID

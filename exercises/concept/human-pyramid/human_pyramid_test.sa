@@ -1,0 +1,51 @@
+class HUMAN_PYRAMID_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("HUMAN_PYRAMID");
+
+      -- Task 1
+      test("no rows, no acrobats", HUMAN_PYRAMID::acrobats(0), 0);
+      test("one acrobat on their own", HUMAN_PYRAMID::acrobats(1), 1);
+      test("two rows", HUMAN_PYRAMID::acrobats(2), 3);
+      test("three rows", HUMAN_PYRAMID::acrobats(3), 6);
+      test("four rows", HUMAN_PYRAMID::acrobats(4), 10);
+      test("ten rows", HUMAN_PYRAMID::acrobats(10), 55);
+
+      -- Task 2
+      test("one rung", HUMAN_PYRAMID::ladder_ways(1), 1);
+      test("two rungs", HUMAN_PYRAMID::ladder_ways(2), 2);
+      test("three rungs", HUMAN_PYRAMID::ladder_ways(3), 3);
+      test("four rungs", HUMAN_PYRAMID::ladder_ways(4), 5);
+      test("five rungs", HUMAN_PYRAMID::ladder_ways(5), 8);
+      test("ten rungs", HUMAN_PYRAMID::ladder_ways(10), 89);
+
+      -- Task 3
+      troupe : ARRAY{INT} := |50, 40, 30|;
+      test("two of them make it",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 70), true);
+      test("the first two make it",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 90), true);
+      test("one on their own makes it",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 40), true);
+      test("everybody makes it",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 120), true);
+      test("nobody needed",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 0), true);
+      test("no group weighs sixty",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 60), false);
+      test("too heavy for the whole troupe",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 130), false);
+      test("an acrobat can only be used once",
+           HUMAN_PYRAMID::can_balance(troupe, 0, 100), false);
+      big : ARRAY{INT} := |35, 52, 41, 47, 38, 60|;
+      test("a bigger troupe",
+           HUMAN_PYRAMID::can_balance(big, 0, 126), true);
+      test("a bigger troupe that cannot",
+           HUMAN_PYRAMID::can_balance(big, 0, 34), false);
+      test("starting further along",
+           HUMAN_PYRAMID::can_balance(troupe, 1, 90), false);
+
+      finish;
+   end;
+end; -- class HUMAN_PYRAMID_TEST
