@@ -886,7 +886,9 @@
         "uuid": "1665a101-7351-434f-bf92-e84820429f3b",
         "practices": [],
         "prerequisites": [
+          "arrays",
           "case-statements",
+          "exact-numbers",
           "string-builders"
         ],
         "difficulty": 5
@@ -1255,7 +1257,8 @@
         "practices": [],
         "prerequisites": [
           "characters",
-          "arrays"
+          "arrays",
+          "iterators"
         ],
         "difficulty": 7
       },
@@ -1293,7 +1296,9 @@
         "practices": [],
         "prerequisites": [
           "characters",
-          "arrays"
+          "arrays",
+          "iterators",
+          "recursion"
         ],
         "difficulty": 8
       },
