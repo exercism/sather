@@ -3,7 +3,7 @@
 You are helping with a bird survey. Each day somebody sits at a hide and
 counts what flies past, and the day's counts come back as an array.
 
-All five tasks go in the `BIRD_SURVEY` class.
+All six tasks go in the `BIRD_SURVEY` class.
 
 ## 1. The total
 
@@ -58,5 +58,17 @@ answer is `-1`.
 BIRD_SURVEY::first_busy_day(|3, 0, 7|, 5)
 -- => 2
 BIRD_SURVEY::first_busy_day(|3, 0, 7|, 9)
+-- => -1
+```
+
+## 6. The last busy day
+
+Now the last day with a count above some number, numbered from nought as
+before. If no day was that busy, the answer is `-1`.
+
+```sather
+BIRD_SURVEY::last_busy_day(|8, 0, 7|, 5)
+-- => 2
+BIRD_SURVEY::last_busy_day(|8, 0, 7|, 9)
 -- => -1
 ```

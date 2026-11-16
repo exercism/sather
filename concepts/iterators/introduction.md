@@ -53,7 +53,7 @@ An iterator called inside a loop is asked for a value each time round. When
 it has none left, the loop ends immediately, wherever in the body the call
 happens to be.
 
-## Two to start with
+## Three to start with
 
 `elt!` gives the elements of an array or a string, in order.
 
@@ -72,9 +72,6 @@ happens to be.
    end;
 ```
 
-Both are ordinary routines that happen to end in `!`, so both are called
-with a dot, on an array or on a number.
-
 Counting from `0` to `.size - 1` gives the positions of an array, for when
 the position matters as well as the value:
 
@@ -84,6 +81,25 @@ the position matters as well as the value:
       #OUT + "Bed " + i + ": " + crops[i] + "\n";
    end;
 ```
+
+`downto!` counts the other way. `3.downto!(1)` gives 3, 2, 1. Counting
+down from `.size - 1` to `0` visits the positions last first, which is the
+quick way to find the *last* of something: stop at the first one found
+going backwards.
+
+```sather
+   loop
+      i ::= (crops.size - 1).downto!(0);
+      #OUT + "Bed " + i + ": " + crops[i] + "\n";
+   end;
+```
+
+The brackets matter. Without them, `crops.size - 1.downto!(0)` counts down
+from `1`, not from the last position, because the call happens before the
+subtraction.
+
+All three are ordinary routines that happen to end in `!`, so all are called
+with a dot, on an array or on a number.
 
 ## Keeping the answer
 

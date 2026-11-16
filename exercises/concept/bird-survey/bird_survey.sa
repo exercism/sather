@@ -22,4 +22,8 @@ class BIRD_SURVEY is
       raise "unimplemented";
    end;
 
+   last_busy_day(counts : ARRAY{INT}, than : INT) : INT is
+      raise "unimplemented";
+   end;
+
 end; -- class BIRD_SURVEY
