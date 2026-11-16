@@ -10,6 +10,7 @@ the point is how much shorter it becomes.
 
 - Call `elt!` to walk an array's values.
 - Call `upto!` to count without a variable.
+- Call `downto!` to walk positions backwards.
 - Recognise that a loop ends when its iterator runs out.
 - Keep the result in a variable declared outside the loop.
 - Know that writing the same iterator call twice in one body starts two
@@ -20,9 +21,9 @@ the point is how much shorter it becomes.
 - More than one iterator in a loop, which is the whole of `duet-practice`
   and is deliberately left alone here.
 - Writing an iterator, which needs `yield` and waits for `bush-walk`.
-- `ind!`, `downto!` and `times!`, which are in the concept page but which no
-  task needs; task 5 uses `upto!` over positions because the answer is a
-  position.
+- `ind!` and `times!`, which are in the concept page but which no task
+  needs; tasks 5 and 6 use `upto!` and `downto!` over positions because the
+  answer is a position.
 
 ## Concepts
 

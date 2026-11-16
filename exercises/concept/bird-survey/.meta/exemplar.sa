@@ -46,4 +46,17 @@ class BIRD_SURVEY is
       return answer;
    end;
 
+   last_busy_day(counts : ARRAY{INT}, than : INT) : INT is
+      -- Walk the positions backwards, so the first found is the last day.
+      answer ::= -1;
+      loop
+         i ::= (counts.size - 1).downto!(0);
+         if counts[i] > than then
+            answer := i;
+            break!;
+         end;
+      end;
+      return answer;
+   end;
+
 end; -- class BIRD_SURVEY

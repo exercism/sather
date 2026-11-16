@@ -41,3 +41,11 @@
   is already what should be returned.
 - Once a day is found, `break!` out — otherwise a later busy day would
   overwrite the first one.
+
+## 6. The last busy day
+
+- The same as task 5, walked the other way. `downto!` counts down from the
+  last position to `0`, as the introduction shows.
+- Put brackets round `counts.size - 1` before calling `downto!` on it.
+- The first busy day found going backwards is the last one, so `break!` as
+  before.

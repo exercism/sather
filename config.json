@@ -495,7 +495,8 @@
         "practices": [],
         "prerequisites": [
           "maps-and-sets",
-          "exceptions"
+          "exceptions",
+          "case-statements"
         ],
         "difficulty": 2
       },
@@ -538,6 +539,7 @@
         "uuid": "38a7f729-8a70-42d9-b687-ab99b70acf37",
         "practices": [],
         "prerequisites": [
+          "case-statements",
           "characters",
           "string-builders"
         ],
@@ -902,7 +904,8 @@
         ],
         "prerequisites": [
           "classes-with-state",
-          "contracts"
+          "contracts",
+          "case-statements"
         ],
         "difficulty": 5
       },
@@ -1149,6 +1152,7 @@
         "uuid": "293e3fc4-701d-4a33-9914-f9043bce40f2",
         "practices": [],
         "prerequisites": [
+          "case-statements",
           "characters",
           "string-builders"
         ],
