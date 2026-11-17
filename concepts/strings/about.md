@@ -61,8 +61,8 @@ whole line can be built in one go, numbers included:
 | `"Collins".head(4)` | `"Coll"` |
 | `"Collins".tail(3)` | `"ins"` |
 
-Asking for more than there is gives back what there is, rather than
-failing.
+`n` must be between 0 and the string's size. Asking for more stops the
+program with "Violation of precondition".
 
 ## Comparing
 

@@ -69,6 +69,20 @@ so there is usually no need to convert first:
    entry := entry + "Day " + 3 + ": " + "fog" + '!';   -- "Day 3: fog!"
 ```
 
+## Reading it back
+
+An `FSTR` can be read the same way as a `STR`. `b[0]` is its first
+character, and `b.head(n)` and `b.tail(n)` are its first and last `n`
+characters, handed back as a new `FSTR`:
+
+```sather
+   b ::= #FSTR;
+   b := b + "Dover";
+   b[0]                       -- 'D'
+   b.tail(2)                  -- "er"
+   b := b.head(b.size - 1);   -- "Dove": the last character dropped
+```
+
 ## New lines
 
 `"\n"` inside a string is a new line — one character, written with two.
