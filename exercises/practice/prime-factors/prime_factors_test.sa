@@ -37,6 +37,15 @@ class PRIME_FACTORS_TEST is
       expected_11 : ARRAY{INT} := |5, 17, 23, 461|;
       test("product of primes", PRIME_FACTORS::factors(901255).str, expected_11.str);
 
+      expected_12 : ARRAY{INT} := |2147483647|;
+      test("largest INT is prime", PRIME_FACTORS::factors(2147483647).str, expected_12.str);
+
+      expected_13 : ARRAY{INT} := |46337, 46337|;
+      test("square of the largest prime whose square is an INT", PRIME_FACTORS::factors(2147117569).str, expected_13.str);
+
+      expected_14 : ARRAY{INT} := |2, 1073741789|;
+      test("large prime after a small factor", PRIME_FACTORS::factors(2147483578).str, expected_14.str);
+
       finish;
    end;
 end; -- class PRIME_FACTORS_TEST
