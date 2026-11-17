@@ -7,7 +7,7 @@ class PRIME_FACTORS is
       n ::= number;
       d ::= 2;
       loop
-         until!(d * d > n);
+         until!(d > n / d);
          loop
             until!(n % d /= 0);
             found := found.push(d);

@@ -1,0 +1,26 @@
+[
+  {
+    "description": "largest INT is prime",
+    "property": "factors",
+    "input": {
+      "value": 2147483647
+    },
+    "expected": [2147483647]
+  },
+  {
+    "description": "square of the largest prime whose square is an INT",
+    "property": "factors",
+    "input": {
+      "value": 2147117569
+    },
+    "expected": [46337, 46337]
+  },
+  {
+    "description": "large prime after a small factor",
+    "property": "factors",
+    "input": {
+      "value": 2147483578
+    },
+    "expected": [2, 1073741789]
+  }
+]

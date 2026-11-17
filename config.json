@@ -149,7 +149,8 @@
           "iterators"
         ],
         "prerequisites": [
-          "arrays"
+          "arrays",
+          "characters"
         ],
         "status": "beta"
       },
@@ -417,6 +418,7 @@
         "practices": [],
         "prerequisites": [
           "characters",
+          "iterators",
           "string-builders"
         ],
         "difficulty": 2
@@ -486,7 +488,8 @@
         "uuid": "ef1ff4da-2e29-4f8a-bd9d-e523bad2569c",
         "practices": [],
         "prerequisites": [
-          "characters"
+          "characters",
+          "iterators"
         ],
         "difficulty": 2
       },
@@ -519,7 +522,8 @@
         "uuid": "fd9f1435-14ca-4091-91f4-8989d7c0a601",
         "practices": [],
         "prerequisites": [
-          "characters"
+          "characters",
+          "iterators"
         ],
         "difficulty": 2
       },
@@ -542,6 +546,7 @@
         "practices": [],
         "prerequisites": [
           "characters",
+          "iterators",
           "string-builders"
         ],
         "difficulty": 2
@@ -619,7 +624,8 @@
         "practices": [],
         "prerequisites": [
           "characters",
-          "conditionals"
+          "conditionals",
+          "iterators"
         ],
         "difficulty": 3
       },
@@ -642,7 +648,8 @@
         "uuid": "9397a440-1ae1-4b44-b7c8-353b9931218c",
         "practices": [],
         "prerequisites": [
-          "characters"
+          "characters",
+          "iterators"
         ],
         "difficulty": 3
       },
@@ -665,17 +672,6 @@
         "prerequisites": [
           "string-builders",
           "exceptions"
-        ],
-        "difficulty": 3
-      },
-      {
-        "slug": "prime-factors",
-        "name": "Prime Factors",
-        "uuid": "07028ef6-6f26-4ab0-aff0-87ab587ed729",
-        "practices": [],
-        "prerequisites": [
-          "lists",
-          "contracts"
         ],
         "difficulty": 3
       },
@@ -768,6 +764,7 @@
         "practices": [],
         "prerequisites": [
           "characters",
+          "iterators",
           "string-builders"
         ],
         "difficulty": 4
@@ -838,7 +835,8 @@
         "uuid": "d7488292-ca70-4e72-a0e2-7e185734da02",
         "practices": [],
         "prerequisites": [
-          "characters"
+          "characters",
+          "iterators"
         ],
         "difficulty": 4
       },
@@ -861,6 +859,17 @@
         "prerequisites": [
           "arrays",
           "iterators"
+        ],
+        "difficulty": 4
+      },
+      {
+        "slug": "prime-factors",
+        "name": "Prime Factors",
+        "uuid": "07028ef6-6f26-4ab0-aff0-87ab587ed729",
+        "practices": [],
+        "prerequisites": [
+          "lists",
+          "contracts"
         ],
         "difficulty": 4
       },
@@ -943,6 +952,7 @@
         "practices": [],
         "prerequisites": [
           "characters",
+          "iterators",
           "string-builders"
         ],
         "difficulty": 5
@@ -1108,6 +1118,7 @@
         "practices": [],
         "prerequisites": [
           "characters",
+          "iterators",
           "string-builders"
         ],
         "difficulty": 6
@@ -1202,6 +1213,7 @@
         "practices": [],
         "prerequisites": [
           "characters",
+          "iterators",
           "string-builders"
         ],
         "difficulty": 6

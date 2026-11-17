@@ -63,6 +63,16 @@ happens to be.
    end;
 ```
 
+The elements of a string are its characters, so on a string `elt!` gives
+one `CHAR` each time round:
+
+```sather
+   loop
+      letter ::= "leeks".elt!;      -- 'l', 'e', 'e', 'k', 's'
+      #OUT + letter.upper + "\n";
+   end;
+```
+
 `upto!` counts. `1.upto!(3)` gives 1, 2, 3 and then ends the loop.
 
 ```sather
@@ -113,4 +123,24 @@ does.
       if crops.elt! = "leeks" then has_leeks := true; end;
    end;
    return has_leeks;
+```
+
+## Splitting a string
+
+`(s + c).split!(c)` gives the pieces of the string `s` separated by the
+character `c`, with every piece ending in `c`:
+
+```sather
+   ("who am i" + ' ').split!(' ')      -- "who ", "am ", "i "
+   ("who am i " + ' ').split!(' ')     -- "who ", "am ", "i "
+```
+
+Drop the last character of each piece to get the words on their own:
+
+```sather
+   loop
+      piece ::= (phrase + ' ').split!(' ');
+      word ::= piece.head(piece.size - 1);
+      #OUT + "[" + word + "]\n";
+   end;
 ```
