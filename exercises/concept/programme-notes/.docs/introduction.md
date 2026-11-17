@@ -61,6 +61,22 @@ original string alone and hand back a new one.
 The string has to come first. `27 + " trams"` does not compile, because `+`
 on an `INT` expects another number. Write `27.str + " trams"` instead.
 
+## Printing
+
+`#OUT` is the screen. `+` onto it writes there, and more can be chained on
+the same line:
+
+```sather
+   #OUT + "Route " + 27 + "\n";      -- prints Route 27
+```
+
+`"\n"` ends the line. Without it, the next thing printed carries on from
+where this one stopped.
+
+Printing is handy for seeing what a routine is doing while you work on it.
+The tests only look at what a routine returns, so take the printing out
+again when you are done.
+
 ## No string at all
 
 A `STR` can also be **void**, which means there is no string there at all.
