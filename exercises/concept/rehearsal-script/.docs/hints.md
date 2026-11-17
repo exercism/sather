@@ -23,7 +23,7 @@
 
 ## 3. Number the lines
 
-- Two iterators in one loop, as in the last exercise: `up!` counting from
+- Two iterators in one loop, as in Duet Practice: `up!` counting from
   one for the number, and `elt!` for the text.
 - The new line goes *before* every line except the first. Testing the number
   is the easiest way to tell the first from the rest.

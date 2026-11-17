@@ -23,14 +23,20 @@ class LIST_OPS is
    filter(list : ARRAY{INT}, keep : ROUT{INT}:BOOL) : ARRAY{INT}
       post result.size <= list.size
    is
-      kept ::= #LIST{INT};
+      -- The kept entries fill the front of an array as long as the list,
+      -- and are then copied into one of exactly the right size.
+      kept : ARRAY{INT} := #ARRAY{INT}(list.size);
+      count ::= 0;
       loop
          entry ::= list.elt!;
-         if keep.call(entry) then kept.append(entry); end;
+         if keep.call(entry) then
+            kept[count] := entry;
+            count := count + 1;
+         end;
       end;
-      answer : ARRAY{INT} := #ARRAY{INT}(kept.size);
+      answer : ARRAY{INT} := #ARRAY{INT}(count);
       loop
-         i ::= 0.upto!(kept.size - 1);
+         i ::= 0.upto!(count - 1);
          answer[i] := kept[i];
       end;
       return answer;

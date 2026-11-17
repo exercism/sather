@@ -81,4 +81,4 @@ useful and mostly a sign that a type has been lost along the way.
 
 Sather separates two things most languages join. `<` says only what a class
 can *do*. Getting an implementation from somewhere else is `include`, which
-is the next exercise but one, and is a separate decision.
+Troupe Routines covers, and is a separate decision.

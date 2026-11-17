@@ -57,6 +57,37 @@ quiet wrong answer, which is worse.
    end;
 ```
 
+## Cleaning up
+
+Sometimes a routine cannot handle an exception, but still has something to
+do before it goes, such as closing a file. Sather has no `finally`. Instead,
+an `else` arm does the cleaning up and then raises the same exception again:
+
+```sather
+   log ::= FILE::open_for_append("orders.txt");
+   protect
+      log + drink + ": " + price(drink) + "\n";    -- price may raise
+   else
+      log.close;
+      raise exception;
+   end;
+   log.close;
+```
+
+An `else` arm catches an exception of any type, and `raise exception` passes
+it on unchanged, so the caller sees exactly what was raised. The cleaning up
+is written twice: once in `else` for when something was raised, and once
+after `end` for when nothing was.
+
+Cleaning up does not undo anything. The line is written from left to right,
+so if `tea` is not on the menu, the file is left ending in `tea: ` with no
+price after it.
+
+A `return` inside the `protect` part skips the cleaning up after `end`, so
+keep returns out of it. And only what is raised with `raise` reaches `else`.
+An index out of bounds or a broken contract stops the program straight
+away, and nothing is cleaned up.
+
 ## Exceptions or contracts?
 
 Both concern things going wrong, and they are for opposite cases.
@@ -65,7 +96,7 @@ An **exception** is for something that can genuinely happen and that the
 caller may reasonably not have been able to prevent — a drink that is not
 on the menu, a file that is not there.
 
-A **contract**, which is the next exercise, is for something that must never
+A **contract**, taught in Safety Harness, is for something that must never
 happen — a caller passing a negative weight — and is a statement that the
 caller has a bug. Contracts are checked only when asked for, and a violated
 one stops the program rather than raising something catchable.

@@ -30,6 +30,7 @@ arrives.
 ## Prerequisites
 
 - `classes-with-state`
+- `string-builders`: `billing` builds its line with an `FSTR`.
 
 ## Analyzer
 
