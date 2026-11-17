@@ -1019,7 +1019,8 @@
         "prerequisites": [
           "arrays",
           "case-statements",
-          "contracts"
+          "contracts",
+          "sorting"
         ],
         "difficulty": 5
       },
@@ -1130,7 +1131,8 @@
         "practices": [],
         "prerequisites": [
           "arrays",
-          "exceptions"
+          "exceptions",
+          "lists"
         ],
         "difficulty": 6
       },
@@ -1317,7 +1319,8 @@
         "prerequisites": [
           "maps-and-sets",
           "characters",
-          "recursion"
+          "recursion",
+          "lists"
         ],
         "difficulty": 8
       },
@@ -1330,7 +1333,9 @@
           "characters",
           "arrays",
           "iterators",
-          "recursion"
+          "recursion",
+          "maps-and-sets",
+          "lists"
         ],
         "difficulty": 8
       },
