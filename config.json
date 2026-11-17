@@ -979,8 +979,10 @@
           "sorting"
         ],
         "prerequisites": [
+          "lists",
           "maps-and-sets",
-          "sorting"
+          "sorting",
+          "string-builders"
         ],
         "difficulty": 5
       },
@@ -1236,7 +1238,8 @@
         "prerequisites": [
           "arrays",
           "iterators",
-          "case-statements"
+          "case-statements",
+          "sorting"
         ],
         "difficulty": 7
       },
@@ -1312,7 +1315,8 @@
         "uuid": "dd1601c2-63fa-46c0-8fde-28a765233b33",
         "practices": [],
         "prerequisites": [
-          "lists"
+          "lists",
+          "string-builders"
         ],
         "difficulty": 8
       },
@@ -1322,7 +1326,8 @@
         "uuid": "21363db3-b156-42d0-90ba-b284bed5e562",
         "practices": [],
         "prerequisites": [
-          "case-statements"
+          "case-statements",
+          "lists"
         ],
         "difficulty": 8
       },

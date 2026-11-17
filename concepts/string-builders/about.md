@@ -45,8 +45,13 @@ code is written. A rough guide: if the `+` is inside a `loop`, reach for
 | --- | --- |
 | `b + x` | appends; `x` may be `STR`, `CHAR`, `INT`, `BOOL` … |
 | `b.size` | how many characters so far |
+| `b[i]` | the character at position `i`, counting from 0 |
+| `b.head(n)` | the first `n` characters, as a new `FSTR` |
+| `b.tail(n)` | the last `n` characters, as a new `FSTR` |
 | `b.str` | a finished `STR` |
 | `b.clear` | empties it, keeping the space |
+
+As with `STR`, `n` must be between 0 and `b.size`.
 
 ## Escapes
 
