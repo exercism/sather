@@ -1,0 +1,37 @@
+class SHIFT_REPORTS is
+
+   read_report(name : STR) : STR is
+      f ::= FILE::open_for_read(name);
+      text ::= f.str;
+      f.close;
+      return text;
+   end;
+
+   has_report(name : STR) : BOOL is
+      f ::= FILE::open_for_read(name);
+      if f.error then return false end;
+      f.close;
+      return true;
+   end;
+
+   start_report(name, shift : STR) is
+      f ::= FILE::open_for_write(name);
+      f + "Shift: " + shift + "\n";
+      f.close;
+   end;
+
+   add_entry(name, entry : STR) is
+      f ::= FILE::open_for_append(name);
+      f + entry + "\n";
+      f.close;
+   end;
+
+   file_report(name, folder : STR) is
+      text ::= read_report(name);
+      FILE::create_directory(folder);
+      f ::= FILE::open_for_write(folder + "/" + name);
+      f + text;
+      f.close;
+   end;
+
+end; -- class SHIFT_REPORTS

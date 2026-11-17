@@ -1,0 +1,68 @@
+class SHIFT_REPORTS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SHIFT_REPORTS");
+
+      -- Task 1
+      test("read the day shift's report",
+           SHIFT_REPORTS::read_report("day-shift.txt"),
+           "Shift: Day\nBlast furnace tapped at 7:40\n"
+           + "Coke ovens running normally\n"
+           + "Slab caster stopped for a roll change\n");
+      test("reading leaves the report as it was",
+           SHIFT_REPORTS::read_report("day-shift.txt"),
+           SHIFT_REPORTS::read_report("day-shift.txt"));
+
+      -- Task 2
+      test("the day shift has a report",
+           SHIFT_REPORTS::has_report("day-shift.txt"), true);
+      test("the maintenance crew has not written a report",
+           SHIFT_REPORTS::has_report("maintenance.txt"), false);
+
+      -- Task 3
+      SHIFT_REPORTS::start_report("night-shift.txt", "Night");
+      test("a new report has its header",
+           SHIFT_REPORTS::read_report("night-shift.txt"), "Shift: Night\n");
+      test("a started report exists",
+           SHIFT_REPORTS::has_report("night-shift.txt"), true);
+      SHIFT_REPORTS::start_report("afternoon-shift.txt", "Morning");
+      SHIFT_REPORTS::start_report("afternoon-shift.txt", "Afternoon");
+      test("starting again replaces the old report",
+           SHIFT_REPORTS::read_report("afternoon-shift.txt"),
+           "Shift: Afternoon\n");
+
+      -- Task 4
+      SHIFT_REPORTS::start_report("rolling-mill.txt", "Night");
+      SHIFT_REPORTS::add_entry("rolling-mill.txt", "Mill started at 22:05");
+      test("one entry goes after the header",
+           SHIFT_REPORTS::read_report("rolling-mill.txt"),
+           "Shift: Night\nMill started at 22:05\n");
+      SHIFT_REPORTS::add_entry("rolling-mill.txt", "Coil 418 rolled");
+      SHIFT_REPORTS::add_entry("rolling-mill.txt", "Mill stopped at 05:50");
+      test("entries stay in the order they were added",
+           SHIFT_REPORTS::read_report("rolling-mill.txt"),
+           "Shift: Night\nMill started at 22:05\nCoil 418 rolled\n"
+           + "Mill stopped at 05:50\n");
+
+      -- Task 5
+      SHIFT_REPORTS::start_report("wharf.txt", "Day");
+      SHIFT_REPORTS::add_entry("wharf.txt", "Ore carrier berthed");
+      SHIFT_REPORTS::file_report("wharf.txt", "monday");
+      test("the filed report is in the folder",
+           SHIFT_REPORTS::read_report("monday/wharf.txt"),
+           "Shift: Day\nOre carrier berthed\n");
+      test("the original report is still where it was",
+           SHIFT_REPORTS::read_report("wharf.txt"),
+           "Shift: Day\nOre carrier berthed\n");
+      SHIFT_REPORTS::start_report("gatehouse.txt", "Night");
+      SHIFT_REPORTS::file_report("gatehouse.txt", "monday");
+      test("a second report filed in the same folder",
+           SHIFT_REPORTS::read_report("monday/gatehouse.txt"),
+           "Shift: Night\n");
+      test("the first report is still in the folder",
+           SHIFT_REPORTS::has_report("monday/wharf.txt"), true);
+
+      finish;
+   end;
+end; -- class SHIFT_REPORTS_TEST

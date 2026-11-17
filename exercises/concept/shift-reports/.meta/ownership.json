@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "SHIFT_REPORTS::read_report": 1,
+    "SHIFT_REPORTS::has_report": 2,
+    "SHIFT_REPORTS::start_report": 3,
+    "SHIFT_REPORTS::add_entry": 4,
+    "SHIFT_REPORTS::file_report": 5
+  }
+}
