@@ -68,3 +68,23 @@ catches everybody, and it is what the next exercise is about.
 Prefer `elt!` when the values are wanted and `ind!` when the positions are.
 Fall back to `upto!` over `0 .. a.size - 1` only when both are needed at
 once, or when the answer is a position rather than a value.
+
+## Splitting a string
+
+`(s + c).split!(c)` gives the pieces of `s` separated by the character `c`,
+with every piece ending in `c`:
+
+```sather
+   ("who am i" + ' ').split!(' ')      -- "who ", "am ", "i "
+   ("who am i " + ' ').split!(' ')     -- "who ", "am ", "i "
+```
+
+Drop the last character of each piece to get the words on their own:
+
+```sather
+   loop
+      piece ::= (phrase + ' ').split!(' ');
+      word ::= piece.head(piece.size - 1);
+      #OUT + "[" + word + "]\n";
+   end;
+```

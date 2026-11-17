@@ -34,6 +34,17 @@ when the number comes first or stands alone:
 
 `27 + " trams"` does not compile: `+` on an `INT` wants another number.
 
+## Printing
+
+`#OUT` is the screen, and `+` onto it writes there. Each `+` adds more, so a
+whole line can be built in one go, numbers included:
+
+```sather
+   #OUT + "Route " + 27 + "\n";      -- prints Route 27
+```
+
+`"\n"` ends the line; nothing else does.
+
 ## Length
 
 ```sather
