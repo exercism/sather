@@ -1,0 +1,25 @@
+class SHIFT_REPORTS is
+
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   read_report(name : STR) : STR is
+      raise "unimplemented";
+   end;
+
+   has_report(name : STR) : BOOL is
+      raise "unimplemented";
+   end;
+
+   start_report(name, shift : STR) is
+      raise "unimplemented";
+   end;
+
+   add_entry(name, entry : STR) is
+      raise "unimplemented";
+   end;
+
+   file_report(name, folder : STR) is
+      raise "unimplemented";
+   end;
+
+end; -- class SHIFT_REPORTS

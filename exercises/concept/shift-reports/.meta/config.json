@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "shift_reports.sa"
+    ],
+    "test": [
+      "shift_reports_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ],
+    "editor": [
+      "day-shift.txt"
+    ]
+  },
+  "icon": "two-product-production-decision",
+  "blurb": "Learn to read and write files by keeping shift reports at the Port Kembla steelworks."
+}

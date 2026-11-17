@@ -202,6 +202,19 @@
         "status": "beta"
       },
       {
+        "slug": "shift-reports",
+        "name": "Shift Reports",
+        "uuid": "0c5f4008-10be-4b63-9fb2-a33833281c79",
+        "concepts": [
+          "files"
+        ],
+        "prerequisites": [
+          "string-builders",
+          "classes-with-state"
+        ],
+        "status": "beta"
+      },
+      {
         "slug": "human-pyramid",
         "name": "Human Pyramid",
         "uuid": "2f46e7a2-f93d-4b7b-8814-c1d2897041cc",
@@ -1315,6 +1328,7 @@
         "uuid": "dd1601c2-63fa-46c0-8fde-28a765233b33",
         "practices": [],
         "prerequisites": [
+          "files",
           "lists",
           "string-builders"
         ],
@@ -1428,6 +1442,11 @@
       "uuid": "4ef2257d-82da-46b7-afb9-6a428c3833d2",
       "slug": "classes-with-state",
       "name": "Classes with State"
+    },
+    {
+      "uuid": "795e08f2-0e63-4660-9fea-2af68f70a9fb",
+      "slug": "files",
+      "name": "Files"
     },
     {
       "uuid": "9916c889-6e85-4f04-bf7d-4a2228acf59b",
