@@ -174,7 +174,8 @@
           "string-builders"
         ],
         "prerequisites": [
-          "characters"
+          "characters",
+          "iterator-combination"
         ],
         "status": "beta"
       },
@@ -247,7 +248,9 @@
           "exceptions"
         ],
         "prerequisites": [
-          "classes-with-state"
+          "classes-with-state",
+          "files",
+          "maps-and-sets"
         ],
         "status": "beta"
       },
@@ -271,7 +274,8 @@
           "abstract-classes"
         ],
         "prerequisites": [
-          "classes-with-state"
+          "classes-with-state",
+          "string-builders"
         ],
         "status": "beta"
       },
@@ -990,7 +994,8 @@
         "prerequisites": [
           "classes-with-state",
           "exceptions",
-          "contracts"
+          "contracts",
+          "lists"
         ],
         "difficulty": 5
       },
@@ -1170,7 +1175,8 @@
         ],
         "prerequisites": [
           "bound-routines",
-          "contracts"
+          "contracts",
+          "floating-point"
         ],
         "difficulty": 6
       },
@@ -1320,7 +1326,8 @@
           "maps-and-sets",
           "characters",
           "recursion",
-          "lists"
+          "lists",
+          "exact-numbers"
         ],
         "difficulty": 8
       },

@@ -26,6 +26,8 @@
 
 - The whole show is the number one. `#RAT` with a single whole number
   makes that number as a `RAT`.
+- Compare a `RAT` with another `RAT`. `part = 1` compiles, but a `RAT` is
+  never equal to an `INT`, so it is always `false`, even for `3/3`.
 - `=` on two `RAT`s compares the fractions, so this is a single comparison —
   no `if` and no converting to `FLTD`. Converting would reintroduce exactly
   the rounding this type exists to avoid.

@@ -61,7 +61,7 @@ Ask once and put the value in a variable instead.
 
 The loop ends as soon as *any* iterator in it runs out — not when all of
 them do. With one iterator that is obvious. With several it is the rule that
-catches everybody, and it is what the next exercise is about.
+catches everybody, and it is what Duet Practice is about.
 
 ## Which to reach for
 

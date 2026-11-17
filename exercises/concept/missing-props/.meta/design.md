@@ -28,6 +28,9 @@ travels outward on its own.
 ## Prerequisites
 
 - `classes-with-state`
+- `files`: the about.md "Cleaning up" example closes a `FILE`.
+- `maps-and-sets`: the props table is an `FMAP{STR,INT}`, read with
+  `has_ind` and `get`.
 
 ## Analyzer
 
