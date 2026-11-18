@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "cricket_oval.sa"
+    ],
+    "test": [
+      "cricket_oval_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ]
+  },
+  "icon": "football-match-reports",
+  "blurb": "Learn about square roots, angles, exp and log by measuring up a cricket oval."
+}

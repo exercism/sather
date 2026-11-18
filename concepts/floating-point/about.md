@@ -46,6 +46,8 @@ fraction, `(cubic_cm / 1000).fltd` has already lost it.
    (2.0d).max(3.0d)  -- 3.0
 ```
 
+Powers, trigonometry, `exp` and `log` are covered in Math Functions.
+
 ## Floating-point is approximate
 
 An `FLTD` holds a very close approximation, not the exact value. Most

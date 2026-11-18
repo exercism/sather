@@ -1,0 +1,31 @@
+class CRICKET_OVAL is
+
+   boundary_length(radius : FLTD) : FLTD is
+      return 2.0d * FLTD::pi * radius;
+   end;
+
+   distance_from_pitch(x, y : FLTD) : FLTD is
+      return (x * x + y * y).sqrt;
+   end;
+
+   shot_angle(x, y : FLTD) : FLTD is
+      -- atan2 answers in radians; turn them into degrees on the way out.
+      return y.atan2(x) * 180.0d / FLTD::pi;
+   end;
+
+   carry(speed, angle : FLTD) : FLTD is
+      -- sin wants radians, so the angle is converted on the way in.
+      radians ::= angle * FLTD::pi / 180.0d;
+      return speed * speed * (2.0d * radians).sin / 9.8d;
+   end;
+
+   speed_after(speed, metres : FLTD) : FLTD is
+      return speed * (-0.02d * metres).exp;
+   end;
+
+   metres_until(speed, target : FLTD) : FLTD is
+      -- log undoes exp: the inverse of speed_after.
+      return (speed / target).log / 0.02d;
+   end;
+
+end; -- class CRICKET_OVAL

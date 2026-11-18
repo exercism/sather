@@ -1,0 +1,67 @@
+class CRICKET_OVAL_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("CRICKET_OVAL");
+
+      -- Task 1
+      test("a seventy metre boundary",
+           CRICKET_OVAL::boundary_length(70.0d), 439.823d);
+      test("a smaller oval",
+           CRICKET_OVAL::boundary_length(65.5d), 411.549d);
+      test("an eighty metre boundary",
+           CRICKET_OVAL::boundary_length(80.0d), 502.655d);
+
+      -- Task 2
+      test("fielder at mid-on",
+           CRICKET_OVAL::distance_from_pitch(30.0d, 40.0d), 50.0d);
+      test("fielder on the right, behind the stumps",
+           CRICKET_OVAL::distance_from_pitch(-20.0d, -21.0d), 29.0d);
+      test("fielder at an awkward distance",
+           CRICKET_OVAL::distance_from_pitch(50.0d, 50.0d), 70.7107d);
+      test("the bowler on the pitch",
+           CRICKET_OVAL::distance_from_pitch(0.0d, 0.0d), 0.0d);
+
+      -- Task 3
+      test("half way to square",
+           CRICKET_OVAL::shot_angle(50.0d, 50.0d), 45.0d);
+      test("square on the left",
+           CRICKET_OVAL::shot_angle(0.0d, 40.0d), 90.0d);
+      test("square on the right",
+           CRICKET_OVAL::shot_angle(0.0d, -40.0d), -90.0d);
+      test("straight back past the keeper",
+           CRICKET_OVAL::shot_angle(-30.0d, 0.0d), 180.0d);
+      test("fine on the right",
+           CRICKET_OVAL::shot_angle(-20.0d, -20.0d), -135.0d);
+      test("an angle that is not a round number",
+           CRICKET_OVAL::shot_angle(40.0d, 30.0d), 36.8699d);
+
+      -- Task 4
+      test("a low skimmer",
+           CRICKET_OVAL::carry(28.0d, 15.0d), 40.0d);
+      test("thirty degrees",
+           CRICKET_OVAL::carry(30.0d, 30.0d), 79.5329d);
+      test("the angle that carries furthest",
+           CRICKET_OVAL::carry(30.0d, 45.0d), 91.8367d);
+
+      -- Task 5
+      test("before it has rolled at all",
+           CRICKET_OVAL::speed_after(30.0d, 0.0d), 30.0d);
+      test("after fifty metres",
+           CRICKET_OVAL::speed_after(30.0d, 50.0d), 11.0364d);
+      test("after a hundred metres",
+           CRICKET_OVAL::speed_after(20.0d, 100.0d), 2.70671d);
+
+      -- Task 6
+      test("already at the target",
+           CRICKET_OVAL::metres_until(20.0d, 20.0d), 0.0d);
+      test("down to half speed",
+           CRICKET_OVAL::metres_until(30.0d, 15.0d), 34.6574d);
+      test("down to a quarter",
+           CRICKET_OVAL::metres_until(24.0d, 6.0d), 69.3147d);
+      test("down to a tenth",
+           CRICKET_OVAL::metres_until(30.0d, 3.0d), 115.129d);
+
+      finish;
+   end;
+end; -- class CRICKET_OVAL_TEST
