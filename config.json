@@ -1045,7 +1045,6 @@
         "name": "Binary Search Tree",
         "uuid": "f3a89f67-ecfd-4146-8481-6021e9966573",
         "practices": [
-          "generic-classes",
           "custom-iterators"
         ],
         "prerequisites": [
@@ -1231,12 +1230,13 @@
         "name": "Rail Fence Cipher",
         "uuid": "9918a72d-9ecf-467b-98a3-58872148fec8",
         "practices": [
-          "contracts"
+          "custom-iterators"
         ],
         "prerequisites": [
           "arrays",
           "string-builders",
-          "contracts"
+          "contracts",
+          "custom-iterators"
         ],
         "difficulty": 6
       },
