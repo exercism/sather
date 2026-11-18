@@ -40,11 +40,11 @@ class RESISTOR_COLOR_TOLERANCE_TEST is
       colors_12 : ARRAY{STR} := |"brown", "black", "red", "red"|;
       test("Brown, black, red and red", RESISTOR_COLOR_TOLERANCE::label(colors_12), "1 kiloohms ±2%");
 
-      colors_13 : ARRAY{STR} := |"orange", "orange", "red", "brown"|;
-      test("Orange, orange, red and brown", RESISTOR_COLOR_TOLERANCE::label(colors_13), "3.3 kiloohms ±1%");
+      colors_13 : ARRAY{STR} := |"orange", "orange", "red", "gold"|;
+      test("Orange, orange, red and gold", RESISTOR_COLOR_TOLERANCE::label(colors_13), "3.3 kiloohms ±5%");
 
-      colors_14 : ARRAY{STR} := |"orange", "orange", "green", "red"|;
-      test("Orange, orange, green and red", RESISTOR_COLOR_TOLERANCE::label(colors_14), "3.3 megaohms ±2%");
+      colors_14 : ARRAY{STR} := |"orange", "orange", "green", "silver"|;
+      test("Orange, orange, green and silver", RESISTOR_COLOR_TOLERANCE::label(colors_14), "3.3 megaohms ±10%");
 
       colors_15 : ARRAY{STR} := |"white", "white", "violet", "green"|;
       test("White, white, violet and green", RESISTOR_COLOR_TOLERANCE::label(colors_15), "990 megaohms ±0.5%");
