@@ -1,0 +1,29 @@
+class CRICKET_OVAL is
+
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   boundary_length(radius : FLTD) : FLTD is
+      raise "unimplemented";
+   end;
+
+   distance_from_pitch(x, y : FLTD) : FLTD is
+      raise "unimplemented";
+   end;
+
+   shot_angle(x, y : FLTD) : FLTD is
+      raise "unimplemented";
+   end;
+
+   carry(speed, angle : FLTD) : FLTD is
+      raise "unimplemented";
+   end;
+
+   speed_after(speed, metres : FLTD) : FLTD is
+      raise "unimplemented";
+   end;
+
+   metres_until(speed, target : FLTD) : FLTD is
+      raise "unimplemented";
+   end;
+
+end; -- class CRICKET_OVAL

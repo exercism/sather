@@ -64,7 +64,8 @@ of them also had Mode B or Ordering problems, which surfaced while grouping
 their tests by task. (`finals-ladder` and `case-notes` were also confirmed by
 running the checker against their old tests.) All have been fixed, and
 **every concept exercise is now accretive (26/26)**. `human-pyramid`,
-added afterwards, was written accretive and passes the checker (27/27).
+added afterwards, was written accretive and passes the checker (27/27), as
+does `cricket-oval`.
 
 | Original verdict | Count | Exercises |
 |---|---|---|

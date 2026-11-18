@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "CRICKET_OVAL::boundary_length": 1,
+    "CRICKET_OVAL::distance_from_pitch": 2,
+    "CRICKET_OVAL::shot_angle": 3,
+    "CRICKET_OVAL::carry": 4,
+    "CRICKET_OVAL::speed_after": 5,
+    "CRICKET_OVAL::metres_until": 6
+  }
+}

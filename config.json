@@ -142,6 +142,18 @@
         "status": "beta"
       },
       {
+        "slug": "cricket-oval",
+        "name": "Cricket Oval",
+        "uuid": "22f9268a-2da0-4ae1-9d22-865c8ffe4a76",
+        "concepts": [
+          "math-functions"
+        ],
+        "prerequisites": [
+          "floating-point"
+        ],
+        "status": "beta"
+      },
+      {
         "slug": "bird-survey",
         "name": "Bird Survey",
         "uuid": "2dc60e3e-30c6-41bb-b2fb-da82c85e7b6e",
@@ -1102,7 +1114,8 @@
         "practices": [],
         "prerequisites": [
           "immutable-classes",
-          "floating-point"
+          "floating-point",
+          "math-functions"
         ],
         "difficulty": 6
       },
@@ -1441,6 +1454,11 @@
       "uuid": "99ddc297-3889-4ab9-8769-92f4852b3080",
       "slug": "floating-point",
       "name": "Floating-point Numbers"
+    },
+    {
+      "uuid": "67ec4d89-630a-45a2-8110-7a275adb8451",
+      "slug": "math-functions",
+      "name": "Math Functions"
     },
     {
       "uuid": "5cd79ead-56a9-475a-8a58-31fe1b0da352",
