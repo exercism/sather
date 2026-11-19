@@ -53,7 +53,7 @@ An iterator called inside a loop is asked for a value each time round. When
 it has none left, the loop ends immediately, wherever in the body the call
 happens to be.
 
-## Three to start with
+## Four to start with
 
 `elt!` gives the elements of an array or a string, in order.
 
@@ -108,7 +108,19 @@ The brackets matter. Without them, `crops.size - 1.downto!(0)` counts down
 from `1`, not from the last position, because the call happens before the
 subtraction.
 
-All three are ordinary routines that happen to end in `!`, so all are called
+`stepto!` counts in steps of any size. `1.stepto!(9, 2)` gives 1, 3, 5, 7,
+9: from `1` to `9`, two at a time. It stops before going past the end, so
+`1.stepto!(10, 4)` gives 1, 5, 9. A negative step counts down:
+`10.stepto!(0, -5)` gives 10, 5, 0.
+
+```sather
+   loop
+      bed ::= 1.stepto!(9, 2);
+      #OUT + "Water bed " + bed + "\n";   -- every other bed
+   end;
+```
+
+All four are ordinary routines that happen to end in `!`, so all are called
 with a dot, on an array or on a number.
 
 ## Keeping the answer

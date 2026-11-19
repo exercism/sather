@@ -1,6 +1,4 @@
-class LOST_BOX{T < $STR} is
-   -- The constraint is what lets item.str be called in describe. Without
-   -- it nothing is known about a T beyond being able to move it about.
+class LOST_BOX{T} is
 
    attr item : T;
    readonly attr handed_in_by : STR;

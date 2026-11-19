@@ -26,9 +26,8 @@ generics, where the type is erased and everything is really an object.
 
 ## Constrained parameters
 
-A bare `T` can be assigned, passed and returned — nothing else, because
-nothing else is known about it. To call routines on it, say what it must
-conform to:
+A class that calls a routine on a `T` works only for types that have that
+routine. A constraint states that requirement in the header:
 
 ```sather
 class PAIR{T < $STR} is
@@ -36,11 +35,8 @@ class PAIR{T < $STR} is
 end;
 ```
 
-`T < $STR` demands that `T` conforms to `$STR`, and in return lets `left.str`
-be called. Anything a bare `T` cannot do, a constraint is how to allow it.
-
-Without the constraint, `left.str` will not compile — and the message will
-name the line inside the generic class, not the line that used it.
+`T < $STR` says that `T` must conform to `$STR`, so a reader learns from the
+header alone what the class needs from its parameter.
 
 ## Generic routines?
 

@@ -10,6 +10,26 @@ Putting things in order is common enough that the library does it for you.
 `sort` works on anything that already knows how to compare itself — numbers
 and strings do, because they have an `is_lt`.
 
+## What "knows how to compare itself" means
+
+`INT`, `FLT` and `STR` each promise an `is_lt` that takes another of the same
+type, which is what `<` calls. The library names that promise `$IS_LT{T}`:
+`STR` is declared `class STR < $IS_LT{STR}, ...`.
+
+A generic class that keeps its items in order says so with a constraint that
+mentions its own parameter:
+
+```sather
+class SORTED_BAG{T < $IS_LT{T}} is
+   ...
+      if a < b then ... end;
+   ...
+end;
+```
+
+`T < $IS_LT{T}` reads "a `T` can be compared with another `T`". The
+promise is `<` alone: "less than or equal" is written `~(b < a)`.
+
 ## Sorting by your own rule
 
 Most orders are not the built-in one. Say a `PLANET` knows its `distance`
