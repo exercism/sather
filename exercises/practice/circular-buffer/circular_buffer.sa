@@ -1,30 +1,20 @@
 class CIRCULAR_BUFFER{T} is
-   -- A buffer of items of any type T.
-   -- The tests use CIRCULAR_BUFFER{INT} and CIRCULAR_BUFFER{STR}.
 
    create(capacity : INT) : SAME is
-      -- A buffer holding at most `capacity' items.
       return new;
    end;
 
    read : T is
-      -- The oldest item, removing it.
-      -- Raise "buffer is empty" when there is nothing to read.
       return void;
    end;
 
    write(item : T) is
-      -- Add an item.
-      -- Raise "buffer is full" when there is no room.
    end;
 
    overwrite(item : T) is
-      -- Add an item, replacing the oldest when there is no room.
-      -- This never fails.
    end;
 
    clear is
-      -- Forget everything in the buffer.
    end;
 
 end; -- class CIRCULAR_BUFFER{T}

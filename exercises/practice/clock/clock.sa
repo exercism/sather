@@ -3,35 +3,28 @@ class CLOCK is
    readonly attr hour, minute : INT;
 
    invariant : BOOL is
-      -- Every clock shows a time from 00:00 to 23:59. This is checked on
-      -- entry to and exit from every public routine; on entry to create
-      -- there is no clock yet, and self is void.
+      -- This is checked on entry to and exit from every public routine;
+      -- on entry to create there is no clock yet, and self is void.
       return void(self) or (hour >= 0 and hour < 24 and minute >= 0 and minute < 60);
    end;
 
    create(h, m : INT) : SAME is
-      -- A clock with no date, so it wraps round at midnight in both
-      -- directions: 25:00 is 01:00 and -1:00 is 23:00.
       return new;
    end;
 
    plus(minutes : INT) : SAME is
-      -- A new clock that many minutes later.
       return self;
    end;
 
    minus(minutes : INT) : SAME is
-      -- A new clock that many minutes earlier.
       return self;
    end;
 
    is_eq(other : SAME) : BOOL is
-      -- Two clocks are equal when they show the same time.
       return false;
    end;
 
    str : STR is
-      -- "HH:MM", both always two digits.
       return "";
    end;
 

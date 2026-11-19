@@ -4,8 +4,6 @@ class SIEVE is
       pre limit >= 1
       post result.size < limit
    is
-      -- Every prime up to and including `limit', found with a sieve
-      -- rather than by division.
       return #ARRAY{INT}(0);
    end;
 

@@ -4,8 +4,6 @@ class KNAPSACK is
       pre weights.size = values.size and maximum_weight >= 0
       post result >= 0
    is
-      -- Greatest total value that fits in `maximum_weight'. Each item may
-      -- be taken at most once.
       return 0;
    end;
 

@@ -3,7 +3,6 @@ class ROMAN_NUMERALS is
    roman(number : INT) : STR
       pre number >= 1 and number <= 3999
    is
-      -- Convert `number' to its Roman numeral.
       return "";
    end;
 

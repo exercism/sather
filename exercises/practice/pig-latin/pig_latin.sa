@@ -1,7 +1,6 @@
 class PIG_LATIN is
 
    translate(phrase : STR) : STR is
-      -- Translate each word of `phrase' into Pig Latin.
       return "";
    end;
 

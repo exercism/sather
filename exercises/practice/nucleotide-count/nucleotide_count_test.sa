@@ -1,11 +1,11 @@
 class NUCLEOTIDE_COUNT_TEST is
    include EXERCISM_TEST;
 
-   private map_str(m : FMAP{STR,INT}) : STR is
+   private map_str(m : FMAP{CHAR,INT}) : STR is
       -- Keys ascending, "key=value" joined by commas. FMAP iterates in
       -- hash order, which is not comparable.
       if void(m) or m.size = 0 then return "" end;
-      keys : ARRAY{STR} := #ARRAY{STR}(m.size);
+      keys : ARRAY{CHAR} := #ARRAY{CHAR}(m.size);
       i ::= 0;
       loop
          p ::= m.pair!;

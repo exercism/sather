@@ -79,15 +79,15 @@ class ALPHAMETICS is
       return false;
    end;
 
-   solve(puzzle : STR) : FMAP{STR,INT} is
+   solve(puzzle : STR) : FMAP{CHAR,INT} is
       scan(puzzle);
       used := #ARRAY{BOOL}(10);
       digit := #ARRAY{INT}(26);
-      answer : FMAP{STR,INT} := #FMAP{STR,INT};
+      answer : FMAP{CHAR,INT} := #FMAP{CHAR,INT};
       if ~search(0, 0.0d) then return answer end;
       loop
          i ::= 0.upto!(n_letters - 1);
-         answer := answer.insert(letters[i].str, digit[i]);
+         answer := answer.insert(letters[i], digit[i]);
       end;
       return answer;
    end;
