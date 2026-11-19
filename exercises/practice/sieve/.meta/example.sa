@@ -6,7 +6,7 @@ class SIEVE is
    is
       if limit < 2 then return #ARRAY{INT}(0) end;
       composite : ARRAY{BOOL} := #ARRAY{BOOL}(limit + 1);
-      found : FLIST{INT} := #FLIST{INT};
+      found ::= #FLIST{INT};
       loop
          n ::= 2.upto!(limit);
          if ~composite[n] then
@@ -25,12 +25,7 @@ class SIEVE is
          end;
       end;
 
-      res : ARRAY{INT} := #ARRAY{INT}(found.size);
-      loop
-         i ::= 0.upto!(found.size - 1);
-         res[i] := found[i];
-      end;
-      return res;
+      return found.as_array;
    end;
 
 end; -- class SIEVE

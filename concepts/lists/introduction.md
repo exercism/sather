@@ -62,6 +62,18 @@ one is removed, which is worth remembering before storing one.
    end;
 ```
 
+## Making an array from it
+
+A list is often built up a piece at a time and then handed on as an `ARRAY`.
+`create_from` makes an array holding the list's values, in order:
+
+```sather
+   bought : ARRAY{STR} := ARRAY{STR}::create_from(shopping);
+```
+
+`#ARRAY{STR}(shopping)` will not do it: `#` on an `ARRAY` takes a size or
+another array. `create_from` is called by its full name.
+
 ## The braces
 
 `LIST{STR}` is a list of strings, `LIST{INT}` a list of numbers. It is a

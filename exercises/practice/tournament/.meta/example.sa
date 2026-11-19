@@ -37,9 +37,7 @@ class TOURNAMENT is
          end;
       end;
       found := found.push(piece.str);
-      res ::= #ARRAY{STR}(found.size);
-      loop res.set!(found.elt!) end;
-      return res;
+      return found.as_array;
    end;
 
    private right(n : INT, width : INT) : STR is

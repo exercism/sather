@@ -16,18 +16,13 @@ class ALLERGIES is
 
    list(score : INT) : ARRAY{STR} is
       all ::= allergens;
-      found : FLIST{STR} := #FLIST{STR};
+      found ::= #FLIST{STR};
       loop
          i ::= 0.upto!(all.size - 1);
          if score.bit(i) then found := found.push(all[i]) end;
       end;
 
-      res : ARRAY{STR} := #ARRAY{STR}(found.size);
-      loop
-         j ::= 0.upto!(found.size - 1);
-         res[j] := found[j];
-      end;
-      return res;
+      return found.as_array;
    end;
 
 end; -- class ALLERGIES

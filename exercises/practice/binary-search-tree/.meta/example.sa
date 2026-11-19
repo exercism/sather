@@ -48,7 +48,7 @@ class BINARY_SEARCH_TREE{T < $IS_LT{T}} is
    sorted_data : ARRAY{T} is
       found ::= #FLIST{T};
       loop found := found.push(elt!) end;
-      return found.array;
+      return found.as_array;
    end;
 
 end; -- class BINARY_SEARCH_TREE{T}

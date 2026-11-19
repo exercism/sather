@@ -31,7 +31,7 @@ class GREP is
    private lines_of(name : STR) : ARRAY{STR} is
       f ::= FILE::open_for_read(name);
       text ::= f.str;
-      found : FLIST{STR} := #FLIST{STR};
+      found ::= #FLIST{STR};
       current : FSTR := #FSTR(80);
       loop
          c ::= text.elt!;
@@ -44,12 +44,7 @@ class GREP is
       end;
       if current.size > 0 then found := found.push(current.str) end;
 
-      res : ARRAY{STR} := #ARRAY{STR}(found.size);
-      loop
-         i ::= 0.upto!(found.size - 1);
-         res[i] := found[i];
-      end;
-      return res;
+      return found.as_array;
    end;
 
    search(pattern : STR, flags, files : ARRAY{STR}) : ARRAY{STR} is
@@ -63,7 +58,7 @@ class GREP is
       needle ::= pattern;
       if insensitive then needle := lower(needle) end;
 
-      found : FLIST{STR} := #FLIST{STR};
+      found ::= #FLIST{STR};
       loop
          name ::= files.elt!;
          body ::= lines_of(name);
@@ -93,12 +88,7 @@ class GREP is
          end;
       end;
 
-      res : ARRAY{STR} := #ARRAY{STR}(found.size);
-      loop
-         i ::= 0.upto!(found.size - 1);
-         res[i] := found[i];
-      end;
-      return res;
+      return found.as_array;
    end;
 
 end; -- class GREP
