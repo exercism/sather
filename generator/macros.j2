@@ -76,15 +76,15 @@ end; -- class {{ test_class }}
 {#
   map_str(): a helper routine for the class, to be placed with
   {% call m.begin() %}{{ m.map_str() }}{% endcall %}. It renders an
-  FMAP{STR,INT} as "key=value" pairs in ascending key order, joined by
+  FMAP{CHAR,INT} as "key=value" pairs in ascending key order, joined by
   commas, so a result can be compared with `expected | map_str | sa_str`.
 #}
 {% macro map_str() %}
-   private map_str(m : FMAP{STR,INT}) : STR is
+   private map_str(m : FMAP{CHAR,INT}) : STR is
       -- Keys ascending, "key=value" joined by commas. FMAP iterates in
       -- hash order, which is not comparable.
       if void(m) or m.size = 0 then return "" end;
-      keys : ARRAY{STR} := #ARRAY{STR}(m.size);
+      keys : ARRAY{CHAR} := #ARRAY{CHAR}(m.size);
       i ::= 0;
       loop
          p ::= m.pair!;

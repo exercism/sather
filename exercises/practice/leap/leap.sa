@@ -1,7 +1,6 @@
 class LEAP is
 
    leap_year(year : INT) : BOOL is
-      -- Return true if `year' is a leap year in the Gregorian calendar.
       return false;
    end;
 

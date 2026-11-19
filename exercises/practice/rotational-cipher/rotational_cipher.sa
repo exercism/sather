@@ -4,8 +4,6 @@ class ROTATIONAL_CIPHER is
       pre shift_key >= 0 and shift_key <= 26
       post result.size = text.size
    is
-      -- Rotate each letter by `shift_key' places, keeping case and
-      -- leaving everything else alone.
       return text;
    end;
 

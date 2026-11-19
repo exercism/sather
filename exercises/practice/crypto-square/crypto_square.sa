@@ -1,8 +1,6 @@
 class CRYPTO_SQUARE is
 
    ciphertext(plaintext : STR) : STR is
-      -- Normalise, arrange into a rectangle, then read down the columns,
-      -- separating the chunks with spaces.
       return "";
    end;
 

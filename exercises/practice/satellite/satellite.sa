@@ -4,15 +4,12 @@ class TREE_NODE is
    attr l, r : TREE_NODE;
 
    create(val : STR) : SAME is
-      -- ('value' is a Sather keyword, so the argument is named `val'.)
       res : SAME := new;
       res.v := val;
       return res;
    end;
 
    postorder! : STR is
-      -- Yields the values in post-order: the left subtree in post-order,
-      -- then the right subtree in post-order, then this node's value.
    end;
 
 end; -- class TREE_NODE
@@ -20,8 +17,6 @@ end; -- class TREE_NODE
 class SATELLITE is
 
    tree_from_traversals(preorder, inorder : ARRAY{STR}) : TREE_NODE is
-      -- Rebuild the tree the two traversals describe.
-      -- Raise a string exception if they disagree.
       return void;
    end;
 

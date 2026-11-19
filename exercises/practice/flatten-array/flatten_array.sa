@@ -6,7 +6,6 @@ abstract class $NESTED is
    -- classes are given to you, apart from the bodies of gather.
 
    gather(into : LIST{INT});
-      -- Append this item's numbers to `into', in order.
 
 end; -- abstract class $NESTED
 
@@ -21,7 +20,6 @@ class NESTED_NUMBER < $NESTED is
    end;
 
    gather(into : LIST{INT}) is
-      -- A number contributes itself.
    end;
 
 end; -- class NESTED_NUMBER
@@ -33,7 +31,6 @@ class NESTED_NOTHING < $NESTED is
    end;
 
    gather(into : LIST{INT}) is
-      -- Nothing contributes no number.
    end;
 
 end; -- class NESTED_NOTHING
@@ -49,7 +46,6 @@ class NESTED_ITEMS < $NESTED is
    end;
 
    gather(into : LIST{INT}) is
-      -- A list contributes the numbers of each of its items, in order.
    end;
 
 end; -- class NESTED_ITEMS
@@ -57,8 +53,6 @@ end; -- class NESTED_ITEMS
 class FLATTEN_ARRAY is
 
    flatten(nested : $NESTED) : ARRAY{INT} is
-      -- Every number in the nested list, in order, however deeply buried.
-      -- Items holding nothing are left out.
       return #ARRAY{INT}(0);
    end;
 

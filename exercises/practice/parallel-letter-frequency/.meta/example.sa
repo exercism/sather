@@ -1,17 +1,17 @@
 class PARALLEL_LETTER_FREQUENCY is
 
-   frequency(texts : ARRAY{STR}) : FMAP{STR,INT} is
+   frequency(texts : ARRAY{STR}) : FMAP{CHAR,INT} is
       -- Sather 1.2's serial runtime has no threads, so this counts the
       -- texts one after another. The result is the same either way; only
       -- the timing would differ.
-      counts : FMAP{STR,INT} := #FMAP{STR,INT};
+      counts : FMAP{CHAR,INT} := #FMAP{CHAR,INT};
       loop
          text ::= texts.elt!;
          if ~void(text) then
             loop
                c ::= text.elt!;
                if c.is_alpha then
-                  key ::= c.lower.str;
+                  key ::= c.lower;
                   if counts.has_ind(key) then
                      counts := counts.insert(key, counts.get(key) + 1);
                   else

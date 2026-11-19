@@ -1,7 +1,6 @@
 class RESISTOR_COLOR_DUO is
 
    decoded_value(colors : ARRAY{STR}) : INT is
-      -- The two-digit value of the first two colour bands.
       return 0;
    end;
 

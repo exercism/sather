@@ -4,8 +4,6 @@ class RAIL_FENCE_CIPHER is
       pre rails >= 1
       post result.size = msg.size
    is
-      -- Write the message down and up across `rails' rails, then read it
-      -- off a rail at a time.
       return msg;
    end;
 
@@ -13,7 +11,6 @@ class RAIL_FENCE_CIPHER is
       pre rails >= 1
       post result.size = msg.size
    is
-      -- Undo encode.
       return msg;
    end;
 
