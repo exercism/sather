@@ -15,7 +15,7 @@ class PROTEIN_TRANSLATION is
    end;
 
    proteins(strand : STR) : ARRAY{STR} is
-      found : FLIST{STR} := #FLIST{STR};
+      found ::= #FLIST{STR};
       i ::= 0;
       loop
          until!(i >= strand.size);
@@ -26,12 +26,7 @@ class PROTEIN_TRANSLATION is
          i := i + 3;
       end;
 
-      res : ARRAY{STR} := #ARRAY{STR}(found.size);
-      loop
-         j ::= 0.upto!(found.size - 1);
-         res[j] := found[j];
-      end;
-      return res;
+      return found.as_array;
    end;
 
 end; -- class PROTEIN_TRANSLATION

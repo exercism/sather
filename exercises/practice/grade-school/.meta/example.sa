@@ -31,10 +31,7 @@ class GRADE_SCHOOL is
          name ::= grades.keys!;
          if keep.call(name) then found := found.push(name) end;
       end;
-      res ::= #ARRAY{STR}(found.size);
-      loop
-         res.set!(found.elt!);
-      end;
+      res ::= found.as_array;
       res.insertion_sort_by(bind(earlier(_, _)));
       return res;
    end;

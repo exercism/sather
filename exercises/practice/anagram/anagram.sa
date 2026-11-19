@@ -1,7 +1,7 @@
 class ANAGRAM is
 
-   find(subject : STR, candidates : ARRAY{STR}) : ARRAY{STR} is
-      return #ARRAY{STR}(0);
+   find(subject : STR, candidates : ARRAY{STR}) : LIST{STR} is
+      return #LIST{STR};
    end;
 
 end; -- class ANAGRAM

@@ -3,7 +3,7 @@ class PRIME_FACTORS is
    factors(number : INT) : ARRAY{INT}
       pre number >= 1
    is
-      found : FLIST{INT} := #FLIST{INT};
+      found ::= #FLIST{INT};
       n ::= number;
       d ::= 2;
       loop
@@ -17,12 +17,7 @@ class PRIME_FACTORS is
       end;
       if n > 1 then found := found.push(n) end;
 
-      res : ARRAY{INT} := #ARRAY{INT}(found.size);
-      loop
-         i ::= 0.upto!(found.size - 1);
-         res[i] := found[i];
-      end;
-      return res;
+      return found.as_array;
    end;
 
 end; -- class PRIME_FACTORS
