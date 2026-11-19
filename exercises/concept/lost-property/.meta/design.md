@@ -3,8 +3,7 @@
 ## Goal
 
 Introduce the type parameter: writing `{T}`, using `T` inside the class,
-supplying a type at the point of use, and constraining the parameter to get
-more than a bare type allows.
+and supplying a type at the point of use.
 
 ## Learning objectives
 
@@ -13,7 +12,7 @@ more than a bare type allows.
 - Use the parameter as a type for an attribute, an argument and a return
   value.
 - Instantiate at two different types and see that they are different types.
-- Constrain a parameter with `<` in order to call something on it.
+- Call a routine on a `T` that every type the class is used with provides.
 
 ## Out of scope
 
@@ -21,13 +20,9 @@ more than a bare type allows.
   since `field-guide`, so the idea is not new; a second one here would add
   bookkeeping and no insight.
 - What the compiler does about code size when a class is used at many types.
-
-## Note on the constraint
-
-Task 5 exists to make the constraint necessary rather than decorative. A
-student who writes `{T < $STR}` from the start will find tasks 1 to 4 work
-either way, and only discover why on the last one — which is the intended
-order of events.
+- Constraints (`{T < $STR}`), in the introduction only. The compiler checks
+  each instantiation separately and does not check the body against the
+  constraint, so no test can tell whether a student wrote one.
 
 ## Concepts
 
@@ -37,6 +32,7 @@ order of events.
 
 - `code-inclusion`
 - `contracts`
+- `maps-and-sets`
 
 ## Analyzer
 

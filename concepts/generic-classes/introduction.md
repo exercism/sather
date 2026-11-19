@@ -62,6 +62,25 @@ So there is no cost to this at run time, and no loss of type information:
 `stamps.left` really is a `STR`, not something that has to be checked or
 converted.
 
+## Saying what a parameter must support
+
+A class that only stores, passes and returns a `T` works for any type. Once
+it calls a routine on a `T`, it works only for types that have that routine.
+A **constraint** says so in the header:
+
+```sather
+class PAIR{T < $STR} is
+   ...
+   label : STR is
+      return left.str + " & " + right.str;
+   end;
+end;
+```
+
+`T < $STR` reads "`T` must conform to `$STR`". Someone using the class sees
+from the header alone what it needs from its parameter, without reading
+every routine.
+
 ## More than one
 
 A class may take several parameters, separated by commas. `FMAP{K,T}` is the

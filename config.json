@@ -337,7 +337,8 @@
         ],
         "prerequisites": [
           "code-inclusion",
-          "contracts"
+          "contracts",
+          "maps-and-sets"
         ],
         "status": "beta"
       },
@@ -879,17 +880,6 @@
         "difficulty": 4
       },
       {
-        "slug": "prime-factors",
-        "name": "Prime Factors",
-        "uuid": "07028ef6-6f26-4ab0-aff0-87ab587ed729",
-        "practices": [],
-        "prerequisites": [
-          "lists",
-          "contracts"
-        ],
-        "difficulty": 4
-      },
-      {
         "slug": "resistor-color",
         "name": "Resistor Color",
         "uuid": "ca46bd72-dbe2-4017-af48-373be0e59088",
@@ -1063,6 +1053,8 @@
           "classes-with-state",
           "generic-classes",
           "custom-iterators",
+          "lists",
+          "sorting",
           "recursion"
         ],
         "difficulty": 6
@@ -1235,6 +1227,17 @@
           "characters",
           "iterators",
           "string-builders"
+        ],
+        "difficulty": 6
+      },
+      {
+        "slug": "prime-factors",
+        "name": "Prime Factors",
+        "uuid": "07028ef6-6f26-4ab0-aff0-87ab587ed729",
+        "practices": [],
+        "prerequisites": [
+          "lists",
+          "contracts"
         ],
         "difficulty": 6
       },

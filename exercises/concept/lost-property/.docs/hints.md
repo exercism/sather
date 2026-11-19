@@ -5,7 +5,7 @@
 - Inside the class, `T` is used exactly where a type name would go: in an
   attribute, an argument, or a return type.
 - The tests use `LOST_BOX{STR}` and `LOST_BOX{INT}`, so nothing may assume
-  the thing is a string — except through the constraint in task 5.
+  the thing is a string.
 
 ## 1. Take something in
 
@@ -29,8 +29,7 @@
 
 ## 5. Write it up
 
-- Change the class header to `class LOST_BOX{T < $STR}`.
-- Without that, `item.str` does not compile, because nothing is known about
-  a bare `T` beyond being able to move it about.
+- Both `STR` and `INT` have a `str` routine, so `item.str` turns the item
+  into a string whichever type the box holds.
 - The item comes first in the line, then the words from the instructions,
   then the name.

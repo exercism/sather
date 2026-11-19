@@ -4,8 +4,6 @@ class LOST_BOX{T} is
    readonly attr handed_in_by : STR;
    readonly attr claimed : BOOL;
 
-   -- Task 5 also needs the class header above changed. The
-   -- instructions say how.
    -- Replace each `raise "unimplemented";` with the real body.
 
    create(thing : T, who : STR) : SAME is

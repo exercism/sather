@@ -61,10 +61,6 @@ box.item
 `describe` answers a line about the box, like
 `"blue jumper, handed in by Mia"`.
 
-To put the item into a string, the class needs to know that a `T` can be
-turned into one. Constrain the parameter: write the class header as
-`class LOST_BOX{T < $STR}`, and then `item.str` is allowed.
-
 ```sather
 box.describe
 -- => "blue jumper, handed in by Mia"
