@@ -1,0 +1,47 @@
+class LIGHTING_DESK_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("LIGHTING_DESK");
+
+      -- Task 1
+      test("light 0 of 5 is on", LIGHTING_DESK::is_on(5, 0), true);
+      test("light 1 of 5 is off", LIGHTING_DESK::is_on(5, 1), false);
+      test("light 2 of 5 is on", LIGHTING_DESK::is_on(5, 2), true);
+      test("nothing is on in a dark rig", LIGHTING_DESK::is_on(0, 7), false);
+      test("a light on its own", LIGHTING_DESK::is_on(256, 8), true);
+
+      -- Task 2
+      test("only light 0", LIGHTING_DESK::only(0), 1);
+      test("only light 3", LIGHTING_DESK::only(3), 8);
+      test("only light 10", LIGHTING_DESK::only(10), 1024);
+
+      -- Task 3
+      test("switch on a light that is off",
+           LIGHTING_DESK::switch_on(5, 1), 7);
+      test("switch on a light that is already on",
+           LIGHTING_DESK::switch_on(5, 0), 5);
+      test("switch on in a dark rig", LIGHTING_DESK::switch_on(0, 4), 16);
+
+      -- Task 4
+      test("switch off a light that is on",
+           LIGHTING_DESK::switch_off(7, 1), 5);
+      test("switch off a light that is already off",
+           LIGHTING_DESK::switch_off(5, 1), 5);
+      test("switch off the last light", LIGHTING_DESK::switch_off(16, 4), 0);
+
+      -- Task 5
+      test("flip a light that is off", LIGHTING_DESK::flip(5, 1), 7);
+      test("flip a light that is on", LIGHTING_DESK::flip(7, 1), 5);
+      test("flip in a dark rig", LIGHTING_DESK::flip(0, 0), 1);
+
+      -- Task 6
+      test("lights 8 and 9", LIGHTING_DESK::back_row(768), 3);
+      test("only the front row is on", LIGHTING_DESK::back_row(255), 0);
+      test("every stage light is on", LIGHTING_DESK::back_row(65535), 255);
+      test("a foyer light is not in the back row",
+           LIGHTING_DESK::back_row(66048), 2);
+
+      finish;
+   end;
+end; -- class LIGHTING_DESK_TEST

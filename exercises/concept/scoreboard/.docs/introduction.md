@@ -86,3 +86,20 @@ the object instead. Call it as a statement:
 An attribute nobody has set holds nought for an `INT`, `false` for a `BOOL`,
 and void for a string or object. So a new machine holds no credit without
 anything having to say so.
+
+## Constants
+
+A value that is the same for every machine, and never changes, is a
+**constant**:
+
+```sather
+   const max_credit : INT := 1000;
+```
+
+It is not kept in each object the way an attribute is, and nothing can
+change it. Inside the class it is used by name. Outside, the class name goes
+in front, and no machine is needed:
+
+```sather
+   VENDING_MACHINE::max_credit     -- 1000
+```

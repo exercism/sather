@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "lighting_desk.sa"
+    ],
+    "test": [
+      "lighting_desk_test.sa"
+    ],
+    "exemplar": [
+      ".meta/exemplar.sa"
+    ]
+  },
+  "icon": "booleans",
+  "blurb": "Learn about bits by running the lighting desk for the school play."
+}

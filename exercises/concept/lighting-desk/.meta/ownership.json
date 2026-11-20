@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "LIGHTING_DESK::is_on": 1,
+    "LIGHTING_DESK::only": 2,
+    "LIGHTING_DESK::switch_on": 3,
+    "LIGHTING_DESK::switch_off": 4,
+    "LIGHTING_DESK::flip": 5,
+    "LIGHTING_DESK::back_row": 6
+  }
+}

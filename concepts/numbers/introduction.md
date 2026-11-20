@@ -49,26 +49,6 @@ rather than giving a fraction.
 
 The two go together: `7` is `3` lots of `2` with `1` left over.
 
-## Picking out bits
-
-Inside the computer an `INT` is stored in binary, as a row of **bits**,
-each a `1` or a `0`. Counting from nought at the right-hand end, bit `0`
-stands for 1, bit `1` for 2, bit `2` for 4, bit `3` for 8, and so on, each
-worth twice the one before. `5` is `4 + 1`, so it is `101` in binary: bits
-`2` and `0` are set and bit `1` is not.
-
-`.bit(i)` asks whether bit `i` is set, and answers `true` or `false`:
-
-```sather
-5.bit(0)     -- true
-5.bit(1)     -- false
-5.bit(2)     -- true
-12.bit(3)    -- true, because 12 is 8 + 4
-```
-
-This is how a single number can carry several yes-or-no facts at once, one
-per bit.
-
 ## Keeping a value
 
 A routine can work something out, keep it under a name, and use it later.
