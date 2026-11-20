@@ -84,7 +84,8 @@ learning.
 | `s.elt!` | each value of a set |
 
 Neither a map nor a set has an order. Two runs may walk them differently, so
-never write anything that depends on which comes first.
+never write anything that depends on which comes first. Don't insert into or
+delete from a map or set while walking it.
 
 ```sather
    loop

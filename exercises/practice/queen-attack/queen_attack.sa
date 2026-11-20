@@ -1,0 +1,13 @@
+class QUEEN is
+
+   readonly attr row, column : INT;
+
+   create(row, column : INT) : SAME is
+      return new;
+   end;
+
+   can_attack(other : SAME) : BOOL is
+      return false;
+   end;
+
+end; -- class QUEEN

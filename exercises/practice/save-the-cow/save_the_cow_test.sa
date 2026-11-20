@@ -1,0 +1,138 @@
+class SAVE_THE_COW_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SAVE_THE_COW");
+
+      game_1 ::= #SAVE_THE_COW("loot");
+      test("Initially 9 failures are allowed and no letters are guessed - state", game_1.state, "Ongoing");
+
+      test("Initially 9 failures are allowed and no letters are guessed - masked word", game_1.masked_word, "____");
+
+      test("Initially 9 failures are allowed and no letters are guessed - remaining failures", game_1.remaining_failures, 9);
+
+      game_2 ::= #SAVE_THE_COW("loot");
+      game_2.guess('a');
+      game_2.guess('b');
+      game_2.guess('c');
+      game_2.guess('d');
+      game_2.guess('e');
+      game_2.guess('f');
+      game_2.guess('g');
+      game_2.guess('h');
+      game_2.guess('i');
+      game_2.guess('j');
+      test("After 10 failures the game is over - state", game_2.state, "Lose");
+
+      test("After 10 failures the game is over - masked word", game_2.masked_word, "____");
+
+      test("After 10 failures the game is over - remaining failures", game_2.remaining_failures, 0);
+
+      game_3 ::= #SAVE_THE_COW("loot");
+      game_3.guess('t');
+      game_3.guess('o');
+      game_3.guess('a');
+      game_3.guess('b');
+      game_3.guess('c');
+      game_3.guess('d');
+      game_3.guess('e');
+      game_3.guess('f');
+      game_3.guess('g');
+      game_3.guess('h');
+      game_3.guess('i');
+      game_3.guess('j');
+      test("Losing with several correct guesses - state", game_3.state, "Lose");
+
+      test("Losing with several correct guesses - masked word", game_3.masked_word, "_oot");
+
+      test("Losing with several correct guesses - remaining failures", game_3.remaining_failures, 0);
+
+      game_4 ::= #SAVE_THE_COW("loot");
+      game_4.guess('t');
+      test("Feeding a correct letter removes underscores - state", game_4.state, "Ongoing");
+
+      test("Feeding a correct letter removes underscores - masked word", game_4.masked_word, "___t");
+
+      test("Feeding a correct letter removes underscores - remaining failures", game_4.remaining_failures, 9);
+
+      game_5 ::= #SAVE_THE_COW("loot");
+      game_5.guess('t');
+      game_5.guess('t');
+      test("Feeding a correct letter twice counts as a failure - state", game_5.state, "Ongoing");
+
+      test("Feeding a correct letter twice counts as a failure - masked word", game_5.masked_word, "___t");
+
+      test("Feeding a correct letter twice counts as a failure - remaining failures", game_5.remaining_failures, 8);
+
+      game_6 ::= #SAVE_THE_COW("loot");
+      game_6.guess('t');
+      game_6.guess('t');
+      game_6.guess('o');
+      test("Guessing a repeated letter reveals all instances - state", game_6.state, "Ongoing");
+
+      test("Guessing a repeated letter reveals all instances - masked word", game_6.masked_word, "_oot");
+
+      test("Guessing a repeated letter reveals all instances - remaining failures", game_6.remaining_failures, 8);
+
+      game_7 ::= #SAVE_THE_COW("loot");
+      game_7.guess('t');
+      game_7.guess('t');
+      game_7.guess('o');
+      game_7.guess('l');
+      test("Getting all the letters right makes for a win - state", game_7.state, "Win");
+
+      test("Getting all the letters right makes for a win - masked word", game_7.masked_word, "loot");
+
+      test("Getting all the letters right makes for a win - remaining failures", game_7.remaining_failures, 8);
+
+      game_8 ::= #SAVE_THE_COW("loot");
+      game_8.guess('a');
+      game_8.guess('b');
+      game_8.guess('c');
+      game_8.guess('d');
+      game_8.guess('e');
+      game_8.guess('f');
+      game_8.guess('g');
+      game_8.guess('h');
+      game_8.guess('i');
+      game_8.guess('t');
+      game_8.guess('o');
+      game_8.guess('l');
+      test("Winning on the last guess is still a win - state", game_8.state, "Win");
+
+      test("Winning on the last guess is still a win - masked word", game_8.masked_word, "loot");
+
+      test("Winning on the last guess is still a win - remaining failures", game_8.remaining_failures, 0);
+
+      game_9 ::= #SAVE_THE_COW("loot");
+      protect
+         game_9.guess('a');
+         game_9.guess('b');
+         game_9.guess('c');
+         game_9.guess('d');
+         game_9.guess('e');
+         game_9.guess('f');
+         game_9.guess('g');
+         game_9.guess('h');
+         game_9.guess('i');
+         game_9.guess('j');
+         game_9.guess('k');
+         test("Guessing after a lose is error", "no exception raised", "cannot guess after the game is lost");
+      when $STR then
+         test("Guessing after a lose is error", exception.str, "cannot guess after the game is lost");
+      end;
+
+      game_10 ::= #SAVE_THE_COW("loot");
+      protect
+         game_10.guess('t');
+         game_10.guess('o');
+         game_10.guess('l');
+         game_10.guess('l');
+         test("Guessing after a win is error", "no exception raised", "cannot guess after the game is won");
+      when $STR then
+         test("Guessing after a win is error", exception.str, "cannot guess after the game is won");
+      end;
+
+      finish;
+   end;
+end; -- class SAVE_THE_COW_TEST

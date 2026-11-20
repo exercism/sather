@@ -1,0 +1,23 @@
+class SAVE_THE_COW is
+
+   create(word : STR) : SAME is
+      return new;
+   end;
+
+   guess(letter : CHAR) is
+   end;
+
+   state : STR is
+      -- "Ongoing", "Win" or "Lose".
+      return "";
+   end;
+
+   masked_word : STR is
+      return "";
+   end;
+
+   remaining_failures : INT is
+      return 0;
+   end;
+
+end; -- class SAVE_THE_COW

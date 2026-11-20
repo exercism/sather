@@ -8,11 +8,9 @@ class HAMMING is
          raise "strands must be of equal length";
       end;
       d ::= 0;
-      i ::= 0;
       loop
-         until!(i >= a.size);
-         if a[i] /= b[i] then d := d + 1 end;
-         i := i + 1;
+         -- Both strands move on together, one letter each turn.
+         if a.elt! /= b.elt! then d := d + 1 end;
       end;
       return d;
    end;

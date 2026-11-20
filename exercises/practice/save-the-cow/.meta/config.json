@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "keiravillekode"
+  ],
+  "files": {
+    "solution": [
+      "save_the_cow.sa"
+    ],
+    "test": [
+      "save_the_cow_test.sa"
+    ],
+    "example": [
+      ".meta/example.sa"
+    ]
+  },
+  "blurb": "Implement a word-guessing game."
+}

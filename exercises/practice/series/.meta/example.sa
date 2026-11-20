@@ -1,0 +1,20 @@
+class SERIES is
+
+   slices(series : STR, slice_length : INT) : ARRAY{STR} is
+      digits ::= series;
+      if void(digits) then digits := "" end;
+      if digits.size = 0 then raise "series cannot be empty" end;
+      if slice_length = 0 then raise "slice length cannot be zero" end;
+      if slice_length < 0 then raise "slice length cannot be negative" end;
+      if slice_length > digits.size then
+         raise "slice length cannot be greater than series length";
+      end;
+      answer ::= #ARRAY{STR}(digits.size - slice_length + 1);
+      loop
+         start ::= answer.ind!;
+         answer[start] := digits.substring(start, slice_length);
+      end;
+      return answer;
+   end;
+
+end; -- class SERIES
