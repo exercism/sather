@@ -252,6 +252,18 @@ def sa_array(values, elem=None):
     return "|" + body + "|"
 
 
+def sa_rows(values, elem="STR", indent=6):
+    """An ARRAY literal with one element per line, so a grid or a picture
+    reads as it would print. `elem` is the element type, STR unless given,
+    as in sa_rows("ARRAY{INT}"). `indent` is that of the statement the
+    literal appears in; the rows go three columns further in. An empty list
+    is #ARRAY{T}(0), and a single row stays on one line."""
+    if len(values) < 2:
+        return sa_array(values, elem)
+    rows = ",\n".join(" " * (indent + 3) + sa_as(v, elem) for v in values)
+    return "|\n" + rows + "\n" + " " * indent + "|"
+
+
 def sa(value, elem=None):
     """Render any JSON value as a Sather literal: null as void, booleans as
     BOOL, integers as INT, floats as FLTD, strings as STR, lists as ARRAY.
@@ -300,7 +312,7 @@ def environment(exercise):
         undefined=jinja2.StrictUndefined,
     )
     for f in (sa, sa_str, sa_char, sa_int, sa_inti, sa_flt, sa_fltd, sa_bool,
-              sa_array, sa_as, sa_type, map_str, snake, upper_snake):
+              sa_array, sa_rows, sa_as, sa_type, map_str, snake, upper_snake):
         env.filters[f.__name__] = f
     env.tests["error"] = lambda case: case["is_error"]
     env.tests["ascii"] = lambda s: str(s).isascii()

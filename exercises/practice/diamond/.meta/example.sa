@@ -1,0 +1,22 @@
+class DIAMOND is
+
+   rows(letter : CHAR) : ARRAY{STR} is
+      n ::= letter.int - 'A'.int;
+      width ::= 2 * n + 1;
+      answer : ARRAY{STR} := #ARRAY{STR}(width);
+      loop
+         i ::= 0.upto!(n);
+         c ::= ('A'.int + i).char.str;
+         -- The letter, padded out to its own width, then the letter again;
+         -- row A is the letter alone.
+         middle ::= c;
+         if i > 0 then middle := c.left(2 * i, ' ') + c; end;
+         -- Spaces on the left, then on the right, out to the full width.
+         row ::= middle.right(middle.size + n - i, ' ').left(width, ' ');
+         answer[i] := row;
+         answer[width - 1 - i] := row;
+      end;
+      return answer;
+   end;
+
+end; -- class DIAMOND

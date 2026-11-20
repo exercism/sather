@@ -39,8 +39,7 @@ class MEETUP is
    end;
 
    private two(n : INT) : STR is
-      if n < 10 then return "0" + n; end;
-      return n.str;
+      return n.str.right(2, '0');
    end;
 
    day(year, month : INT, week, dayofweek : STR) : STR is

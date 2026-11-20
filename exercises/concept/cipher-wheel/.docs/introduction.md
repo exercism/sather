@@ -67,3 +67,19 @@ The exact numbers rarely matter. What matters is that the letters `a` to
 `z` are in order and next to each other, so `'p'.int - 'k'.int` is 5 — how
 many letters `p` comes after `k`. The digits `0` to `9` are in order too,
 so `'2'.int - '0'.int` is 2, the number a digit character stands for.
+
+## Padding a string
+
+`.right(n, c)` makes a string at least `n` characters long by adding the
+character `c` on the left. `.left(n, c)` adds them on the right instead. A
+string that is already long enough comes back unchanged.
+
+```sather
+"9".right(3, '0')        -- "009"
+"45".right(3, '0')       -- "045"
+"1234".right(3, '0')     -- "1234"
+"K2".left(5, '.')        -- "K2..."
+```
+
+With `.str`, that writes a number with a fixed number of digits:
+`5.str.right(4, '0')` is `"0005"`.

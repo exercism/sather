@@ -1,0 +1,7 @@
+class DIAMOND is
+
+   rows(letter : CHAR) : ARRAY{STR} is
+      raise "unimplemented";
+   end;
+
+end; -- class DIAMOND

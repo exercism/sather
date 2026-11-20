@@ -49,11 +49,19 @@ class KILLER_SUDOKU_HELPER_TEST is
       test("Cage with only 1 possible combination", KILLER_SUDOKU_HELPER::combinations(7, 3, exclude_11).str, expected_11.str);
 
       exclude_12 : ARRAY{INT} := #ARRAY{INT}(0);
-      expected_12 : ARRAY{ARRAY{INT}} := | |1, 9|, |2, 8|, |3, 7|, |4, 6| |;
+      expected_12 : ARRAY{ARRAY{INT}} := |
+         |1, 9|,
+         |2, 8|,
+         |3, 7|,
+         |4, 6|
+      |;
       test("Cage with several combinations", KILLER_SUDOKU_HELPER::combinations(10, 2, exclude_12).str, expected_12.str);
 
       exclude_13 : ARRAY{INT} := |1, 4|;
-      expected_13 : ARRAY{ARRAY{INT}} := | |2, 8|, |3, 7| |;
+      expected_13 : ARRAY{ARRAY{INT}} := |
+         |2, 8|,
+         |3, 7|
+      |;
       test("Cage with several combinations that is restricted", KILLER_SUDOKU_HELPER::combinations(10, 2, exclude_13).str, expected_13.str);
 
       finish;
