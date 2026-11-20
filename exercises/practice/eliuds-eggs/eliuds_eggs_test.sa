@@ -1,0 +1,17 @@
+class ELIUDS_EGGS_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("ELIUDS_EGGS");
+
+      test("0 eggs", ELIUDS_EGGS::egg_count(0), 0);
+
+      test("1 egg", ELIUDS_EGGS::egg_count(16), 1);
+
+      test("4 eggs", ELIUDS_EGGS::egg_count(89), 4);
+
+      test("13 eggs", ELIUDS_EGGS::egg_count(2000000000), 13);
+
+      finish;
+   end;
+end; -- class ELIUDS_EGGS_TEST

@@ -1,0 +1,7 @@
+class ELIUDS_EGGS is
+
+   egg_count(number : INT) : INT is
+      raise "unimplemented";
+   end;
+
+end; -- class ELIUDS_EGGS

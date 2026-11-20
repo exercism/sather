@@ -394,6 +394,20 @@
           "floating-point"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "lighting-desk",
+        "name": "Lighting Desk",
+        "uuid": "f8ae28d0-ed5f-413a-b6e8-ea22ae75251c",
+        "concepts": [
+          "bits"
+        ],
+        "prerequisites": [
+          "numbers",
+          "booleans",
+          "exact-numbers"
+        ],
+        "status": "beta"
       }
     ],
     "practice": [
@@ -484,7 +498,8 @@
         ],
         "prerequisites": [
           "exact-numbers",
-          "exceptions"
+          "exceptions",
+          "bits"
         ],
         "difficulty": 2
       },
@@ -660,6 +675,19 @@
         "difficulty": 3
       },
       {
+        "slug": "eliuds-eggs",
+        "name": "Eliud's Eggs",
+        "uuid": "4d4f2cc1-8e83-4e52-9a0f-0eeaff6b271b",
+        "practices": [
+          "bits"
+        ],
+        "prerequisites": [
+          "loops",
+          "bits"
+        ],
+        "difficulty": 3
+      },
+      {
         "slug": "isbn-verifier",
         "name": "ISBN Verifier",
         "uuid": "9397a440-1ae1-4b44-b7c8-353b9931218c",
@@ -736,7 +764,8 @@
         "prerequisites": [
           "arrays",
           "lists",
-          "iterators"
+          "iterators",
+          "bits"
         ],
         "difficulty": 3
       },
@@ -759,7 +788,8 @@
         "prerequisites": [
           "arrays",
           "lists",
-          "iterators"
+          "iterators",
+          "bits"
         ],
         "difficulty": 4
       },
@@ -770,7 +800,9 @@
         "practices": [],
         "prerequisites": [
           "characters",
-          "lists"
+          "lists",
+          "sorting",
+          "maps-and-sets"
         ],
         "difficulty": 4
       },
@@ -1141,7 +1173,8 @@
         "prerequisites": [
           "arrays",
           "exceptions",
-          "lists"
+          "lists",
+          "bits"
         ],
         "difficulty": 6
       },
@@ -1153,7 +1186,8 @@
         "prerequisites": [
           "lists",
           "contracts",
-          "recursion"
+          "recursion",
+          "bits"
         ],
         "difficulty": 6
       },
@@ -1343,7 +1377,8 @@
           "characters",
           "recursion",
           "lists",
-          "exact-numbers"
+          "exact-numbers",
+          "bits"
         ],
         "difficulty": 8
       },
@@ -1557,6 +1592,11 @@
       "uuid": "664a42f9-b7c0-4d19-b42f-c1c9c380cf96",
       "slug": "exact-numbers",
       "name": "Exact Numbers"
+    },
+    {
+      "uuid": "d86444eb-4215-4867-822e-f0bb7ab78585",
+      "slug": "bits",
+      "name": "Bits"
     }
   ],
   "key_features": [

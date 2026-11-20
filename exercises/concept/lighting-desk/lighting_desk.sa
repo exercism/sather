@@ -1,0 +1,29 @@
+class LIGHTING_DESK is
+
+   -- Replace each `raise "unimplemented";` with the real body.
+
+   is_on(rig, light : INT) : BOOL is
+      raise "unimplemented";
+   end;
+
+   only(light : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   switch_on(rig, light : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   switch_off(rig, light : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   flip(rig, light : INT) : INT is
+      raise "unimplemented";
+   end;
+
+   back_row(rig : INT) : INT is
+      raise "unimplemented";
+   end;
+
+end; -- class LIGHTING_DESK

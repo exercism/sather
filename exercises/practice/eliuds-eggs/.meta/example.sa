@@ -1,0 +1,16 @@
+class ELIUDS_EGGS is
+
+   egg_count(number : INT) : INT is
+      -- Look at the bottom bit, then shift it away, until none are left.
+      -- urshift fills with zeroes, so this ends for any INT.
+      count ::= 0;
+      n ::= number;
+      loop
+         until!(n = 0);
+         count := count + n.band(1);
+         n := n.urshift(1);
+      end;
+      return count;
+   end;
+
+end; -- class ELIUDS_EGGS

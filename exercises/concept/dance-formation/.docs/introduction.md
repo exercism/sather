@@ -60,6 +60,22 @@ and use it to reach each value:
 The test uses `shelf.size` rather than `3`, so the same loop works for a
 shelf of any length, an empty one included.
 
+## Finding a value
+
+`.contains` answers whether a value is anywhere in the array, and
+`.index_of` says where:
+
+```sather
+shelf.contains("Dracula")    -- true
+shelf.contains("Heidi")      -- false
+shelf.index_of("Kim")        -- 2
+shelf.index_of("Heidi")      -- -1, because it is not there
+```
+
+`.index_of` gives the first position holding the value. `-1` can never be a
+real position, so it is the answer when there is none; check for it before
+using the answer with square brackets.
+
 ## Arrays of arrays
 
 The values in an array can themselves be arrays. A seating plan with a row

@@ -1,0 +1,29 @@
+class LIGHTING_DESK is
+
+   is_on(rig, light : INT) : BOOL is
+      return rig.bit(light);
+   end;
+
+   only(light : INT) : INT is
+      return 1.lshift(light);
+   end;
+
+   switch_on(rig, light : INT) : INT is
+      return rig.bor(only(light));
+   end;
+
+   switch_off(rig, light : INT) : INT is
+      -- Every light but this one, then keep only what the rig already has.
+      return rig.band(only(light).bnot);
+   end;
+
+   flip(rig, light : INT) : INT is
+      return rig.bxor(only(light));
+   end;
+
+   back_row(rig : INT) : INT is
+      -- Lights 8 to 15 slide down to 0 to 7; 255 keeps those eight.
+      return rig.rshift(8).band(255);
+   end;
+
+end; -- class LIGHTING_DESK

@@ -88,19 +88,5 @@ routine's answer, and postconditions use it.
 7.str        -- "7", the number written as text
 ```
 
-## Bits
-
-`.bit(i)` is `true` when bit `i` of the number's binary form is `1`. Bit `0`
-is the lowest, worth 1; bit `i` is worth 2 to the power `i`.
-
-```sather
-5.bit(0)     -- true:  5 is binary 101
-5.bit(1)     -- false
-5.bit(2)     -- true
-```
-
-A number used this way is a set of flags: each bit says yes or no to one
-thing, and `.bit` reads one flag without any division or remainder.
-
 `.str` is how a number becomes part of a sentence, once you have met
 strings.

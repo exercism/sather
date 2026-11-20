@@ -30,6 +30,20 @@ end; -- class VENDING_MACHINE
 credit and insists that changing it goes through `insert`, which is where
 the rules about money live.
 
+## const
+
+```sather
+   const max_credit : INT := 1000;
+   private const coin_slots : INT := 6;
+```
+
+A `const` belongs to the class, not to any object, so
+`VENDING_MACHINE::max_credit` needs no machine. Nothing can assign to it,
+inside the class or out. `private` keeps it to the class's own routines.
+
+A `const` is declared among the class's features, next to `attr`. It cannot
+be declared inside a routine or a loop: a local is always a variable.
+
 ## create and new
 
 `new` produces an object of this class with every attribute empty. It may
