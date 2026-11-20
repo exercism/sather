@@ -1,0 +1,17 @@
+{% import "macros.j2" as m with context %}
+{% macro queen(q) %}#QUEEN({{ q.position.row | sa }}, {{ q.position.column | sa }}){% endmacro %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% if case.property == "create" %}
+{% if case is error %}
+{{ m.test_error(case, queen(case.input.queen)) }}
+{% else %}
+{{ m.test(case, queen(case.input.queen) ~ ".row", case.input.queen.position.row | sa, name=case.full_description ~ " - row") }}
+{{ m.test(case, queen(case.input.queen) ~ ".column", case.input.queen.position.column | sa, name=case.full_description ~ " - column") }}
+{% endif %}
+{% else %}
+{{ m.test(case, queen(case.input.white_queen) ~ ".can_attack(" ~ queen(case.input.black_queen) ~ ")", case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

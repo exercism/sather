@@ -1,0 +1,62 @@
+class SERIES_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("SERIES");
+
+      expected_1 : ARRAY{STR} := |"1"|;
+      test("slices of one from one", SERIES::slices("1", 1).str, expected_1.str);
+
+      expected_2 : ARRAY{STR} := |"1", "2"|;
+      test("slices of one from two", SERIES::slices("12", 1).str, expected_2.str);
+
+      expected_3 : ARRAY{STR} := |"35"|;
+      test("slices of two", SERIES::slices("35", 2).str, expected_3.str);
+
+      expected_4 : ARRAY{STR} := |"91", "14", "42"|;
+      test("slices of two overlap", SERIES::slices("9142", 2).str, expected_4.str);
+
+      expected_5 : ARRAY{STR} := |"777", "777", "777", "777"|;
+      test("slices can include duplicates", SERIES::slices("777777", 3).str, expected_5.str);
+
+      expected_6 : ARRAY{STR} := |"91849", "18493", "84939", "49390", "93904", "39042", "90424", "04243"|;
+      test("slices of a long series", SERIES::slices("918493904243", 5).str, expected_6.str);
+
+      protect
+         ignored ::= SERIES::slices("12345", 6);
+         test("slice length is too large", "no exception raised", "slice length cannot be greater than series length");
+      when $STR then
+         test("slice length is too large", exception.str, "slice length cannot be greater than series length");
+      end;
+
+      protect
+         ignored ::= SERIES::slices("12345", 42);
+         test("slice length is way too large", "no exception raised", "slice length cannot be greater than series length");
+      when $STR then
+         test("slice length is way too large", exception.str, "slice length cannot be greater than series length");
+      end;
+
+      protect
+         ignored ::= SERIES::slices("12345", 0);
+         test("slice length cannot be zero", "no exception raised", "slice length cannot be zero");
+      when $STR then
+         test("slice length cannot be zero", exception.str, "slice length cannot be zero");
+      end;
+
+      protect
+         ignored ::= SERIES::slices("123", (-1));
+         test("slice length cannot be negative", "no exception raised", "slice length cannot be negative");
+      when $STR then
+         test("slice length cannot be negative", exception.str, "slice length cannot be negative");
+      end;
+
+      protect
+         ignored ::= SERIES::slices("", 1);
+         test("empty series is invalid", "no exception raised", "series cannot be empty");
+      when $STR then
+         test("empty series is invalid", exception.str, "series cannot be empty");
+      end;
+
+      finish;
+   end;
+end; -- class SERIES_TEST

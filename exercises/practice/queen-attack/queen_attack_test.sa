@@ -1,0 +1,57 @@
+class QUEEN_ATTACK_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("QUEEN_ATTACK");
+
+      test("Test creation of Queens with valid and invalid positions - queen with a valid position - row", #QUEEN(2, 2).row, 2);
+
+      test("Test creation of Queens with valid and invalid positions - queen with a valid position - column", #QUEEN(2, 2).column, 2);
+
+      protect
+         ignored ::= #QUEEN((-2), 2);
+         test("Test creation of Queens with valid and invalid positions - queen must have positive row", "no exception raised", "row not positive");
+      when $STR then
+         test("Test creation of Queens with valid and invalid positions - queen must have positive row", exception.str, "row not positive");
+      end;
+
+      protect
+         ignored ::= #QUEEN(8, 4);
+         test("Test creation of Queens with valid and invalid positions - queen must have row on board", "no exception raised", "row not on board");
+      when $STR then
+         test("Test creation of Queens with valid and invalid positions - queen must have row on board", exception.str, "row not on board");
+      end;
+
+      protect
+         ignored ::= #QUEEN(2, (-2));
+         test("Test creation of Queens with valid and invalid positions - queen must have positive column", "no exception raised", "column not positive");
+      when $STR then
+         test("Test creation of Queens with valid and invalid positions - queen must have positive column", exception.str, "column not positive");
+      end;
+
+      protect
+         ignored ::= #QUEEN(4, 8);
+         test("Test creation of Queens with valid and invalid positions - queen must have column on board", "no exception raised", "column not on board");
+      when $STR then
+         test("Test creation of Queens with valid and invalid positions - queen must have column on board", exception.str, "column not on board");
+      end;
+
+      test("Test the ability of one queen to attack another - cannot attack", #QUEEN(2, 4).can_attack(#QUEEN(6, 6)), false);
+
+      test("Test the ability of one queen to attack another - can attack on same row", #QUEEN(2, 4).can_attack(#QUEEN(2, 6)), true);
+
+      test("Test the ability of one queen to attack another - can attack on same column", #QUEEN(4, 5).can_attack(#QUEEN(2, 5)), true);
+
+      test("Test the ability of one queen to attack another - can attack on first diagonal", #QUEEN(2, 2).can_attack(#QUEEN(0, 4)), true);
+
+      test("Test the ability of one queen to attack another - can attack on second diagonal", #QUEEN(2, 2).can_attack(#QUEEN(3, 1)), true);
+
+      test("Test the ability of one queen to attack another - can attack on third diagonal", #QUEEN(2, 2).can_attack(#QUEEN(1, 1)), true);
+
+      test("Test the ability of one queen to attack another - can attack on fourth diagonal", #QUEEN(1, 7).can_attack(#QUEEN(0, 6)), true);
+
+      test("Test the ability of one queen to attack another - cannot attack if falling diagonals are only the same when reflected across the longest falling diagonal", #QUEEN(4, 1).can_attack(#QUEEN(2, 5)), false);
+
+      finish;
+   end;
+end; -- class QUEEN_ATTACK_TEST

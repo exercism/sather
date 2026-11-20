@@ -82,3 +82,23 @@ for a map, so assign it back every time.
 
 `.size` works on both: how many pairs a map holds, and how many values are
 in a set.
+
+## Walking one
+
+Each kind has iterators for visiting everything it holds:
+
+| Iterator | Gives |
+| --- | --- |
+| `m.ind!` | each key of a map |
+| `m.target!` | each target of a map |
+| `s.elt!` | each value of a set |
+
+```sather
+   total ::= 0;
+   loop
+      total := total + stock.target!;    -- every tool on every shelf
+   end;
+```
+
+Neither a map nor a set has an order, so never depend on which comes first.
+Don't insert into a map or set while walking it.

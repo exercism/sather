@@ -14,19 +14,19 @@ class PROTEIN_TRANSLATION is
       end;
    end;
 
-   proteins(strand : STR) : ARRAY{STR} is
-      found ::= #FLIST{STR};
+   proteins(strand : STR) : LIST{STR} is
+      found ::= #LIST{STR};
       i ::= 0;
       loop
          until!(i >= strand.size);
          if strand.size - i < 3 then raise "Invalid codon" end;
          p ::= protein_for(strand.substring(i, 3));
          if p = "STOP" then break! end;
-         found := found.push(p);
+         found.append(p);
          i := i + 3;
       end;
 
-      return found.as_array;
+      return found;
    end;
 
 end; -- class PROTEIN_TRANSLATION

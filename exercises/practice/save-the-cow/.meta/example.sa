@@ -1,0 +1,42 @@
+class SAVE_THE_COW is
+
+   private attr word : STR;
+   private attr guessed : FSET{CHAR};
+   readonly attr state : STR;
+   readonly attr remaining_failures : INT;
+
+   create(word : STR) : SAME is
+      res ::= new;
+      res.word := word;
+      res.guessed := #FSET{CHAR};
+      res.state := "Ongoing";
+      res.remaining_failures := 9;
+      return res;
+   end;
+
+   guess(letter : CHAR) is
+      if state = "Win" then raise "cannot guess after the game is won" end;
+      if state = "Lose" then raise "cannot guess after the game is lost" end;
+      if guessed.has(letter) or ~word.contains(letter) then
+         -- The tenth failure loses the game.
+         if remaining_failures = 0 then
+            state := "Lose";
+         else
+            remaining_failures := remaining_failures - 1;
+         end;
+      else
+         guessed := guessed.insert(letter);
+         if ~masked_word.contains('_') then state := "Win" end;
+      end;
+   end;
+
+   masked_word : STR is
+      answer ::= #FSTR(word.size);
+      loop
+         c ::= word.elt!;
+         if guessed.has(c) then answer := answer + c else answer := answer + '_' end;
+      end;
+      return answer.str;
+   end;
+
+end; -- class SAVE_THE_COW

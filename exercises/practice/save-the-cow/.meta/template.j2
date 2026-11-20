@@ -1,0 +1,27 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+{% set game = "game_" ~ case.index %}
+
+      {{ game }} ::= #SAVE_THE_COW({{ case.input.word | sa }});
+{% if case is error %}
+{# Every guess runs inside the protect; the last one should raise. #}
+{% set name = case.full_description | sa_str %}
+      protect
+{% for letter in case.input.guesses %}
+         {{ game }}.guess({{ letter | sa_char }});
+{% endfor %}
+         test({{ name }}, "no exception raised", {{ case.error | sa_str }});
+      when $STR then
+         test({{ name }}, exception.str, {{ case.error | sa_str }});
+      end;
+{% else %}
+{% for letter in case.input.guesses %}
+      {{ game }}.guess({{ letter | sa_char }});
+{% endfor %}
+{{ m.test(case, game ~ ".state", case.expected.state | sa, name=case.full_description ~ " - state") }}
+{{ m.test(case, game ~ ".masked_word", case.expected.maskedWord | sa, name=case.full_description ~ " - masked word") }}
+{{ m.test(case, game ~ ".remaining_failures", case.expected.remainingFailures | sa, name=case.full_description ~ " - remaining failures") }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

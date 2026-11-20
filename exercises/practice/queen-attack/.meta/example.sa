@@ -1,0 +1,22 @@
+class QUEEN is
+
+   readonly attr row, column : INT;
+
+   create(row, column : INT) : SAME is
+      if row < 0 then raise "row not positive" end;
+      if row > 7 then raise "row not on board" end;
+      if column < 0 then raise "column not positive" end;
+      if column > 7 then raise "column not on board" end;
+      res ::= new;
+      res.row := row;
+      res.column := column;
+      return res;
+   end;
+
+   can_attack(other : SAME) : BOOL is
+      down ::= (row - other.row).abs;
+      across ::= (column - other.column).abs;
+      return down = 0 or across = 0 or down = across;
+   end;
+
+end; -- class QUEEN

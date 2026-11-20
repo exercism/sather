@@ -423,7 +423,9 @@
         "slug": "leap",
         "name": "Leap",
         "uuid": "4f42562e-a565-467f-b5f9-336c761fb1d2",
-        "practices": [],
+        "practices": [
+          "booleans"
+        ],
         "prerequisites": [
           "basics",
           "numbers",
@@ -435,7 +437,9 @@
         "slug": "two-fer",
         "name": "Two-Fer",
         "uuid": "e0b71083-663c-418d-998b-f378ee805e8a",
-        "practices": [],
+        "practices": [
+          "strings"
+        ],
         "prerequisites": [
           "strings",
           "conditionals"
@@ -472,7 +476,9 @@
         "slug": "darts",
         "name": "Darts",
         "uuid": "b895b252-6bf6-4545-bb68-4031785c255a",
-        "practices": [],
+        "practices": [
+          "floating-point"
+        ],
         "prerequisites": [
           "floating-point",
           "conditionals"
@@ -507,10 +513,13 @@
         "slug": "hamming",
         "name": "Hamming",
         "uuid": "2d904173-aefa-4efc-9786-38ef0c13e1db",
-        "practices": [],
+        "practices": [
+          "iterator-combination"
+        ],
         "prerequisites": [
           "characters",
-          "exceptions"
+          "exceptions",
+          "iterator-combination"
         ],
         "difficulty": 2
       },
@@ -521,7 +530,8 @@
         "practices": [],
         "prerequisites": [
           "characters",
-          "iterators"
+          "iterators",
+          "maps-and-sets"
         ],
         "difficulty": 2
       },
@@ -540,7 +550,9 @@
         "slug": "nucleotide-count",
         "name": "Nucleotide Count",
         "uuid": "fe8fa0dc-219c-4611-8310-ba84c74a0666",
-        "practices": [],
+        "practices": [
+          "maps-and-sets"
+        ],
         "prerequisites": [
           "maps-and-sets",
           "exceptions",
@@ -555,7 +567,8 @@
         "practices": [],
         "prerequisites": [
           "characters",
-          "iterators"
+          "iterators",
+          "maps-and-sets"
         ],
         "difficulty": 2
       },
@@ -563,7 +576,9 @@
         "slug": "raindrops",
         "name": "Raindrops",
         "uuid": "3a00051d-279f-49ab-96f2-4ecb8a42c31d",
-        "practices": [],
+        "practices": [
+          "conditionals"
+        ],
         "prerequisites": [
           "conditionals",
           "numbers",
@@ -575,7 +590,9 @@
         "slug": "reverse-string",
         "name": "Reverse String",
         "uuid": "6abd5159-76f9-41d1-a9ac-d84862b5350a",
-        "practices": [],
+        "practices": [
+          "string-builders"
+        ],
         "prerequisites": [
           "characters",
           "iterators",
@@ -587,7 +604,9 @@
         "slug": "rna-transcription",
         "name": "RNA Transcription",
         "uuid": "38a7f729-8a70-42d9-b687-ab99b70acf37",
-        "practices": [],
+        "practices": [
+          "case-statements"
+        ],
         "prerequisites": [
           "case-statements",
           "characters",
@@ -620,7 +639,9 @@
         "slug": "sum-of-multiples",
         "name": "Sum of Multiples",
         "uuid": "4679c405-0807-4334-a93a-373cfef63511",
-        "practices": [],
+        "practices": [
+          "iterators"
+        ],
         "prerequisites": [
           "arrays",
           "iterators"
@@ -653,7 +674,9 @@
         "slug": "bob",
         "name": "Bob",
         "uuid": "aa8b14ce-2467-4d86-8251-bc0cd0afaa52",
-        "practices": [],
+        "practices": [
+          "characters"
+        ],
         "prerequisites": [
           "characters",
           "conditionals",
@@ -703,7 +726,9 @@
         "slug": "perfect-numbers",
         "name": "Perfect Numbers",
         "uuid": "1ed331ed-b21e-4320-8ac2-66ecd2db3d9d",
-        "practices": [],
+        "practices": [
+          "loops"
+        ],
         "prerequisites": [
           "loops",
           "exceptions"
@@ -714,7 +739,9 @@
         "slug": "phone-number",
         "name": "Phone Number",
         "uuid": "0f354247-5597-464d-845d-0249d2ddf24c",
-        "practices": [],
+        "practices": [
+          "exceptions"
+        ],
         "prerequisites": [
           "string-builders",
           "exceptions"
@@ -725,9 +752,24 @@
         "slug": "protein-translation",
         "name": "Protein Translation",
         "uuid": "a66dc4a6-6c68-4593-ac5d-a5898a6767ef",
-        "practices": [],
+        "practices": [
+          "lists"
+        ],
         "prerequisites": [
           "lists",
+          "exceptions"
+        ],
+        "difficulty": 3
+      },
+      {
+        "slug": "queen-attack",
+        "name": "Queen Attack",
+        "uuid": "c9ec18ce-7526-48b9-b6fc-a2758d62a9b4",
+        "practices": [
+          "immutable-classes"
+        ],
+        "prerequisites": [
+          "immutable-classes",
           "exceptions"
         ],
         "difficulty": 3
@@ -785,7 +827,9 @@
         "slug": "allergies",
         "name": "Allergies",
         "uuid": "6a271736-f6b4-4442-8151-0e19085cb100",
-        "practices": [],
+        "practices": [
+          "bits"
+        ],
         "prerequisites": [
           "arrays",
           "lists",
@@ -823,7 +867,9 @@
         "slug": "bank-account",
         "name": "Bank Account",
         "uuid": "82f31510-f37e-4fbf-8d33-90e9ecb9ce82",
-        "practices": [],
+        "practices": [
+          "classes-with-state"
+        ],
         "prerequisites": [
           "classes-with-state",
           "exceptions"
@@ -927,7 +973,9 @@
         "slug": "resistor-color",
         "name": "Resistor Color",
         "uuid": "ca46bd72-dbe2-4017-af48-373be0e59088",
-        "practices": [],
+        "practices": [
+          "arrays"
+        ],
         "prerequisites": [
           "arrays"
         ],
@@ -951,6 +999,18 @@
         "prerequisites": [
           "arrays",
           "exact-numbers"
+        ],
+        "difficulty": 4
+      },
+      {
+        "slug": "series",
+        "name": "Series",
+        "uuid": "84b4ebfc-a9f1-4dde-a661-5c5f2a3db7b4",
+        "practices": [],
+        "prerequisites": [
+          "strings",
+          "arrays",
+          "exceptions"
         ],
         "difficulty": 4
       },
@@ -1014,6 +1074,22 @@
         "practices": [],
         "prerequisites": [
           "lists"
+        ],
+        "difficulty": 5
+      },
+      {
+        "slug": "save-the-cow",
+        "name": "Save the Cow",
+        "uuid": "fd371e54-c190-4697-bd40-2c1b540b5ca9",
+        "practices": [
+          "classes-with-state"
+        ],
+        "prerequisites": [
+          "classes-with-state",
+          "characters",
+          "maps-and-sets",
+          "string-builders",
+          "exceptions"
         ],
         "difficulty": 5
       },
@@ -1161,7 +1237,9 @@
         "slug": "complex-numbers",
         "name": "Complex Numbers",
         "uuid": "87912bc2-8dc6-41cd-8cf9-1cdda4dbccfb",
-        "practices": [],
+        "practices": [
+          "math-functions"
+        ],
         "prerequisites": [
           "immutable-classes",
           "floating-point",
@@ -1208,7 +1286,9 @@
         "slug": "killer-sudoku-helper",
         "name": "Killer Sudoku Helper",
         "uuid": "53374971-2411-4d3c-8881-87c4037b2cf2",
-        "practices": [],
+        "practices": [
+          "recursion"
+        ],
         "prerequisites": [
           "lists",
           "contracts",
@@ -1235,7 +1315,8 @@
         "name": "List Ops",
         "uuid": "ea22a17a-b6c6-4a28-bd36-f8a65de34395",
         "practices": [
-          "contracts"
+          "contracts",
+          "bound-routines"
         ],
         "prerequisites": [
           "bound-routines",
@@ -1427,7 +1508,9 @@
         "slug": "grep",
         "name": "Grep",
         "uuid": "dd1601c2-63fa-46c0-8fde-28a765233b33",
-        "practices": [],
+        "practices": [
+          "files"
+        ],
         "prerequisites": [
           "files",
           "lists",

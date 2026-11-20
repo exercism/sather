@@ -1,0 +1,7 @@
+class SERIES is
+
+   slices(series : STR, slice_length : INT) : ARRAY{STR} is
+      return #ARRAY{STR}(0);
+   end;
+
+end; -- class SERIES
