@@ -1,11 +1,9 @@
 class ZEBRA_PUZZLE is
 
-   drinks_water : STR is
-      return "";
-   end;
+   readonly attr drinks_water, owns_zebra : STR;
 
-   owns_zebra : STR is
-      return "";
+   create : SAME is
+      return new;
    end;
 
 end; -- class ZEBRA_PUZZLE

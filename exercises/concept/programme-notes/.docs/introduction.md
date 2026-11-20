@@ -44,6 +44,25 @@ arguments.
 `head` counts from the front, `tail` counts from the back. Both leave the
 original string alone and hand back a new one.
 
+## Finding text
+
+`.search(s)` looks for `s` inside a string and answers where it starts, as
+an `INT`. Positions are counted from `0`, so the first character is at `0`,
+the second at `1`, and so on.
+
+```sather
+"Collins Street".search("Street")    -- 8
+"Collins Street".search("C")         -- 0
+"Collins Street".search("Lane")      -- -1
+```
+
+When `s` is not there at all, the answer is `-1`, which can never be a
+position. If `s` turns up more than once, `search` answers with the first
+place it starts.
+
+Capitals have to match exactly: `"Collins Street".search("street")` is
+`-1`.
+
 ## Numbers into strings
 
 `.str` gives the text form of a number.

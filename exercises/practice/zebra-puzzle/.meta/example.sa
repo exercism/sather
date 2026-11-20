@@ -11,8 +11,18 @@ class ZEBRA_PUZZLE is
    private const spaniard := 3;
    private const japanese := 4;
 
-   private shared nat, col, drink, smoke, pet : ARRAY{INT};
-   private shared solved : BOOL;
+   readonly attr drinks_water, owns_zebra : STR;
+
+   -- The house each person, colour, drink, smoke and pet is in, while the
+   -- search runs.
+   private attr nat, col, drink, smoke, pet : ARRAY{INT};
+
+   create : SAME is
+      -- Solve the puzzle once; the answers are kept in the new object.
+      r ::= new;
+      r.solve;
+      return r;
+   end;
 
    private next_to(a, b : INT) : BOOL is
       d ::= a - b;
@@ -79,7 +89,6 @@ class ZEBRA_PUZZLE is
       if smoke[0] /= pet[1] then return false end;          -- old gold, snails
       if ~next_to(smoke[2], pet[2]) then return false end;  -- chesterfields, fox
       if ~next_to(smoke[1], pet[3]) then return false end;  -- kools, horse
-      solved := true;
       return true;
    end;
 
@@ -106,21 +115,12 @@ class ZEBRA_PUZZLE is
       return "Japanese";
    end;
 
-   drinks_water : STR is
-      run_search;
-      return name_of(drink[4]);
-   end;
-
-   owns_zebra : STR is
-      run_search;
-      return name_of(pet[4]);
-   end;
-
-   private run_search is
-      if solved then return end;
+   private solve is
       nat := #ARRAY{INT}(5);
       col := #ARRAY{INT}(5);
       ignored ::= outer_permute(0);
+      drinks_water := name_of(drink[4]);      -- water is drink 4
+      owns_zebra := name_of(pet[4]);          -- the zebra is pet 4
    end;
 
    private outer_permute(depth : INT) : BOOL is
