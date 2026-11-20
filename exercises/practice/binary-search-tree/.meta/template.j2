@@ -26,8 +26,8 @@
 {% else %}
 {{ m.test_str(case, t ~ ".sorted_data", case.expected | sa(type), "ARRAY{" ~ type ~ "}") }}
 {# The same values again, from the iterator. #}
-      in_order_{{ case.index }} ::= #LIST{ {{- type -}} };
-      loop in_order_{{ case.index }}.append({{ t }}.elt!) end;
+      in_order_{{ case.index }} ::= #FLIST{ {{- type -}} };
+      loop in_order_{{ case.index }} := in_order_{{ case.index }}.push({{ t }}.elt!) end;
       test({{ (case.full_description ~ " [elt!]") | sa_str }}, in_order_{{ case.index }}.str, expected_{{ case.index }}.str);
 {% endif %}
 {% endfor %}

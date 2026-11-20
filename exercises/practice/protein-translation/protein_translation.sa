@@ -1,7 +1,7 @@
 class PROTEIN_TRANSLATION is
 
-   proteins(strand : STR) : LIST{STR} is
-      return #LIST{STR};
+   proteins(strand : STR) : ARRAY{STR} is
+      return #ARRAY{STR}(0);
    end;
 
 end; -- class PROTEIN_TRANSLATION

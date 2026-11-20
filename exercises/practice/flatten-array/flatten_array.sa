@@ -5,7 +5,7 @@ abstract class $NESTED is
    -- $NESTED, and each kind of item is a class conforming to it. These
    -- classes are given to you, apart from the bodies of gather.
 
-   gather(into : LIST{INT});
+   gather(into : FLIST{INT}) : FLIST{INT};
 
 end; -- abstract class $NESTED
 
@@ -19,7 +19,8 @@ class NESTED_NUMBER < $NESTED is
       return r;
    end;
 
-   gather(into : LIST{INT}) is
+   gather(into : FLIST{INT}) : FLIST{INT} is
+      return into;
    end;
 
 end; -- class NESTED_NUMBER
@@ -30,7 +31,8 @@ class NESTED_NOTHING < $NESTED is
       return new;
    end;
 
-   gather(into : LIST{INT}) is
+   gather(into : FLIST{INT}) : FLIST{INT} is
+      return into;
    end;
 
 end; -- class NESTED_NOTHING
@@ -45,7 +47,8 @@ class NESTED_ITEMS < $NESTED is
       return r;
    end;
 
-   gather(into : LIST{INT}) is
+   gather(into : FLIST{INT}) : FLIST{INT} is
+      return into;
    end;
 
 end; -- class NESTED_ITEMS

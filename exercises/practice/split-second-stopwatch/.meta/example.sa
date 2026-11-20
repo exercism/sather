@@ -8,11 +8,11 @@ class STOPWATCH is
    private attr running : BOOL;
    private attr started : BOOL;
    private attr lap_seconds, total_seconds : INT;
-   private attr finished : LIST{STR};
+   private attr finished : FLIST{STR};
 
    create : SAME is
       watch ::= new;
-      watch.finished := #LIST{STR};
+      watch.finished := #FLIST{STR};
       return watch;
    end;
 
@@ -62,7 +62,7 @@ class STOPWATCH is
 
    lap is
       if ~running then raise "cannot lap a stopwatch that is not running"; end;
-      finished.append(clock(lap_seconds));
+      finished := finished.push(clock(lap_seconds));
       lap_seconds := 0;
    end;
 
@@ -74,7 +74,7 @@ class STOPWATCH is
       started := false;
       lap_seconds := 0;
       total_seconds := 0;
-      finished := #LIST{STR};
+      finished := #FLIST{STR};
    end;
 
    current_lap : STR
@@ -90,11 +90,7 @@ class STOPWATCH is
    end;
 
    previous_laps : ARRAY{STR} is
-      answer : ARRAY{STR} := #ARRAY{STR}(finished.size);
-      loop
-         i ::= 0.upto!(finished.size - 1);
-         answer[i] := finished[i];
-      end;
+      answer : ARRAY{STR} := finished.as_array;
       return answer;
    end;
 

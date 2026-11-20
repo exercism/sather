@@ -4,8 +4,9 @@ abstract class $NESTED is
    -- Sather arrays hold a single type, so a list mixing all three holds
    -- $NESTED, and each kind of item is a class conforming to it.
 
-   gather(into : LIST{INT});
-      -- Append this item's numbers to `into', in order.
+   gather(into : FLIST{INT}) : FLIST{INT};
+      -- Push this item's numbers onto `into', in order, and answer the
+      -- list to use from now on.
 
 end; -- abstract class $NESTED
 
@@ -19,9 +20,9 @@ class NESTED_NUMBER < $NESTED is
       return r;
    end;
 
-   gather(into : LIST{INT}) is
+   gather(into : FLIST{INT}) : FLIST{INT} is
       -- A number contributes itself.
-      into.append(number);
+      return into.push(number);
    end;
 
 end; -- class NESTED_NUMBER
@@ -32,8 +33,9 @@ class NESTED_NOTHING < $NESTED is
       return new;
    end;
 
-   gather(into : LIST{INT}) is
+   gather(into : FLIST{INT}) : FLIST{INT} is
       -- Nothing contributes no number.
+      return into;
    end;
 
 end; -- class NESTED_NOTHING
@@ -48,11 +50,13 @@ class NESTED_ITEMS < $NESTED is
       return r;
    end;
 
-   gather(into : LIST{INT}) is
+   gather(into : FLIST{INT}) : FLIST{INT} is
       -- A list contributes the numbers of each of its items, in order.
       -- The nesting has no bound, so this recurses: each item gathers its
       -- own numbers, whichever kind of item it is.
-      loop items.elt!.gather(into) end;
+      r ::= into;
+      loop r := items.elt!.gather(r) end;
+      return r;
    end;
 
 end; -- class NESTED_ITEMS
@@ -62,11 +66,7 @@ class FLATTEN_ARRAY is
    flatten(nested : $NESTED) : ARRAY{INT} is
       -- Every number in the nested list, in order, however deeply buried.
       -- Items holding nothing are left out.
-      found ::= #LIST{INT};
-      nested.gather(found);
-      answer : ARRAY{INT} := #ARRAY{INT}(found.size);
-      loop answer.set!(found.elt!) end;
-      return answer;
+      return nested.gather(#FLIST{INT}).as_array;
    end;
 
 end; -- class FLATTEN_ARRAY

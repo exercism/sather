@@ -7,18 +7,29 @@ class CASE_NOTES_TEST is
       -- Task 1
       notes ::= CASE_NOTES::new_case;
       test("a new case has nothing in it", notes.size, 0);
+      test("and is empty", notes.is_empty, true);
 
       -- Task 2
-      -- The notebook handed to a routine really is the one that changed.
-      CASE_NOTES::add_clue(notes, "muddy boots");
+      -- Each answer is the notebook to use from now on.
+      notes := CASE_NOTES::add_clue(notes, "muddy boots");
       test("one clue written down", notes.size, 1);
       test("and it reads back", notes[0], "muddy boots");
 
-      CASE_NOTES::add_clue(notes, "broken window");
-      CASE_NOTES::add_clue(notes, "torn ticket");
-      test("the list itself grew", notes.size, 3);
+      notes := CASE_NOTES::add_clue(notes, "broken window");
+      notes := CASE_NOTES::add_clue(notes, "torn ticket");
+      test("the notebook grew", notes.size, 3);
       test("and holds them in order", notes[0], "muddy boots");
       test("including the last", notes[2], "torn ticket");
+
+      -- Enough clues to make the notebook outgrow its first page.
+      long ::= CASE_NOTES::new_case;
+      loop
+         n ::= 1.upto!(20);
+         long := CASE_NOTES::add_clue(long, "clue " + n.str);
+      end;
+      test("a long case keeps every clue", long.size, 20);
+      test("starting with the first", long[0], "clue 1");
+      test("and ending with the last", long[19], "clue 20");
 
       -- Task 3
       test("three clues", CASE_NOTES::clue_count(notes), 3);
@@ -26,43 +37,59 @@ class CASE_NOTES_TEST is
            CASE_NOTES::clue_count(CASE_NOTES::new_case), 0);
 
       -- Task 4
-      CASE_NOTES::rule_out(notes, 1);
+      notes := CASE_NOTES::rule_out(notes, 1);
       test("one ruled out", CASE_NOTES::clue_count(notes), 2);
+      test("the first stays put", notes[0], "muddy boots");
       test("the one after moved up", notes[1], "torn ticket");
 
-      CASE_NOTES::rule_out(notes, 0);
+      notes := CASE_NOTES::rule_out(notes, 0);
       test("another ruled out", CASE_NOTES::clue_count(notes), 1);
       test("leaving the last clue", notes[0], "torn ticket");
 
-      CASE_NOTES::rule_out(notes, 0);
+      notes := CASE_NOTES::rule_out(notes, 0);
       test("the case is empty again",
            CASE_NOTES::clue_count(notes), 0);
 
       -- Task 5
       test("and reads as nothing", CASE_NOTES::summary(notes), "");
+      test("a new case reads as nothing",
+           CASE_NOTES::summary(CASE_NOTES::new_case), "");
 
       story ::= CASE_NOTES::new_case;
-      CASE_NOTES::add_clue(story, "muddy boots");
+      story := CASE_NOTES::add_clue(story, "muddy boots");
       test("a single clue reads back",
            CASE_NOTES::summary(story), "muddy boots");
 
-      CASE_NOTES::add_clue(story, "broken window");
-      CASE_NOTES::add_clue(story, "torn ticket");
+      story := CASE_NOTES::add_clue(story, "broken window");
+      story := CASE_NOTES::add_clue(story, "torn ticket");
+      story := CASE_NOTES::add_clue(story, "a witness");
       test("in the order they were written",
            CASE_NOTES::summary(story),
-           "muddy boots; broken window; torn ticket");
+           "muddy boots; broken window; torn ticket; a witness");
 
-      CASE_NOTES::rule_out(story, 1);
-      test("and the rest close up",
-           CASE_NOTES::summary(story), "muddy boots; torn ticket");
+      story := CASE_NOTES::rule_out(story, 1);
+      test("and the rest close up in order",
+           CASE_NOTES::summary(story), "muddy boots; torn ticket; a witness");
 
-      CASE_NOTES::rule_out(story, 0);
-      test("leaving the last one",
-           CASE_NOTES::summary(story), "torn ticket");
+      story := CASE_NOTES::rule_out(story, 0);
+      test("leaving the later ones",
+           CASE_NOTES::summary(story), "torn ticket; a witness");
+
+      -- Task 6
+      test("a new case has no clues to hand over",
+           CASE_NOTES::clues(CASE_NOTES::new_case).size, 0);
+
+      handed ::= CASE_NOTES::clues(story);
+      test("the clues are handed over", handed.size, 2);
+      test("first one first", handed[0], "torn ticket");
+      test("then the next", handed[1], "a witness");
+
+      story := CASE_NOTES::add_clue(story, "a dropped glove");
+      test("the handed-over clues stay as they were", handed.size, 2);
 
       -- A second notebook is its own.
       other ::= CASE_NOTES::new_case;
-      CASE_NOTES::add_clue(other, "a witness");
+      other := CASE_NOTES::add_clue(other, "a witness");
       test("the second notebook has its own clue",
            CASE_NOTES::summary(other), "a witness");
       test("and the first is still empty",

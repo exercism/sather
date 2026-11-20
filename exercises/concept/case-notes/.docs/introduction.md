@@ -8,27 +8,50 @@ notices they are running low, and crossed off once they are bought. For
 that you want a **list**.
 
 ```sather
-   shopping ::= #LIST{STR};
-   shopping.append("flour");
-   shopping.append("eggs");
+   shopping ::= #FLIST{STR};
+   shopping := shopping.push("flour");
+   shopping := shopping.push("eggs");
    shopping.size                -- 2
 ```
 
-`LIST{T}` holds values of type `T` in order, like an array, and grows and
+`FLIST{T}` holds values of type `T` in order, like an array, and grows and
 shrinks as you ask it to.
 
-## It changes in place
+## Always assign the answer back
 
-`append` changes the list it is called on and answers nothing:
+`push` adds a value to the end, and answers the list to use from now on.
+That answer has to be kept:
 
 ```sather
-   shopping.append("flour");               -- yes
-   shopping := shopping.append("flour");   -- no: append answers nothing
+   shopping := shopping.push("flour");     -- yes
+   shopping.push("flour");                 -- no: the answer is lost
 ```
 
-This is different from `FMAP` and `FSET`, where every change had to be
-assigned back. A `LIST` is an ordinary object, like a `SCOREBOARD`: hand it
-to a routine and the routine can change yours.
+Usually the answer is the very list that went in, changed in place. When the
+list has run out of room, it is a new, larger one instead, with everything
+copied across. You cannot tell which, so **use the answer and stop using the
+old name.** A name left over from before a `push` may be out of date, or may
+not describe a usable list at all.
+
+That also means a list handed to a routine is not safe from it. If the
+routine pushes, the routine's answer is the list to keep:
+
+```sather
+   shopping := add_essentials(shopping);
+```
+
+## An empty list is void
+
+A list that has never had anything pushed onto it is **void**:
+`#FLIST{STR}` makes no object at all. That is fine: pushing onto a void list
+is how a list first comes into being, and `size`, `is_empty`, `elt!` and
+`str` all cope with one.
+
+```sather
+   empty ::= #FLIST{STR};
+   empty.size                   -- 0
+   empty.is_empty               -- true
+```
 
 ## Reading and writing
 
@@ -37,20 +60,26 @@ Square brackets, counting from nought, exactly as for an array:
 ```sather
    shopping[0]                  -- "flour"
    shopping[1] := "duck eggs";
-   shopping.size                -- how many
-   shopping.is_empty            -- true when there are none
 ```
+
+These need the position to be in the list, and so they do not work on a void
+list at all. Check `size` before reaching for a position.
 
 ## Removing
 
-`remove_index` takes a position out, and everything after it moves up one:
+`delete_ordered` takes a position out, and everything after it moves up one.
+It answers the list to use from now on, just as `push` does:
 
 ```sather
-   shopping.remove_index(0);    -- the flour is crossed off
+   shopping := shopping.delete_ordered(0);    -- the flour is crossed off
 ```
 
 So positions are not permanent. An item's position changes when an earlier
 one is removed, which is worth remembering before storing one.
+
+Beware the shorter `delete`. It is quicker because it moves the **last**
+item into the gap, so the order is lost. Use `delete_ordered` unless the
+order really does not matter.
 
 ## Walking it
 
@@ -65,17 +94,18 @@ one is removed, which is worth remembering before storing one.
 ## Making an array from it
 
 A list is often built up a piece at a time and then handed on as an `ARRAY`.
-`create_from` makes an array holding the list's values, in order:
+`as_array` makes an array holding the list's values, in order:
 
 ```sather
-   bought : ARRAY{STR} := ARRAY{STR}::create_from(shopping);
+   bought : ARRAY{STR} := shopping.as_array;
 ```
 
-`#ARRAY{STR}(shopping)` will not do it: `#` on an `ARRAY` takes a size or
-another array. `create_from` is called by its full name.
+This is the usual way to finish: build with an `FLIST` inside a routine, and
+hand back the settled `ARRAY`, the way an `FSTR` is built and its `.str`
+handed back.
 
 ## The braces
 
-`LIST{STR}` is a list of strings, `LIST{INT}` a list of numbers. It is a
+`FLIST{STR}` is a list of strings, `FLIST{INT}` a list of numbers. It is a
 generic class, exactly like the one you wrote in `lost-property` — and now
 you can read the library's own the same way.
