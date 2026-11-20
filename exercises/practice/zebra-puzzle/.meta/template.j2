@@ -1,7 +1,8 @@
 {% import "macros.j2" as m with context %}
 {{ m.begin() }}
+      puzzle ::= #ZEBRA_PUZZLE;
 {% for case in cases %}
 
-{{ m.test(case, "ZEBRA_PUZZLE::" ~ case.property | snake, case.expected | sa) }}
+{{ m.test(case, "puzzle." ~ case.property | snake, case.expected | sa) }}
 {% endfor %}
 {{ m.end() }}

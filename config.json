@@ -1468,7 +1468,9 @@
           "lists",
           "classes-with-state",
           "case-statements",
-          "recursion"
+          "recursion",
+          "immutable-classes",
+          "bits"
         ],
         "difficulty": 8
       }

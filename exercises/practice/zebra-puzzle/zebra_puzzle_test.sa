@@ -4,9 +4,11 @@ class ZEBRA_PUZZLE_TEST is
    main is
       class_name("ZEBRA_PUZZLE");
 
-      test("resident who drinks water", ZEBRA_PUZZLE::drinks_water, "Norwegian");
+      puzzle ::= #ZEBRA_PUZZLE;
 
-      test("resident who owns zebra", ZEBRA_PUZZLE::owns_zebra, "Japanese");
+      test("resident who drinks water", puzzle.drinks_water, "Norwegian");
+
+      test("resident who owns zebra", puzzle.owns_zebra, "Japanese");
 
       finish;
    end;
