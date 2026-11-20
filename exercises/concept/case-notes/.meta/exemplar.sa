@@ -1,29 +1,29 @@
 class CASE_NOTES is
 
-   new_case : LIST{STR} is
-      return #LIST{STR};
+   new_case : FLIST{STR} is
+      return #FLIST{STR};
    end;
 
-   add_clue(notes : LIST{STR}, clue : STR)
-      post notes.size = initial(notes.size) + 1
+   add_clue(notes : FLIST{STR}, clue : STR) : FLIST{STR}
+      post result.size = initial(notes.size) + 1
    is
-      -- No return type: append changes the list it is given.
-      notes.append(clue);
+      -- The answer is the notebook to use from now on.
+      return notes.push(clue);
    end;
 
-   clue_count(notes : LIST{STR}) : INT is
+   clue_count(notes : FLIST{STR}) : INT is
       return notes.size;
    end;
 
-   rule_out(notes : LIST{STR}, position : INT)
+   rule_out(notes : FLIST{STR}, position : INT) : FLIST{STR}
       pre position >= 0 and position < notes.size
-      post notes.size = initial(notes.size) - 1
+      post result.size = initial(notes.size) - 1
    is
       -- Everything after this position moves up one.
-      notes.remove_index(position);
+      return notes.delete_ordered(position);
    end;
 
-   summary(notes : LIST{STR}) : STR is
+   summary(notes : FLIST{STR}) : STR is
       line ::= #FSTR;
       loop
          place ::= 1.up!;
@@ -32,6 +32,10 @@ class CASE_NOTES is
          line := line + clue;
       end;
       return line.str;
+   end;
+
+   clues(notes : FLIST{STR}) : ARRAY{STR} is
+      return notes.as_array;
    end;
 
 end; -- class CASE_NOTES

@@ -46,10 +46,10 @@ class MEETUP is
       wanted ::= day_number(dayofweek);
       last ::= days_in(year, month);
       -- Every day of the month that falls on the wanted weekday.
-      matches ::= #LIST{INT};
+      matches ::= #FLIST{INT};
       loop
          d ::= 1.upto!(last);
-         if weekday(year, month, d) = wanted then matches.append(d); end;
+         if weekday(year, month, d) = wanted then matches := matches.push(d); end;
       end;
       chosen ::= 0;
       case week

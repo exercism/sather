@@ -2,23 +2,27 @@ class CASE_NOTES is
 
    -- Replace each `raise "unimplemented";` with the real body.
 
-   new_case : LIST{STR} is
+   new_case : FLIST{STR} is
       raise "unimplemented";
    end;
 
-   add_clue(notes : LIST{STR}, clue : STR) is
+   add_clue(notes : FLIST{STR}, clue : STR) : FLIST{STR} is
       raise "unimplemented";
    end;
 
-   clue_count(notes : LIST{STR}) : INT is
+   clue_count(notes : FLIST{STR}) : INT is
       raise "unimplemented";
    end;
 
-   rule_out(notes : LIST{STR}, position : INT) is
+   rule_out(notes : FLIST{STR}, position : INT) : FLIST{STR} is
       raise "unimplemented";
    end;
 
-   summary(notes : LIST{STR}) : STR is
+   summary(notes : FLIST{STR}) : STR is
+      raise "unimplemented";
+   end;
+
+   clues(notes : FLIST{STR}) : ARRAY{STR} is
       raise "unimplemented";
    end;
 

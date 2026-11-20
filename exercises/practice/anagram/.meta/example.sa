@@ -18,18 +18,18 @@ class ANAGRAM is
       return counts;
    end;
 
-   find(subject : STR, candidates : ARRAY{STR}) : LIST{STR} is
+   find(subject : STR, candidates : ARRAY{STR}) : ARRAY{STR} is
       target ::= lower(subject);
       wanted ::= histogram(subject);
-      found ::= #LIST{STR};
+      found ::= #FLIST{STR};
       loop
          cand ::= candidates.elt!;
          if lower(cand) /= target and histogram(cand).str = wanted.str then
-            found.append(cand);
+            found := found.push(cand);
          end;
       end;
 
-      return found;
+      return found.as_array;
    end;
 
 end; -- class ANAGRAM

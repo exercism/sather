@@ -69,22 +69,18 @@ class PALINDROME_PRODUCTS is
       end;
       if ~any then return PALINDROME::none; end;
       -- Every factor pair of the answer, found by division.
-      pairs ::= #LIST{ARRAY{INT}};
+      pairs ::= #FLIST{ARRAY{INT}};
       loop
          f ::= min.upto!(max);
          if f /= 0 and best % f = 0 then
             g ::= best / f;
             if f <= g and g <= max then
                pair : ARRAY{INT} := |f, g|;
-               pairs.append(pair);
+               pairs := pairs.push(pair);
             end;
          end;
       end;
-      answer : ARRAY{ARRAY{INT}} := #ARRAY{ARRAY{INT}}(pairs.size);
-      loop
-         i ::= 0.upto!(pairs.size - 1);
-         answer[i] := pairs[i];
-      end;
+      answer : ARRAY{ARRAY{INT}} := pairs.as_array;
       return #PALINDROME(best, answer);
    end;
 

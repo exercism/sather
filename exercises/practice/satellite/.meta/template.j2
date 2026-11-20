@@ -34,8 +34,8 @@
 {% if case.expected %}
 {# postorder! is tested on a tree built here, so that it stands apart from tree_from_traversals. #}
 {{ build(case.expected, "node_" ~ case.index) }}
-      post_{{ case.index }} ::= #LIST{STR};
-      loop post_{{ case.index }}.append(node_{{ case.index }}.postorder!) end;
+      post_{{ case.index }} ::= #FLIST{STR};
+      loop post_{{ case.index }} := post_{{ case.index }}.push(node_{{ case.index }}.postorder!) end;
       expected_post_{{ case.index }} : ARRAY{STR} := |{{ post(case.expected) }}|;
       test({{ (case.full_description ~ " [postorder!]") | sa_str }}, post_{{ case.index }}.str, expected_post_{{ case.index }}.str);
 {% endif %}

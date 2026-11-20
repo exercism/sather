@@ -1,5 +1,5 @@
 {
-  "blurb": "LIST grows and shrinks, where an ARRAY is fixed at the size it was made.",
+  "blurb": "FLIST grows and shrinks, where an ARRAY is fixed at the size it was made; as_array turns one into the other.",
   "authors": [
     "keiravillekode"
   ],
