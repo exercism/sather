@@ -90,6 +90,8 @@ Each case has the canonical fields (`description`, `property`, `input`, `expecte
 | `sa_fltd`        | a FLTD literal                                                                               |
 | `sa_bool`        | `true` or `false`                                                                            |
 | `sa_array("T")`  | an ARRAY literal with element type `T`, rendering each element as `T`                        |
+| `sa_rows`        | an ARRAY literal with one element per line, for grids and pictures; one row stays inline     |
+| `sa_rows("T")`   | as `sa_rows`, with element type `T` (default `STR`), e.g. `sa_rows("ARRAY{INT}")`            |
 | `sa_as("T")`     | a value as the named type, e.g. `2 \| sa_as("FLTD")` is `2.0d`                               |
 | `sa_type`        | the Sather type `sa` would give a value, e.g. `ARRAY{INT}`                                   |
 | `map_str`        | an object as `"key=value"` pairs in key order, joined by commas, to compare with `m.map_str()` |

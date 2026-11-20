@@ -1,0 +1,7 @@
+class STATE_OF_TIC_TAC_TOE is
+
+   gamestate(board : ARRAY{STR}) : STR is
+      return "";
+   end;
+
+end; -- class STATE_OF_TIC_TAC_TOE

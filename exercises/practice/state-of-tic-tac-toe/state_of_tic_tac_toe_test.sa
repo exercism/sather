@@ -1,0 +1,242 @@
+class STATE_OF_TIC_TAC_TOE_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("STATE_OF_TIC_TAC_TOE");
+
+      board_1 : ARRAY{STR} := |
+         "XOO",
+         "X  ",
+         "X  "
+      |;
+      test("Won games - Finished game where X won via left column victory", STATE_OF_TIC_TAC_TOE::gamestate(board_1), "win");
+
+      board_2 : ARRAY{STR} := |
+         "OXO",
+         " X ",
+         " X "
+      |;
+      test("Won games - Finished game where X won via middle column victory", STATE_OF_TIC_TAC_TOE::gamestate(board_2), "win");
+
+      board_3 : ARRAY{STR} := |
+         "OOX",
+         "  X",
+         "  X"
+      |;
+      test("Won games - Finished game where X won via right column victory", STATE_OF_TIC_TAC_TOE::gamestate(board_3), "win");
+
+      board_4 : ARRAY{STR} := |
+         "OXX",
+         "OX ",
+         "O  "
+      |;
+      test("Won games - Finished game where O won via left column victory", STATE_OF_TIC_TAC_TOE::gamestate(board_4), "win");
+
+      board_5 : ARRAY{STR} := |
+         "XOX",
+         " OX",
+         " O "
+      |;
+      test("Won games - Finished game where O won via middle column victory", STATE_OF_TIC_TAC_TOE::gamestate(board_5), "win");
+
+      board_6 : ARRAY{STR} := |
+         "XXO",
+         " XO",
+         "  O"
+      |;
+      test("Won games - Finished game where O won via right column victory", STATE_OF_TIC_TAC_TOE::gamestate(board_6), "win");
+
+      board_7 : ARRAY{STR} := |
+         "XXX",
+         "XOO",
+         "O  "
+      |;
+      test("Won games - Finished game where X won via top row victory", STATE_OF_TIC_TAC_TOE::gamestate(board_7), "win");
+
+      board_8 : ARRAY{STR} := |
+         "O  ",
+         "XXX",
+         " O "
+      |;
+      test("Won games - Finished game where X won via middle row victory", STATE_OF_TIC_TAC_TOE::gamestate(board_8), "win");
+
+      board_9 : ARRAY{STR} := |
+         " OO",
+         "O X",
+         "XXX"
+      |;
+      test("Won games - Finished game where X won via bottom row victory", STATE_OF_TIC_TAC_TOE::gamestate(board_9), "win");
+
+      board_10 : ARRAY{STR} := |
+         "OOO",
+         "XXO",
+         "XX "
+      |;
+      test("Won games - Finished game where O won via top row victory", STATE_OF_TIC_TAC_TOE::gamestate(board_10), "win");
+
+      board_11 : ARRAY{STR} := |
+         "XX ",
+         "OOO",
+         "X  "
+      |;
+      test("Won games - Finished game where O won via middle row victory", STATE_OF_TIC_TAC_TOE::gamestate(board_11), "win");
+
+      board_12 : ARRAY{STR} := |
+         "XOX",
+         " XX",
+         "OOO"
+      |;
+      test("Won games - Finished game where O won via bottom row victory", STATE_OF_TIC_TAC_TOE::gamestate(board_12), "win");
+
+      board_13 : ARRAY{STR} := |
+         "XOO",
+         " X ",
+         "  X"
+      |;
+      test("Won games - Finished game where X won via falling diagonal victory", STATE_OF_TIC_TAC_TOE::gamestate(board_13), "win");
+
+      board_14 : ARRAY{STR} := |
+         "O X",
+         "OX ",
+         "X  "
+      |;
+      test("Won games - Finished game where X won via rising diagonal victory", STATE_OF_TIC_TAC_TOE::gamestate(board_14), "win");
+
+      board_15 : ARRAY{STR} := |
+         "OXX",
+         "OOX",
+         "X O"
+      |;
+      test("Won games - Finished game where O won via falling diagonal victory", STATE_OF_TIC_TAC_TOE::gamestate(board_15), "win");
+
+      board_16 : ARRAY{STR} := |
+         "  O",
+         " OX",
+         "OXX"
+      |;
+      test("Won games - Finished game where O won via rising diagonal victory", STATE_OF_TIC_TAC_TOE::gamestate(board_16), "win");
+
+      board_17 : ARRAY{STR} := |
+         "XXX",
+         "XOO",
+         "XOO"
+      |;
+      test("Won games - Finished game where X won via a row and a column victory", STATE_OF_TIC_TAC_TOE::gamestate(board_17), "win");
+
+      board_18 : ARRAY{STR} := |
+         "XOX",
+         "OXO",
+         "XOX"
+      |;
+      test("Won games - Finished game where X won via two diagonal victories", STATE_OF_TIC_TAC_TOE::gamestate(board_18), "win");
+
+      board_19 : ARRAY{STR} := |
+         "XOX",
+         "XXO",
+         "OXO"
+      |;
+      test("Drawn games - Draw", STATE_OF_TIC_TAC_TOE::gamestate(board_19), "draw");
+
+      board_20 : ARRAY{STR} := |
+         "XXO",
+         "OXX",
+         "XOO"
+      |;
+      test("Drawn games - Another draw", STATE_OF_TIC_TAC_TOE::gamestate(board_20), "draw");
+
+      board_21 : ARRAY{STR} := |
+         "   ",
+         "X  ",
+         "   "
+      |;
+      test("Ongoing games - Ongoing game: one move in", STATE_OF_TIC_TAC_TOE::gamestate(board_21), "ongoing");
+
+      board_22 : ARRAY{STR} := |
+         "O  ",
+         " X ",
+         "   "
+      |;
+      test("Ongoing games - Ongoing game: two moves in", STATE_OF_TIC_TAC_TOE::gamestate(board_22), "ongoing");
+
+      board_23 : ARRAY{STR} := |
+         "X  ",
+         " XO",
+         "OX "
+      |;
+      test("Ongoing games - Ongoing game: five moves in", STATE_OF_TIC_TAC_TOE::gamestate(board_23), "ongoing");
+
+      board_24 : ARRAY{STR} := |
+         "XX ",
+         "   ",
+         "   "
+      |;
+      protect
+         ignored ::= STATE_OF_TIC_TAC_TOE::gamestate(board_24);
+         test("Invalid boards - Invalid board: X went twice", "no exception raised", "Wrong turn order: X went twice");
+      when $STR then
+         test("Invalid boards - Invalid board: X went twice", exception.str, "Wrong turn order: X went twice");
+      end;
+
+      board_25 : ARRAY{STR} := |
+         "OOX",
+         "   ",
+         "   "
+      |;
+      protect
+         ignored ::= STATE_OF_TIC_TAC_TOE::gamestate(board_25);
+         test("Invalid boards - Invalid board: O started", "no exception raised", "Wrong turn order: O started");
+      when $STR then
+         test("Invalid boards - Invalid board: O started", exception.str, "Wrong turn order: O started");
+      end;
+
+      board_26 : ARRAY{STR} := |
+         "XXX",
+         "OOO",
+         "   "
+      |;
+      protect
+         ignored ::= STATE_OF_TIC_TAC_TOE::gamestate(board_26);
+         test("Invalid boards - Invalid board: X won and O kept playing", "no exception raised", "Impossible board: game should have ended after the game was won");
+      when $STR then
+         test("Invalid boards - Invalid board: X won and O kept playing", exception.str, "Impossible board: game should have ended after the game was won");
+      end;
+
+      board_27 : ARRAY{STR} := |
+         "XXX",
+         "OOO",
+         "XOX"
+      |;
+      protect
+         ignored ::= STATE_OF_TIC_TAC_TOE::gamestate(board_27);
+         test("Invalid boards - Invalid board: players kept playing after a win", "no exception raised", "Impossible board: game should have ended after the game was won");
+      when $STR then
+         test("Invalid boards - Invalid board: players kept playing after a win", exception.str, "Impossible board: game should have ended after the game was won");
+      end;
+
+      board_28 : ARRAY{STR} := |
+         "OO ",
+         "XXX",
+         " O "
+      |;
+      protect
+         ignored ::= STATE_OF_TIC_TAC_TOE::gamestate(board_28);
+         test("Invalid boards - Invalid board: O kept playing after X wins", "no exception raised", "Impossible board: game should have ended after the game was won");
+      when $STR then
+         test("Invalid boards - Invalid board: O kept playing after X wins", exception.str, "Impossible board: game should have ended after the game was won");
+      end;
+
+      board_29 : ARRAY{STR} := |
+         "XX ",
+         "OOO",
+         " XX"
+      |;
+      protect
+         ignored ::= STATE_OF_TIC_TAC_TOE::gamestate(board_29);
+         test("Invalid boards - Invalid board: X kept playing after O wins", "no exception raised", "Impossible board: game should have ended after the game was won");
+      when $STR then
+         test("Invalid boards - Invalid board: X kept playing after O wins", exception.str, "Impossible board: game should have ended after the game was won");
+      end;
+
+      finish;
+   end;
+end; -- class STATE_OF_TIC_TAC_TOE_TEST

@@ -7,7 +7,7 @@
 {% set expected %}
 {% if points %}| {% for p in points %}|{{ p.row }}, {{ p.column }}|{{ ", " if not loop.last }}{% endfor %} |{% else %}#ARRAY{ARRAY{INT}}(0){% endif %}
 {% endset %}
-      matrix_{{ case.index }} : ARRAY{ARRAY{INT}} := {{ case.input.matrix | sa("ARRAY{INT}") }};
+      matrix_{{ case.index }} : ARRAY{ARRAY{INT}} := {{ case.input.matrix | sa_rows("ARRAY{INT}") }};
 {{ m.test_str(case, "SADDLE_POINTS::saddle_points(matrix_" ~ case.index ~ ")", expected | trim, "ARRAY{ARRAY{INT}}") }}
 {% endfor %}
 {{ m.end() }}

@@ -1,0 +1,63 @@
+class STATE_OF_TIC_TAC_TOE is
+
+   -- Each player's marks are kept as one INT, one bit per square:
+   -- bit 3 * row + column is set when that square is theirs.
+
+   private const lines : ARRAY{INT} := |
+      0b000000111, 0b000111000, 0b111000000,  -- rows
+      0b001001001, 0b010010010, 0b100100100,  -- columns
+      0b100010001, 0b001010100                -- diagonals
+   |;
+
+   private marks(board : ARRAY{STR}, player : CHAR) : INT is
+      -- The squares `player' has marked.
+      answer ::= 0;
+      loop
+         row ::= 0.upto!(2);
+         loop
+            column ::= 0.upto!(2);
+            if board[row][column] = player then
+               answer := answer.bor(1.lshift(3 * row + column));
+            end;
+         end;
+      end;
+      return answer;
+   end;
+
+   private count(squares : INT) : INT is
+      -- How many squares are marked.
+      answer ::= 0;
+      loop
+         if squares.bit(0.upto!(8)) then answer := answer + 1; end;
+      end;
+      return answer;
+   end;
+
+   private has_won(squares : INT) : BOOL is
+      loop
+         line ::= lines.elt!;
+         if squares.band(line) = line then return true; end;
+      end;
+      return false;
+   end;
+
+   gamestate(board : ARRAY{STR}) : STR is
+      x ::= marks(board, 'X');
+      o ::= marks(board, 'O');
+      xs ::= count(x);
+      os ::= count(o);
+      if os > xs then raise "Wrong turn order: O started"; end;
+      if xs > os + 1 then raise "Wrong turn order: X went twice"; end;
+      x_won ::= has_won(x);
+      o_won ::= has_won(o);
+      -- After X wins, X has made one move more than O; after O wins,
+      -- the same number.
+      if (x_won and o_won) or (x_won and xs = os) or (o_won and xs > os) then
+         raise "Impossible board: game should have ended after the game was won";
+      end;
+      if x_won or o_won then return "win"; end;
+      if xs + os = 9 then return "draw"; end;
+      return "ongoing";
+   end;
+
+end; -- class STATE_OF_TIC_TAC_TOE

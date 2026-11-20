@@ -1,0 +1,7 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{{ m.test_str(case, "DIAMOND::rows('" ~ case.input.letter ~ "')", case.expected | sa_rows, "ARRAY{STR}") }}
+{% endfor %}
+{{ m.end() }}

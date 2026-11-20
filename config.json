@@ -670,7 +670,8 @@
         ],
         "prerequisites": [
           "immutable-classes",
-          "contracts"
+          "contracts",
+          "characters"
         ],
         "difficulty": 3
       },
@@ -826,6 +827,17 @@
         "prerequisites": [
           "classes-with-state",
           "exceptions"
+        ],
+        "difficulty": 4
+      },
+      {
+        "slug": "diamond",
+        "name": "Diamond",
+        "uuid": "7dcfeb39-417c-4baa-80e9-a8d0fd6d1e81",
+        "practices": [],
+        "prerequisites": [
+          "characters",
+          "iterators"
         ],
         "difficulty": 4
       },
@@ -1029,7 +1041,21 @@
           "classes-with-state",
           "exceptions",
           "contracts",
-          "lists"
+          "lists",
+          "characters"
+        ],
+        "difficulty": 5
+      },
+      {
+        "slug": "state-of-tic-tac-toe",
+        "name": "State of Tic-Tac-Toe",
+        "uuid": "8297a946-a107-4165-824b-0773f84e9418",
+        "practices": [],
+        "prerequisites": [
+          "arrays",
+          "iterators",
+          "exceptions",
+          "bits"
         ],
         "difficulty": 5
       },
@@ -1416,7 +1442,8 @@
         "practices": [],
         "prerequisites": [
           "case-statements",
-          "lists"
+          "lists",
+          "characters"
         ],
         "difficulty": 8
       },

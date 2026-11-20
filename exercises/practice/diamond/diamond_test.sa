@@ -1,0 +1,94 @@
+class DIAMOND_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("DIAMOND");
+
+      expected_1 : ARRAY{STR} := |"A"|;
+      test("Degenerate case with a single 'A' row", DIAMOND::rows('A').str, expected_1.str);
+
+      expected_2 : ARRAY{STR} := |
+         " A ",
+         "B B",
+         " A "
+      |;
+      test("Degenerate case with no row containing 3 distinct groups of spaces", DIAMOND::rows('B').str, expected_2.str);
+
+      expected_3 : ARRAY{STR} := |
+         "  A  ",
+         " B B ",
+         "C   C",
+         " B B ",
+         "  A  "
+      |;
+      test("Smallest non-degenerate case with odd diamond side length", DIAMOND::rows('C').str, expected_3.str);
+
+      expected_4 : ARRAY{STR} := |
+         "   A   ",
+         "  B B  ",
+         " C   C ",
+         "D     D",
+         " C   C ",
+         "  B B  ",
+         "   A   "
+      |;
+      test("Smallest non-degenerate case with even diamond side length", DIAMOND::rows('D').str, expected_4.str);
+
+      expected_5 : ARRAY{STR} := |
+         "                         A                         ",
+         "                        B B                        ",
+         "                       C   C                       ",
+         "                      D     D                      ",
+         "                     E       E                     ",
+         "                    F         F                    ",
+         "                   G           G                   ",
+         "                  H             H                  ",
+         "                 I               I                 ",
+         "                J                 J                ",
+         "               K                   K               ",
+         "              L                     L              ",
+         "             M                       M             ",
+         "            N                         N            ",
+         "           O                           O           ",
+         "          P                             P          ",
+         "         Q                               Q         ",
+         "        R                                 R        ",
+         "       S                                   S       ",
+         "      T                                     T      ",
+         "     U                                       U     ",
+         "    V                                         V    ",
+         "   W                                           W   ",
+         "  X                                             X  ",
+         " Y                                               Y ",
+         "Z                                                 Z",
+         " Y                                               Y ",
+         "  X                                             X  ",
+         "   W                                           W   ",
+         "    V                                         V    ",
+         "     U                                       U     ",
+         "      T                                     T      ",
+         "       S                                   S       ",
+         "        R                                 R        ",
+         "         Q                               Q         ",
+         "          P                             P          ",
+         "           O                           O           ",
+         "            N                         N            ",
+         "             M                       M             ",
+         "              L                     L              ",
+         "               K                   K               ",
+         "                J                 J                ",
+         "                 I               I                 ",
+         "                  H             H                  ",
+         "                   G           G                   ",
+         "                    F         F                    ",
+         "                     E       E                     ",
+         "                      D     D                      ",
+         "                       C   C                       ",
+         "                        B B                        ",
+         "                         A                         "
+      |;
+      test("Largest possible diamond", DIAMOND::rows('Z').str, expected_5.str);
+
+      finish;
+   end;
+end; -- class DIAMOND_TEST

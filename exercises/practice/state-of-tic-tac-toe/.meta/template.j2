@@ -1,0 +1,13 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+      board_{{ case.index }} : ARRAY{STR} := {{ case.input.board | sa_rows }};
+{% set call = "STATE_OF_TIC_TAC_TOE::gamestate(board_" ~ case.index ~ ")" %}
+{% if case is error %}
+{{ m.test_error(case, call) }}
+{% else %}
+{{ m.test(case, call, case.expected | sa) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}
