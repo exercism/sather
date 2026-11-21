@@ -3,17 +3,32 @@ class PERFECT_NUMBERS is
    classify(number : INT) : STR is
       if number < 1 then
          raise "Classification is only possible for positive integers.";
+      elsif number = 1 then
+         return "deficient";
       end;
-      total ::= 0;
-      d ::= 1;
+
+      total ::= 1;
+      candidate ::= 2;
       loop
-         until!(d > number / 2);
-         if number % d = 0 then total := total + d end;
-         d := d + 1;
+         quotient ::= number / candidate;
+         remainder ::= number % candidate;
+         while!(candidate < quotient);
+         if remainder = 0 then
+            total := total + candidate + quotient;
+         end;
+         candidate := candidate + 1;
       end;
-      if total = number then return "perfect" end;
-      if total > number then return "abundant" end;
-      return "deficient";
+      if candidate * candidate = number then
+         total := total + candidate;
+      end;
+
+      if total < number then
+         return "deficient";
+      elsif total > number then
+         return "abundant";
+      else
+         return "perfect";
+      end;
    end;
 
 end; -- class PERFECT_NUMBERS
