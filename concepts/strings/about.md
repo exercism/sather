@@ -60,9 +60,11 @@ whole line can be built in one go, numbers included:
 | --- | --- |
 | `"Collins".head(4)` | `"Coll"` |
 | `"Collins".tail(3)` | `"ins"` |
+| `"Collins".substring(2, 3)` | `"lli"` |
 
-`n` must be between 0 and the string's size. Asking for more stops the
-program with "Violation of precondition".
+`n` must be between 0 and the string's size, and a `substring` must fit
+inside the string. Asking for more stops the program with "Violation of
+precondition".
 
 ## Comparing
 

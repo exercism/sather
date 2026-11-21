@@ -44,6 +44,17 @@ arguments.
 `head` counts from the front, `tail` counts from the back. Both leave the
 original string alone and hand back a new one.
 
+For a piece from the middle, `.substring(start, n)` gives `n` characters
+beginning at position `start`. Positions are counted from `0`, so the first
+character is at `0`.
+
+```sather
+"Collins".substring(2, 3)    -- "lli"
+```
+
+The piece has to fit inside the string. Asking for characters past the end
+stops the program.
+
 ## Finding text
 
 `.search(s)` looks for `s` inside a string and answers where it starts, as
