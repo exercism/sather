@@ -53,6 +53,22 @@ is how a list first comes into being, and `size`, `is_empty`, `elt!` and
    empty.is_empty               -- true
 ```
 
+## Setting room aside
+
+As with `FSTR`, a size can be given when the list is made:
+
+```sather
+   squares ::= #FLIST{INT}(100);
+   squares.size                 -- 0
+```
+
+That sets aside room for a hundred values, so the first hundred pushes never
+have to copy anything. It is worth doing when the size is known, or roughly
+known. The list is still **empty**: its size is nought, and there is no
+`squares[0]` until something has been pushed. This is the difference from
+`#ARRAY{INT}(100)`, which makes a hundred positions ready to use.
+`#FLIST{INT}(0)` is void, just like `#FLIST{INT}`.
+
 ## Reading and writing
 
 Square brackets, counting from nought, exactly as for an array:

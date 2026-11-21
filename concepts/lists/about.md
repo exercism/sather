@@ -86,6 +86,11 @@ much and occasional ones cost a copy. Over many pushes that averages out to
 a constant each, which is why the doubling is done rather than growing by
 one each time.
 
+When the number of values is known in advance, `#FLIST{T}(n)` sets aside
+room for `n` of them, and those pushes never copy at all. The list still
+starts empty — `size` is nought — unlike `#ARRAY{T}(n)`, which has `n`
+positions ready. `#FLIST{T}(0)` is void.
+
 `delete_ordered` is not cheap: everything after the removed position shifts
 up by one. Removing repeatedly from the front of a long list is slow in a way
 that is easy not to notice.
@@ -94,6 +99,7 @@ that is easy not to notice.
 
 | Call | Does |
 | --- | --- |
+| `#FLIST{T}(n)` | an empty list with room for `n` |
 | `l := l.push(x)` | adds to the end |
 | `l := l.insert_before(i, x)` | adds at a position |
 | `l := l.delete_ordered(i)` | takes a position out, keeping the order |

@@ -46,9 +46,10 @@ class MISSING_PROPS_TEST is
       end;
 
       -- Task 3
+      -- Nothing was taken in task 2: the crowns are still both there.
       test("reporting a prop that is there",
            MISSING_PROPS::report(props, "crown"), "Took crown, 1 left");
-      test("reporting the last of a prop",
+      test("reporting another prop",
            MISSING_PROPS::report(props, "letter"), "Took letter, 4 left");
       test("reporting one that has run out",
            MISSING_PROPS::report(props, "lantern"), "Out of lantern");

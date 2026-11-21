@@ -51,10 +51,20 @@ Since it is a type, it can be an argument:
    end;
 ```
 
-`label_pair` has no idea what `label` does. That is the point: it can be
-handed `jar_label`, or a routine that answers `flower.upper`, or anything
-else of that shape. (`.upper` and `.lower` work on a whole string, not only
-on a character: `"Rata".upper` is `"RATA"`.)
+`label_pair` has no idea what `label` does. That is the point: given a
+second routine of the same shape,
+
+```sather
+   lid_label(flower : STR) : STR is return flower.upper + " HONEY"; end;
+```
+
+it can be handed either one, or anything else that takes a `STR` and
+answers a `STR`:
+
+```sather
+   label_pair("Rata", "Kamahi", bind(jar_label(_)))   -- "Rata honey and Kamahi honey"
+   label_pair("Rata", "Kamahi", bind(lid_label(_)))   -- "RATA HONEY and KAMAHI HONEY"
+```
 
 ## Filling in some of the arguments
 

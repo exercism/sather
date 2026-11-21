@@ -63,6 +63,24 @@ place it starts.
 Capitals have to match exactly: `"Collins Street".search("street")` is
 `-1`.
 
+## Changing case
+
+`.upper` gives a copy of a string in capitals, and `.lower` a copy in small
+letters. Anything that is not a letter is left as it is, and the original
+string is left alone.
+
+```sather
+"Collins St".upper      -- "COLLINS ST"
+"Collins St".lower      -- "collins st"
+```
+
+That is the usual way round the exact matching above: put both sides in
+the same case first.
+
+```sather
+"Collins Street".lower.search("street")    -- 8
+```
+
 ## Numbers into strings
 
 `.str` gives the text form of a number.
