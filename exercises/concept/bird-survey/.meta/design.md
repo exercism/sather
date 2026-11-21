@@ -21,9 +21,11 @@ the point is how much shorter it becomes.
 - More than one iterator in a loop, which is the whole of `duet-practice`
   and is deliberately left alone here.
 - Writing an iterator, which needs `yield` and waits for `bush-walk`.
-- `ind!` and `times!`, which are in the concept page but which no task
-  needs; tasks 5 and 6 use `upto!` and `downto!` over positions because the
-  answer is a position.
+- `ind!`, which is in the concept page but which no task needs; tasks 5
+  and 6 use `upto!` and `downto!` over positions because the answer is a
+  position.
+- Using `times!`. The introduction teaches it, because `rehearsal-script`
+  and `understudy` need it, but no task here does.
 
 ## Concepts
 

@@ -8,11 +8,10 @@
 
 ## 1. Repeat a cue
 
-- `upto!`, counting from one up to the number given, runs the loop the
-  right number of times. The value it gives is not needed, so it can go
-  straight into a variable that is never used — or use `times!` on the
-  number, which gives nothing at all.
-- No times at all needs no special handling: the loop simply does not run.
+- `times!` on the number runs the loop that many times. It gives nothing,
+  so there is nothing to name: `count.times!;` is a statement on its own.
+- Nought needs no special handling: `0.times!` ends the loop before the
+  body runs.
 
 ## 2. The cast initials
 

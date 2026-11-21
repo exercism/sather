@@ -1,9 +1,9 @@
 class REHEARSAL_SCRIPT is
 
-   repeat_cue(cue : STR, times : INT) : STR is
+   repeat_cue(cue : STR, count : INT) : STR is
       script ::= #FSTR;
       loop
-         ignored ::= 1.upto!(times);
+         count.times!;
          script := script + cue;
       end;
       return script.str;

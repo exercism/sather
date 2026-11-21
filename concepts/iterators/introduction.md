@@ -82,6 +82,19 @@ one `CHAR` each time round:
    end;
 ```
 
+When only the number of turns matters, `times!` is simpler. `3.times!` runs
+the loop three times and gives nothing at all, so there is no variable to
+name — it is a statement on its own:
+
+```sather
+   loop
+      3.times!;
+      #OUT + "Knock\n";
+   end;
+```
+
+`0.times!` ends the loop straight away, so the body does not run at all.
+
 Counting from `0` to `.size - 1` gives the positions of an array, for when
 the position matters as well as the value:
 

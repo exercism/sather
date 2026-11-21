@@ -36,7 +36,7 @@
 ## 5. Fix an argument
 
 - `repeat` itself is an ordinary routine: a loop, an `FSTR`, and
-  `1.upto!(times)`.
+  `count.times!`.
 - `doubler` binds `repeat` with the number written out and the line left as
   a hole, as `small` does with `price_tag` in the introduction. As in task
   4, put it in a variable and return that.

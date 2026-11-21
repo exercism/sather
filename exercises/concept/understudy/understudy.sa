@@ -22,7 +22,7 @@ class UNDERSTUDY is
       raise "unimplemented";
    end;
 
-   repeat(times : INT, line : STR) : STR is
+   repeat(count : INT, line : STR) : STR is
       raise "unimplemented";
    end;
 

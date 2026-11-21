@@ -36,10 +36,10 @@ class UNDERSTUDY is
       return part;
    end;
 
-   repeat(times : INT, line : STR) : STR is
+   repeat(count : INT, line : STR) : STR is
       said ::= #FSTR;
       loop
-         ignored ::= 1.upto!(times);
+         count.times!;
          said := said + line;
       end;
       return said.str;

@@ -76,12 +76,13 @@ arguments. The library's own iterators do: `upto!(once i : SAME)`.
 
 ## Iterators with no value
 
-An iterator need not yield anything. `times!` is one:
+An iterator need not yield anything. `times!` is one, and an iterator of
+your own can be another:
 
 ```sather
    batches!(once count : INT) is
       loop
-         ignored ::= 1.upto!(count);
+         count.times!;
          yield;
       end;
    end;
