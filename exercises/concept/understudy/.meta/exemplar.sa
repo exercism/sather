@@ -25,8 +25,9 @@ class UNDERSTUDY is
    end;
 
    understudy_for(style : STR) : ROUT{STR}:STR is
-      -- bind has to be the right-hand side of an assignment; it cannot go
-      -- straight into a return.
+      -- This compiler cannot read bind straight after return, so each
+      -- branch assigns to a variable and the variable is returned.
+      -- return (bind(shout(_))); would also work.
       part : ROUT{STR}:STR;
       if style = "shout" then
          part := bind(shout(_));

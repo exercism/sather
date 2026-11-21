@@ -26,10 +26,11 @@
   task 2.
 - Inside the class, a routine is bound by its bare name, with no class name
   in front, as with any routine called from its own class.
-- `return bind(...)` does not parse. A `bind` has to go on the right of an
-  assignment first. Declare a variable of the `ROUT` type with no value,
-  assign a `bind` to it in each branch, and return the variable after the
-  branches.
+- `return bind(...)` does not compile: the compiler cannot read `bind`
+  straight after `return`. Put brackets round it, `return (bind(...));`, or
+  declare a variable of the `ROUT` type, assign a `bind` to it in each
+  branch, and return the variable after the branches. See "Handing one
+  back" in the introduction.
 
 - Two cases, so an `if`, or a `case` with its `else`.
 
@@ -39,6 +40,6 @@
   `1.upto!(times)`.
 - `doubler` binds `repeat` with the number written out and the line left as
   a hole, as `small` does with `price_tag` in the introduction. As in task
-  4, put it in a variable and return that.
+  4, the `bind` needs brackets or a variable before it can be returned.
 - Only the `_` becomes an argument of the bound routine, which is why the
   result has type `ROUT{STR}:STR` and not `ROUT{INT,STR}:STR`.

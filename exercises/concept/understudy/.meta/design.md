@@ -16,9 +16,12 @@ than data, which is the last of the features that make Sather what it is.
 ## Out of scope
 
 - `ITER{...}`, the bound-iterator counterpart, in the concept page only.
-- The parser's refusal to accept `return bind(...)`, which is recorded in
-  the concept page and the hints because every student will hit it and the
-  error message does not explain itself.
+- Why the parser refuses `return bind(...)` (`bind_tok` is missing from
+  `is_expr_start` in the compiler's `parse.sa`), which is on the concept's
+  about page only. The introduction does say that it happens, what the
+  error looks like and how to get round it (brackets, or a variable),
+  because every student will hit it in task 4 and the error message does
+  not explain itself.
 - Dispatched bound routines, which this compiler does not implement. The
   concept page says so, because a student who tries it deserves to know it is
   the compiler and not their code.

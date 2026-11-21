@@ -66,6 +66,38 @@ answers a `STR`:
    label_pair("Rata", "Kamahi", bind(lid_label(_)))   -- "RATA HONEY and KAMAHI HONEY"
 ```
 
+## Handing one back
+
+A routine can answer a bound routine, too. There is one snag, and it is in
+this compiler rather than in the language: it cannot read `bind` straight
+after `return`.
+
+```sather
+   honey_label : ROUT{STR}:STR is
+      return bind(jar_label(_));          -- does not compile
+   end;
+```
+
+The error says `'end' expected, but found 'bind'`, which is no help at all.
+What has happened is that `return` did not recognise `bind` as the start of
+a value, so it took this for a `return` with nothing after it.
+
+Brackets fix it, because a bracket always starts a value:
+
+```sather
+      return (bind(jar_label(_)));        -- yes
+```
+
+So does putting the `bind` in a variable first, and returning that:
+
+```sather
+      label : ROUT{STR}:STR := bind(jar_label(_));
+      return label;                       -- yes
+```
+
+The same goes for `yield`. Anywhere else, such as on the right of `:=` or as
+an argument, `bind` needs no help.
+
 ## Filling in some of the arguments
 
 Not every argument has to be a hole. Anything written out is fixed when the

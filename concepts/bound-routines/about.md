@@ -43,15 +43,25 @@ A `bind` may be declared into a variable, or passed as an argument:
    label_pair("Rata", "Kamahi", bind(jar_label(_)));  -- yes
 ```
 
-but it may not go straight into a `return`:
+but this compiler cannot parse it straight after `return` or `yield`:
 
 ```sather
    return bind(jar_label(_));                    -- does not parse
+   return (bind(jar_label(_)));                  -- yes
 ```
 
-Put it in a variable and return that. The error message points at the
-`bind` and says an `end` was expected, which is not obvious from the line
-itself.
+This is a limitation of the GNU Sather 1.2 parser, not a rule of the
+language. `return` and `yield` only read a value when the next token is one
+that can start an expression, and the parser's list of those tokens
+(`is_expr_start` in `Compiler/Front/parse.sa`) leaves out `bind`. The older
+`#ROUT(...)` spelling starts with `#`, which is on the list, so it never had
+the problem. Without a value, `return` expects the statement to end, so the
+error points at the `bind` and says an `end` was expected — which is not
+obvious from the line itself.
+
+Wrapping the `bind` in brackets works, because `(` is on the list. So does
+putting it in a variable and returning that. Everywhere else the full
+expression parser is used, and `bind` is fine.
 
 ## Where they are used
 
