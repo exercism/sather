@@ -3,6 +3,10 @@
 You are running the props table for the school play. The props are a map
 from a prop's name to how many of it there are.
 
+Before the curtain goes up, the cast come to ask whether a prop can be
+taken. You check the table and tell them; you do not hand anything over
+yet. None of these tasks changes the map.
+
 All three tasks go in the `MISSING_PROPS` class.
 
 ## 1. How many have we got?
@@ -21,10 +25,11 @@ MISSING_PROPS::count_of(props, "sword")
 Note the difference between nought of something and no such thing. A prop
 listed with nought is known about; it has simply run out.
 
-## 2. Take one
+## 2. Can one be taken?
 
-Return how many are left after taking one away. If the prop is listed but
-there are none left, raise `"Out of "` followed by its name.
+Return how many there would be left if one were taken. Do not change the
+map: this is only a check. If the prop is listed but there are none, raise
+`"Out of "` followed by its name.
 
 ```sather
 MISSING_PROPS::take_one(props, "crown")
@@ -39,7 +44,8 @@ A prop that is not on the table at all should still raise
 
 ## 3. Report back
 
-Return a message rather than raising, whatever happens.
+Return a message rather than raising, whatever happens. This is the answer
+read back to the cast member, and like task 2 it leaves the map alone.
 
 ```sather
 MISSING_PROPS::report(props, "crown")
@@ -52,6 +58,6 @@ MISSING_PROPS::report(props, "sword")
 -- => "Unknown prop: sword"
 ```
 
-When it works, the message is `"Took "`, the name, `", "`, how many are
-left, and `" left"`. When it does not, the message is exactly what was
+When one can be taken, the message is `"Took "`, the name, `", "`, how
+many would be left, and `" left"`. When it does not, the message is exactly what was
 raised.
