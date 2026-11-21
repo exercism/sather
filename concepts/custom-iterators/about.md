@@ -4,7 +4,7 @@
    proving!(once dough : INT, once hours : INT) : INT is
       size ::= dough;
       loop
-         ignored ::= 1.upto!(hours);
+         hours.times!;
          size := size * 2;
          yield size;
       end;

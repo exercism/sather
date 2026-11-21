@@ -2,7 +2,7 @@ class REHEARSAL_SCRIPT is
 
    -- Replace each `raise "unimplemented";` with the real body.
 
-   repeat_cue(cue : STR, times : INT) : STR is
+   repeat_cue(cue : STR, count : INT) : STR is
       raise "unimplemented";
    end;
 

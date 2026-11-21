@@ -92,3 +92,35 @@ delete from a map or set while walking it.
       #OUT + stock.ind! + "\n";
    end;
 ```
+
+## Keys and targets together
+
+`pair!` gives each key with its target, packed into a **tuple**: a
+`TUP{K,T}`, a small immutable object holding the two values. `.t1` is the
+key and `.t2` the target.
+
+```sather
+   loop
+      p ::= stock.pair!;
+      #OUT + p.t1 + ": " + p.t2 + "\n";
+   end;
+```
+
+That saves walking the keys and looking each one up again with `get`. The
+type can be written out in full when it helps:
+
+```sather
+      p : TUP{STR,INT} := stock.pair!;
+```
+
+As with anything from a map, the pairs come in no particular order.
+
+Tuples come in other sizes too, and one can be made directly. The types
+have to be given:
+
+```sather
+   t ::= #TUP{STR,INT,BOOL}("saw", 3, true);
+   t.t3                         -- true
+```
+
+A bare `#TUP("saw", 3, true)` does not compile.
