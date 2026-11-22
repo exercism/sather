@@ -1,0 +1,107 @@
+class WORDY_TEST is
+   include EXERCISM_TEST;
+
+   main is
+      class_name("WORDY");
+
+      test("just a number", WORDY::answer("What is 5?"), #INTI(5));
+
+      test("just a zero", WORDY::answer("What is 0?"), #INTI(0));
+
+      test("just a negative number", WORDY::answer("What is -123?"), #INTI(-123));
+
+      test("addition", WORDY::answer("What is 1 plus 1?"), #INTI(2));
+
+      test("addition with a left hand zero", WORDY::answer("What is 0 plus 2?"), #INTI(2));
+
+      test("addition with a right hand zero", WORDY::answer("What is 3 plus 0?"), #INTI(3));
+
+      test("more addition", WORDY::answer("What is 53 plus 2?"), #INTI(55));
+
+      test("addition with negative numbers", WORDY::answer("What is -1 plus -10?"), #INTI(-11));
+
+      test("large addition", WORDY::answer("What is 123 plus 45678?"), #INTI(45801));
+
+      test("subtraction", WORDY::answer("What is 4 minus -12?"), #INTI(16));
+
+      test("multiplication", WORDY::answer("What is -3 multiplied by 25?"), #INTI(-75));
+
+      test("division", WORDY::answer("What is 33 divided by -3?"), #INTI(-11));
+
+      test("multiple additions", WORDY::answer("What is 1 plus 1 plus 1?"), #INTI(3));
+
+      test("addition and subtraction", WORDY::answer("What is 1 plus 5 minus -2?"), #INTI(8));
+
+      test("multiple subtraction", WORDY::answer("What is 20 minus 4 minus 13?"), #INTI(3));
+
+      test("subtraction then addition", WORDY::answer("What is 17 minus 6 plus 3?"), #INTI(14));
+
+      test("multiple multiplication", WORDY::answer("What is 2 multiplied by -2 multiplied by 3?"), #INTI(-12));
+
+      test("addition and multiplication", WORDY::answer("What is -3 plus 7 multiplied by -2?"), #INTI(-8));
+
+      test("multiple division", WORDY::answer("What is -12 divided by 2 divided by -3?"), #INTI(2));
+
+      protect
+         ignored ::= WORDY::answer("What is 52 cubed?");
+         test("unknown operation", "no exception raised", "an exception");
+      when $STR then
+         test("unknown operation", "an exception", "an exception");
+      end;
+
+      protect
+         ignored ::= WORDY::answer("Who is the President of the United States?");
+         test("Non math question", "no exception raised", "an exception");
+      when $STR then
+         test("Non math question", "an exception", "an exception");
+      end;
+
+      protect
+         ignored ::= WORDY::answer("What is 1 plus?");
+         test("reject problem missing an operand", "no exception raised", "an exception");
+      when $STR then
+         test("reject problem missing an operand", "an exception", "an exception");
+      end;
+
+      protect
+         ignored ::= WORDY::answer("What is?");
+         test("reject problem with no operands or operators", "no exception raised", "an exception");
+      when $STR then
+         test("reject problem with no operands or operators", "an exception", "an exception");
+      end;
+
+      protect
+         ignored ::= WORDY::answer("What is 1 plus plus 2?");
+         test("reject two operations in a row", "no exception raised", "an exception");
+      when $STR then
+         test("reject two operations in a row", "an exception", "an exception");
+      end;
+
+      protect
+         ignored ::= WORDY::answer("What is 1 plus 2 1?");
+         test("reject two numbers in a row", "no exception raised", "an exception");
+      when $STR then
+         test("reject two numbers in a row", "an exception", "an exception");
+      end;
+
+      protect
+         ignored ::= WORDY::answer("What is 1 2 plus?");
+         test("reject postfix notation", "no exception raised", "an exception");
+      when $STR then
+         test("reject postfix notation", "an exception", "an exception");
+      end;
+
+      protect
+         ignored ::= WORDY::answer("What is plus 1 2?");
+         test("reject prefix notation", "no exception raised", "an exception");
+      when $STR then
+         test("reject prefix notation", "an exception", "an exception");
+      end;
+
+      test("multiplication with a large answer", WORDY::answer("What is 123456789 multiplied by 987654321?"), #INTI("121932631112635269"));
+
+      test("subtraction of large numbers", WORDY::answer("What is 98765432109876543210 minus 98765432109876543200?"), #INTI(10));
+
+      finish;
+   end;
+end; -- class WORDY_TEST

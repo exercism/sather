@@ -1,0 +1,26 @@
+[
+  {
+    "description": "largest square of sum that fits in an INT",
+    "property": "squareOfSum",
+    "input": {
+      "number": 303
+    },
+    "expected": 2121155136
+  },
+  {
+    "description": "sum of squares 303",
+    "property": "sumOfSquares",
+    "input": {
+      "number": 303
+    },
+    "expected": 9318664
+  },
+  {
+    "description": "difference of squares 303",
+    "property": "differenceOfSquares",
+    "input": {
+      "number": 303
+    },
+    "expected": 2111836472
+  }
+]

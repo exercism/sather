@@ -1063,7 +1063,8 @@
         "prerequisites": [
           "characters",
           "iterators",
-          "string-builders"
+          "string-builders",
+          "exact-numbers"
         ],
         "difficulty": 5
       },
@@ -1118,7 +1119,8 @@
           "exceptions",
           "contracts",
           "lists",
-          "characters"
+          "characters",
+          "exact-numbers"
         ],
         "difficulty": 5
       },
@@ -1383,21 +1385,6 @@
         "difficulty": 6
       },
       {
-        "slug": "rail-fence-cipher",
-        "name": "Rail Fence Cipher",
-        "uuid": "9918a72d-9ecf-467b-98a3-58872148fec8",
-        "practices": [
-          "custom-iterators"
-        ],
-        "prerequisites": [
-          "arrays",
-          "string-builders",
-          "contracts",
-          "custom-iterators"
-        ],
-        "difficulty": 6
-      },
-      {
         "slug": "say",
         "name": "Say",
         "uuid": "f4db78de-1b31-45f1-8ae4-683b0577d808",
@@ -1475,6 +1462,18 @@
         "difficulty": 7
       },
       {
+        "slug": "wordy",
+        "name": "Wordy",
+        "uuid": "b0f057e8-cc52-4863-886e-a98df79afdce",
+        "practices": [],
+        "prerequisites": [
+          "iterators",
+          "exceptions",
+          "exact-numbers"
+        ],
+        "difficulty": 7
+      },
+      {
         "slug": "alphametics",
         "name": "Alphametics",
         "uuid": "b2dca084-4f50-4a76-b182-4e4dd4e1602b",
@@ -1538,6 +1537,21 @@
         "prerequisites": [
           "lists",
           "contracts"
+        ],
+        "difficulty": 8
+      },
+      {
+        "slug": "rail-fence-cipher",
+        "name": "Rail Fence Cipher",
+        "uuid": "9918a72d-9ecf-467b-98a3-58872148fec8",
+        "practices": [
+          "custom-iterators"
+        ],
+        "prerequisites": [
+          "arrays",
+          "string-builders",
+          "contracts",
+          "custom-iterators"
         ],
         "difficulty": 8
       },

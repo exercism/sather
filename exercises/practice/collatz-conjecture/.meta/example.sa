@@ -1,7 +1,7 @@
 class COLLATZ_CONJECTURE is
 
    -- The number given fits in an INT, but the numbers along the way may
-   -- not: 2037066081 climbs past 159 thousand million. So the walk is
+   -- not: 2037066081 climbs past 159 billion. So the walk is
    -- done in INTI.
 
    steps(number : INT) : INT is

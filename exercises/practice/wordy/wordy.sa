@@ -1,0 +1,7 @@
+class WORDY is
+
+   answer(question : STR) : INTI is
+      return #INTI(0);
+   end;
+
+end; -- class WORDY

@@ -74,6 +74,21 @@ end; -- class {{ test_class }}
 {% endmacro %}
 
 {#
+  test_any_error(case, call, returns=true): expect `call` to raise a STR,
+  accepting any message. Use it where the exercise lets the student choose
+  the wording.
+#}
+{% macro test_any_error(case, call, returns=true, name=none) %}
+{% set label = (name or case.full_description) | sa_str %}
+      protect
+         {{ "ignored ::= " if returns else "" }}{{ call }};
+         test({{ label }}, "no exception raised", "an exception");
+      when $STR then
+         test({{ label }}, "an exception", "an exception");
+      end;
+{% endmacro %}
+
+{#
   map_str(): a helper routine for the class, to be placed with
   {% call m.begin() %}{{ m.map_str() }}{% endcall %}. It renders an
   FMAP{CHAR,INT} as "key=value" pairs in ascending key order, joined by

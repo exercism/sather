@@ -14,11 +14,18 @@ class PERFECT_NUMBERS is
          remainder ::= number % candidate;
          while!(candidate < quotient);
          if remainder = 0 then
+            -- Stop as soon as the total passes number, before it can
+            -- grow too large for an INT.
+            if candidate + quotient > number - total then
+               return "abundant";
+            end;
             total := total + candidate + quotient;
          end;
          candidate := candidate + 1;
       end;
-      if candidate * candidate = number then
+      -- candidate * candidate could overflow, so test for a square root
+      -- by dividing instead.
+      if number % candidate = 0 and number / candidate = candidate then
          total := total + candidate;
       end;
 
