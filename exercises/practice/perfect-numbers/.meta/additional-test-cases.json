@@ -1,0 +1,34 @@
+[
+  {
+    "description": "largest INT is prime",
+    "property": "classify",
+    "input": {
+      "number": 2147483647
+    },
+    "expected": "deficient"
+  },
+  {
+    "description": "square of the largest prime whose square is an INT",
+    "property": "classify",
+    "input": {
+      "number": 2147117569
+    },
+    "expected": "deficient"
+  },
+  {
+    "description": "power of two falls one short of perfect",
+    "property": "classify",
+    "input": {
+      "number": 1073741824
+    },
+    "expected": "deficient"
+  },
+  {
+    "description": "aliquot sum too large for an INT",
+    "property": "classify",
+    "input": {
+      "number": 2147483646
+    },
+    "expected": "abundant"
+  }
+]

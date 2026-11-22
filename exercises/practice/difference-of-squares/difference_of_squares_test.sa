@@ -22,6 +22,12 @@ class DIFFERENCE_OF_SQUARES_TEST is
 
       test("Subtract sum of squares from square of sums - difference of squares 100", DIFFERENCE_OF_SQUARES::difference_of_squares(100), 25164150);
 
+      test("largest square of sum that fits in an INT", DIFFERENCE_OF_SQUARES::square_of_sum(303), 2121155136);
+
+      test("sum of squares 303", DIFFERENCE_OF_SQUARES::sum_of_squares(303), 9318664);
+
+      test("difference of squares 303", DIFFERENCE_OF_SQUARES::difference_of_squares(303), 2111836472);
+
       finish;
    end;
 end; -- class DIFFERENCE_OF_SQUARES_TEST

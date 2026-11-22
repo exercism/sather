@@ -1,0 +1,12 @@
+{% import "macros.j2" as m with context %}
+{{ m.begin() }}
+{% for case in cases %}
+
+{% set call = "WORDY::answer(" ~ case.input.question | sa_str ~ ")" %}
+{% if case is error %}
+{{ m.test_any_error(case, call) }}
+{% else %}
+{{ m.test(case, call, case.expected | sa_inti) }}
+{% endif %}
+{% endfor %}
+{{ m.end() }}

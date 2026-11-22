@@ -49,6 +49,19 @@ rather than giving a fraction.
 
 The two go together: `7` is `3` lots of `2` with `1` left over.
 
+## How big an INT can be
+
+An `INT` holds whole numbers from `INT::minval` to `INT::maxval`:
+
+```sather
+INT::minval      -- -2147483648
+INT::maxval      -- 2147483647
+```
+
+That is a little over two billion either way. A calculation that
+goes past either end is an error, and the program stops with "Integer
+overflow".
+
 ## Keeping a value
 
 A routine can work something out, keep it under a name, and use it later.

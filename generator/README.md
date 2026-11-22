@@ -117,6 +117,7 @@ The statement macros emit whole, indented lines, so call them at the start of a 
 | `m.test_str(case, actual, expected, type)`  | binds `expected` to a local of `type`, then compares `.str` forms, for arrays and the like  |
 | `m.test_error(case, call)`                  | a `protect` block expecting `call` to raise the case's error message as a STR               |
 | `m.test_error(case, call, returns=false)`   | the same, for a call that returns no value                                                  |
+| `m.test_any_error(case, call)`              | a `protect` block expecting `call` to raise any STR, whatever its message                   |
 | `m.map_str()`                               | a `map_str(FMAP{CHAR,INT}) : STR` helper routine, for `m.begin()`'s call block              |
 
 ## Track-specific cases

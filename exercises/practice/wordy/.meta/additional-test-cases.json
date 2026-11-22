@@ -1,0 +1,18 @@
+[
+  {
+    "description": "multiplication with a large answer",
+    "property": "answer",
+    "input": {
+      "question": "What is 123456789 multiplied by 987654321?"
+    },
+    "expected": 121932631112635269
+  },
+  {
+    "description": "subtraction of large numbers",
+    "property": "answer",
+    "input": {
+      "question": "What is 98765432109876543210 minus 98765432109876543200?"
+    },
+    "expected": 10
+  }
+]

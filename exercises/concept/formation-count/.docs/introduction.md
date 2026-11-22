@@ -2,9 +2,9 @@
 
 Two of the number types you have met give up something.
 
-`INT` is exactly 32 bits, so it holds numbers from about minus two thousand
-million to two thousand million and no further. Go past that and it wraps
-round silently — no error, just a wrong answer.
+`INT` is exactly 32 bits, so it holds numbers from about minus two billion
+to two billion and no further. Those two ends are `INT::minval` and
+`INT::maxval`. Go past either and the program stops with "Integer overflow".
 
 `FLTD` holds fractions, but only approximately. `0.1d + 0.2d` is very nearly
 `0.3` and not exactly.
@@ -23,6 +23,17 @@ For work where those matter, the library has a type each.
 An `INT` cannot hold that. An `FLTD` could hold something close to it, and
 would lose the last twenty digits.
 
+Counting arrangements is the standard reason to want this. Twelve players
+in a chess tournament can finish in 479001600 different orders, which an
+`INT` holds; thirteen can finish in 6227020800, which it does not.
+
+```sather
+   #INTI(16).factorial
+   -- 20922789888000
+```
+
+## Making numbers
+
 Make one from an `INT`, or from a string when the number is too big to
 write as an `INT` in the first place:
 
@@ -34,14 +45,17 @@ write as an `INT` in the first place:
 Then `+`, `-`, `*`, `/` and comparison all work as usual, and `.str` gives
 every digit.
 
-Counting arrangements is the standard reason to want this. Twelve players
-in a chess tournament can finish in 479001600 different orders, which an
-`INT` holds; thirteen can finish in 6227020800, which it does not.
+An ordinary `INT` can be read from a string the same way, as long as the
+number fits:
 
 ```sather
-   #INTI(16).factorial
-   -- 20922789888000
+   #INT("42")             -- 42
+   #INT("-17")            -- -17
 ```
+
+`#INT` never complains. It reads as much of a number as it finds at the
+start of the string and stops there, so `#INT("12 eggs")` is `12`, and a
+string with no number at the start at all gives `0`.
 
 ## RAT: exact fractions
 

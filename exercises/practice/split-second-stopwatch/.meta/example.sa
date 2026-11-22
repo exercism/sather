@@ -27,9 +27,9 @@ class STOPWATCH is
    end;
 
    private seconds_of(text : STR) : INT is
-      hours ::= (text[0].int - '0'.int) * 10 + (text[1].int - '0'.int);
-      minutes ::= (text[3].int - '0'.int) * 10 + (text[4].int - '0'.int);
-      secs ::= (text[6].int - '0'.int) * 10 + (text[7].int - '0'.int);
+      hours ::= #INT(text.substring(0, 2));
+      minutes ::= #INT(text.substring(3, 2));
+      secs ::= #INT(text.substring(6, 2));
       return hours * 3600 + minutes * 60 + secs;
    end;
 

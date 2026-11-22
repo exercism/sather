@@ -1,7 +1,13 @@
 # Numbers
 
 `INT` holds a whole number. In this Sather it is exactly 32 bits, so it
-counts from -2147483648 to 2147483647.
+counts from -2147483648 to 2147483647. Those two ends are `INT::minval` and
+`INT::maxval`.
+
+Going past either end is checked when the program is compiled with `-chk`,
+as the tests are: the program stops with "Integer overflow on plus" (or
+`minus`, `times`). Compiled without `-chk`, it wraps round silently instead,
+so `INT::maxval + 1` is `INT::minval` and nothing says so.
 
 ```sather
    patients : INT is

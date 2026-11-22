@@ -54,7 +54,7 @@ grow, since each addition multiplies the denominators out before reducing.
 
 ## Choosing
 
-Reach for `INTI` when a count can exceed two thousand million: factorials,
+Reach for `INTI` when a count can exceed two billion: factorials,
 powers, combinations, running totals over a long time.
 
 Reach for `RAT` when fractions must be exact and the denominators are

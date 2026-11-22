@@ -42,6 +42,14 @@ class PERFECT_NUMBERS_TEST is
          test("Invalid inputs - Negative integer is rejected (as it is not a positive integer)", exception.str, "Classification is only possible for positive integers.");
       end;
 
+      test("largest INT is prime", PERFECT_NUMBERS::classify(2147483647), "deficient");
+
+      test("square of the largest prime whose square is an INT", PERFECT_NUMBERS::classify(2147117569), "deficient");
+
+      test("power of two falls one short of perfect", PERFECT_NUMBERS::classify(1073741824), "deficient");
+
+      test("aliquot sum too large for an INT", PERFECT_NUMBERS::classify(2147483646), "abundant");
+
       finish;
    end;
 end; -- class PERFECT_NUMBERS_TEST

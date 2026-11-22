@@ -50,6 +50,17 @@ the values without ever deciding how far to count:
 `fruits.elt!` ends the loop; `1.up!` supplies the numbering. Neither has to
 know how many fruits there are.
 
+Starting from `0` gives positions instead, since an array counts from `0`.
+That is the way to have each value and its position together:
+
+```sather
+   loop
+      i ::= 0.up!;
+      fruit ::= fruits.elt!;
+      if fruit = "fig" then #OUT + "fig at " + i + "\n" end;
+   end;
+```
+
 ## Order does not matter
 
 The iterators are all asked once per turn, so it makes no difference which

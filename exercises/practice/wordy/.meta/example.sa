@@ -1,0 +1,66 @@
+class WORDY is
+
+   answer(question : STR) : INTI is
+      prefix ::= "What is ";
+      if question.size <= prefix.size
+         or question.head(prefix.size) /= prefix
+         or question.tail(1) /= "?"
+      then
+         raise "unknown operation";
+      end;
+      body ::= question.substring(prefix.size, question.size - prefix.size - 1);
+
+      total ::= #INTI(0);
+      operation : STR;          -- the operation waiting for its number
+      want_number ::= true;     -- false while an operation is wanted
+      want_by ::= false;        -- after "multiplied" or "divided"
+      loop
+         piece ::= (body + ' ').split!(' ');
+         word ::= piece.head(piece.size - 1);
+         if want_by then
+            if word /= "by" then raise "syntax error" end;
+            want_by := false;
+            want_number := true;
+         elsif want_number then
+            if ~is_number(word) then raise "syntax error" end;
+            total := apply(operation, total, #INTI(word));
+            want_number := false;
+         elsif word = "plus" or word = "minus" then
+            operation := word;
+            want_number := true;
+         elsif word = "multiplied" or word = "divided" then
+            operation := word;
+            want_by := true;
+         elsif is_number(word) then
+            raise "syntax error";
+         else
+            raise "unknown operation";
+         end;
+      end;
+      if want_number or want_by then raise "syntax error" end;
+      return total;
+   end;
+
+   private is_number(word : STR) : BOOL is
+      -- An optional minus sign, then one or more digits.
+      start ::= 0;
+      if word.size > 0 and word[0] = '-' then start := 1 end;
+      if word.size = start then return false end;
+      loop
+         i ::= start.upto!(word.size - 1);
+         if ~word[i].is_digit then return false end;
+      end;
+      return true;
+   end;
+
+   private apply(operation : STR, left, right : INTI) : INTI is
+      if void(operation) then return right end;
+      case operation
+      when "plus" then return left + right;
+      when "minus" then return left - right;
+      when "multiplied" then return left * right;
+      else return left / right;
+      end;
+   end;
+
+end; -- class WORDY
