@@ -486,16 +486,6 @@
         "difficulty": 2
       },
       {
-        "slug": "difference-of-squares",
-        "name": "Difference of Squares",
-        "uuid": "b092b37a-4e17-4a24-b54c-6fcc119701f6",
-        "practices": [],
-        "prerequisites": [
-          "loops"
-        ],
-        "difficulty": 2
-      },
-      {
         "slug": "grains",
         "name": "Grains",
         "uuid": "a306b50e-fce0-4e17-9008-8d199f3b41c4",
@@ -699,6 +689,17 @@
         "difficulty": 3
       },
       {
+        "slug": "difference-of-squares",
+        "name": "Difference of Squares",
+        "uuid": "b092b37a-4e17-4a24-b54c-6fcc119701f6",
+        "practices": [],
+        "prerequisites": [
+          "loops",
+          "exact-numbers"
+        ],
+        "difficulty": 3
+      },
+      {
         "slug": "eliuds-eggs",
         "name": "Eliud's Eggs",
         "uuid": "4d4f2cc1-8e83-4e52-9a0f-0eeaff6b271b",
@@ -719,19 +720,6 @@
         "prerequisites": [
           "characters",
           "iterators"
-        ],
-        "difficulty": 3
-      },
-      {
-        "slug": "perfect-numbers",
-        "name": "Perfect Numbers",
-        "uuid": "1ed331ed-b21e-4320-8ac2-66ecd2db3d9d",
-        "practices": [
-          "loops"
-        ],
-        "prerequisites": [
-          "loops",
-          "exceptions"
         ],
         "difficulty": 3
       },
@@ -1346,7 +1334,8 @@
         "practices": [],
         "prerequisites": [
           "lists",
-          "exceptions"
+          "exceptions",
+          "exact-numbers"
         ],
         "difficulty": 6
       },
@@ -1358,6 +1347,20 @@
         "prerequisites": [
           "maps-and-sets",
           "characters"
+        ],
+        "difficulty": 6
+      },
+      {
+        "slug": "perfect-numbers",
+        "name": "Perfect Numbers",
+        "uuid": "1ed331ed-b21e-4320-8ac2-66ecd2db3d9d",
+        "practices": [
+          "loops"
+        ],
+        "prerequisites": [
+          "loops",
+          "exceptions",
+          "exact-numbers"
         ],
         "difficulty": 6
       },
@@ -1380,7 +1383,8 @@
         "practices": [],
         "prerequisites": [
           "lists",
-          "contracts"
+          "contracts",
+          "exact-numbers"
         ],
         "difficulty": 6
       },
@@ -1536,7 +1540,8 @@
         "practices": [],
         "prerequisites": [
           "lists",
-          "contracts"
+          "contracts",
+          "exact-numbers"
         ],
         "difficulty": 8
       },
