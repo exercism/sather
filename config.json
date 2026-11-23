@@ -991,18 +991,6 @@
         "difficulty": 4
       },
       {
-        "slug": "series",
-        "name": "Series",
-        "uuid": "84b4ebfc-a9f1-4dde-a661-5c5f2a3db7b4",
-        "practices": [],
-        "prerequisites": [
-          "strings",
-          "arrays",
-          "exceptions"
-        ],
-        "difficulty": 4
-      },
-      {
         "slug": "resistor-color-tolerance",
         "name": "Resistor Color Ultimate",
         "uuid": "1665a101-7351-434f-bf92-e84820429f3b",
@@ -1078,6 +1066,18 @@
           "characters",
           "maps-and-sets",
           "string-builders",
+          "exceptions"
+        ],
+        "difficulty": 5
+      },
+      {
+        "slug": "series",
+        "name": "Series",
+        "uuid": "84b4ebfc-a9f1-4dde-a661-5c5f2a3db7b4",
+        "practices": [],
+        "prerequisites": [
+          "strings",
+          "arrays",
           "exceptions"
         ],
         "difficulty": 5
