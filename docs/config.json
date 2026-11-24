@@ -5,7 +5,7 @@
       "slug": "installation",
       "path": "docs/INSTALLATION.md",
       "title": "Installing Sather locally",
-      "blurb": "Learn how to install Sather locally to solve Exercism's exercises on your own machine"
+      "blurb": "Learn how to set up Docker and the Sather test runner image to solve Exercism's exercises on your own machine"
     },
     {
       "uuid": "055624c1-5f47-42f9-80ce-bfb7fb5d0de1",
