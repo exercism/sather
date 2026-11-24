@@ -54,7 +54,7 @@ things being sorted and answering whether the first belongs before the
 second. It calls that routine as often as it needs to and puts the array in
 the order the answers imply.
 
-This is what `understudy` was for. The library knows how to sort and nothing
+The library knows how to sort and nothing
 about your idea of order; the bound routine is where the two meet.
 
 ## Writing the comparison

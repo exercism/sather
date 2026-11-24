@@ -69,4 +69,4 @@ The tie-break is not decoration. The sort is not stable, so without it two
 names of the same length could come out either way round.
 
 This is the same sorting routine as task 2, with a different rule handed to
-it. That is the point of the exercise.
+it.
