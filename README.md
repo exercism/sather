@@ -6,22 +6,20 @@ Exercism exercises in Sather.
 
 ## Testing
 
-To test all exercises, run `./bin/verify-exercises`.
-This command will iterate over all exercises and check to see if their exemplar/example implementation passes all the tests.
+To check that every exercise's example or exemplar solution passes its tests, run:
 
-To test a single exercise, run `./bin/verify-exercises <exercise-slug>`.
-
-### Using Docker
-
-If your track has a working [test runner](https://exercism.org/docs/building/tooling/test-runners), the `./bin/verify-exercises-in-docker` script can also be used to test all exercises.
-This script pulls (_downloads_) the test runner's [Docker image](https://exercism.org/docs/building/tooling/test-runners/docker) and then uses Docker to run that image to test an exercise.
-
-```exercism/note
-The main benefit of this approach is that it best mimics how exercises are tested in production (on the website).
-Another benefit is that you don't have to install track-specific dependencies (e.g. an SDK) locally, you just need Docker installed.
+```shell
+bin/verify-exercises-in-docker
 ```
 
-To test a single exercise, run `./bin/verify-exercises-in-docker <exercise-slug>`.
+This compiles and runs each exercise in the [`exercism/sather-test-runner`][test-runner] Docker image, the same image the Exercism website uses, so you only need Docker installed.
+CI runs the same script.
+To test one exercise, run `bin/verify-exercises-in-docker <exercise-slug>`.
+To test against a locally built test runner image, add `-i <image>`.
+
+`bin/verify-exercises` takes the same arguments.
+Instead of running the test runner, it compiles each exercise with `sacomp -chk` in the same image and runs the tests, as [students are told to][tests].
+It prints the compiler's errors and each test's result directly, so it's handier when a test fails.
 
 ### Linting
 
@@ -83,4 +81,17 @@ bin/generate-tests --check      # report test files that are out of date
 
 See [generator/README.md](generator/README.md) for how templates are written.
 
+## Track checks
+
+These scripts enforce the track's own rules:
+
+| Script | Checks |
+| --- | --- |
+| `bin/check-syllabus` | each concept exercise teaches one concept, introductions match, and exercises follow their prerequisites (run in CI) |
+| `bin/check-answer-leaks` | concept docs and hints don't give away an exemplar's code |
+| `bin/check-accretive` | a student who finishes the first *K* tasks of a concept exercise sees those tasks' tests pass (see [accretive-audit.md](accretive-audit.md)) |
+| `bin/reorder-exercises` | sorts practice exercises in `config.json` by difficulty, then name (order checked in CI) |
+
+[test-runner]: https://github.com/exercism/sather-test-runner
+[tests]: docs/TESTS.md
 [problem-specifications]: https://github.com/exercism/problem-specifications
