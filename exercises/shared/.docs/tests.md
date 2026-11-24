@@ -1,15 +1,27 @@
 # Tests
 
-<!-- TODO: write document
+The tests are compiled and run inside the `exercism/sather-test-runner` Docker image, the same compiler the Exercism website uses.
+For now, testing locally is only supported on x86-64 Linux.
+See [Installation][installation] for how to set up Docker.
 
-  This document should contain instructions on how to run the exercise's tests.
+For an exercise such as `hello-world`, run this from the exercise's directory:
 
-  The instructions should be short and to the point.
+```shell
+docker run --rm --network none \
+    --user "$(id -u):$(id -g)" \
+    --mount type=bind,src="$PWD",dst=/work -w /work \
+    --entrypoint sh exercism/sather-test-runner -c '
+        rm -f hello_world_tests
+        sacomp -chk *.sa -main HELLO_WORLD_TEST -o hello_world_tests > /tmp/compile.log 2>&1
+        if [ -x hello_world_tests ]; then ./hello_world_tests; else cat /tmp/compile.log; exit 1; fi'
+```
 
-  The docs/TESTS.md file can contain a more verbose description on how to run tests.
+For another exercise, use the name of its test file: `two_fer_test.sa` holds `TWO_FER_TEST`.
 
-  When a student downloads an exercise via the CLI, this file's contents are
-  included into the HELP.md file.
+Keep `-chk`.
+It turns on checking of `pre`, `post`, `assert` and class invariants, as well as array bounds and void access.
 
-  See https://exercism.org/docs/building/tracks/shared-files for more information.
--->
+[Testing on the Sather track][tests] explains more, and gives a shell function that saves typing the command.
+
+[installation]: https://exercism.org/docs/tracks/sather/installation
+[tests]: https://exercism.org/docs/tracks/sather/tests
