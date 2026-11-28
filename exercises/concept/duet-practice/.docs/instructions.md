@@ -1,7 +1,9 @@
 # Instructions
 
-Two violinists are rehearsing a duet. Each part is an array holding the
-number of notes in each bar, and the parts are not always the same length.
+String bands are a much-loved part of music in Papua New Guinea. A string
+band in Rabaul is getting ready for a show, and two of its guitarists are
+rehearsing a duet. Each part is an array holding the number of notes in each
+bar, and the parts are not always the same length.
 
 All four tasks go in the `DUET_PRACTICE` class.
 

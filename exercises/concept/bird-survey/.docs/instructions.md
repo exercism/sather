@@ -1,7 +1,8 @@
 # Instructions
 
-You are helping with a bird survey. Each day somebody sits at a hide and
-counts what flies past, and the day's counts come back as an array.
+You are helping with a survey of birds of paradise in the highlands of Papua
+New Guinea. Each day somebody sits quietly at a hide and counts the birds
+that come past, and the day's counts come back as an array.
 
 All six tasks go in the `BIRD_SURVEY` class.
 
